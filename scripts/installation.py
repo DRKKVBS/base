@@ -60,13 +60,13 @@ def create_config(data):
 
     config = {
         "additional-repositories": [],
-        # "archinstall-language": "German",
-        # "audio_config": {
-        #     "audio": "pipewire"
-        # },
-        # "bootloader": "Grub",
-        # "config_version": "2.6.0",
-        # "debug": False,
+        "archinstall-language": "German",
+        "audio_config": {
+            "audio": "pipewire"
+        },
+        "bootloader": "Grub",
+        "config_version": "2.6.0",
+        "debug": False,
         "disk_config": {
             "config_type": "default_layout",
             "device_modifications": [

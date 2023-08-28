@@ -325,7 +325,7 @@ def install(file_directory:str):
         print('THE INSTALLATION HAS BEEN STARTED')
         subprocess.run(["archinstall",
                         "--config", json.dumps(config),
-                        "--creds", json.dumps(creds), "--silent"],
+                         "--silent"],
                        check=True, text=True)
     except Exception as e:
         print(e)

@@ -279,7 +279,7 @@ def create_config(data):
         "profile_config": {
             "gfx_driver": vga,
             "greeter": "gdm",
-            "profile": "null"
+            "profile": {}
         },
         "scripts": "guided",
         "silent": True,

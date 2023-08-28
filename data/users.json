@@ -18,8 +18,8 @@
     },
     "user": {
         "!creds": {
-            "username": "admin",
-                "!password": "admin",
+            "username": "user",
+                "!password": "user",
                 "sudo": false
         },
         "desktop": [

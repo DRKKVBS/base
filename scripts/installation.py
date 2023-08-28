@@ -193,7 +193,7 @@ def create_config(data):
                 # "https://mirror.informatik.tu-freiberg.de/arch/$repo/os/$arch": True,
                 # "http://archlinux.mirror.iphh.net/$repo/os/$arch": True,
                 # "https://mirror.iusearchbtw.nl/$repo/os/$arch": True,
-                # "http://mirrors.janbruckner.de/archlinux/$repo/os/$arch": True,
+                "http://mirrors.janbruckner.de/archlinux/$repo/os/$arch": True,
                 "https://mirrors.janbruckner.de/archlinux/$repo/os/$arch": True,
                 # "http://arch.jensgutermuth.de/$repo/os/$arch": True,
                 # "https://arch.jensgutermuth.de/$repo/os/$arch": True,

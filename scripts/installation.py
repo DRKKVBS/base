@@ -296,7 +296,7 @@ def create_config(data):
 def create_creds(users):
     """Create credentitals"""
 
-    user_lst = {}
+    user_lst = []
 
     for k, v in users.items():
 

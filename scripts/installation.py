@@ -124,6 +124,7 @@ def create_config(data):
                             "flags": [],
                             "fs_type": "ext4",
                             "length": {
+                                "sector_size": None,
                                 "total_size": {
                                     "sector_size": None,
                                     "total_size": None,

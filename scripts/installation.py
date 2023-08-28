@@ -188,7 +188,6 @@ def create_config(data):
                 "https://mirror.informatik.tu-freiberg.de/arch/$repo/os/$arch": True,
                 # "http://archlinux.mirror.iphh.net/$repo/os/$arch": True,
                 "https://mirror.iusearchbtw.nl/$repo/os/$arch": True,
-                "https://mirrors.janbruckner.de/archlinux/$repo/os/$arch": True,
                 # "http://arch.jensgutermuth.de/$repo/os/$arch": True,
                 # "https://arch.jensgutermuth.de/$repo/os/$arch": True,
                 # "https://de.arch.mirror.kescher.at/$repo/os/$arch": True,
@@ -216,8 +215,6 @@ def create_config(data):
                 # "https://mirror.wtnet.de/archlinux/$repo/os/$arch": True,
                 # "http://mirrors.xtom.de/archlinux/$repo/os/$arch": True,
                 # "https://mirrors.xtom.de/archlinux/$repo/os/$arch": True,
-                "http://arch.mirror.zachlge.org/$repo/os/$arch": True,
-                "https://arch.mirror.zachlge.org/$repo/os/$arch": True
 
             }
         },

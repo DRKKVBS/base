@@ -158,7 +158,7 @@ def create_config(data):
             "sys_enc": "UTF-8",
             "sys_lang": "de_DE"
         },
-        "mirror_region": {
+        "mirror-region": {
             "Germany": {
                 "http://mirror.23m.com/archlinux/$repo/os/$arch": True,
                 "https://mirror.23m.com/archlinux/$repo/os/$arch": True,

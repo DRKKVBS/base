@@ -160,7 +160,7 @@ def create_config(data):
         },
         "mirror_config": {
             "mirror_regions": {
-                "Germany": {
+                "Germany": [
                     "http://mirror.23m.com/archlinux/$repo/os/$arch",
                     "https://mirror.23m.com/archlinux/$repo/os/$arch",
                     "http://ftp.agdsn.de/pub/mirrors/archlinux/$repo/os/$arch",
@@ -216,7 +216,7 @@ def create_config(data):
                     # "http://mirrors.xtom.de/archlinux/$repo/os/$arch",
                     # "https://mirrors.xtom.de/archlinux/$repo/os/$arch",
 
-                }
+                ]
             }
         },
         "nic": {

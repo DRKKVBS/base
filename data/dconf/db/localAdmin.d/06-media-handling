@@ -1,0 +1,3 @@
+[org/gnome/desktop/media-handling]
+# If set to true, Nautlius will automatically mount media on start-up and media insertion
+automount=true

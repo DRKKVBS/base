@@ -1,0 +1,3 @@
+[org/gnome/SessionManager]
+# Prompt the user before ending a session
+logout-prompt=true

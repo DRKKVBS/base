@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=Reboot
+Name[en_GB]=Reboot
+Name[de]=Neustarten
+Name=Reboot
+Comment[en_CA]=Reboot the system
+Comment[en_GB]=Reboot the system
+Comment[de]=Startet das System neu
+Comment=Reboot the system
+Exec=/usr/bin/gnome-session-quit --reboot
+Icon=system-reboot
+Terminal=false
+NoDisplay=false

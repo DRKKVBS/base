@@ -1,0 +1,32 @@
+{
+    "admin": {
+        "!creds": {
+            "username": "admin",
+            "!password": "admin",
+            "sudo": true
+        },
+        "desktop": [
+            "org.gnome.Terminal.desktop",
+            "org.gnome.Settings.desktop",
+            "FirefoxCitrix.desktop",
+            "firefox.desktop",
+            "org.gnome.gedit.desktop",
+            "org.gnome.Nautilus.desktop",
+            "shutdown.desktop",
+            "reboot.desktop"
+        ]
+    },
+    "user": {
+        "!creds": {
+            "username": "admin",
+                "!password": "admin",
+                "sudo": false
+        },
+        "desktop": [
+            "org.gnome.Settings.desktop",
+            "FirefoxCitrix.desktop",
+            "shutdown.desktop",
+            "reboot.desktop"
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+[User]
+Session=gnome-xorg
+Icon=/root/.face
+SystemAccount=true

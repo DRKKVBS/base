@@ -1,0 +1,5 @@
+[org/gnome/desktop/session]
+# The number of seconds of inactivity before the session is considered idle
+idle-delay=300
+# Name of the session to use
+session-name='gnome'

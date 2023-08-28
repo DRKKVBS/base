@@ -1,0 +1,5 @@
+[org/gnome/desktop/peripherals/keyboard]
+# The remembered state of the NumLock LED
+numlock-state=true
+# Remember the state of the NumLock LED between sessions
+remember-numlock-state=true

@@ -1,0 +1,82 @@
+import json
+import subprocess
+import os
+import argparse
+import shutil
+import git
+import installation
+import setup_sudo
+import setup_non_sudo
+import utils
+
+
+if __name__ == '__main__':
+
+    # Directories
+    root_directory = os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0]
+
+    script_directory = os.path.join(root_directory, 'scripts')
+
+    data_directory = os.path.join(root_directory, 'data')
+    download_directory = os.path.join(root_directory, 'download')
+
+    # Initialize parser
+    parser = argparse.ArgumentParser(prog='DRK Ach Configurator',
+                                     description='Configures the the Arch Linux, after the OS Installation.',
+                                     epilog='Text at the bottom of help.')
+
+    # Adding optional argument
+    parser.add_argument('-t', '--Type', action='store', required=True, type=str, choices=['THIN', 'MOBILE'],
+                        help='Type of Configuration.')
+
+    parser.add_argument('-hn', '--Hostname', action='store', type=str,
+                        help='The hostname of the new system.')
+
+    parser.add_argument('-u', '--upate', action='store',
+                        type=float, help='The Version you want to be installed.')
+
+    # Read arguments from command line
+    args = parser.parse_args()
+
+    # Set the new hostname for the system
+    if args.Hostname != None:
+        with open('/etc/hostname', 'w') as f:
+            f.write(args.Hostname)
+
+    if args.Type == 'THIN':
+        git.Repo.clone_from('https://github.com/xWannaDieQuickly/drk-arch.git',
+                            download_directory,
+                            branch='thin_client')
+        branch = 'thin_client'
+
+    else:
+        git.Repo.clone_from('https://github.com/xWannaDieQuickly/drk-arch.git',
+                            download_directory,
+                            branch='mobile_client')
+        branch = 'mobile_client'
+
+    # Merge config files
+    for config_file in ['install.json', 'setup.json', 'users.json']:
+        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/{config_file}', 'r') as f_download:
+            setup_data = json.load(f_setup)
+            setup_download = json.load(f_download)
+            merged_data = utils.merge_and_update_dicts(
+                setup_data, setup_download)
+            f_setup.seek(0)
+            f_setup.truncate()
+            json.dump(merged_data, f_setup)
+
+    utils.copy_recursive(copy_src=download_directory, copy_dst=data_directory,
+                         dir_mode=644, ownership=("admin", "admin"))
+
+    installation.install(data_directory)
+
+    utils.copy_recursive(
+        data_directory, '/mnt/archinstall/tmp/drk-arch', 644, {'admin', 'admin'})
+
+    subprocess.run('arch-chroot /mnt/archinstall python /tmp/drk-arch/scripts/configuration.py')
+
+    # Delete Downloaded git repo
+    shutil.rmtree(os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0])

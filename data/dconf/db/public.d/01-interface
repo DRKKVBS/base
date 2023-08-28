@@ -1,0 +1,11 @@
+[org/gnome/desktop/interface]
+# Whether the clock displays in [24h '24h' | 12h '12h']
+clock-format='24h'
+# Display the date in the clock
+clock-show-date=true
+# Display seconds in the clock
+clock-show-seconds=false
+# Display the weekday in the clock
+clock-show-weekday=true
+# Display battery percentage in the status menu
+show-battery-percentage=true

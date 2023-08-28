@@ -263,30 +263,30 @@ def create_config(data):
                 ]
             },
         },
-        "nic": {
-            "dhcp": True,
-            "dns": "null",
-            "gateway": "null",
-            "iface": "null",
-            "ip": "null",
-            "type": "nm"
-        },
-        "no_pkg_lookups": False,
-        "ntp": True,
-        "offline": False,
-        "packages": data["pkgs"],
-        "parallesl downloads": 0,
-        "profile_config": {
-            "gfx_driver": vga,
-            "greeter": "gdm",
-        },
-        "scripts": "guided",
-        "silent": True,
-        "swap": True,
-        "sys-encoding": "UTF-8",
-        "sys-language": "de_DE",
-        "timezone": "Europe/Berlin",
-        "version": "2.6.0"
+        # "nic": {
+        #     "dhcp": True,
+        #     "dns": "null",
+        #     "gateway": "null",
+        #     "iface": "null",
+        #     "ip": "null",
+        #     "type": "nm"
+        # },
+        # "no_pkg_lookups": False,
+        # "ntp": True,
+        # "offline": False,
+        # "packages": data["pkgs"],
+        # "parallesl downloads": 0,
+        # "profile_config": {
+        #     "gfx_driver": vga,
+        #     "greeter": "gdm",
+        # },
+        # "scripts": "guided",
+        # "silent": True,
+        # "swap": True,
+        # "sys-encoding": "UTF-8",
+        # "sys-language": "de_DE",
+        # "timezone": "Europe/Berlin",
+        # "version": "2.6.0"
     }
     return config
 

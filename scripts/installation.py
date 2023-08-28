@@ -67,86 +67,86 @@ def create_config(data):
         # "bootloader": "Grub",
         # "config_version": "2.6.0",
         # "debug": False,
-        # "disk_config": {
-        #     "config_type": "default_layout",
-        #     "device_modifications": [
-        #         {
-        #             "device": get_hw()["disk"],
-        #             "partitions": [
-        #                 {
-        #                     "btrfs": [],
-        #                     "flags": [
-        #                         "Boot"
-        #                     ],
-        #                     "fs_type": "fat32",
-        #                     "length": {
-        #                         "sector_size": "null",
-        #                         "total_size": "null",
-        #                         "unit": "MiB",
-        #                         "value": 512
-        #                     },
-        #                     "mount_options": [],
-        #                     "mountpoint": "/boot",
-        #                     "start": {
-        #                         "sector_size": "null",
-        #                         "total_size": "null",
-        #                         "unit": "MiB",
-        #                         "value": 1
-        #                     },
-        #                     "status": "create",
-        #                     "type": "primary"
-        #                 },
-        #                 {
-        #                     "btrfs": [],
-        #                     "flags": [],
-        #                     "fs_type": "ext4",
-        #                     "length": {
-        #                         "sector_size": "null",
-        #                         "total_size": "null",
-        #                         "unit": "GiB",
-        #                         "value": 20
-        #                     },
-        #                     "mount_options": [],
-        #                     "mountpoint": "/",
-        #                     "start": {
-        #                         "sector_size": "null",
-        #                         "total_size": "null",
-        #                         "unit": "MiB",
-        #                         "value": 513
-        #                     },
-        #                     "status": "create",
-        #                     "type": "primary"
-        #                 },
-        #                 {
-        #                     "btrfs": [],
-        #                     "flags": [],
-        #                     "fs_type": "ext4",
-        #                     "length": {
-        #                         "total_size": {
-        #                             "sector_size": "null",
-        #                             "total_size": "null",
-        #                             "unit": "B",
-        #                             "value": 250148290560
-        #                         },
-        #                         "unit": "Percent",
-        #                         "value": 100
-        #                     },
-        #                     "mount_options": [],
-        #                     "mountpoint": "/home",
-        #                     "start": {
-        #                         "sector_size": "null",
-        #                         "total_size": "null",
-        #                         "unit": "GiB",
-        #                         "value": 20
-        #                     },
-        #                     "status": "create",
-        #                     "type": "primary"
-        #                 }
-        #             ],
-        #             "wipe": True
-        #         }
-        #     ],
-        # },
+        "disk_config": {
+            "config_type": "default_layout",
+            "device_modifications": [
+                {
+                    "device": get_hw()["disk"],
+                    "partitions": [
+                        {
+                            "btrfs": [],
+                            "flags": [
+                                "Boot"
+                            ],
+                            "fs_type": "fat32",
+                            "length": {
+                                "sector_size": "null",
+                                "total_size": "null",
+                                "unit": "MiB",
+                                "value": 512
+                            },
+                            "mount_options": [],
+                            "mountpoint": "/boot",
+                            "start": {
+                                "sector_size": "null",
+                                "total_size": "null",
+                                "unit": "MiB",
+                                "value": 1
+                            },
+                            "status": "create",
+                            "type": "primary"
+                        },
+                        {
+                            "btrfs": [],
+                            "flags": [],
+                            "fs_type": "ext4",
+                            "length": {
+                                "sector_size": "null",
+                                "total_size": "null",
+                                "unit": "GiB",
+                                "value": 20
+                            },
+                            "mount_options": [],
+                            "mountpoint": "/",
+                            "start": {
+                                "sector_size": "null",
+                                "total_size": "null",
+                                "unit": "MiB",
+                                "value": 513
+                            },
+                            "status": "create",
+                            "type": "primary"
+                        },
+                        {
+                            "btrfs": [],
+                            "flags": [],
+                            "fs_type": "ext4",
+                            "length": {
+                                "total_size": {
+                                    "sector_size": "null",
+                                    "total_size": "null",
+                                    "unit": "B",
+                                    "value": 250148290560
+                                },
+                                "unit": "Percent",
+                                "value": 100
+                            },
+                            "mount_options": [],
+                            "mountpoint": "/home",
+                            "start": {
+                                "sector_size": "null",
+                                "total_size": "null",
+                                "unit": "GiB",
+                                "value": 20
+                            },
+                            "status": "create",
+                            "type": "primary"
+                        }
+                    ],
+                    "wipe": True
+                }
+            ],
+        },
         # "hostname": "drk",
         # "kernels": ["linux"],
         # "locale_config": {

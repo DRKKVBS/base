@@ -198,7 +198,6 @@ def create_config(data):
                 # "http://mirror.metalgamer.eu/archlinux/$repo/os/$arch": True,
                 # "https://mirror.metalgamer.eu/archlinux/$repo/os/$arch": True,
                 # "http://mirror.mikrogravitation.org/archlinux/$repo/os/$arch": True,
-                "https://archlinux.thaller.ws/$repo/os/$arch": True,
                 "http://ftp.tu-chemnitz.de/pub/linux/archlinux/$repo/os/$arch": True,
                 # "http://mirror.ubrco.de/archlinux/$repo/os/$arch": True,
                 # "https://mirror.ubrco.de/archlinux/$repo/os/$arch": True,

@@ -87,6 +87,7 @@ def create_config(data):
                             },
                             "mount_options": [],
                             "mountpoint": "/boot",
+                            "obj_id": "2c3fa2d5-2c79-4fab-86ec-22d0ea1543c0",
                             "start": {
                                 "sector_size": None,
                                 "total_size": None,

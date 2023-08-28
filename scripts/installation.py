@@ -281,7 +281,7 @@ def create_config(data):
         "swap": True,
         "sys-encoding": "UTF-8",
         "sys-language": "de_DE",
-        "timezone": "CEST",
+        "timezone": "Europe/Berlin",
         "version": "2.6.0"
     }
     return config

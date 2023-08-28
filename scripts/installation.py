@@ -150,7 +150,7 @@ def create_config(data):
                 }
             ],
         },
-        "hostname": data["hostname"],
+        "hostname": "drk",
         "keyboard-layout": "de",
         "kernels": ["linux"],
         "locale_config": {
@@ -325,7 +325,7 @@ def install(file_directory:str):
         print('THE INSTALLATION HAS BEEN STARTED')
         subprocess.run(["archinstall",
                         "--config", json.dumps(config),
-                         "--silent"],
+                        "--creds", json.dumps(creds), "--silent"],
                        check=True, text=True)
     except Exception as e:
         print(e)

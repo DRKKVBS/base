@@ -279,7 +279,6 @@ def create_config(data):
         "scripts": "guided",
         "silent": True,
         "swap": True,
-        "services": data["services"],
         "sys-encoding": "UTF-8",
         "sys-language": "de_DE",
         "timezone": "CEST",

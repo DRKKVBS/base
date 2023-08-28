@@ -79,8 +79,8 @@ def create_config(data):
                             ],
                             "fs_type": "fat32",
                             "length": {
-                                "sector_size": null,
-                                "total_size": null,
+                                "sector_size": "null",
+                                "total_size": "null",
                                 "unit": "MiB",
                                 "value": 512
                             },
@@ -88,8 +88,8 @@ def create_config(data):
                             "mountpoint": "/boot",
                             "obj_id": "2c3fa2d5-2c79-4fab-86ec-22d0ea1543c0",
                             "start": {
-                                "sector_size": null,
-                                "total_size": null,
+                                "sector_size": "null",
+                                "total_size": "null",
                                 "unit": "MiB",
                                 "value": 1
                             },
@@ -101,8 +101,8 @@ def create_config(data):
                             "flags": [],
                             "fs_type": "ext4",
                             "length": {
-                                "sector_size": null,
-                                "total_size": null,
+                                "sector_size": "null",
+                                "total_size": "null",
                                 "unit": "GiB",
                                 "value": 20
                             },
@@ -110,8 +110,8 @@ def create_config(data):
                             "mountpoint": "/",
                             "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
                             "start": {
-                                "sector_size": null,
-                                "total_size": null,
+                                "sector_size": "null",
+                                "total_size": "null",
                                 "unit": "MiB",
                                 "value": 513
                             },
@@ -124,8 +124,8 @@ def create_config(data):
                             "fs_type": "ext4",
                             "length": {
                                 "total_size": {
-                                    "sector_size": null,
-                                    "total_size": null,
+                                    "sector_size": "null",
+                                    "total_size": "null",
                                     "unit": "B",
                                     "value": 250148290560
                                 },
@@ -136,8 +136,8 @@ def create_config(data):
                             "mountpoint": "/home",
                             "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
                             "start": {
-                                "sector_size": null,
-                                "total_size": null,
+                                "sector_size": "null",
+                                "total_size": "null",
                                 "unit": "GiB",
                                 "value": 20
                             },

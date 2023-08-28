@@ -5,8 +5,6 @@ import subprocess
 import re
 
 
-
-
 # Get the largest disk from the list
 def get_largest_disk(disk_lst):
     """Get the largest disk from the list"""
@@ -61,8 +59,11 @@ def create_config(data):
         vga = "All open-source (default)"
 
     config = {
+        "additional-repositories": [],
         "archinstall-language": "German",
-        "audio_config": {"audio": "pipewire"},
+        "audio_config": {
+            "audio": "pipewire"
+        },
         "bootloader": "Grub",
         "config_version": "2.6.0",
         "debug": False,
@@ -86,7 +87,6 @@ def create_config(data):
                             },
                             "mount_options": [],
                             "mountpoint": "/boot",
-                            "obj_id": "2c3fa2d5-2c79-4fab-86ec-22d0ea1543c0",
                             "start": {
                                 "sector_size": "null",
                                 "total_size": "null",
@@ -108,7 +108,6 @@ def create_config(data):
                             },
                             "mount_options": [],
                             "mountpoint": "/",
-                            "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
                             "start": {
                                 "sector_size": "null",
                                 "total_size": "null",
@@ -134,7 +133,6 @@ def create_config(data):
                             },
                             "mount_options": [],
                             "mountpoint": "/home",
-                            "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
                             "start": {
                                 "sector_size": "null",
                                 "total_size": "null",
@@ -150,7 +148,6 @@ def create_config(data):
             ],
         },
         "hostname": "drk",
-        "keyboard-layout": "de",
         "kernels": ["linux"],
         "locale_config": {
             "kb_layout": "de",
@@ -307,7 +304,7 @@ def create_creds(users):
     return creds
 
 
-def install(file_directory:str):
+def install(file_directory: str):
   # Get pkgs and services to install
     with open(f'{file_directory}/install.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -323,14 +320,15 @@ def install(file_directory:str):
     try:
         print('THE INSTALLATION HAS BEEN STARTED')
         subprocess.run(["archinstall",
-                        
+                        "--config", json.dumps(config),
                         "--creds", json.dumps(creds), "--silent"],
                        check=True, text=True)
     except Exception as e:
         print(e)
 
+
 if __name__ == "__main__":
     path = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0] + 'data'
-    
+
     install(path)

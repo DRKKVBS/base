@@ -276,10 +276,10 @@ def create_config(data):
         "offline": False,
         "packages": data["pkgs"],
         "parallesl downloads": 0,
-        # "profile_config": {
-        #     "gfx_driver": vga,
-        #     "greeter": "gdm",
-        # },
+        "profile_config": {
+            "gfx_driver": vga,
+            "greeter": "gdm",
+        },
         "scripts": "guided",
         "silent": True,
         "swap": True,

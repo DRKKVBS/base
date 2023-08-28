@@ -151,13 +151,13 @@ def create_config(data):
                 }
             ],
         },
-        "hostname": "drk",
-        "kernels": ["linux"],
-        "locale_config": {
-            "kb_layout": "de",
-            "sys_enc": "UTF-8",
-            "sys_lang": "de_DE"
-        },
+        # "hostname": "drk",
+        # "kernels": ["linux"],
+        # "locale_config": {
+        #     "kb_layout": "de",
+        #     "sys_enc": "UTF-8",
+        #     "sys_lang": "de_DE"
+        # },
         "mirror-config": {
             "mirror_regions": {
                 "Germany": [

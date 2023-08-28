@@ -161,7 +161,7 @@ def create_config(data):
         "mirror_config": {
             "mirror_regions": {
                 "Germany": [
-                    "https://mirror.informatik.tu-freiberg.de/arch /$repo/os /$arch",
+                    "https://mirror.informatik.tu-freiberg.de/arch/$repo/os/$arch",
                     "http://ftp.wrz.de/pub/archlinux/$repo/os/$arch",
                     "https://ftp.fau.de/archlinux/$repo/os/$arch",
                     "http://mirrors.xtom.de/archlinux/$repo/os/$arch",
@@ -171,15 +171,15 @@ def create_config(data):
                     "http://ftp.halifax.rwth-aachen.de/archlinux/$repo/os/$arch",
                     "https://arch.phinau.de/$repo/os/$arch",
                     "http://os.codefionn.eu/archlinux/$repo/os/$arch",
-                    "https://ftp.spline.inf.fu-berlin.de/mirrors/archlinux/$repo", / os /$arch
-                    "http://ftp.hosteurope.de/mirror/ftp.archlinux.org/$repo/os/", $arch
+                    "https://ftp.spline.inf.fu-berlin.de/mirrors/archlinux/$repo/os/$arch",
+                    "http://ftp.hosteurope.de/mirror/ftp.archlinux.org/$repo/os/$arch",
                     "http://mirror.lcarilla.de/archlinux/$repo/os/$arch",
-                    "http://ftp.tu-chemnitz.de/pub/linux/archlinux/$repo/os/$arc", h
+                    "http://ftp.tu-chemnitz.de/pub/linux/archlinux/$repo/os/$arch",
                     "https://mirror.pseudoform.org/$repo/os/$arch",
                     "https://archlinux.thaller.ws/$repo/os/$arch",
                     "https://ftp.wrz.de/pub/archlinux/$repo/os/$arch",
-                    "https://mirror.fra10.de.leaseweb.net/archlinux/$repo/os/$ar", ch
-                    "https://mirror.mikrogravitation.org/archlinux/$repo/os/$arc", h
+                    "https://mirror.fra10.de.leaseweb.net/archlinux/$repo/os/$arch",
+                    "https://mirror.mikrogravitation.org/archlinux/$repo/os/$arch",
                     "http://mirror.cmt.de/archlinux/$repo/os/$arch",
                     "http://arch.phinau.de/$repo/os/$arch",
                     "http://arch.jensgutermuth.de/$repo/os/$arch",
@@ -197,7 +197,7 @@ def create_config(data):
                     "http://mirrors.n-ix.net/archlinux/$repo/os/$arch",
                     "https://mirror.bethselamin.de/$repo/os/$arch",
                     "http://mirror.clientvps.com/archlinux/$repo/os/$arch",
-                    "https://dist-mirror.fem.tu-ilmenau.de/archlinux/$repo/os/$a", rch
+                    "https://dist-mirror.fem.tu-ilmenau.de/archlinux/$repo/os/$arch",
                     "http://packages.oth-regensburg.de/archlinux/$repo/os/$arch",
                     "http://linux.rz.rub.de/archlinux/$repo/os/$arch",
                     "http://mirror.netcologne.de/archlinux/$repo/os/$arch",
@@ -216,16 +216,16 @@ def create_config(data):
                     "https://mirror.kumi.systems/archlinux/$repo/os/$arch",
                     "http://arch.mirror.zachlge.org/$repo/os/$arch",
                     "http://mirror.wtnet.de/archlinux/$repo/os/$arch",
-                    "https://mirror.dogado.de/archlinux/$repo/os/$arch",
-                    "http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo", / os /$arch
+                    "https://mirror.dogado.de/archlinux/$repo/os/$arch"
+                    "http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch",
                     "https://mirror.lcarilla.de/archlinux/$repo/os/$arch",
                     "http://mirrors.niyawe.de/archlinux/$repo/os/$arch",
                     "http://mirror.sunred.org/archlinux/$repo/os/$arch",
                     "https://mirror.clientvps.com/archlinux/$repo/os/$arch",
                     "https://mirror.wtnet.de/archlinux/$repo/os/$arch",
                     "https://os.codefionn.eu/archlinux/$repo/os/$arch",
-                    "http://ftp.spline.inf.fu-berlin.de/mirrors/archlinux/$repo/", os /$arch
-                    "http://mirror.fra10.de.leaseweb.net/archlinux/$repo/os/$arc", h
+                    "http://ftp.spline.inf.fu-berlin.de/mirrors/archlinux/$repo/os/$arch",
+                    "http://mirror.fra10.de.leaseweb.net/archlinux/$repo/os/$arch",
                     "http://ftp.agdsn.de/pub/mirrors/archlinux/$repo/os/$arch",
                     "https://mirror.moson.org/arch/$repo/os/$arch",
                     "https://mirror.pagenotfound.de/archlinux/$repo/os/$arch",
@@ -247,7 +247,7 @@ def create_config(data):
                     "http://mirror.kumi.systems/archlinux/$repo/os/$arch",
                     "https://ftp.halifax.rwth-aachen.de/archlinux/$repo/os/$arch",
                     "https://appuals.com/archlinux/$repo/os/$arch",
-                    "http://mirror.pagenotfound.de/archlinux/$repo/os/$arc",
+                    "http://mirror.pagenotfound.de/archlinux/$repo/os/$arc"
 
                 ]
             }

@@ -26,6 +26,7 @@
     "mkinitcpio-nfs-utils",
     "pipewire",
     "pipewire-alsa",
+    "pipewire-pulse",
     "pipewire-jack",
     "python-pip",
     "networkmanager",

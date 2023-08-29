@@ -44,20 +44,18 @@ if __name__ == '__main__':
         hostname = args.Hostname
 
     if args.Type == 'THIN':
-        git.Repo.clone_from('https://github.com/xWannaDieQuickly/drk-arch.git',
-                            download_directory,
-                            branch='thin_client')
+        git.Repo.clone_from('https://github.com/xWannaDieQuickly/thin_client',
+                            download_directory)
         branch = 'thin_client'
 
     else:
-        git.Repo.clone_from('https://github.com/xWannaDieQuickly/drk-arch.git',
-                            download_directory,
-                            branch='mobile_client')
+        git.Repo.clone_from('https://github.com/drkkvbs/mobile_client',
+                            download_directory)
         branch = 'mobile_client'
 
     # Merge config files
     for config_file in ['install.json', 'setup.json', 'users.json']:
-        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/data/{config_file}', 'r') as f_download:
+        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/{config_file}', 'r') as f_download:
             setup_data = json.load(f_setup)
             setup_download = json.load(f_download)
             merged_data = utils.merge_and_update_dicts(
@@ -74,7 +72,8 @@ if __name__ == '__main__':
     utils.copy_recursive(
         data_directory, '/mnt/archinstall/tmp/drk-arch', 644, {'admin', 'admin'})
 
-    subprocess.run('arch-chroot /mnt/archinstall python /tmp/drk-arch/scripts/configuration.py')
+    subprocess.run(
+        'arch-chroot /mnt/archinstall python /tmp/drk-arch/scripts/configuration.py')
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

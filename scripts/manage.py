@@ -41,8 +41,7 @@ if __name__ == '__main__':
 
     # Set the new hostname for the system
     if args.Hostname != None:
-        with open('/etc/hostname', 'w') as f:
-            f.write(args.Hostname)
+        hostname = args.Hostname
 
     if args.Type == 'THIN':
         git.Repo.clone_from('https://github.com/xWannaDieQuickly/drk-arch.git',
@@ -70,7 +69,7 @@ if __name__ == '__main__':
     utils.copy_recursive(copy_src=download_directory, copy_dst=data_directory,
                          dir_mode=644, ownership=("admin", "admin"))
 
-    installation.install(data_directory)
+    installation.install(data_directory, hostname)
 
     utils.copy_recursive(
         data_directory, '/mnt/archinstall/tmp/drk-arch', 644, {'admin', 'admin'})

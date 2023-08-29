@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     # Merge config files
     for config_file in ['install.json', 'setup.json', 'users.json']:
-        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/{config_file}', 'r') as f_download:
+        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/data/{config_file}', 'r') as f_download:
             setup_data = json.load(f_setup)
             setup_download = json.load(f_download)
             merged_data = utils.merge_and_update_dicts(
@@ -64,7 +64,7 @@ if __name__ == '__main__':
             f_setup.truncate()
             json.dump(merged_data, f_setup)
 
-    utils.copy_recursive(copy_src=download_directory, copy_dst=data_directory,
+    utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
                          dir_mode=644, ownership=("admin", "admin"))
 
     installation.install(data_directory, hostname)

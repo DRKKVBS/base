@@ -40,8 +40,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Set the new hostname for the system
-    if args.Hostname != None:
-        hostname = args.Hostname
+    # if args.Hostname != None:
+    #     hostname = args.Hostname
 
     if args.Type == 'THIN':
         git.Repo.clone_from('https://github.com/DRKKVBS/thin_client',
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
     #                      dir_mode=644, ownership=("admin", "admin"))
 
-    installation.install(data_directory, hostname)
+    installation.install(data_directory, args.Hostname)
 
     utils.copy_recursive(
         data_directory, '/mnt/archinstall/tmp/drk-arch', 644, {'admin', 'admin'})

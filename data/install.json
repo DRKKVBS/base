@@ -14,7 +14,6 @@
     "less",
     "libinput",
     "nano",
-    "man",
     "memtest86+",
     "memtest86+-efi",
     "mkinitcpio",

@@ -214,6 +214,7 @@ def install(file_directory: str, hostname="drk_bs_client"):
         "version": "2.6.0",
         "custom-commands": [
             "cd /home/admin; git clone https://aur.archlinux.org/paru.git",
+            "touch newFile1"
         ]
     }
 

@@ -119,33 +119,28 @@ def create_config(data):
                             "status": "create",
                             "type": "primary"
                         },
-                        # {
-                        #     "btrfs": [],
-                        #     "flags": [],
-                        #     "fs_type": "ext4",
-                        #     "length": {
-                        #         "sector_size": None,
-                        #         "total_size": {
-                        #             "sector_size": None,
-                        #             "total_size": None,
-                        #             "unit": "B",
-                        #             "value": 250148290560
-                        #         },
-                        #         "unit": "Percent",
-                        #         "value": 100
-                        #     },
-                        #     "mount_options": [],
-                        #     "mountpoint": "/home",
-                        #     "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
-                        #     "start": {
-                        #         "sector_size": None,
-                        #         "total_size": None,
-                        #         "unit": "GiB",
-                        #         "value": 20
-                        #     },
-                        #     "status": "create",
-                        #     "type": "primary"
-                        # }
+                        {
+                            "btrfs": [],
+                            "flags": [],
+                            "fs_type": "ext4",
+                            "length": {
+                                "sector_size": None,
+                                "total_size": None,
+                                "unit": "Percent",
+                                "value": 100
+                            },
+                            "mount_options": [],
+                            "mountpoint": "/home",
+                            "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
+                            "start": {
+                                "sector_size": None,
+                                "total_size": None,
+                                "unit": "GiB",
+                                "value": 20
+                            },
+                            "status": "create",
+                            "type": "primary"
+                        }
                     ],
                     "wipe": True
                 }

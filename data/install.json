@@ -2,12 +2,9 @@
   "pkgs": [
     "efibootmgr",
     "nautilus",
-    "firefox",
     "gdm",
     "gedit",
     "git",
-    "gnome-backgrounds",
-    "gnome-terminal",
     "grub",
     "net-tools",
     "iwd",

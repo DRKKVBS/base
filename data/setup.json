@@ -1,7 +1,12 @@
 {
-    "aur_pkgs": [
-      "icaclient",
-      "gnome-shell-extension-no-overview",
-      "gnome-shell-extension-dash-to-dock"
-    ]
-  }
+  "after_install_pkgs": [
+    "firefox",
+    "gnome-backgrounds",
+    "gnome-terminal"
+  ],
+  "aur_pkgs": [
+    "icaclient",
+    "gnome-shell-extension-no-overview",
+    "gnome-shell-extension-dash-to-dock"
+  ]
+}

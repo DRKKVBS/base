@@ -72,10 +72,10 @@ if __name__ == '__main__':
 
 
     subprocess.run(
-        'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
+        'arch-chroot /mnt/archinstall git clone https://github.com/drkkvbs/base')
     
-    subprocess.run(
-        'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
+    # subprocess.run(
+    #     'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

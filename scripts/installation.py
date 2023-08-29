@@ -128,8 +128,8 @@ def create_config(data):
                                 "total_size": {
                                     "sector_size": None,
                                     "total_size": None,
-                                    "unit": "B",
-                                    "value": 250148290560
+                                    "unit": "GiB",
+                                    "value": 21
                                 },
                                 "unit": "Percent",
                                 "value": 100

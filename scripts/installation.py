@@ -252,7 +252,7 @@ def install(file_directory: str, hostname = "drk_bs_client"):
     disks = {}
     diskSize = []
     for d in subprocess.run('fdisk -l', check=True,
-                            shell=True, capture_output=True).split("\n\n\n"):
+                            shell=True, capture_output=True).stdout.split("\n\n\n"):
         disk = d.split("\n")[0]
         size = int(re.findall("(?<=,\s)(.*)(?=\sbytes)", disk)[0])
         name = re.findall("(?<=Disk\s)(.*)(?=:)", disk)[0]

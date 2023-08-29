@@ -97,55 +97,55 @@ def create_config(data):
                             "status": "create",
                             "type": "primary"
                         },
-                        {
-                            "btrfs": [],
-                            "flags": [],
-                            "fs_type": "ext4",
-                            "length": {
-                                "sector_size": None,
-                                "total_size": None,
-                                "unit": "GiB",
-                                "value": 20
-                            },
-                            "mount_options": [],
-                            "mountpoint": "/",
-                            "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
-                            "start": {
-                                "sector_size": None,
-                                "total_size": None,
-                                "unit": "MiB",
-                                "value": 513
-                            },
-                            "status": "create",
-                            "type": "primary"
-                        },
-                        {
-                            "btrfs": [],
-                            "flags": [],
-                            "fs_type": "ext4",
-                            "length": {
-                                "sector_size": None,
-                                "total_size": {
-                                    "sector_size": None,
-                                    "total_size": None,
-                                    "unit": "B",
-                                    "value": 250148290560
-                                },
-                                "unit": "Percent",
-                                "value": 100
-                            },
-                            "mount_options": [],
-                            "mountpoint": "/home",
-                            "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
-                            "start": {
-                                "sector_size": None,
-                                "total_size": None,
-                                "unit": "GiB",
-                                "value": 20
-                            },
-                            "status": "create",
-                            "type": "primary"
-                        }
+                        # {
+                        #     "btrfs": [],
+                        #     "flags": [],
+                        #     "fs_type": "ext4",
+                        #     "length": {
+                        #         "sector_size": None,
+                        #         "total_size": None,
+                        #         "unit": "GiB",
+                        #         "value": 20
+                        #     },
+                        #     "mount_options": [],
+                        #     "mountpoint": "/",
+                        #     "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
+                        #     "start": {
+                        #         "sector_size": None,
+                        #         "total_size": None,
+                        #         "unit": "MiB",
+                        #         "value": 513
+                        #     },
+                        #     "status": "create",
+                        #     "type": "primary"
+                        # },
+                        # {
+                        #     "btrfs": [],
+                        #     "flags": [],
+                        #     "fs_type": "ext4",
+                        #     "length": {
+                        #         "sector_size": None,
+                        #         "total_size": {
+                        #             "sector_size": None,
+                        #             "total_size": None,
+                        #             "unit": "B",
+                        #             "value": 250148290560
+                        #         },
+                        #         "unit": "Percent",
+                        #         "value": 100
+                        #     },
+                        #     "mount_options": [],
+                        #     "mountpoint": "/home",
+                        #     "obj_id": "ce58b139-f041-4a06-94da-1f8bad775d3f",
+                        #     "start": {
+                        #         "sector_size": None,
+                        #         "total_size": None,
+                        #         "unit": "GiB",
+                        #         "value": 20
+                        #     },
+                        #     "status": "create",
+                        #     "type": "primary"
+                        # }
                     ],
                     "wipe": True
                 }

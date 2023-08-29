@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple, ignore:list):
+def copy_recursive(copy_src, copy_dst, dir_mode, ownership, ignore):
     """ Copy a Directory recursively, replacing old files and creating new directories if necessary. """
     for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
         path = dir_path.replace(copy_src, copy_dst)

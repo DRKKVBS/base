@@ -211,11 +211,7 @@ def install(file_directory: str, hostname="drk_bs_client"):
         "sys-encoding": "UTF-8",
         "sys-language": "de_DE",
         "timezone": "Europe/Berlin",
-        "version": "2.6.0",
-        "custom-commands": [
-            "cd /home/admin; git clone https://aur.archlinux.org/paru.git",
-            "touch newFile1"
-        ]
+        "version": "2.6.0"
     }
 
     # Creat the credential configuration

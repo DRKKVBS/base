@@ -1,14 +1,13 @@
 {
   "pkgs": [
-    "base",
-    "base-devel",
     "efibootmgr",
     "nautilus",
     "firefox",
     "gdm",
     "gedit",
     "git",
-   
+    "gnome-backgrounds",
+    "gnome-terminal",
     "grub",
     "net-tools",
     "iwd",
@@ -23,7 +22,6 @@
     "mkinitcpio-nfs-utils",
     "python-pip",
     "networkmanager",
-    "sudo",
     "sof-firmware",
     "smartmontools",
     "syslinux",
@@ -35,7 +33,6 @@
     "wireless_tools",
     "vim",
     "xorg",
-    "xorg-server",
     "zsh"
   ],
   "services": [

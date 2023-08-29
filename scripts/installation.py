@@ -201,7 +201,8 @@ def create_config(data, hostname="drk_bs_client"):
         "no_pkg_lookups": False,
         "ntp": True,
         "offline": False,
-        "packages": data['pkgs'],
+        # "packages": data['pkgs'],
+        "packages": [],
         "parallesl downloads": 0,
         "profile_config": {
             "gfx_driver": vga,
@@ -434,7 +435,7 @@ def install(file_directory: str, hostname="drk_bs_client"):
             "profile": {}
         },
         "scripts": "guided",
-        "services": ["gdm", "NetworkManager"],
+        "services": ["gdm", "NetworkManager", "iwd"],
         "silent": True,
         "swap": True,
         "sys-encoding": "UTF-8",

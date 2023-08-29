@@ -105,7 +105,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 20
+                                "value": 2
                             },
                             "mount_options": [],
                             "mountpoint": "/",
@@ -125,9 +125,15 @@ def create_config(data):
                             "fs_type": "ext4",
                             "length": {
                                 "sector_size": None,
-                                "total_size": None,
-                                "unit": "GiB",
-                                "value": 30
+                                "total_size": {
+                                    "sector_size": None,
+                                    "total_size": None,
+                                    "unit": "B",
+                                    # "value": 250148290560
+                                    "value": 8589934592
+                                },
+                                "unit": "Percent",
+                                "value": 100
                             },
                             "mount_options": [],
                             "mountpoint": "/home",
@@ -136,7 +142,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 25
+                                "value": 2
                             },
                             "status": "create",
                             "type": "primary"

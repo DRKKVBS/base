@@ -55,6 +55,8 @@ if __name__ == '__main__':
 
     # Merge config files
     for config_file in ['install.json', 'setup.json', 'users.json']:
+        if not os.path.exists(f'{download_directory}/data/{config_file}'):
+            continue
         with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/data/{config_file}', 'r') as f_download:
             setup_data = json.load(f_setup)
             setup_download = json.load(f_download)

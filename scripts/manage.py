@@ -64,8 +64,8 @@ if __name__ == '__main__':
             f_setup.truncate()
             json.dump(merged_data, f_setup)
 
-    utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
-                         dir_mode=644, ownership=("admin", "admin"))
+    # utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
+    #                      dir_mode=644, ownership=("admin", "admin"))
 
     installation.install(data_directory, hostname)
 

@@ -136,7 +136,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 20
+                                "value": 25
                             },
                             "status": "create",
                             "type": "primary"

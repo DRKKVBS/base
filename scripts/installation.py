@@ -105,7 +105,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 2
+                                "value": 20
                             },
                             "mount_options": [],
                             "mountpoint": "/",
@@ -130,7 +130,7 @@ def create_config(data):
                                     "total_size": None,
                                     "unit": "B",
                                     # "value": 250148290560
-                                    "value": 8589934592
+                                    "value": 64424509440
                                 },
                                 "unit": "Percent",
                                 "value": 100

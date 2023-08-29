@@ -196,7 +196,8 @@ def install(file_directory: str, hostname="drk_bs_client"):
         "no_pkg_lookups": False,
         "ntp": True,
         "offline": False,
-        "packages": data['pkgs'],
+        "packages": [],
+        # "packages": data['pkgs'],
         "parallesl downloads": 0,
         "profile_config": {
             "gfx_driver": vga,

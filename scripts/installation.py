@@ -71,7 +71,7 @@ def create_config(data):
             "config_type": "default_layout",
             "device_modifications": [
                 {
-                    "device": get_hw()["disk"],
+                    "device": "/dev/sda",
                     "partitions": [
                         {
                             "btrfs": [],
@@ -128,8 +128,8 @@ def create_config(data):
                                 "total_size": {
                                     "sector_size": None,
                                     "total_size": None,
-                                    "unit": "GiB",
-                                    "value": 20
+                                    "unit": "B",
+                                    "value": 250148290560
                                 },
                                 "unit": "Percent",
                                 "value": 100
@@ -141,7 +141,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 21
+                                "value": 20
                             },
                             "status": "create",
                             "type": "primary"
@@ -149,7 +149,7 @@ def create_config(data):
                     ],
                     "wipe": True
                 }
-            ],
+            ]
         },
         "hostname": "drk",
         "kernels": ["linux"],

@@ -13,9 +13,6 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
                 if ownership != None:
                     shutil.chown(os.path.join(path, dir),
                                  user=ownership[0], group=ownership[1])
-                shutil.chown(os.path.join(path, dir),
-                             user=ownership[0], group=ownership[1])
-
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue

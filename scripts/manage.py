@@ -71,7 +71,7 @@ if __name__ == '__main__':
         root_directory, '/mnt/archinstall/tmp/', 777, ('root', 'root'), ignore=[])
 
     subprocess.run(
-        'arch-chroot /mnt/archinstall python /tmp/drk-arch/scripts/configuration.py')
+        'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

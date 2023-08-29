@@ -8,8 +8,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         path = dir_path.replace(copy_src, copy_dst)
         for dir in dir_names:
             if not os.path.exists(os.path.join(path, dir)):
-                os.mkdir(os.path.join(path, dir), mode=dir_mode)
-
+                os.makedirs(os.path.join(path, dir), mode=dir_mode)
                 if ownership != None:
                     shutil.chown(os.path.join(path, dir),
                                  user=ownership[0], group=ownership[1])

@@ -68,7 +68,7 @@ if __name__ == '__main__':
     #installation.install(data_directory, args.Hostname)
 
     utils.copy_recursive(
-        data_directory, '/mnt/archinstall/tmp/', 644, {'admin', 'admin'}, ignore=[])
+        data_directory, '/mnt/archinstall/tmp/', 644, ('admin', 'admin'), ignore=[])
 
     subprocess.run(
         'arch-chroot /mnt/archinstall python /tmp/drk-arch/scripts/configuration.py')

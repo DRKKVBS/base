@@ -2,15 +2,20 @@ import os
 import shutil
 
 
-def copy_recursive(copy_src, copy_dst, dir_mode, ownership, ignore):
+def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple, ignore: list):
     """ Copy a Directory recursively, replacing old files and creating new directories if necessary. """
     for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
         path = dir_path.replace(copy_src, copy_dst)
         for dir in dir_names:
             if not os.path.exists(os.path.join(path, dir)):
                 os.mkdir(os.path.join(path, dir), mode=dir_mode)
+
+                if ownership != None:
+                    shutil.chown(os.path.join(path, dir),
+                                 user=ownership[0], group=ownership[1])
                 shutil.chown(os.path.join(path, dir),
                              user=ownership[0], group=ownership[1])
+
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
@@ -32,4 +37,3 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
         else:
             dict1[k] = dict2[k]
     return dict2
-

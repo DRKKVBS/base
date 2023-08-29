@@ -63,7 +63,7 @@ if __name__ == '__main__':
             json.dump(merged_data, f_setup)
 
     utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
-                         ignore=['setup.json', 'install.json', 'users.json'])
+                         ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
     installation.install(data_directory, args.Hostname)
 

@@ -1,5 +1,7 @@
 {
     "pkgs": [
+      "pipewire-alsa",
+      "pipewire",
       "base",
       "base-devel",
       "efibootmgr",

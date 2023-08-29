@@ -125,14 +125,9 @@ def create_config(data):
                             "fs_type": "ext4",
                             "length": {
                                 "sector_size": None,
-                                "total_size": {
-                                    "sector_size": None,
-                                    "total_size": None,
-                                    "unit": "B",
-                                    "value": 250148290460
-                                },
-                                "unit": "Percent",
-                                "value": 100
+                                "total_size": None,
+                                "unit": "GiB",
+                                "value": 30
                             },
                             "mount_options": [],
                             "mountpoint": "/home",

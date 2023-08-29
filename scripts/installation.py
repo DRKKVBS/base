@@ -97,28 +97,28 @@ def create_config(data):
                             "status": "create",
                             "type": "primary"
                         },
-                        # {
-                        #     "btrfs": [],
-                        #     "flags": [],
-                        #     "fs_type": "ext4",
-                        #     "length": {
-                        #         "sector_size": None,
-                        #         "total_size": None,
-                        #         "unit": "GiB",
-                        #         "value": 20
-                        #     },
-                        #     "mount_options": [],
-                        #     "mountpoint": "/",
-                        #     "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
-                        #     "start": {
-                        #         "sector_size": None,
-                        #         "total_size": None,
-                        #         "unit": "MiB",
-                        #         "value": 513
-                        #     },
-                        #     "status": "create",
-                        #     "type": "primary"
-                        # },
+                        {
+                            "btrfs": [],
+                            "flags": [],
+                            "fs_type": "ext4",
+                            "length": {
+                                "sector_size": None,
+                                "total_size": None,
+                                "unit": "GiB",
+                                "value": 20
+                            },
+                            "mount_options": [],
+                            "mountpoint": "/",
+                            "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
+                            "start": {
+                                "sector_size": None,
+                                "total_size": None,
+                                "unit": "MiB",
+                                "value": 513
+                            },
+                            "status": "create",
+                            "type": "primary"
+                        },
                         # {
                         #     "btrfs": [],
                         #     "flags": [],

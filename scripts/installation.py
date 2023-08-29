@@ -129,7 +129,7 @@ def create_config(data):
                                     "sector_size": None,
                                     "total_size": None,
                                     "unit": "GiB",
-                                    "value": 21
+                                    "value": 20
                                 },
                                 "unit": "Percent",
                                 "value": 100
@@ -141,7 +141,7 @@ def create_config(data):
                                 "sector_size": None,
                                 "total_size": None,
                                 "unit": "GiB",
-                                "value": 20
+                                "value": 21
                             },
                             "status": "create",
                             "type": "primary"

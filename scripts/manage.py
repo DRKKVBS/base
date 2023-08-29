@@ -44,12 +44,12 @@ if __name__ == '__main__':
         hostname = args.Hostname
 
     if args.Type == 'THIN':
-        git.Repo.clone_from('https://github.com/xWannaDieQuickly/thin_client',
+        git.Repo.clone_from('https://github.com/DRKKVBS/thin_client',
                             download_directory)
         branch = 'thin_client'
 
     else:
-        git.Repo.clone_from('https://github.com/drkkvbs/mobile_client',
+        git.Repo.clone_from('https://github.com/DRKKVBS/mobile_client',
                             download_directory)
         branch = 'mobile_client'
 

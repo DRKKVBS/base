@@ -65,13 +65,13 @@ if __name__ == '__main__':
     utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
                          ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
-    #installation.install(data_directory, args.Hostname)
+    installation.install(data_directory, args.Hostname)
 
-    utils.copy_recursive(
-        root_directory, '/mnt/archinstall/tmp/', 777, ('root', 'root'), ignore=[])
+    # utils.copy_recursive(
+    #     root_directory, '/mnt/archinstall/tmp/', 777, ('root', 'root'), ignore=[])
 
-    subprocess.run(
-        'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
+    # subprocess.run(
+    #     'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

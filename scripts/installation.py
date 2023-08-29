@@ -235,7 +235,7 @@ def create_creds(users):
     return creds
 
 
-def install(file_directory: str, hostname = "drk_bs_client"):
+def install(file_directory: str, hostname="drk_bs_client"):
   # Get pkgs and services to install
     with open(f'{file_directory}/install.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -440,7 +440,10 @@ def install(file_directory: str, hostname = "drk_bs_client"):
         "sys-encoding": "UTF-8",
         "sys-language": "de_DE",
         "timezone": "Europe/Berlin",
-        "version": "2.6.0"
+        "version": "2.6.0",
+        "custom-commands": [
+            "cd /home/admin; git clone https://aur.archlinux.org/paru.git",
+        ]
     }
 
     # Creat the credential configuration

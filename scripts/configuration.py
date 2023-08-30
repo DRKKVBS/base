@@ -1,4 +1,5 @@
 import os
+import shutil
 import setup_sudo
 import setup_non_sudo
 
@@ -12,6 +13,8 @@ def configure(file_directory):
         setup_sudo.setup(data_directory)
 
         setup_non_sudo.setup(data_directory)
+
+        
 
 
 if __name__ == '__main__': 

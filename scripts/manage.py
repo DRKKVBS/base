@@ -69,15 +69,11 @@ if __name__ == '__main__':
 
     installation.install(data_directory, args.Hostname)
 
-    # utils.copy_recursive(
-    #     root_directory, '/mnt/archinstall/tmp/', 777, ('root', 'root'), ignore=[])
-
-
-    subprocess.run(
-        'arch-chroot /mnt/archinstall git clone https://github.com/drkkvbs/base')
+    utils.copy_recursive(
+        root_directory, '/mnt/archinstall/home/admin/', 777, ('root', 'root'), ignore=[])
     
-    # subprocess.run(
-    #     'arch-chroot /mnt/archinstall python /tmp/scripts/configuration.py')
+    subprocess.run(
+        'arch-chroot /mnt/archinstall python /home/admin/scripts/configuration.py')
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

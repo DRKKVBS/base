@@ -5,7 +5,7 @@ import subprocess
 import re
 
 
-def install(file_directory: str, hostname="drk_bs_client"):
+def install(file_directory: str, hostname="drk-bs-client"):
   # Get pkgs and services to install
     with open(f'{file_directory}/install.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -37,7 +37,7 @@ def install(file_directory: str, hostname="drk_bs_client"):
     for e in subprocess.run(["lspci"], check=True,
                             text=True, capture_output=True).stdout.splitlines():
         if "VGA" in e:
-            hardware_info["vga"] = e
+            hardware_info['vga'] = e
 
     # Check the VGA
     if hardware_info['vga'] is None:
@@ -187,10 +187,10 @@ def install(file_directory: str, hostname="drk_bs_client"):
         },
         "nic": {
             "dhcp": True,
-            "dns": "null",
-            "gateway": "null",
-            "iface": "null",
-            "ip": "null",
+            "dns": None,
+            "gateway": None,
+            "iface": None,
+            "ip": None,
             "type": "nm"
         },
         "no_pkg_lookups": False,
@@ -198,13 +198,11 @@ def install(file_directory: str, hostname="drk_bs_client"):
         "offline": False,
         "packages": data['pkgs'],
         "parallesl downloads": 0,
-        "profile_config": {
-            "gfx_driver": vga,
-            "greeter": "gdm",
-            "profile": {}
-        },
+        "gfx_driver": vga,
+        "greeter": "gdm",
+        "profile": None,
         "scripts": "guided",
-        "services": ["gdm", "NetworkManager", "iwd"],
+        "services": ["gdm", "NetworkManager", "iwd", "bluetooth"],
         "silent": True,
         "swap": True,
         "sys-encoding": "UTF-8",

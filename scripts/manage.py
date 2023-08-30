@@ -43,11 +43,13 @@ if __name__ == '__main__':
         git.Repo.clone_from('https://github.com/DRKKVBS/thin_client',
                             download_directory)
         branch = 'thin_client'
+        hostname = 'drk-bs-thin-client'
 
     else:
         git.Repo.clone_from('https://github.com/DRKKVBS/mobile_client',
                             download_directory)
         branch = 'mobile_client'
+        hostname = 'drk-bs-mobile-client'
 
     # Merge config files
     for config_file in ['install.json', 'setup.json', 'users.json']:

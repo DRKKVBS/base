@@ -19,6 +19,7 @@
     "mkinitcpio",
     "mkinitcpio-archiso",
     "mkinitcpio-nfs-utils",
+    "pipewire",
     "python-pip",
     "networkmanager",
     "sof-firmware",

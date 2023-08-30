@@ -56,9 +56,7 @@ def install(file_directory: str, hostname="drk-bs-client"):
     config = {
         "additional-repositories": [],
         "archinstall-language": "German",
-        "audio_config": {
-            "audio": None
-        },
+        "audio_config": None,
         "bootloader": "Grub",
         "config_version": "2.6.0",
         "debug": False,

@@ -5,8 +5,6 @@ import argparse
 import shutil
 import git
 import installation
-import setup_sudo
-import setup_non_sudo
 import utils
 
 
@@ -51,7 +49,7 @@ if __name__ == '__main__':
         branch = 'mobile_client'
         hostname = 'drk-bs-mobile-client'
 
-    # Merge config files
+    # Merge and copy configuration files
     for config_file in ['install.json', 'setup.json', 'users.json']:
         if not os.path.exists(f'{download_directory}/data/{config_file}'):
             continue
@@ -67,11 +65,14 @@ if __name__ == '__main__':
     utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
                          ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
+    # Start the linux installation
     installation.install(data_directory, args.Hostname)
 
+    # Copy the files 
     utils.copy_recursive(
-        root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=[])
+        root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=['installation.py', 'install.py'])
     
+    # Start the configuration in the arch-chroot environment
     subprocess.run(
         'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)
 

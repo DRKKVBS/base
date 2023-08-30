@@ -17,17 +17,8 @@ def setup(data_directory: str):
             setup_json = json.load(f)
             pkgs = setup_json['after_install_pkgs']
 
-        utils.copy_recursive(f'{data_directory}/EnvironmentVariables',
-                             f'/home/{u}/.config/environment.d/', dir_mode=700, ownership=(u, u), ignore=[])
-
-        with open(f'/home/{u}/.config/environment.d/variable.conf', 'w') as f:
-            f.write(f"DCONF_PROFILE='{u}'")
-
-        # Change Permissions for new environment variable
-        shutil.chown(
-            f'/home/{u}/.config/environment.d/variable.conf', user=u, group=u)
-        os.chmod(
-            f'/home/{u}/.config/environment.d/variable.conf', mode=744)
+        utils.copy_recursive(f'{data_directory}/EnvironmentVariables/{u}',
+                             f'/home/{u}/.config/environment.d/variable.conf', dir_mode=700, ownership=(u, u), ignore=[])
 
         # Desktop Entries
         desktop_entries = d["desktop"]

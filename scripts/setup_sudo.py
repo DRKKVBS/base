@@ -18,7 +18,7 @@ def setup(data_directory: str):
             pkgs = setup_json['after_install_pkgs']
 
         utils.copy_recursive(f'{data_directory}/EnvironmentVariables',
-                             f'/home/{u}/.config/environment.d/', dir_mode=700, ownership=(u, u))
+                             f'/home/{u}/.config/environment.d/', dir_mode=700, ownership=(u, u), ignore=[])
 
         with open(f'/home/{u}/.config/environment.d/variable.conf', 'w') as f:
             f.write(f"DCONF_PROFILE='{u}'")
@@ -32,7 +32,7 @@ def setup(data_directory: str):
         # Desktop Entries
         desktop_entries = d["desktop"]
         utils.copy_recursive(f'{data_directory}/DesktopEntries',
-                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u))
+                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
         shutil.copy(f'{data_directory}/firefox/FirefoxCitrix.desktop',
                     f'/home/{u}/.local/share/applications/FirefoxCitrix.desktop')
 
@@ -63,7 +63,7 @@ def setup(data_directory: str):
     # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
                  f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
-        utils.copy_recursive(k, v, 755, ("root", "root"))
+        utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutoStart.desktop': '/etc/xdg/autostart/FirefoxAutoStart.desktop',

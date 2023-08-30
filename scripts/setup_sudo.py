@@ -5,10 +5,7 @@ import shutil
 import utils
 
 
-def setup(file_directory: str):
-
-    # Directories
-    data_directory = os.path.join(file_directory, 'data')
+def setup(data_directory: str):
 
     with open(f'{data_directory}/users.json', 'r') as f:
         users_json = json.load(f)
@@ -21,7 +18,7 @@ def setup(file_directory: str):
             pkgs = setup_json['after_install_pkgs']
 
         utils.copy_recursive(f'{data_directory}/EnvironmentVariables',
-                       f'/home/{u}/.config/environment.d/', dir_mode=700, ownership=(u, u))
+                             f'/home/{u}/.config/environment.d/', dir_mode=700, ownership=(u, u))
 
         with open(f'/home/{u}/.config/environment.d/variable.conf', 'w') as f:
             f.write(f"DCONF_PROFILE='{u}'")
@@ -35,7 +32,7 @@ def setup(file_directory: str):
         # Desktop Entries
         desktop_entries = d["desktop"]
         utils.copy_recursive(f'{data_directory}/DesktopEntries',
-                       f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u))
+                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u))
         shutil.copy(f'{data_directory}/firefox/FirefoxCitrix.desktop',
                     f'/home/{u}/.local/share/applications/FirefoxCitrix.desktop')
 

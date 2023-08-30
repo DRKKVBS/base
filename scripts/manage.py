@@ -27,7 +27,7 @@ if __name__ == '__main__':
                                      epilog='Text at the bottom of help.')
 
     # Adding optional argument
-    parser.add_argument('-t', '--Type', action='store', required=True, type=str, choices=['THIN', 'MOBILE'],
+    parser.add_argument('-t', '--Type', action='store', required=True, type=str, choices=['thin', 'mobile'],
                         help='Type of Configuration.')
 
     parser.add_argument('-hn', '--Hostname', action='store', type=str,
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # Read arguments from command line
     args = parser.parse_args()
 
-    if args.Type == 'THIN':
+    if args.Type == 'thin':
         git.Repo.clone_from('https://github.com/DRKKVBS/thin_client',
                             download_directory)
         branch = 'thin_client'
@@ -70,10 +70,10 @@ if __name__ == '__main__':
     installation.install(data_directory, args.Hostname)
 
     utils.copy_recursive(
-        root_directory, '/mnt/archinstall/home/admin/', 777, ('root', 'root'), ignore=[])
+        root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=[])
     
     subprocess.run(
-        'arch-chroot /mnt/archinstall python /home/admin/scripts/configuration.py')
+        'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

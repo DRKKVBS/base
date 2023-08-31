@@ -38,16 +38,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.Type == 'thin':
-        git.Repo.clone_from('https://github.com/DRKKVBS/thin_client',
-                            download_directory)
-        branch = 'thin_client'
-        hostname = 'drk-bs-thin-client'
+        branch = 'thin-client'
 
     else:
-        git.Repo.clone_from('https://github.com/DRKKVBS/mobile_client',
-                            download_directory)
-        branch = 'mobile_client'
-        hostname = 'drk-bs-mobile-client'
+        branch = 'mobile-client'
+
+    subprocess.run(
+        f'git clone https://github.com/DRKKVBS/{branch} {download_directory}')
+    hostname = f'drk-bs-{branch}'
 
     # Merge and copy configuration files
     for config_file in ['install.json', 'setup.json', 'users.json']:
@@ -62,16 +60,16 @@ if __name__ == '__main__':
             f_setup.truncate()
             json.dump(merged_data, f_setup)
 
-    utils.copy_recursive(copy_src=download_directory+'/data', copy_dst=data_directory,
+    utils.copy_recursive(copy_src=f'{download_directory}/data', copy_dst=data_directory,
                          ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
     # Start the linux installation
     installation.install(data_directory, args.Hostname)
 
-    # Copy the files 
+    # Copy the files
     utils.copy_recursive(
         root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=['installation.py', 'install.py'])
-    
+
     # Start the configuration in the arch-chroot environment
     subprocess.run(
         'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)

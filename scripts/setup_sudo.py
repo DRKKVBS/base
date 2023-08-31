@@ -2,7 +2,6 @@ import json
 import subprocess
 import os
 import shutil
-from time import sleep
 import utils
 
 
@@ -62,9 +61,7 @@ def setup(data_directory: str):
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',
                  f'{data_directory}/gdm.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
         shutil.copyfile(k, v)
-    if os.path.exists(f'{data_directory}/wifi/wifi_backend.conf'):
-        shutil.copyfile(f'{data_directory}/wifi/wifi_backend.conf',
-                        '/etc/NetworkManager/conf.d/wifi_backend.conf')
+    
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
     for cmd in ['dconf update', 'usermod -G user user; passwd -d user', 'grub-mkconfig -o /boot/grub/grub.cfg']:

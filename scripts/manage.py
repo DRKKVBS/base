@@ -42,7 +42,7 @@ if __name__ == '__main__':
         branch = 'mobile-client'
 
     subprocess.run(
-        f'git clone https://github.com/DRKKVBS/{branch} {download_directory}')
+        f'git clone https://github.com/DRKKVBS/{branch} {download_directory}', shell=True)
     hostname = f'drk-bs-{branch}'
 
     # Merge and copy configuration files

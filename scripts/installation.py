@@ -6,11 +6,13 @@ import re
 
 
 def install(file_directory: str, hostname="drk-bs-client"):
-  # Get pkgs and services to install
+    
+    # Get package and service data
     with open(f'{file_directory}/install.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         f.close()
 
+    # Get user data
     with open(f'{file_directory}/users.json', 'r', encoding='utf-8') as f:
         users = json.load(f)
         f.close()
@@ -18,7 +20,6 @@ def install(file_directory: str, hostname="drk-bs-client"):
     # Read out the hardware information of the system
     hardware_info = {}
 
-    # Get the largest disk of the system
     disks = {}
     diskSize = []
     for d in subprocess.run(["fdisk", "-l"], check=True,
@@ -33,13 +34,12 @@ def install(file_directory: str, hostname="drk-bs-client"):
         if v == max(diskSize):
             hardware_info['disk'] = (k, v)
 
-    # VGA
     for e in subprocess.run(["lspci"], check=True,
                             text=True, capture_output=True).stdout.splitlines():
         if "VGA" in e:
             hardware_info['vga'] = e
 
-    # Check the VGA
+    # Set the correct VGA
     if hardware_info['vga'] is None:
         vga = "All open-source (default)"
     elif "nvidia" in hardware_info['vga'].lower():

@@ -22,10 +22,8 @@ def setup(data_directory: str):
 
         # Desktop Entries
         desktop_entries = d["desktop"]
-        utils.copy_recursive(f'{data_directory}/DesktopEntries',
+        utils.copy_recursive(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
-        shutil.copy(f'{data_directory}/firefox/FirefoxCitrix.desktop',
-                    f'/home/{u}/.local/share/applications/FirefoxCitrix.desktop')
 
         for file in os.listdir('/usr/share/applications/'):
             content = ""

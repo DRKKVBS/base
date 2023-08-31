@@ -19,8 +19,8 @@
     "user": {
         "!creds": {
             "username": "user",
-                "!password": "user",
-                "sudo": false
+            "!password": "user",
+            "sudo": false
         },
         "desktop": [
             "org.gnome.Settings.desktop",

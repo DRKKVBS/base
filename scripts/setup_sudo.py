@@ -59,7 +59,7 @@ def setup(data_directory: str):
         utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
 
     # Copy files
-    for k, v in {f'{data_directory}/firefox/FirefoxAutoStart.desktop': '/etc/xdg/autostart/FirefoxAutoStart.desktop',
+    for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',
                  f'{data_directory}/custom.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
         shutil.copyfile(k, v)
     if os.path.exists(f'{data_directory}/wifi/wifi_backend.conf'):

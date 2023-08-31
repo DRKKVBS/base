@@ -11,7 +11,7 @@ def configure(file_directory):
     setup_sudo.setup(data_directory)
 
     subprocess.run(
-        'sudo -i -u admin', input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', shell=True)
+        'sudo -i -u admin', input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', text=True, shell=True)
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ import json
 import subprocess
 import os
 import shutil
+from time import sleep
 import utils
 
 
@@ -22,6 +23,8 @@ def setup(data_directory: str):
 
         # Desktop Entries
         desktop_entries = d["desktop"]
+        subprocess.run('pwd', shell=True)
+        sleep(10)
         utils.copy_recursive(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 

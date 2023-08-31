@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 import os
 import argparse
@@ -64,14 +65,14 @@ if __name__ == '__main__':
     # Start the linux installation
     installation.install(data_directory, hostname)
 
-    # # Copy the files
-    # utils.copy_recursive(
-    #     root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=['installation.py', 'install.py'])
+    # Copy the files
+    utils.copy_recursive(
+        root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=['installation.py', 'install.py'])
 
-    # # Start the configuration in the arch-chroot environment
-    # subprocess.run(
-    #     'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)
+    # Start the configuration in the arch-chroot environment
+    subprocess.run(
+        'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)
 
-    # Delete Downloaded git repo
-    # shutil.rmtree(os.path.realpath(
-    #     os.path.dirname(__file__)).split('scripts')[0])
+    #Delete Downloaded git repo
+    shutil.rmtree(os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0])

@@ -2,8 +2,6 @@ import json
 import subprocess
 import os
 import argparse
-import shutil
-import git
 import installation
 import utils
 

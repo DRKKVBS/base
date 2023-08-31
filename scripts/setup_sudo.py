@@ -67,7 +67,7 @@ def setup(data_directory: str):
                         '/etc/NetworkManager/conf.d/wifi_backend.conf')
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
-    for cmd in ['dconf update', 'usermod -G user user; passwd -d user', 'ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime', 'grub-mkconfig -o /boot/grub/grub.cfg']:
+    for cmd in ['dconf update', 'usermod -G user user; passwd -d user', 'grub-mkconfig -o /boot/grub/grub.cfg']:
         print(cmd)
         subprocess.run(cmd, shell=True)
 

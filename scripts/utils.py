@@ -1,5 +1,6 @@
 import os
 import shutil
+from time import sleep
 
 
 def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple, ignore: list):
@@ -7,6 +8,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
     for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
         path = dir_path.replace(copy_src, copy_dst)
         for dir in dir_names:
+            sleep(3)
             print('Path: ', os.path.join(path, dir))
             if not os.path.exists(os.path.join(path, dir)):
                 print('Creating new directories for: ', os.path.join(path, dir))

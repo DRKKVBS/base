@@ -11,12 +11,12 @@ def setup(file_directory:str):
     # Install yay
     print('Installing yay')
     subprocess.run(
-        'git clone https://aur.archlinux.org/yay && cd yay/; makepkg -si --noconfirm; cd && rm -rf yay/', shell=True)
+        'sudo -i -u admin; git clone https://aur.archlinux.org/yay && cd yay/; makepkg -si --noconfirm; cd && rm -rf yay/', shell=True)
 
     # Install third party packages
     for pkg in aur_pkgs:
         try:
-            print(f'Installinterg {pkg}')
+            print(f'Installing {pkg}')
             subprocess.run(f'yay -S {pkg} --noconfirm', shell=True)
         except Exception as e:
             print(

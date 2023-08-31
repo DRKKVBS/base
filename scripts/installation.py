@@ -1,4 +1,3 @@
-import shutil
 import os
 import json
 import subprocess
@@ -195,7 +194,7 @@ def install(file_directory: str, hostname="drk-bs-client"):
         "ntp": True,
         "offline": False,
         "packages": data['pkgs'],
-        "parallesl downloads": 0,
+        "parallel downloads": 0,
         "gfx_driver": vga,
         "profile": None,
         "scripts": "guided",

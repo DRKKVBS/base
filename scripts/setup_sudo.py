@@ -60,7 +60,7 @@ def setup(data_directory: str):
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',
-                 f'{data_directory}/custom.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
+                 f'{data_directory}/gdm.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
         shutil.copyfile(k, v)
     if os.path.exists(f'{data_directory}/wifi/wifi_backend.conf'):
         shutil.copyfile(f'{data_directory}/wifi/wifi_backend.conf',

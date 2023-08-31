@@ -64,7 +64,7 @@ def setup(data_directory: str):
         shutil.copyfile(k, v)
     if os.path.exists(f'{data_directory}/wifi/wifi_backend.conf'):
         shutil.copyfile(f'{data_directory}/wifi/wifi_backend.conf',
-                        '/etc/NetworkManager/conf.d/')
+                        '/etc/NetworkManager/conf.d/wifi_backend.conf')
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
     for cmd in ['dconf update', 'usermod -G user user; passwd -d user', 'ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime', 'grub-mkconfig -o /boot/grub/grub.cfg']:

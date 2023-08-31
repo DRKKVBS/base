@@ -25,6 +25,9 @@ def setup(data_directory: str):
         desktop_entries = d["desktop"]
         subprocess.run('pwd', shell=True)
         sleep(10)
+        print(f'{data_directory}/DesktopEntries/',
+                             f'/home/{u}/.local/share/applications/')
+        sleep(10)
         utils.copy_recursive(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 

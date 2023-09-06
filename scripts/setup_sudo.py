@@ -5,7 +5,7 @@ import shutil
 import utils
 
 
-def setup(data_directory: str):
+def setup(data_directory: str, script_directory:str):
 
     with open(f'{data_directory}/users.json', 'r') as f:
         users_json = json.load(f)
@@ -17,40 +17,39 @@ def setup(data_directory: str):
             setup_json = json.load(f)
             pkgs = setup_json['after_install_pkgs']
 
-        utils.copy_recursive(f'{data_directory}/EnvironmentVariables/{u}',
-                             f'/home/{u}/.config/environment.d/variable.conf', dir_mode=700, ownership=(u, u), ignore=[])
+        # utils.copy_recursive(f'{data_directory}/EnvironmentVariables/{u}',
+        #                      f'/home/{u}/.config/environment.d/variable.conf', dir_mode=700, ownership=(u, u), ignore=[])
 
-        # Desktop Entries
-        desktop_entries = d["desktop"]
-        subprocess.run('pwd', shell=True)
-        print(f'{data_directory}/DesktopEntries/',
-                             f'/home/{u}/.local/share/applications/')
-        utils.copy_recursive(f'{data_directory}/DesktopEntries/',
-                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
+        # # Desktop Entries
+        # desktop_entries = d["desktop"]
+        # print(f'{data_directory}/DesktopEntries/',
+        #                      f'/home/{u}/.local/share/applications/')
+        # utils.copy_recursive(f'{data_directory}/DesktopEntries/',
+        #                      f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 
-        for file in os.listdir('/usr/share/applications/'):
-            content = ""
-            if os.path.exists(f'/home/{u}/.local/share/applications/{file}'):
-                subprocess.run(
-                    f'chattr -i /home/{u}/.local/share/applications/{file}', shell=True)
-            with open(f'/usr/share/applications/{file}', 'r') as f1:
-                content = f1.read()
-                if 'NoDisplay=true' in content:
-                    continue
-            shutil.copyfile(
-                f'/usr/share/applications/{file}', f'/home/{u}/.local/share/applications/{file}')
-            with open(f'/home/{u}/.local/share/applications/{file}', 'w') as f2:
-                if 'NoDisplay=false' in content and file not in desktop_entries:
-                    content = content.replace(
-                        'NoDisplay=false', 'NoDisplay=true')
-                elif file not in desktop_entries:
-                    content = content.replace(
-                        '[Desktop Entry]', '[Desktop Entry]\nNoDisplay=true')
-                f2.write(content)
-            subprocess.run(
-                f'chattr +i /home/{u}/.local/share/applications/{file}', shell=True)
-        subprocess.run(
-            f'chattr +i /home/{u}/.local/share/applications/', shell=True)
+        # for file in os.listdir('/usr/share/applications/'):
+        #     content = ""
+        #     if os.path.exists(f'/home/{u}/.local/share/applications/{file}'):
+        #         subprocess.run(
+        #             f'chattr -i /home/{u}/.local/share/applications/{file}', shell=True)
+        #     with open(f'/usr/share/applications/{file}', 'r') as f1:
+        #         content = f1.read()
+        #         if 'NoDisplay=true' in content:
+        #             continue
+        #     shutil.copyfile(
+        #         f'/usr/share/applications/{file}', f'/home/{u}/.local/share/applications/{file}')
+        #     with open(f'/home/{u}/.local/share/applications/{file}', 'w') as f2:
+        #         if 'NoDisplay=false' in content and file not in desktop_entries:
+        #             content = content.replace(
+        #                 'NoDisplay=false', 'NoDisplay=true')
+        #         elif file not in desktop_entries:
+        #             content = content.replace(
+        #                 '[Desktop Entry]', '[Desktop Entry]\nNoDisplay=true')
+        #         f2.write(content)
+        #     subprocess.run(
+        #         f'chattr +i /home/{u}/.local/share/applications/{file}', shell=True)
+        # subprocess.run(
+        #     f'chattr +i /home/{u}/.local/share/applications/', shell=True)
 
     # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
@@ -64,9 +63,12 @@ def setup(data_directory: str):
     
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
-    for cmd in ['dconf update', 'usermod -G user user; passwd -d user', 'grub-mkconfig -o /boot/grub/grub.cfg']:
+    for cmd in ['dconf update', 'usermod -G user user', 'passwd -d user', 'grub-mkconfig -o /boot/grub/grub.cfg']:
         print(cmd)
         subprocess.run(cmd, shell=True)
+    
+    # if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
+    #     subprocess.run(f'python {script_directory}/setup_sudo_add.py')
 
 
 if __name__ == '__main__':

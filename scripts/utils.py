@@ -23,7 +23,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
             print('Copy file: ', file, ' to ', path)
             shutil.copyfile(os.path.join(dir_path, file),
                             os.path.join(path, file))
-            shutil.chown(os.path.join(path, dir),
+            shutil.chown(os.path.join(path, file),
                              user=ownership[0], group=ownership[1])
 
 

@@ -20,12 +20,12 @@ def setup(data_directory: str, script_directory:str):
         # utils.copy_recursive(f'{data_directory}/EnvironmentVariables/{u}',
         #                      f'/home/{u}/.config/environment.d/variable.conf', dir_mode=700, ownership=(u, u), ignore=[])
 
-        # # Desktop Entries
-        # desktop_entries = d["desktop"]
-        # print(f'{data_directory}/DesktopEntries/',
-        #                      f'/home/{u}/.local/share/applications/')
-        # utils.copy_recursive(f'{data_directory}/DesktopEntries/',
-        #                      f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
+        # Desktop Entries
+        desktop_entries = d["desktop"]
+        print(f'{data_directory}/DesktopEntries/',
+                             f'/home/{u}/.local/share/applications/')
+        utils.copy_recursive(f'{data_directory}/DesktopEntries/',
+                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 
         # for file in os.listdir('/usr/share/applications/'):
         #     content = ""
@@ -67,8 +67,8 @@ def setup(data_directory: str, script_directory:str):
         print(cmd)
         subprocess.run(cmd, shell=True)
     
-    # if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
-    #     subprocess.run(f'python {script_directory}/setup_sudo_add.py')
+    if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
+        subprocess.run(f'python {script_directory}/setup_sudo_add.py')
 
 
 if __name__ == '__main__':

@@ -74,4 +74,6 @@ def setup(data_directory: str, script_directory:str):
 if __name__ == '__main__':
     dwn_dir = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0] + 'data'
-    setup(dwn_dir)
+    script_dir = os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0] + 'scripts'
+    setup(dwn_dir, script_dir)

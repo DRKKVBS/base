@@ -17,7 +17,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         uid = pwd.getpwnam(ownership[0]).pw_uid
         gid = pwd.getpwnam(ownership[1]).pw_gid
         for dir in dirs:
-            if not os.path.exists(os.path.join(new_root_dir)):
+            if not os.path.exists(os.path.join(new_root_dir, dir)):
                 print('Creating new directories for: ', new_root_dir)
                 os.makedirs(new_root_dir, mode=dir_mode)
                 print('Created...', new_root_dir)

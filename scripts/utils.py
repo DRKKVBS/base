@@ -12,6 +12,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
 
     for root_dir, _, file_names in os.walk(copy_src, topdown=True):
         print(root_dir)
+        print(file_names)
         uid = pwd.getpwnam(ownership[0]).pw_uid
         gid = pwd.getpwnam(ownership[1]).pw_gid
         if not os.path.exists(root_dir):

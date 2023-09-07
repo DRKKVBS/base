@@ -17,13 +17,13 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         uid = pwd.getpwnam(ownership[0]).pw_uid
         gid = pwd.getpwnam(ownership[1]).pw_gid
         if not os.path.exists(new_root_dir):
-            print('Creating new directories for: ', root_dir)
-            os.mkdir(root_dir, mode=dir_mode)
-            os.chown(root_dir, uid=uid, gid=gid)
+            print('Creating new directories for: ', new_root_dir)
+            os.mkdir(new_root_dir, mode=dir_mode)
+            os.chown(new_root_dir, uid=uid, gid=gid)
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
-            print('Copy file: ', file, ' to ', root_dir)
+            print('Copy file: ', file, ' to ', new_root_dir)
             shutil.copyfile(os.path.join(root_dir, file),
                             os.path.join(new_root_dir, file))
             os.chown(new_root_dir, uid=uid, gid=gid)

@@ -17,14 +17,14 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
             if not os.path.exists(os.path.join(path, dir)):
                 print('Creating new directories for: ', os.path.join(path, dir))
                 os.makedirs(os.path.join(path, dir), mode=dir_mode)
-                shutil.chown(os.path.join(path, dir), uid=uid, gid=gid)
+                os.chown(os.path.join(path, dir), uid=uid, gid=gid)
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
             print('Copy file: ', file, ' to ', path)
             shutil.copyfile(os.path.join(dir_path, file),
                             os.path.join(path, file))
-            shutil.chown(os.path.join(path, file), uid=uid, gid=gid)
+            os.chown(os.path.join(path, file), uid=uid, gid=gid)
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

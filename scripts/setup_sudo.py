@@ -25,6 +25,7 @@ def setup(data_directory: str, script_directory: str):
         desktop_entries = d["desktop"]
         print(f'{data_directory}/DesktopEntries/',
               f'/home/{u}/.local/share/applications/')
+        subprocess.run('pwd', shell=True)
         utils.copy_recursive(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 
@@ -53,9 +54,9 @@ def setup(data_directory: str, script_directory: str):
             f'chattr +i /home/{u}/.local/share/applications/', shell=True)
 
     # Copy directories
-    for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
-                 f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
-        utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
+    # for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
+    #              f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
+    #     utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',

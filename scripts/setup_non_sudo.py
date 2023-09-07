@@ -13,7 +13,7 @@ def setup(file_directory: str):
     print('Installing yay')
     # subprocess.Popen(args=["git", "clone", "https://aur.archlinux.org/yay", & & cd yay/; makepkg - si - -noconfirm; cd & & rm - rf yay/"], group="admin", user="admin")
     subprocess.run(
-        'git clone https://aur.archlinux.org/yay && cd yay/; makepkg -si --noconfirm; cd && rm -rf yay/')
+        'git clone https://aur.archlinux.org/yay && cd yay/; makepkg -si --noconfirm; cd && rm -rf yay/', shell=True)
 
     # Install third party packages
     for pkg in aur_pkgs:

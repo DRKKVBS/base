@@ -63,7 +63,7 @@ if __name__ == '__main__':
                          ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
     # Start the linux installation
-    #installation.install(data_directory, hostname)
+    installation.install(data_directory, hostname)
 
     # Copy the files
     utils.copy_recursive(

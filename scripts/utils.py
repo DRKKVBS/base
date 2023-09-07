@@ -19,7 +19,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         for dir in dirs:
             if not os.path.exists(os.path.join(new_root_dir, dir)):
                 print('Creating new directories for: ', new_root_dir)
-                os.makedirs(new_root_dir, mode=dir_mode)
+                os.makedirs(new_root_dir, mode=dir_mode, exist_ok=True)
                 print('Created...', new_root_dir)
                 os.chown(new_root_dir, uid=uid, gid=gid)
         for file in file_names:

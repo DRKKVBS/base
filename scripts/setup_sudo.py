@@ -14,20 +14,32 @@ def setup(data_directory: str, script_directory: str):
     # Setup user specific configuration
     for u, d in users_json.items():
 
+        uid = pwd.getpwnam(u).pw_uid
+        gid = pwd.getpwnam(u).pw_gid
+
         with open(f'{data_directory}/setup.json', 'r') as f:
             setup_json = json.load(f)
             pkgs = setup_json['after_install_pkgs']
 
-        # utils.copy_recursive(f'{data_directory}/EnvironmentVariables/{u}',
-        #                      f'/home/{u}/.config/environment.d/variable.conf', dir_mode=700, ownership=(u, u), ignore=[])
+        if not os.path.exists(f'/home/{u}/.config/environment.d/'):
+            os.makedirs(f'/home/{u}/.config/environment.d/')
+            os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
+            os.chown(f'/home/{u}/.config/environment.d', uid=uid, gid=gid)
+        shutil.copyfile(f'{data_directory}/EnvironmentVariables/{u}',
+                        f'/home/{u}/.config/environment.d/variable.conf')
 
         # Desktop Entries
         desktop_entries = d["desktop"]
-        print(f'{data_directory}/DesktopEntries/',
-              f'/home/{u}/.local/share/applications/')
-        subprocess.run('pwd', shell=True)
-        utils.copy_recursive(f'{data_directory}/DesktopEntries/',
-                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
+
+        if not os.path.exists(f'/home/{u}/.local/share/applications/'):
+            os.makedirs(f'/home/{u}/.local/share/applications/')
+            os.chown(f'/home/{u}/.local/', uid=uid, gid=gid)
+            os.chown(f'/home/{u}/.local/share/', uid=uid, gid=gid)
+            os.chown(f'/home/{u}/.local/share/applications/', uid=uid, gid=gid)
+
+        for file in os.listdir(f'{data_directory}/DesktopEntries/'):
+            shutil.copyfile(os.path.join(
+                f'{data_directory}/DesktopEntries/', file), f'/home/{u}/.local/share/applications/')
 
         for file in os.listdir('/usr/share/applications/'):
             content = ""

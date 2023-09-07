@@ -54,9 +54,9 @@ def setup(data_directory: str, script_directory: str):
             f'chattr +i /home/{u}/.local/share/applications/', shell=True)
 
     # Copy directories
-    # for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
-    #              f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
-    #     utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
+    for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
+                 f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
+        utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',

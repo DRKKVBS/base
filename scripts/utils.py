@@ -6,9 +6,10 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
     """ Copy a Directory recursively, replacing old files and creating new directories if necessary. """
 
     for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
-        path = dir_path.replace(copy_src, copy_dst)
+
         print(path)
         for dir in dir_names:
+            path = os.path.join(copy_dst, dir)
             print('Path: ', os.path.join(path, dir))
             if not os.path.exists(os.path.join(path, dir)):
                 print('Creating new directories for: ', os.path.join(path, dir))
@@ -22,7 +23,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
             shutil.copyfile(os.path.join(dir_path, file),
                             os.path.join(path, file))
             shutil.chown(os.path.join(path, file),
-                             user=ownership[0], group=ownership[1])
+                         user=ownership[0], group=ownership[1])
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

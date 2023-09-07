@@ -23,7 +23,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
-            print('Copy file: ', file, ' to ', new_root_dir)
+            #print('Copy file: ', file, ' to ', new_root_dir)
             shutil.copyfile(os.path.join(root_dir, file),
                             os.path.join(new_root_dir, file))
             os.chown(os.path.join(new_root_dir, file), uid=uid, gid=gid)

@@ -1,4 +1,5 @@
 import json
+import pwd
 import subprocess
 import os
 import shutil
@@ -24,8 +25,14 @@ def setup(data_directory: str, script_directory:str):
         desktop_entries = d["desktop"]
         print(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/')
-        utils.copy_recursive(f'{data_directory}/DesktopEntries/',
-                             f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
+        # utils.copy_recursive(f'{data_directory}/DesktopEntries/',
+        #                      f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
+        uid = pwd.getpwnam(u).pw_uid
+        if not os.path.exists(f'/home/{u}/.local/share/applications/'):
+            os.makedirs(f'/home/{u}/.local/share/applications/', exist_ok=True, mode=644)
+        for file in os.listdir(f'{data_directory}/DesktopEntries/'):
+            shutil.copyfile(f'{data_directory}/DesktopEntries/', f'/home/{u}/.local/share/applications/')
+            os.chown(f'/home/{u}/.local/share/applications/{file}', uid=uid, gid=uid)
 
         for file in os.listdir('/usr/share/applications/'):
             content = ""

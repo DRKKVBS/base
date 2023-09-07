@@ -1,4 +1,5 @@
 import os
+import pwd
 import shutil
 
 
@@ -7,7 +8,9 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
 
     for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
 
-        print(path)
+        uid = pwd.getpwnam(ownership[0]).pw_uid
+        gid = pwd.getpwnam(ownership[1]).pw_gid
+
         for dir in dir_names:
             path = os.path.join(copy_dst, dir)
             print('Path: ', os.path.join(path, dir))
@@ -15,7 +18,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
                 print('Creating new directories for: ', os.path.join(path, dir))
                 os.makedirs(os.path.join(path, dir), mode=dir_mode)
                 shutil.chown(os.path.join(path, dir),
-                             user=ownership[0], group=ownership[1])
+                             uid=uid, gid=gid)
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
@@ -23,7 +26,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
             shutil.copyfile(os.path.join(dir_path, file),
                             os.path.join(path, file))
             shutil.chown(os.path.join(path, file),
-                         user=ownership[0], group=ownership[1])
+                         uid=uid, gid=gid)
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

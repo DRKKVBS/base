@@ -26,7 +26,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
             print('Copy file: ', file, ' to ', new_root_dir)
             shutil.copyfile(os.path.join(root_dir, file),
                             os.path.join(new_root_dir, file))
-            os.chown(new_root_dir, uid=uid, gid=gid)
+            os.chown(os.path.join(new_root_dir, file), uid=uid, gid=gid)
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

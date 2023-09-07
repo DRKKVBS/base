@@ -27,29 +27,29 @@ def setup(data_directory: str, script_directory:str):
         utils.copy_recursive(f'{data_directory}/DesktopEntries/',
                              f'/home/{u}/.local/share/applications/', dir_mode=700, ownership=(u, u), ignore=[])
 
-        # for file in os.listdir('/usr/share/applications/'):
-        #     content = ""
-        #     if os.path.exists(f'/home/{u}/.local/share/applications/{file}'):
-        #         subprocess.run(
-        #             f'chattr -i /home/{u}/.local/share/applications/{file}', shell=True)
-        #     with open(f'/usr/share/applications/{file}', 'r') as f1:
-        #         content = f1.read()
-        #         if 'NoDisplay=true' in content:
-        #             continue
-        #     shutil.copyfile(
-        #         f'/usr/share/applications/{file}', f'/home/{u}/.local/share/applications/{file}')
-        #     with open(f'/home/{u}/.local/share/applications/{file}', 'w') as f2:
-        #         if 'NoDisplay=false' in content and file not in desktop_entries:
-        #             content = content.replace(
-        #                 'NoDisplay=false', 'NoDisplay=true')
-        #         elif file not in desktop_entries:
-        #             content = content.replace(
-        #                 '[Desktop Entry]', '[Desktop Entry]\nNoDisplay=true')
-        #         f2.write(content)
-        #     subprocess.run(
-        #         f'chattr +i /home/{u}/.local/share/applications/{file}', shell=True)
-        # subprocess.run(
-        #     f'chattr +i /home/{u}/.local/share/applications/', shell=True)
+        for file in os.listdir('/usr/share/applications/'):
+            content = ""
+            if os.path.exists(f'/home/{u}/.local/share/applications/{file}'):
+                subprocess.run(
+                    f'chattr -i /home/{u}/.local/share/applications/{file}', shell=True)
+            with open(f'/usr/share/applications/{file}', 'r') as f1:
+                content = f1.read()
+                if 'NoDisplay=true' in content:
+                    continue
+            shutil.copyfile(
+                f'/usr/share/applications/{file}', f'/home/{u}/.local/share/applications/{file}')
+            with open(f'/home/{u}/.local/share/applications/{file}', 'w') as f2:
+                if 'NoDisplay=false' in content and file not in desktop_entries:
+                    content = content.replace(
+                        'NoDisplay=false', 'NoDisplay=true')
+                elif file not in desktop_entries:
+                    content = content.replace(
+                        '[Desktop Entry]', '[Desktop Entry]\nNoDisplay=true')
+                f2.write(content)
+            subprocess.run(
+                f'chattr +i /home/{u}/.local/share/applications/{file}', shell=True)
+        subprocess.run(
+            f'chattr +i /home/{u}/.local/share/applications/', shell=True)
 
     # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',

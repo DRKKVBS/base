@@ -13,15 +13,15 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         path = dir_path.replace(copy_src, copy_dst)
         print(path)
         for dir in dir_names:
-            print('Path: ', os.path.join(path, dir))
+           # print('Path: ', os.path.join(path, dir))
             if not os.path.exists(os.path.join(path, dir)):
-                print('Creating new directories for: ', os.path.join(path, dir))
+                #print('Creating new directories for: ', os.path.join(path, dir))
                 os.makedirs(os.path.join(path, dir), mode=dir_mode)
                 os.chown(os.path.join(path, dir), uid=uid, gid=gid)
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
-            print('Copy file: ', file, ' to ', path)
+            #print('Copy file: ', file, ' to ', path)
             shutil.copyfile(os.path.join(dir_path, file),
                             os.path.join(path, file))
             os.chown(os.path.join(path, file), uid=uid, gid=gid)

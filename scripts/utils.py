@@ -7,25 +7,25 @@ import time
 def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple, ignore: list):
     """ Copy a Directory recursively, replacing old files and creating new directories if necessary. """
 
-    for dir_path, dir_names, file_names in os.walk(copy_src, topdown=True):
+    if os.path.isfile(copy_src):
+        shutil.copyfile(copy_src)
+
+    for root_dir, dir_names, file_names in os.walk(copy_src, topdown=True):
 
         uid = pwd.getpwnam(ownership[0]).pw_uid
-        gid = pwd.getpwnam(ownership[1]).pw_gid
-        path = dir_path.replace(copy_src, copy_dst)
-        print(path)
+        gid = pwd.getpwnam(ownership[1]).pw_gidf
         for dir in dir_names:
-            print('Path: ', os.path.join(path, dir))
-            if not os.path.exists(os.path.join(path, dir)):
-                print('Creating new directories for: ', os.path.join(path, dir))
-                os.mkdir(os.path.join(path, dir), mode=dir_mode)
-                os.chown(os.path.join(path, dir), uid=uid, gid=gid)
+            if not os.path.exists(root_dir):
+                print('Creating new directories for: ', root_dir)
+                os.mkdir(root_dir, mode=dir_mode)
+                os.chown(root_dir, uid=uid, gid=gid)
         for file in file_names:
             if len(ignore) > 0 and file in ignore:
                 continue
             # print('Copy file: ', file, ' to ', path)
-            shutil.copyfile(os.path.join(dir_path, file),
-                            os.path.join(path, file))
-            os.chown(os.path.join(path, file), uid=uid, gid=gid)
+            shutil.copyfile(os.path.join(root_dir, file),
+                            os.path.join(root_dir.replace(copy_src, copy_dst), file))
+            os.chown(root_dir.replace(copy_src, copy_dst), uid=uid, gid=gid)
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

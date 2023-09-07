@@ -39,7 +39,7 @@ def setup(data_directory: str, script_directory: str):
 
         for file in os.listdir(f'{data_directory}/DesktopEntries/'):
             shutil.copyfile(os.path.join(
-                f'{data_directory}/DesktopEntries/', file), f'/home/{u}/.local/share/applications/')
+                f'{data_directory}/DesktopEntries/', file), f'/home/{u}/.local/share/applications/{file}')
 
         for file in os.listdir('/usr/share/applications/'):
             content = ""

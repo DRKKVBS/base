@@ -13,13 +13,10 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         gid = pwd.getpwnam(ownership[1]).pw_gid
         path = dir_path.replace(copy_src, copy_dst)
         print(path)
-        time.sleep(1)
         for dir in dir_names:
             print('Path: ', os.path.join(path, dir))
-            time.sleep(1)
             if not os.path.exists(os.path.join(path, dir)):
                 print('Creating new directories for: ', os.path.join(path, dir))
-                time.sleep(2)
                 os.mkdir(os.path.join(path, dir), mode=dir_mode)
                 os.chown(os.path.join(path, dir), uid=uid, gid=gid)
         for file in file_names:

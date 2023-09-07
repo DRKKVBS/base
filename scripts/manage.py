@@ -63,7 +63,7 @@ if __name__ == '__main__':
                          ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
 
     # Start the linux installation
-    #installation.install(data_directory, hostname)
+    installation.install(data_directory, hostname)
 
     # Copy the files
     utils.copy_recursive(
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     subprocess.run(
         'arch-chroot /mnt/archinstall python /home/admin/drk-arch/scripts/configuration.py', shell=True)
 
-    #Delete Downloaded git repo
+    # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0])

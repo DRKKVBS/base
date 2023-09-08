@@ -67,7 +67,12 @@ def setup(data_directory: str, script_directory: str):
                  f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
         if not os.path.exists(v):
             os.makedirs(v)
-        shutil.copytree(k,v, dirs_exist_ok=True)
+        if os.path.isdir(k):
+            shutil.copytree(k,v, dirs_exist_ok=True)
+        else:
+            shutil.copyfile(k,v)
+
+
         
 
     # Copy files

@@ -64,7 +64,7 @@ def setup(data_directory: str, script_directory: str):
 
     # # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
-                 f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
+                 f'{data_directory}/drk-logo.png': '/usr/share/logos/drk-logo.png', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
         if not os.path.exists(v):
             os.makedirs(v)
         if os.path.isdir(k):

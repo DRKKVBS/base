@@ -65,7 +65,10 @@ def setup(data_directory: str, script_directory: str):
     # # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
                  f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
-        utils.copy_recursive(k, v, 755, ("root", "root"), ignore=[])
+        if not os.path.exists(v):
+            os.makedirs(v)
+        shutil.copytree(k,v, dirs_exist_ok=True)
+        
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',

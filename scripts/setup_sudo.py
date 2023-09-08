@@ -17,7 +17,6 @@ def setup(data_directory: str, script_directory: str):
         uid = pwd.getpwnam(u).pw_uid
         gid = pwd.getpwnam(u).pw_gid
 
-
         if not os.path.exists(f'/home/{u}/.config/environment.d/'):
             os.makedirs(f'/home/{u}/.config/environment.d/')
             os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
@@ -64,16 +63,11 @@ def setup(data_directory: str, script_directory: str):
 
     # # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
-                 f'{data_directory}/drk-logo.png': '/usr/share/logos/drk-logo.png', f'{data_directory}/firefox/policies': '/etc/firefox/policies/'}.items():
+                 f'{data_directory}/drk-logo.png': '/usr/share/logos', f'{data_directory}/firefox/policies': '/etc/firefox/policies'}.items():
         if not os.path.exists(v):
             os.makedirs(v)
-        if os.path.isdir(k):
-            shutil.copytree(k,v, dirs_exist_ok=True)
-        else:
-            shutil.copyfile(k,v)
-
-
-        
+            shutil.copytree(k, v, dirs_exist_ok=True)
+    
 
     # Copy files
     for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',
@@ -90,8 +84,6 @@ def setup(data_directory: str, script_directory: str):
 
 
 if __name__ == '__main__':
-    dwn_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0] + 'data'
-    script_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0] + 'scripts'
-    setup(dwn_dir, script_dir)
+    root_dir = os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0]
+    setup(os.path.join(root_dir, 'data'), os.path.join(root_dir, 'scripts'))

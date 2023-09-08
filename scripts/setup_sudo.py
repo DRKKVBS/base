@@ -17,9 +17,6 @@ def setup(data_directory: str, script_directory: str):
         uid = pwd.getpwnam(u).pw_uid
         gid = pwd.getpwnam(u).pw_gid
 
-        with open(f'{data_directory}/setup.json', 'r') as f:
-            setup_json = json.load(f)
-            pkgs = setup_json['after_install_pkgs']
 
         if not os.path.exists(f'/home/{u}/.config/environment.d/'):
             os.makedirs(f'/home/{u}/.config/environment.d/')

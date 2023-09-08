@@ -1,7 +1,6 @@
 import os
 import pwd
 import shutil
-import time
 
 
 def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple, ignore: list):
@@ -11,7 +10,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
         shutil.copyfile(copy_src)
 
     if not os.path.exists(copy_dst):
-        os.makedirs(new_root_dir, mode=dir_mode)
+        os.makedirs(copy_dst, mode=dir_mode)
 
     for root_dir, _, file_names in os.walk(copy_src, topdown=True):
         new_root_dir = os.path.join(root_dir.replace(copy_src, copy_dst))

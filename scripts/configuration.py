@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import setup_sudo
 
@@ -11,6 +12,9 @@ def configure(file_directory, script_directory):
 
     subprocess.run(
         'sudo -i -u admin', input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', text=True, shell=True)
+    
+    shutil.copyfile(f'{script_directory}/after_reboot.sh', '/home/admin/after_reboot.sh')
+    os.chmod('/home/admin/after_reboot.sh', mode=744)
 
 
 if __name__ == '__main__':

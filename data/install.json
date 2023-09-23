@@ -1,6 +1,7 @@
 {
   "pkgs": [
     "firefox",
+    "glibc",
     "gnome-backgrounds",
     "gnome-terminal",
     "gnome-shell",

@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=Shutdown
+Name[en_GB]=Shutdown
+Name[de]=Herunterfahren
+Name=Shutdown
+Comment[en_CA]=Shutdown the system
+Comment[en_GB]=Shutdown the system
+Comment[de]=Fährt das System herunter
+Comment=Shutdown the system
+Exec=/usr/bin/gnome-session-quit --power-off
+Icon=system-shutdown
+Terminal=false
+NoDisplay=false

@@ -11,10 +11,13 @@ def configure(file_directory, script_directory):
     setup_sudo.setup(data_directory, script_directory)
 
     subprocess.run(
-        'sudo -i -u admin', input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', text=True, shell=True)
+        ['sudo', '-i', '-u', 'admin'], input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', text=True, shell=False)
     
-    shutil.copyfile(f'{script_directory}/after_reboot.sh', '/home/admin/after_reboot.sh')
     os.chmod('/home/admin/after_reboot.sh', mode=744)
+    subprocess.run(['/home/admin/after_reboot.sh'], shell=False)
+
+    with open('/var/log/os', 'w') as f:
+        f.write('Version 1.0')
 
 
 if __name__ == '__main__':

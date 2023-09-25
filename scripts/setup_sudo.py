@@ -41,7 +41,7 @@ def setup(data_directory: str, script_directory: str):
             content = ""
             if os.path.exists(f'/home/{u}/.local/share/applications/{file}'):
                 subprocess.run(
-                    f'chattr -i /home/{u}/.local/share/applications/{file}', shell=True)
+                    ['chattr', '-i', f'/home/{u}/.local/share/applications/{file}'], shell=False)
             with open(f'/usr/share/applications/{file}', 'r') as f1:
                 content = f1.read()
                 if 'NoDisplay=true' in content:
@@ -57,9 +57,9 @@ def setup(data_directory: str, script_directory: str):
                         '[Desktop Entry]', '[Desktop Entry]\nNoDisplay=true')
                 f2.write(content)
             subprocess.run(
-                f'chattr +i /home/{u}/.local/share/applications/{file}', shell=True)
+                ['chattr', '+i', f'/home/{u}/.local/share/applications/{file}'], shell=False)
         subprocess.run(
-            f'chattr +i /home/{u}/.local/share/applications/', shell=True)
+            ['chattr', '+i', f'/home/{u}/.local/share/applications/'], shell=False)
 
     # # Copy directories
     for k, v in {f'{data_directory}/AccountsService': '/var/lib/AccountsService', f'{data_directory}/dconf': '/etc/dconf',
@@ -67,20 +67,20 @@ def setup(data_directory: str, script_directory: str):
         if not os.path.exists(v):
             os.makedirs(v)
         shutil.copytree(k, v, dirs_exist_ok=True)
-    
 
     # Copy files
-    for k, v in {f'{data_directory}/firefox/FirefoxAutostart.desktop': '/etc/xdg/autostart/FirefoxAutostart.desktop',
+    for k, v in {f'{data_directory}/firefox/myWorkspaceAutostart.desktop': '/etc/xdg/autostart/myWorkspaceAutostart.desktop',
                  f'{data_directory}/gdm.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
         shutil.copyfile(k, v)
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
-    for cmd in ['dconf update', 'usermod -G user user', 'passwd -d user', 'grub-mkconfig -o /boot/grub/grub.cfg']:
-        print(cmd)
-        subprocess.run(cmd, shell=True)
+    for cmd in [['dconf', 'update'], ['usermod', '-G', 'user', 'user'],
+                ['passwd', '-d', 'user'], ['grub-mkconfig', '-o', '/boot/grub/grub.cfg']]:
+        subprocess.run(cmd, shell=False)
 
     if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
-        subprocess.run(f'python {script_directory}/setup_sudo_add.py')
+        subprocess.run(
+            ['python', f'{script_directory}/setup_sudo_add.py'], shell=False)
 
 
 if __name__ == '__main__':

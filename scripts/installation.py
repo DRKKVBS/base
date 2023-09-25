@@ -21,7 +21,7 @@ def install(file_directory: str, hostname="drk-bs-client"):
 
     disks = {}
     diskSize = []
-    for d in subprocess.run(["fdisk", "-l"], check=True,
+    for d in subprocess.run(['fdisk', '-l'], check=True,
                             text=True, capture_output=True).stdout.split("\n\n\n"):
         disk = d.split("\n")[0]
         size = int(re.findall("(?<=,\s)(.*)(?=\sbytes)", disk)[0])
@@ -33,7 +33,7 @@ def install(file_directory: str, hostname="drk-bs-client"):
         if v == max(diskSize):
             hardware_info['disk'] = (k, v)
 
-    for e in subprocess.run(["lspci"], check=True,
+    for e in subprocess.run(['lspci'], check=True,
                             text=True, capture_output=True).stdout.splitlines():
         if "VGA" in e:
             hardware_info['vga'] = e
@@ -220,9 +220,9 @@ def install(file_directory: str, hostname="drk-bs-client"):
 
     try:
         print('THE INSTALLATION HAS BEEN STARTED')
-        subprocess.run(["archinstall",
-                        "--config", json.dumps(config),
-                        "--creds", json.dumps(creds), "--silent"],
+        subprocess.run(['archinstall',
+                        '--config', json.dumps(config),
+                        '--creds', json.dumps(creds),'--silent'],
                        check=True, text=True)
     except Exception as e:
         print(e)

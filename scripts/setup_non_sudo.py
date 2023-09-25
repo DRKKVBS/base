@@ -11,13 +11,14 @@ def setup(file_directory: str):
 
     # Install yay
     print('Installing yay')
-    p = subprocess.Popen(args="git clone https://aur.archlinux.org/yay && cd yay/ && makepkg -si --noconfirm && cd && rm -rf yay/", group="admin", user="admin", shell=True)
+    subprocess.Popen(args=['git', 'clone', 'https://aur.archlinux.org/yay', '&&', 'cd', 'yay/', '&&', 'makepkg',
+                     '-si', '--noconfirm', '&&', 'cd', '&&', 'rm', '-rf', 'yay/'], group="admin", user="admin", shell=False)
 
     # Install third party packages
     for pkg in aur_pkgs:
         try:
             print(f'Installing {pkg}')
-            subprocess.run(f'yay -S {pkg} --noconfirm', shell=True)
+            subprocess.run(['yay', '-S', pkg, '--noconfirm'], shell=False)
         except Exception as e:
             print(
                 f'AN ERROR OCCURED! {str(pkg).upper()} COULD NOT BE INSTALLED!')

@@ -33,7 +33,7 @@ def copy_recursive(copy_src: str, copy_dst: str, dir_mode: int, ownership: tuple
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):
-    """ Merge two json files. Extending lists and dictonaries and update values."""
+    """ Merge two json files. Extending lists or dictonaries and update values."""
     for k, v in dict1.items():
         if type(v) == list:
             dict2[k].extend(v)

@@ -25,8 +25,8 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--Type', action='store', required=True, type=str, choices=['thin', 'mobile', 'mpg', 'hnr'],
                         help='Type of Device.')
 
-    parser.add_argument('-c', '--Configuration', action='store', required=False, type=str,
-                        choices=['mpg', 'hnr'], help='Type of Configuration to be used.')
+    parser.add_argument('-c', '--Configuration', action='store', required=True, type=str,
+                        choices=['base', 'mpg', 'hnr'], help='Type of Configuration to be used.')
 
     parser.add_argument('-hn', '--Hostname', action='store', type=str,
                         help='The hostname of the new system.')
@@ -51,38 +51,42 @@ if __name__ == '__main__':
         case 'mpg':
             config = 'mpg'
         case _:
-            config = ''
+            config = 'base'
 
-    subprocess.run(
-        ['git', 'clone', f'https://github.com/DRKKVBS/{branch}', download_directory], shell=False)
-    hostname = f'drk-bs-{branch}'
+    if args.Hostname != None:
+        hostname = args.Hostname
+    else:
+        hostname = f'drk-bs-{args.Type}-{args.Configuration}'
 
     # Merge and copy configuration files
-    for config_file in ['install.json', 'setup.json', 'users.json']:
-        if not os.path.exists(f'{download_directory}/data/{config_file}'):
-            continue
-        with open(f'{data_directory}/{config_file}', 'r+') as f_setup, open(f'{download_directory}/data/{config_file}', 'r') as f_download:
-            setup_data = json.load(f_setup)
-            setup_download = json.load(f_download)
-            merged_data = utils.merge_and_update_dicts(
-                setup_data, setup_download)
-            f_setup.seek(0)
-            f_setup.truncate()
-            json.dump(merged_data, f_setup)
-
-    utils.copy_recursive(copy_src=f'{download_directory}/data', copy_dst=data_directory,
-                         ignore=['setup.json', 'install.json', 'users.json'], dir_mode=644, ownership=('root', 'root'))
+    with open(f'{root_directory}/configs/base.json', 'r+') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'r') as f_platform_config, open(f'{root_directory}/configs/config.json', 'r') as f_merged:
+        base_data = json.load(f_base)
+        config_data = json.load(f_config)
+        platform_config_data = json.load(f_platform_config)
+        merged_data = utils.merge_and_update_dicts(
+            base_data, config_data)
+        merged_data = utils.merge_and_update_dicts(
+            merged_data, platform_config_data)
+        f_merged.seek(0)
+        f_merged.truncate()
+        json.dump(merged_data, f_merged)
+        shutil.copy(f'{root_directory}/configs/config.json',
+                    f'{root_directory}/configs/config.json')
 
     # Start the linux installation
-    installation.install(data_directory, hostname)
+    installation.install(f'{root_directory}/configs/', hostname)
 
-    # Copy the files
-    utils.copy_recursive(
-        root_directory, '/mnt/archinstall/home/admin/drk-arch/', 777, ('root', 'root'), ignore=['installation.py', 'install.py'])
+    # Copy the files for post install configuration
+    shutil.copytree(
+        data_directory, f'{root_directory}/post_install/', dirs_exist_ok=True)
+    shutil.copytree(f'{root_directory}/type/{args.Type}',
+                    f'{root_directory}/post_install/', dirs_exist_ok=True)
+    shutil.copytree(f'{root_directory}/post_install/',
+                    '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)
 
     # Start the configuration in the arch-chroot environment
-    subprocess.run(
-        ['arch-chroot', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False)
+    # subprocess.run(
+    #     ['arch-chroot', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False)
 
     # Delete Downloaded git repo
     shutil.rmtree(os.path.realpath(

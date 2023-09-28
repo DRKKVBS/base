@@ -1,3 +1,0 @@
-[org/gnome/online-accounts]
-# A list of strings representing the providers that are allowed to be loaded (default: 'all')
-whitelisted-providers=['']

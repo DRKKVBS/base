@@ -1,7 +1,0 @@
-[org/gnome/desktop/media-handling]
-# If set to true, Nautlius will automatically mount media on start-up and media insertion
-automount=false
-# If set to true, Nautilus will automatically open a folder when media is automounted
-automount-open=false
-# If set to true, then Nautilus will never prompt nor autorun/autostart programs when a medium is inserted
-autorun-never=true

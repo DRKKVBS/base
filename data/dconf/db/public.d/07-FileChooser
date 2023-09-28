@@ -1,3 +1,0 @@
-[org/gtk/Settings/FileChooser]
-# Controls whether the file chooser shows hidden files or not
-show-hidden-files=false

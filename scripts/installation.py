@@ -4,16 +4,13 @@ import subprocess
 import re
 
 
-def install(file_directory: str, hostname="drk-bs-client"):
+def install(config_directory: str, hostname="drk-bs-client"):
     
-    # Get package and service data
-    with open(f'{file_directory}/install.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        f.close()
-
-    # Get user data
-    with open(f'{file_directory}/users.json', 'r', encoding='utf-8') as f:
-        users = json.load(f)
+    # Get package, service and user data
+    with open(f'{config_directory}/config.json', 'r', encoding='utf-8') as f:
+        file_content = json.load(f)
+        data = file_content['install']
+        users =file_content['users']
         f.close()
 
     # Read out the hardware information of the system

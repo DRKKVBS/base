@@ -59,7 +59,7 @@ if __name__ == '__main__':
         hostname = f'drk-bs-{args.Type}-{args.Configuration}'
 
     # Merge and copy configuration files
-    with open(f'{root_directory}/configs/base.json', 'r+') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r+') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'x') as f_platform_config, open(f'{root_directory}/configs/config.json', 'r+') as f_merged:
+    with open(f'{root_directory}/configs/base.json', 'r') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'r') as f_platform_config, open(f'{root_directory}/configs/config.json', 'x') as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
         platform_config_data = json.load(f_platform_config)
@@ -67,8 +67,6 @@ if __name__ == '__main__':
             base_data, config_data)
         merged_data = utils.merge_and_update_dicts(
             merged_data, platform_config_data)
-        f_merged.seek(0)
-        f_merged.truncate()
         json.dump(merged_data, f_merged)
         shutil.copy(f'{root_directory}/configs/config.json',
                     f'{root_directory}/configs/config.json')

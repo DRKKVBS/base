@@ -4,15 +4,14 @@ import shutil
 import subprocess
 
 
-def setup(data_directory: str):
-    with open(f'{data_directory}/config.json', 'r') as f:
+def setup(root_directory: str):
+    with open(f'{root_directory}/config.json', 'r') as f:
         setup_json = json.load(f)
         aur_pkgs = setup_json['post_install']['aur_pkgs']
 
     # Install yay
     print('Installing yay')
-    subprocess.Popen(args=['git', 'clone', 'https://aur.archlinux.org/yay', '&&', 'cd', 'yay/', '&&', 'makepkg',
-                     '-si', '--noconfirm', '&&', 'cd', '&&', 'rm', '-rf', 'yay/'], group="admin", user="admin", shell=False)
+    subprocess.Popen(args='git clone https://aur.archlinux.org/yay && cd yay/ && makepkg -si --noconfirm && cd && rm -rf yay/', group="admin", user="admin", shell=False)
 
     # Install third party packages
     for pkg in aur_pkgs:
@@ -28,6 +27,6 @@ def setup(data_directory: str):
 
 
 if __name__ == "__main__":
-    dwn_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0] + 'data'
-    setup(dwn_dir)
+    root_directory = os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0]
+    setup(root_directory)

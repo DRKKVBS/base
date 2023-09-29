@@ -89,5 +89,5 @@ if __name__ == '__main__':
     #     ['arch-chroot', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False)
 
     # Delete Downloaded git repo
-    shutil.rmtree(os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0])
+    # shutil.rmtree(os.path.realpath(
+    #     os.path.dirname(__file__)).split('scripts')[0])

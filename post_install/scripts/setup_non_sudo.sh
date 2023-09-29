@@ -1,6 +1,5 @@
 #! /bin/bash
-sudo -i -u admin
-pwd
+pwd | sudo -i -u admin 
 env
 git -C /home/admin clone https://aur.archlinux.org/yay
 cd ./yay/ && makepkg -si --noconfirm

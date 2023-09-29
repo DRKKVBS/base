@@ -3,7 +3,6 @@ import pwd
 import subprocess
 import os
 import shutil
-import utils
 
 
 def setup(data_directory: str, script_directory: str):

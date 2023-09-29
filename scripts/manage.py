@@ -68,8 +68,7 @@ if __name__ == '__main__':
         merged_data = utils.merge_and_update_dicts(
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
-    if not os.path.exists(f'{root_directory}/post_install/'):
-        os.mkdir(f'{root_directory}/post_install/')
+
     shutil.copy(f'{root_directory}/configs/config.json',
                 f'{root_directory}/post_install/')
 
@@ -78,9 +77,9 @@ if __name__ == '__main__':
 
     # Copy the files for post install configuration
     shutil.copytree(
-        data_directory, f'{root_directory}/post_install/', dirs_exist_ok=True)
+        data_directory, f'{root_directory}/post_install/data', dirs_exist_ok=True)
     shutil.copytree(f'{root_directory}/type/{args.Type}',
-                    f'{root_directory}/post_install/', dirs_exist_ok=True)
+                    f'{root_directory}/post_install/data', dirs_exist_ok=True)
     shutil.copytree(f'{root_directory}/post_install/',
                     '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)
 

@@ -1,5 +1,5 @@
 #! /bin/bash
-cd /home/admin
+sudo -i -u admin
 pwd
 env
 git -C /home/admin clone https://aur.archlinux.org/yay

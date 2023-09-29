@@ -69,7 +69,7 @@ if __name__ == '__main__':
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
         shutil.copy(f'{root_directory}/configs/config.json',
-                    f'{root_directory}/post_install/config.json')
+                    f'{root_directory}/post_install/')
 
     # Start the linux installation
     #installation.install(f'{root_directory}/configs/', hostname)

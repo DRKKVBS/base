@@ -7,8 +7,9 @@ import shutil
 
 def setup(data_directory: str, script_directory: str):
 
-    with open(f'{data_directory}/users.json', 'r') as f:
-        users_json = json.load(f)
+    with open(f'{data_directory}/config.json', 'r') as f:
+        setup_json = json.load(f)
+        users_json = setup_json['users']
 
     # Setup user specific configuration
     for u, d in users_json.items():
@@ -16,12 +17,11 @@ def setup(data_directory: str, script_directory: str):
         uid = pwd.getpwnam(u).pw_uid
         gid = pwd.getpwnam(u).pw_gid
 
-        if not os.path.exists(f'/home/{u}/.config/environment.d/'):
-            os.makedirs(f'/home/{u}/.config/environment.d/')
-            os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
-            os.chown(f'/home/{u}/.config/environment.d', uid=uid, gid=gid)
-        shutil.copyfile(f'{data_directory}/EnvironmentVariables/{u}',
-                        f'/home/{u}/.config/environment.d/variable.conf')
+        os.makedirs(f'/home/{u}/.config/environment.d/')
+        os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
+        os.chown(f'/home/{u}/.config/environment.d', uid=uid, gid=gid)
+        with open(f'/home/{u}/.config/environment.d/variables.conf', 'x') as f:
+            f.write(f"DCONF_PROFILE={d['environment_variables']['DCONF_PROFILE']}") 
 
         # Desktop Entries
         desktop_entries = d["desktop"]

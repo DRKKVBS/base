@@ -21,7 +21,7 @@
                 "icon": "/var/lib/AccountsService/icons/admin.jpg",
                 "systemAccount": true
             },
-            "environmentVarialbes": {
+            "environment_variables": {
                 "DCONF_PROFILE": "admin"
             }
         },
@@ -42,7 +42,7 @@
                 "icon": "/var/lib/AccountsService/icons/user.jpg",
                 "systemAccount": false
             },
-            "environmentVarialbes": {
+            "environment_variables": {
                 "DCONF_PROFILE": "admin"
             }
         }

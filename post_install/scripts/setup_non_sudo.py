@@ -4,10 +4,10 @@ import shutil
 import subprocess
 
 
-def setup(file_directory: str):
-    with open(f'{file_directory}/setup.json', 'r') as f:
+def setup(data_directory: str):
+    with open(f'{data_directory}/config.json', 'r') as f:
         setup_json = json.load(f)
-        aur_pkgs = setup_json['aur_pkgs']
+        aur_pkgs = setup_json['post_install']['aur_pkgs']
 
     # Install yay
     print('Installing yay')

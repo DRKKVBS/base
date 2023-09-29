@@ -68,8 +68,10 @@ if __name__ == '__main__':
         merged_data = utils.merge_and_update_dicts(
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
-        shutil.copy(f'{root_directory}/configs/config.json',
-                    f'{root_directory}/post_install/')
+    if not os.path.exists(f'{root_directory}/post_install/'):
+        os.mkdir(f'{root_directory}/post_install/')
+    shutil.copy(f'{root_directory}/configs/config.json',
+                f'{root_directory}/post_install/')
 
     # Start the linux installation
     #installation.install(f'{root_directory}/configs/', hostname)

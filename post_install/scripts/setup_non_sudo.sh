@@ -1,5 +1,6 @@
 #! /bin/bash
-cd /home/admin;
+cd /home/admin
+pwd
 git clone https://aur.archlinux.org/yay
 cd yay/ && makepkg -si --noconfirm
 cd && rm -rf yay/

@@ -12,11 +12,11 @@ def configure(root_directory: str):
         post_install_json = setup_json['post_install']
 
     setup_sudo.disable_sudo_password()
-    subprocess.run(
-        ['sudo', '-i', '-u', 'admin'], input=f'bash /home/admin/drk-arch/scripts/setup_non_sudo.sh {" ".join(post_install_json["aur_pkgs"])}', text=True, shell=False)
+    # subprocess.run(
+    #     ['sudo', '-i', '-u', 'admin'], input=f'bash /home/admin/drk-arch/scripts/setup_non_sudo.sh {" ".join(post_install_json["aur_pkgs"])}', text=True, shell=False)
     setup_sudo.reenable_sudo_password()
 
-    # setup_sudo.setup(data_directory, script_directory)
+    setup_sudo.setup(root_directory)
 
     # os.chmod('/home/admin/after_reboot.sh', mode=744)
     # subprocess.run(['/home/admin/after_reboot.sh'], shell=False)

@@ -1,3 +1,6 @@
+import os
+
+
 def merge_and_update_dicts(dict1: dict, dict2: dict):
     """ Merge two json files. Extending lists or dictonaries and update values."""
     for k, v in dict1.items():
@@ -14,3 +17,8 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
         else:
             dict1[k] = dict2[k]
     return dict2
+
+
+def dir_exists(path: str):
+    if not os.path.exists(path):
+        os.makedirs(path, exist_ok=True)

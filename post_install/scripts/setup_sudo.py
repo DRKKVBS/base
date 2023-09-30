@@ -4,7 +4,7 @@ import subprocess
 import os
 import shutil
 import setup_priviliged_type
-
+import utils
 
 def setup(root_directory: str):
 
@@ -76,6 +76,8 @@ def setup(root_directory: str):
                 f.write(f'{entry}={value}\n')
 
     # Setup dconf
+    utils.dir_exists('/etc/dconf/profiles/')
+    utils.dir_exists('/etc/dconf/db/')
     for profile, db in post_install_json['dconf']['profiles'].items():
         with open(f'/etc/dconf/profiles/{profile}', 'w+'):
             for user_db in db['user-dbs'].items():
@@ -86,8 +88,7 @@ def setup(root_directory: str):
                 f.write('file-db=' + file_db+'\n')
 
     for k, v in post_install_json['dconf']['dbs'].item():
-        if not os.path.exists(f'/etc/dconf/db/{k}'):
-            os.mkdir(f'/etc/dconf/db/{k}.d')
+        utils.dir_exists(f'/etc/dconf/db/{k}')
         if 'locks' in v.keys():
             os.mkdir(f'/etc/dconf/db/{k}.d/locks')
             for file, content in v['locks'].items():
@@ -99,20 +100,17 @@ def setup(root_directory: str):
                     f.write(f'{k2}={v2}\n')
 
     # Copy Logos
-    if not os.path.exists('/usr/share/logos/'):
-        os.makedirs('/usr/share/logos/')
+    utils.dir_exists('/usr/share/logos/')
     shutil.copytree(f'{root_directory}/data/images/logos/',
                     '/usr/share/logos/', dirs_exist_ok=True)
 
     # Copy Icons
-    if not os.path.exists('/var/lib/AccountsService/icons'):
-        os.makedirs('/var/lib/AccountsService/icons')
+    utils.dir_exists('/var/lib/AccountsService/icons')
     shutil.copytree(f'{root_directory}/data/images/icons/',
                     '/var/lib/AccountsService/icons', dirs_exist_ok=True)
 
     # Firefox
-    if not os.path.exists('/usr/share/firefox/'):
-        os.makedirs('/usr/share/firefox/', exist_ok=True)
+    utils.dir_exists('/usr/share/firefox/')
     shutil.copytree(f'{root_directory}/data/firefox/', '/usr/share/firefox/')
     setup_priviliged_type.setup(root_directory)
     setup_priviliged_type.add_autostart_apps(root_directory)

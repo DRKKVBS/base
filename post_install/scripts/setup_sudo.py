@@ -78,11 +78,11 @@ def setup(root_directory: str):
     # Setup dconf
     for profile, db in post_install_json['dconf']['profiles']:
         with open(f'/etc/dconf/profiles/{profile}'):
-            for user_db in db['user-dbs']:
+            for user_db in db['user-dbs'].items():
                 f.write('user-db=' + user_db+'\n')
-            for system_db in db['system-dbs']:
+            for system_db in db['system-dbs'].items():
                 f.write('system-db=' + system_db+'\n')
-            for file_db in db['file-dbs']:
+            for file_db in db['file-dbs'].items():
                 f.write('file-db=' + file_db+'\n')
 
     for k, v in post_install_json['dconf']['dbs'].item():
@@ -90,7 +90,7 @@ def setup(root_directory: str):
             os.mkdir(f'/etc/dconf/db/{k}.d')
         if 'locks' in v.keys():
             os.mkdir(f'/etc/dconf/db/{k}.d/locks')
-            for file, content in v['locks']:
+            for file, content in v['locks'].items():
                 with open(f'/etc/dconf/db/{k}.d/locks/{file}', 'w+') as f:
                     f.write(content+'\n')
         for k1, v1 in v.items():

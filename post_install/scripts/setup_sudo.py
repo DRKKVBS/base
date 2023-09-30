@@ -95,6 +95,7 @@ def setup(root_directory: str):
                 with open(f'/etc/dconf/db/{k}.d/locks/{file}', 'w+') as f:
                     f.write(content+'\n')
         for k1, v1 in v.items():
+            utils.dir_exists(f'/etc/dconf/db/{k}.d/{k1}')
             with open(f'/etc/dconf/db/{k}.d/{k1}', 'w+') as f:
                 for k2, v2 in v1.items():
                     f.write(f'{k2}={v2}\n')

@@ -14,7 +14,7 @@ def configure(root_directory):
 
 
     subprocess.run(
-        ['sudo', '-i', '-u', 'admin'], input=f'bash /home/admin/drk-arch/scripts/setup_non_sudo.sh {lst}', text=True, shell=False)
+        ['sudo', '-i', '-u', 'admin'], input=f'bash /home/admin/drk-arch/scripts/setup_non_sudo.sh {p}', text=True, shell=False)
     
     #setup_sudo.setup(data_directory, script_directory)
 

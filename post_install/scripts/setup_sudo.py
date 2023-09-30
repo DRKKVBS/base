@@ -136,11 +136,11 @@ def setup(root_directory: str):
 
 
 def disable_sudo_password():
-    with open('/etc/sudoers.d/admin', 'w+') as f:
+    with open('/etc/sudoers.d/00_admin', 'w+') as f:
         f.write('admin ALL=(ALL) NOPASSWD: ALL')
 
 def reenable_sudo_password():
-    os.remove('/etc/sudoers.d/admin')
+    os.remove('/etc/sudoers.d/00_adminvim ')
 
 
 

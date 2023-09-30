@@ -3,11 +3,12 @@ import pwd
 import subprocess
 import os
 import shutil
+import setup_priviliged_type
 
 
-def setup(data_directory: str, script_directory: str):
+def setup(root_directory: str):
 
-    with open(f'{data_directory}/config.json', 'r') as f:
+    with open(f'{root_directory}/config.json', 'r') as f:
         setup_json = json.load(f)
         post_install_json = setup_json['post_install']
         users_json = setup_json['users']
@@ -21,9 +22,9 @@ def setup(data_directory: str, script_directory: str):
         os.makedirs(f'/home/{u}/.config/environment.d/')
         os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
         os.chown(f'/home/{u}/.config/environment.d', uid=uid, gid=gid)
-        with open(f'/home/{u}/.config/environment.d/variables.conf', 'x') as f:
+        with open(f'/home/{u}/.config/environment.d/variables.conf', 'w+') as f:
             f.write(
-                f"DCONF_PROFILE={d['environment_variables']['DCONF_PROFILE']}")
+                f"DCONF_PROFILE={d['environment_variables']['DCONF_PROFILE']}\n")
 
         # Desktop Entries
         desktop_entries = d["desktop"]
@@ -36,9 +37,11 @@ def setup(data_directory: str, script_directory: str):
             os.chown(f'/home/{u}/.local/share/applications/', uid=uid, gid=gid)
 
         # Copy the Desktop Files into the new directory
-        for file in os.listdir(f'{data_directory}/DesktopEntries/'):
+        for file in os.listdir(f'{root_directory}/data/DesktopEntries/'):
             shutil.copyfile(os.path.join(
-                f'{data_directory}/DesktopEntries/', file), f'/home/{u}/.local/share/applications/{file}')
+                f'{root_directory}/data/DesktopEntries/', file), f'/home/{u}/.local/share/applications/{file}')
+
+        setup_priviliged_type.add_desktop_apps(root_directory, u)
 
         # Make Dekstop Entries hidden
         for file in os.listdir('/usr/share/applications/'):
@@ -68,55 +71,71 @@ def setup(data_directory: str, script_directory: str):
             ['chattr', '+i', f'/home/{u}/.local/share/applications/'], shell=False)
 
         # Setup AccountsServive
-        with open(f'/var/lib/AccountsService/users/{u}', 'wx') as f:
+        with open(f'/var/lib/AccountsService/users/{u}', 'w+') as f:
             for entry, value in d['accountsservice']:
-                f.write(f'{entry}={value}')
-        shutil.copy(f'{data_directory}/images/{u}.jpg',
-                    f'/var/lib/AccountsService/icons/')
+                f.write(f'{entry}={value}\n')
 
     # Setup dconf
     for profile, db in post_install_json['dconf']['profiles']:
         with open(f'/etc/dconf/profiles/{profile}'):
             for user_db in db['user-dbs']:
-                f.write('user-db=', user_db)
+                f.write('user-db=' + user_db+'\n')
             for system_db in db['system-dbs']:
-                f.write('system-db=', system_db)
+                f.write('system-db=' + system_db+'\n')
             for file_db in db['file-dbs']:
-                f.write('file-db=', file_db)
+                f.write('file-db=' + file_db+'\n')
 
     for k, v in post_install_json['dconf']['dbs'].item():
         if not os.path.exists(f'/etc/dconf/db/{k}'):
-            os.mkdir(f'/etc/dconf/db/{k}')
+            os.mkdir(f'/etc/dconf/db/{k}.d')
         if 'locks' in v.keys():
-            os.mkdir(f'/etc/dconf/db/{k}/locks')
+            os.mkdir(f'/etc/dconf/db/{k}.d/locks')
             for file, content in v['locks']:
-                with open(f'/etc/dconf/db/{k}/locks/{file}') as f:
-                    f.writelines(content)
+                with open(f'/etc/dconf/db/{k}.d/locks/{file}', 'w+') as f:
+                    f.write(content+'\n')
+        for k1, v1 in v.items():
+            with open(f'/etc/dconf/db/{k}.d/{k1}', 'w+') as f:
+                for k2, v2 in v1.items():
+                    f.write(f'{k2}={v2}\n')
 
+    # Copy Logos
+    if not os.path.exists('/usr/share/logos/'):
+        os.makedirs('/usr/share/logos/')
+    shutil.copytree(f'{root_directory}/data/images/logos/',
+                    '/usr/share/logos/', dirs_exist_ok=True)
 
-    # Copy directories
-    for k, v in {f'{data_directory}/dconf': '/etc/dconf',
-                 f'{data_directory}/logos': '/usr/share/logos', f'{data_directory}/firefox': '/etc/firefox/policies'}.items():
-        if not os.path.exists(v):
-            os.makedirs(v)
-        shutil.copytree(k, v, dirs_exist_ok=True)
+    # Copy Icons
+    if not os.path.exists('/var/lib/AccountsService/icons'):
+        os.makedirs('/var/lib/AccountsService/icons')
+    shutil.copytree(f'{root_directory}/data/images/icons/',
+                    '/var/lib/AccountsService/icons', dirs_exist_ok=True)
 
-    # Copy files
-    for k, v in {f'{data_directory}/firefox/myWorkspaceAutostart.desktop': '/etc/xdg/autostart/myWorkspaceAutostart.desktop',
-                 f'{data_directory}/gdm.conf': '/etc/gdm/custom.conf', f'{data_directory}/grub': '/etc/default/grub'}.items():
-        shutil.copyfile(k, v)
+    # Firefox
+    if not os.path.exists('/usr/share/firefox/'):
+        os.makedirs('/usr/share/firefox/', exist_ok=True)
+    shutil.copytree(f'{root_directory}/data/firefox/', '/usr/share/firefox/')
+    setup_priviliged_type.setup(root_directory)
+    setup_priviliged_type.add_autostart_apps(root_directory)
+
+    with open('/etc/gdm/custom.conf', 'w+') as f, open(f'{root_directory}/gdm.conf', 'r') as f1:
+        f.write(f1.read())
+
+    with open('/etc/default/grub', 'w+') as f, open(f'{root_directory}/grub', 'r') as f1:
+        f.write(f1.read())
+    
+    setup_priviliged_type.setup_rest(root_directory)
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
     for cmd in [['dconf', 'update'], ['usermod', '-G', 'user', 'user'],
                 ['passwd', '-d', 'user'], ['grub-mkconfig', '-o', '/boot/grub/grub.cfg']]:
         subprocess.run(cmd, shell=False)
 
-    if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
-        subprocess.run(
-            ['python', f'{script_directory}/setup_sudo_add.py'], shell=False)
+    # if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
+    #     subprocess.run(
+    #         ['python', f'{script_directory}/setup_sudo_add.py'], shell=False)
 
 
 if __name__ == '__main__':
     root_dir = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0]
-    setup(os.path.join(root_dir, 'data'), os.path.join(root_dir, 'scripts'))
+    setup(root_dir)

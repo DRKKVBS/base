@@ -84,10 +84,18 @@ if __name__ == '__main__':
                     '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)
 
     # Start the configuration in the arch-chroot environment
-    #subprocess.run(
+
+    with open(f'{data_directory}/config.json', 'r') as f:
+        setup_json = json.load(f)
+        post_install_json = setup_json['post_install']
+        users_json = setup_json['users']
+    # subprocess.run(
     #    ['arch-chroot' '-u', 'admin', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/setup_non_sudo.py'], shell=False)
     subprocess.run(
-        ['arch-chroot' '-u', 'admin', '/mnt/archinstall', '/usr/bin/bash', '/home/admin/drk-arch/scripts/setup_non_sudo.sh'], shell=False)
+        ['arch-chroot' '-u', 'admin', '/mnt/archinstall', '/usr/bin/sudo', '-i', '-u', 'admin', '/home/admin/drk-arch/scripts/setup_non_sudo.sh', post_install_json["aur_pkgs"]], shell=False)
+    subprocess.run(
+        ['arch-chroot', '/mnt/archinstall', '/home/admin/drk-arch/scripts/setup_sudo.py', post_install_json["aur_pkgs"]], shell=False)
+
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
 #     os.path.dirname(__file__)).split('scripts')[0])

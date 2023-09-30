@@ -140,7 +140,7 @@ def disable_sudo_password():
         f.write('admin ALL=(ALL) NOPASSWD: ALL')
 
 def reenable_sudo_password():
-    os.remove('/etc/sudoers.d/00_adminvim ')
+    os.remove('/etc/sudoers.d/00_admin')
 
 
 

@@ -1,5 +1,5 @@
 #! /bin/bash
-git clone https://aur.archlinux.org/yay /home/admin
+git clone https://aur.archlinux.org/yay /home/admin/yay/
 cd ./yay/ && makepkg -si --noconfirm
 cd ./ && rm -rf ./yay/
 for pkg in "$@"; do

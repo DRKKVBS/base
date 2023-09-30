@@ -87,7 +87,7 @@ def setup(root_directory: str):
             for file_db in db['file-dbs']:
                 f.write('file-db=' + file_db+'\n')
 
-    for k, v in post_install_json['dconf']['dbs'].item():
+    for k, v in post_install_json['dconf']['dbs'].items():
         utils.dir_exists(f'/etc/dconf/db/{k}')
         if 'locks' in v.keys():
             os.mkdir(f'/etc/dconf/db/{k}.d/locks')

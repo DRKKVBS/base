@@ -77,7 +77,7 @@ def setup(root_directory: str):
 
     # Setup dconf
     for profile, db in post_install_json['dconf']['profiles'].items():
-        with open(f'/etc/dconf/profiles/{profile}'):
+        with open(f'/etc/dconf/profiles/{profile}', 'w+'):
             for user_db in db['user-dbs'].items():
                 f.write('user-db=' + user_db+'\n')
             for system_db in db['system-dbs'].items():

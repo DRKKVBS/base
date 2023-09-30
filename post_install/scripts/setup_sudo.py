@@ -122,7 +122,7 @@ def setup(root_directory: str):
 
     with open('/etc/default/grub', 'w+') as f, open(f'{root_directory}/grub', 'r') as f1:
         f.write(f1.read())
-    
+
     setup_priviliged_type.setup_rest(root_directory)
 
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
@@ -133,6 +133,16 @@ def setup(root_directory: str):
     # if os.path.exists(f'{script_directory}/setup_sudo_add.py'):
     #     subprocess.run(
     #         ['python', f'{script_directory}/setup_sudo_add.py'], shell=False)
+
+
+def disable_sudo_password():
+    with open('/etc/sudoers.d/admin', 'w+') as f:
+        f.write('admin ALL=(ALL) NOPASSWD: ALL')
+
+def reenable_sudo_password():
+    os.remove('/etc/sudoers.d/admin')
+
+
 
 
 if __name__ == '__main__':

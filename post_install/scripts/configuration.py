@@ -11,9 +11,9 @@ def configure(root_directory):
 
 
     subprocess.run(
-        ['sudo', '-i', '-u', 'admin'], input='python /home/admin/drk-arch/scripts/setup_non_sudo.py', text=True, shell=False)
+        ['sudo', '-i', '-u', 'admin'], input=f'python /home/admin/drk-arch/scripts/setup_non_sudo.sh {["teamviewer", "icaclient"]}', text=True, shell=False)
     
-    setup_sudo.setup(data_directory, script_directory)
+    #setup_sudo.setup(data_directory, script_directory)
 
     #os.chmod('/home/admin/after_reboot.sh', mode=744)
     #subprocess.run(['/home/admin/after_reboot.sh'], shell=False)

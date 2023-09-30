@@ -93,7 +93,9 @@ if __name__ == '__main__':
     #    ['arch-chroot' '-u', 'admin', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/setup_non_sudo.py'], shell=False)
     print(post_install_json["aur_pkgs"])
     subprocess.run(
-        ['arch-chroot', '-u', 'admin', '/mnt/archinstall', '/usr/bin/sudo', '-i', '-u', 'admin', 'bash', '/home/admin/drk-arch/scripts/setup_non_sudo.sh', post_install_json["aur_pkgs"]], shell=False, text=True)
+        ['arch-chroot', '/mnt/archinstall', '/usr/bin/python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False, text=True)
+    # subprocess.run(
+    #     ['arch-chroot', '-u', 'admin', '/mnt/archinstall', '/usr/bin/sudo', '-i', '-u', 'admin', 'bash', '/home/admin/drk-arch/scripts/setup_non_sudo.sh', post_install_json["aur_pkgs"]], shell=False, text=True)
 
     # subprocess.run(
     #     ['arch-chroot', '/mnt/archinstall', '/home/admin/drk-arch/scripts/setup_sudo.py', post_install_json["aur_pkgs"]], shell=False, text=True)

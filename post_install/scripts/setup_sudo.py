@@ -79,7 +79,7 @@ def setup(root_directory: str):
     utils.dir_exists('/etc/dconf/profiles/')
     utils.dir_exists('/etc/dconf/db/')
     for profile, db in post_install_json['dconf']['profiles'].items():
-        with open(f'/etc/dconf/profiles/{profile}', 'w+'):
+        with open(f'/etc/dconf/profiles/{profile}', 'w+') as f:
             for user_db in db['user-dbs']:
                 f.write('user-db=' + user_db+'\n')
             for system_db in db['system-dbs']:

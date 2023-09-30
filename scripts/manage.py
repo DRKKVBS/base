@@ -59,7 +59,7 @@ if __name__ == '__main__':
         hostname = f'drk-bs-{args.Type}-{args.Configuration}'
 
     # Merge and copy configuration files
-    with open(f'{root_directory}/configs/base.json', 'r') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'r') as f_platform_config, open(f'{root_directory}/configs/config.json', 'x') as f_merged:
+    with open(f'{root_directory}/configs/base.json', 'r') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'r') as f_platform_config, open(f'{root_directory}/configs/config.json', 'w+') as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
         platform_config_data = json.load(f_platform_config)
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     # Start the configuration in the arch-chroot environment
 
-    with open(f'{data_directory}/config.json', 'r') as f:
+    with open(f'{root_directory}/configs/config.json', 'r') as f:
         setup_json = json.load(f)
         post_install_json = setup_json['post_install']
         users_json = setup_json['users']

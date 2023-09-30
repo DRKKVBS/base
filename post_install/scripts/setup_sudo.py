@@ -31,7 +31,7 @@ def setup(root_directory: str):
 
         # Create Directories if they do not exist
         if not os.path.exists(f'/home/{u}/.local/share/applications/'):
-            os.makedirs(f'/home/{u}/.local/share/applications/')
+            os.makedirs(f'/home/{u}/.local/share/applications/', exist_ok=True)
             os.chown(f'/home/{u}/.local/', uid=uid, gid=gid)
             os.chown(f'/home/{u}/.local/share/', uid=uid, gid=gid)
             os.chown(f'/home/{u}/.local/share/applications/', uid=uid, gid=gid)

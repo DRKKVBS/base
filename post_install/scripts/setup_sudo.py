@@ -73,8 +73,8 @@ def setup(root_directory: str):
         # Setup AccountsServive
         with open(f'/var/lib/AccountsService/users/{u}', 'w+') as f:
             print(type(d['accountsservice']))
-            for entry, value in d['accountsservice']:
-                f.write(f'{entry}={value}\n')
+            for a, b in d['accountsservice']:
+                f.write(f'{a}={b}\n')
 
     # Setup dconf
     for profile, db in post_install_json['dconf']['profiles']:

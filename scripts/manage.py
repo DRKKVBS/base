@@ -4,7 +4,7 @@ import subprocess
 import os
 import argparse
 import installation
-import post_install.scripts.utils as utils
+import utils
 
 
 if __name__ == '__main__':
@@ -69,8 +69,10 @@ if __name__ == '__main__':
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
 
-    shutil.copy(f'{root_directory}/configs/config.json',
-                f'{root_directory}/post_install/')
+    shutil.copyfile(f'{root_directory}/configs/config.json',
+                f'{root_directory}/post_install/config.json')
+    shutil.copyfile(f'{root_directory}/scripts/utils.py',
+                f'{root_directory}/post_install/scripts/utils.py')
 
     # Start the linux installation
     # installation.install(f'{root_directory}/configs/', hostname)

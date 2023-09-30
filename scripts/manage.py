@@ -97,7 +97,6 @@ if __name__ == '__main__':
 
     subprocess.run(
         ['arch-chroot', '/mnt/archinstall', '/home/admin/drk-arch/scripts/setup_sudo.py', post_install_json["aur_pkgs"]], shell=False, text=True)
-
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
 #     os.path.dirname(__file__)).split('scripts')[0])

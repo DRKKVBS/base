@@ -91,7 +91,7 @@ def setup(root_directory: str):
     for k, v in post_install_json['dconf']['dbs'].items():
         utils.dir_exists(f'/etc/dconf/db/{k}')
         if 'locks' in v.keys():
-            os.mkdir(f'/etc/dconf/db/{k}.d/locks')
+            utils.dir_exists(f'/etc/dconf/db/{k}.d/locks/')
             for file, content in v['locks'].items():
                 with open(f'/etc/dconf/db/{k}.d/locks/{file}', 'w+') as f:
                     f.write(content+'\n')

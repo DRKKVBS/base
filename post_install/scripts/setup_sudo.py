@@ -4,7 +4,7 @@ import subprocess
 import os
 import shutil
 import setup_priviliged_type
-import scripts.utils as utils
+import utils
 
 def setup(root_directory: str):
 

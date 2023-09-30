@@ -4,7 +4,7 @@ import subprocess
 import os
 import argparse
 import installation
-import utils
+import post_install.scripts.utils as utils
 
 
 if __name__ == '__main__':

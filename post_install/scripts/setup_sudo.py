@@ -19,7 +19,7 @@ def setup(root_directory: str):
         uid = pwd.getpwnam(u).pw_uid
         gid = pwd.getpwnam(u).pw_gid
 
-        os.makedirs(f'/home/{u}/.config/environment.d/')
+        os.makedirs(f'/home/{u}/.config/environment.d/', exist_ok=True)
         os.chown(f'/home/{u}/.config/', uid=uid, gid=gid)
         os.chown(f'/home/{u}/.config/environment.d', uid=uid, gid=gid)
         with open(f'/home/{u}/.config/environment.d/variables.conf', 'w+') as f:

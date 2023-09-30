@@ -72,7 +72,7 @@ def setup(root_directory: str):
 
         # Setup AccountsServive
         with open(f'/var/lib/AccountsService/users/{u}', 'w+') as f:
-            print(d['accountsservice'])
+            print(type(d['accountsservice']))
             for entry, value in d['accountsservice']:
                 f.write(f'{entry}={value}\n')
 

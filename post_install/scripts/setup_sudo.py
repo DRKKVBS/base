@@ -6,6 +6,7 @@ import shutil
 import setup_priviliged_type
 import utils
 
+
 def setup(root_directory: str):
 
     with open(f'{root_directory}/config.json', 'r') as f:
@@ -95,7 +96,6 @@ def setup(root_directory: str):
                 with open(f'/etc/dconf/db/{k}.d/locks/{file}', 'w+') as f:
                     f.write(content+'\n')
         for k1, v1 in v.items():
-            utils.dir_exists(f'/etc/dconf/db/{k}.d/{k1}')
             with open(f'/etc/dconf/db/{k}.d/{k1}', 'w+') as f:
                 for k2, v2 in v1.items():
                     f.write(f'{k2}={v2}\n')
@@ -138,10 +138,9 @@ def disable_sudo_password():
     with open('/etc/sudoers.d/00_admin', 'w+') as f:
         f.write('admin ALL=(ALL) NOPASSWD: ALL')
 
+
 def reenable_sudo_password():
     os.remove('/etc/sudoers.d/00_admin')
-
-
 
 
 if __name__ == '__main__':

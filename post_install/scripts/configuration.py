@@ -10,7 +10,7 @@ def configure(root_directory):
     script_directory = os.path.join(root_directory, 'script')
 
     lst = ["teamviewer", "icaclient"]
-    p = ''.join(lst)
+    p = ' '.join(lst)
 
 
     subprocess.run(

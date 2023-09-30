@@ -73,6 +73,7 @@ def setup(root_directory: str):
         # Setup AccountsServive
         with open(f'/var/lib/AccountsService/users/{u}', 'w+') as f:
             for entry, value in d['accountsservice']:
+                print(entry, value)
                 f.write(f'{entry}={value}\n')
 
     # Setup dconf

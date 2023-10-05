@@ -81,8 +81,8 @@ if __name__ == '__main__':
     shutil.copytree(
         data_directory, f'{root_directory}/post_install/data', dirs_exist_ok=True)
     shutil.copytree(
-        data_directory, f'{root_directory}/post_install/scripts', dirs_exist_ok=True)
-    shutil.copytree(f'{root_directory}/scripts',
+        script_directory, f'{root_directory}/post_install/scripts', dirs_exist_ok=True)
+    shutil.copytree(f'{root_directory}/type/data/',
                     f'{root_directory}/post_install/data', dirs_exist_ok=True)
     shutil.copytree(f'{root_directory}/post_install/',
                     '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)

@@ -19,6 +19,6 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
     return dict2
 
 
-def dir_exists(path: str):
+def create_dir_not_exists(path: str):
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)

@@ -10,7 +10,7 @@ import utils
 if __name__ == '__main__':
 
     # Directories
-    root_directory = '/base'
+    root_directory = '/tmp/base'
     script_directory = os.path.join(root_directory, 'scripts')
 
     data_directory = os.path.join(root_directory, 'data')
@@ -70,9 +70,9 @@ if __name__ == '__main__':
         json.dump(merged_data, f_merged)
 
     shutil.copyfile(f'{root_directory}/configs/config.json',
-                f'{root_directory}/post_install/config.json')
+                    f'{root_directory}/post_install/config.json')
     shutil.copyfile(f'{root_directory}/scripts/utils.py',
-                f'{root_directory}/post_install/scripts/utils.py')
+                    f'{root_directory}/post_install/scripts/utils.py')
 
     # Start the linux installation
     # installation.install(f'{root_directory}/configs/', hostname)
@@ -80,20 +80,19 @@ if __name__ == '__main__':
     # Copy the files for post install configuration
     shutil.copytree(
         data_directory, f'{root_directory}/post_install/data', dirs_exist_ok=True)
+    shutil.copytree(
+        data_directory, f'{root_directory}/post_install/scripts', dirs_exist_ok=True)
     shutil.copytree(f'{root_directory}/type/{args.Type}',
                     f'{root_directory}/post_install/data', dirs_exist_ok=True)
     shutil.copytree(f'{root_directory}/post_install/',
                     '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)
 
     # Start the configuration in the arch-chroot environment
-
     with open(f'{root_directory}/configs/config.json', 'r') as f:
         setup_json = json.load(f)
         post_install_json = setup_json['post_install']
         users_json = setup_json['users']
-    # subprocess.run(
-    #    ['arch-chroot' '-u', 'admin', '/mnt/archinstall', 'python', '/home/admin/drk-arch/scripts/setup_non_sudo.py'], shell=False)
-    print(post_install_json["aur_pkgs"])
+
     subprocess.run(
         ['arch-chroot', '/mnt/archinstall', '/usr/bin/python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False, text=True)
     # subprocess.run(

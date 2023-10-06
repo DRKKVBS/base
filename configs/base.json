@@ -15,7 +15,10 @@
         "org.gnome.Nautilus.desktop",
         "shutdown.desktop",
         "reboot.desktop"
-      ]
+      ],
+      "environment_variables": {
+        "DCONF_PROFILE": "admin"
+      }
     },
     "user": {
       "!creds": {
@@ -28,7 +31,10 @@
         "FirefoxCitrix.desktop",
         "shutdown.desktop",
         "reboot.desktop"
-      ]
+      ],
+      "environment_variables": {
+        "DCONF_PROFILE": "user"
+      }
     }
   },
   "install": {

@@ -41,17 +41,18 @@ def configure(root_directory: str):
     setup_utils.grub("%s/data/grub" % root_directory)
     setup_utils.gdm("%s/data/gdm.conf" % root_directory)
     for user, data in users.items():
+        if user == 'admin':
+            gid = uid = 1000
+        else:
+            gid = uid = 1001
         for var, value in data['environment_variables'].items():
             setup_utils.environment_variable(
-                variable_name=var, variable_value=value, user=user)
+                variable_name=var, variable_value=value, user=user, gid=gid, uid=uid)
         for app in data['desktop']:
-            if user == 'admin':
-                gid = uid = 1000
-            else:
-                gid = uid = 1001
+            pass
 
             # setup_utils.desktop_apps("%s/data/DesktopEntries/" %
-                #  root_directory, user, gid, uid, app)
+            #  root_directory, user, gid, uid, app)
     setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
     setup_utils.firefox("%s/data/firefox/" % root_directory)
     setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)

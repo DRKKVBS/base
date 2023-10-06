@@ -22,6 +22,7 @@ def final_commands():
         ["dconf", "update"],
         ["usermod", "-G", "user", "user"],
         ["passwd", "-d", "user"],
+        ["passwd", "-l", "root"],
         ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"]
     ]
     for cmd in cmds:
@@ -73,11 +74,7 @@ def dconf(dconf_dir: str):
     print_color.print_confirmation("SUCCESSFUL: Dconf Setup")
 
 
-def environment_variable(variable_name: str, variable_value: str, user: str):
-    if user == "admin":
-        uid = gid = 1000
-    else:
-        uid = gid = 1001
+def environment_variable(variable_name: str, variable_value: str, user: str, uid: int, gid: int):
     print_color.print_info(
         "STARTING: Creating Environment variable %s=%s" % (variable_name, variable_value))
     os.makedirs(
@@ -116,14 +113,15 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
     # Copy the Desktop Files into the new directory
     shutil.copytree(
         desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True)
+    for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
+        make_mutable(
+            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
 
     # Make Dekstop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
         if os.path.islink(f"/mnt/archinstall/usr/share/applications/{file}"):
             continue
-        if os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"):
-            make_mutable(
-                f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
+
         with open(f"/mnt/archinstall/usr/share/applications/{file}", "r") as f1:
             content = f1.read()
             if "NoDisplay=true" in content:
@@ -140,8 +138,8 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
             f2.write(content)
             # Make File immutable
-            make_immutable(
-                f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
+        make_immutable(
+            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
     # Make the directory immutable
     make_immutable(f"/mnt/archinstall/home/{user}/.local/share/applications/")
 

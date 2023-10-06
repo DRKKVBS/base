@@ -50,8 +50,8 @@ def configure(root_directory: str):
             else:
                 gid = uid = 1001
 
-            setup_utils.desktop_apps("%s/data/DesktopEntries/" %
-                                     root_directory, user, gid, uid, app)
+            # setup_utils.desktop_apps("%s/data/DesktopEntries/" %
+                #  root_directory, user, gid, uid, app)
     setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
     setup_utils.firefox("%s/data/firefox/" % root_directory)
     setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)

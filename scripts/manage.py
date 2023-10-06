@@ -78,7 +78,7 @@ if __name__ == "__main__":
         f"{root_directory}/post_install/config.json")
 
     # Start the linux installation
-    installation.install(f'{root_directory}/configs/', hostname)
+    # installation.install(f'{root_directory}/configs/', hostname)
 
     # Copy the files for post install configuration
     shutil.copytree(

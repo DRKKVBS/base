@@ -43,7 +43,7 @@ class Color:
         lightgrey = "\033[47m"
 
     def print_info(self, text: str):
-        print(Color.fg.blue, text, Color.reset, sep="")
+        print(Color.fg.lightblue, text, Color.reset, sep="")
 
     def print_confirmation(self, text: str):
         print(Color.fg.green, text, Color.reset, sep="")

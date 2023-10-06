@@ -84,7 +84,8 @@ def environment_variable(variable_name: str, variable_value: str, user: str):
             f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+"
         ) as f:
             f.write(f"{variable_name}={variable_value}\n")
-            print_color.print_confirmation("SUCCESSFUL: GDM Setup")
+            print_color.print_confirmation(
+                "SUCCESSFUL: Created Environment variable %s=%s")
         make_immutable(
             f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf"
         )

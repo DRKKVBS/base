@@ -22,9 +22,10 @@ def final_commands():
         ["dconf", "update"],
         ["usermod", "-G", "user", "user"],
         ["passwd", "-d", "user"],
-        ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"],
+        ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"]
     ]
-    run_command_arch_chroot(cmds)
+    for cmd in cmds:
+        run_command_arch_chroot(cmd)
 
 
 def logos(logo_dir: str):

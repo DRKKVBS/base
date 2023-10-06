@@ -117,6 +117,8 @@ def desktop_apps(
 
     # Make Dekstop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
+        if os.path.islink("/mnt/archinstall/usr/share/applications/{file}"):
+            continue
         content = ""
         if os.path.exists(
             f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"

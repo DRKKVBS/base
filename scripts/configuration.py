@@ -41,7 +41,7 @@ def configure(root_directory: str):
     setup_utils.grub("%s/data/grub" % root_directory)
     setup_utils.gdm("%s/data/gdm.conf" % root_directory)
     for user, data in users.items():
-        for var, value in data['environment_variables'].item():
+        for var, value in data['environment_variables'].items():
             setup_utils.environment_variable(
                 variable_name=var, variable_value=value, user=user)
     setup_utils.desktop_apps("%s/data/DesktopEntries/" %

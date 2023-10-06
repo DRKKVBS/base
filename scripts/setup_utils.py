@@ -78,9 +78,7 @@ def environment_variable(variable_name: str, variable_value: str, user: str):
     else:
         uid = gid = 1001
     print_color.print_info(
-        "STARTING: Creating Environment variable %s=%s" % (
-            variable_name, variable_value)
-        % (variable_name, variable_value))
+        "STARTING: Creating Environment variable %s=%s" % (variable_name, variable_value))
     os.makedirs(
         f"/mnt/archinstall/home/{user}/.config/environment.d/", exist_ok=True)
     os.chown(f"/mnt/archinstall/home/{user}/.config/", uid=uid, gid=gid)
@@ -93,7 +91,7 @@ def environment_variable(variable_name: str, variable_value: str, user: str):
                 f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+") as f:
             f.write(f"{variable_name}={variable_value}\n")
             print_color.print_confirmation(
-                "SUCCESSFUL: Created Environment variable %s=%s")
+                "SUCCESSFUL: Created Environment variable %s=%s" % (variable_name, variable_value))
         make_immutable(
             f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf")
     except Exception as e:

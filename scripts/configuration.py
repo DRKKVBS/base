@@ -15,25 +15,25 @@ def configure(root_directory: str):
         post_install_json = setup_json["post_install"]
         users = setup_json['users']
 
-    setup_utils.disable_sudo_password("admin")
-    try:
-        setup_non_priviliged.install_yay()
-    except Exception as e:
-        print_color.print_error(
-            "ERROR: Installation of yay failed! | %s"
-            % (e)
-        )
-    finally:
-        setup_utils.reenable_sudo_password("admin")
+    # setup_utils.disable_sudo_password("admin")
+    # try:
+    #     setup_non_priviliged.install_yay()
+    # except Exception as e:
+    #     print_color.print_error(
+    #         "ERROR: Installation of yay failed! | %s"
+    #         % (e)
+    #     )
+    # finally:
+    #     setup_utils.reenable_sudo_password("admin")
 
-    setup_utils.disable_sudo_password("admin")
-    try:
-        for pkg in post_install_json["aur_pkgs"]:
-            setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
-    except:
-        pass
-    finally:
-        setup_utils.reenable_sudo_password("admin")
+    # setup_utils.disable_sudo_password("admin")
+    # try:
+    #     for pkg in post_install_json["aur_pkgs"]:
+    #         setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
+    # except:
+    #     pass
+    # finally:
+    #     setup_utils.reenable_sudo_password("admin")
 
     setup_utils.dconf("%s/data/dconf/" % root_directory)
     setup_utils.logos("%s/data/images/logos/" % root_directory)

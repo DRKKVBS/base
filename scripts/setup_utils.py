@@ -96,26 +96,21 @@ def environment_variable(variable_name: str, variable_value: str, user: str):
         pass
 
 
-def desktop_apps(
-    desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list
-):
+def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     # Create Directories if they do not exist
     if not os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         os.makedirs(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/", exist_ok=True
-        )
+            f"/mnt/archinstall/home/{user}/.local/share/applications/", exist_ok=True)
         os.chown(f"/mnt/archinstall/home/{user}/.local/", uid=uid, gid=gid)
         os.chown(
             f"/mnt/archinstall/home/{user}/.local/share/", uid=uid, gid=gid)
         os.chown(
             f"/mnt/archinstall/home/{user}/.local/share/applications/", uid=uid, gid=gid)
 
-    make_mutable(
-        f"/mnt/archinstall/home/{user}/.local/share/applications/")
+    make_mutable(f"/mnt/archinstall/home/{user}/.local/share/applications/")
     # Copy the Desktop Files into the new directory
     shutil.copytree(
-        desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True
-    )
+        desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True)
 
     # Make Dekstop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
@@ -129,19 +124,14 @@ def desktop_apps(
             content = f1.read()
             if "NoDisplay=true" in content:
                 continue
-        shutil.copyfile(
-            f"/mnt/archinstall/usr/share/applications/{file}",
-            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}",
-        )
-        with open(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w"
-        ) as f2:
+        shutil.copyfile(f"/mnt/archinstall/usr/share/applications/{file}",
+                        f"/mnt/archinstall/home/{user}/.local/share/applications/{file}",)
+        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w") as f2:
             if "NoDisplay=false" in content and file not in visible_apps:
                 content = content.replace("NoDisplay=false", "NoDisplay=true")
             elif file not in visible_apps:
                 content = content.replace(
-                    "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true"
-                )
+                    "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
             f2.write(content)
         # Make File immutable
         make_immutable(
@@ -151,17 +141,11 @@ def desktop_apps(
 
 
 def make_immutable(path: str):
-    subprocess.run(
-        ["chattr", "+i", path],
-        shell=False,
-    )
+    subprocess.run(["chattr", "+i", path], shell=False)
 
 
 def make_mutable(path: str):
-    subprocess.run(
-        ["chattr", "-i", path],
-        shell=False,
-    )
+    subprocess.run(["chattr", "-i", path], shell=False)
 
 
 def accountsservices(accs_dir: str):
@@ -179,12 +163,10 @@ def disable_sudo_password(user: str):
         with open("/mnt/archinstall/etc/sudoers.d/00_admin", "w+") as f:
             f.write("%s ALL=(ALL) NOPASSWD: ALL" % (user))
         print_color.print_info_critical(
-            "SUCCESSFUL: Disabled sudo password for %s" % (user)
-        )
+            "SUCCESSFUL: Disabled sudo password for %s" % (user))
     except Exception as e:
         print_color.print_error(
-            "ERROR: Disabling sudo password for %s failed! | %s" % (user, e)
-        )
+            "ERROR: Disabling sudo password for %s failed! | %s" % (user, e))
         pass
 
 
@@ -194,13 +176,10 @@ def reenable_sudo_password(user: str):
     try:
         os.remove("/mnt/archinstall/etc/sudoers.d/00_admin")
         print_color.print_info_critical(
-            "SUCCESSFUL: Reenabled sudo password for %s" % (user)
-        )
+            "SUCCESSFUL: Reenabled sudo password for %s" % (user))
     except Exception as e:
         print_color.print_error(
-            "ERROR: Reenabling sudo password for %s failed! | %s" % (user, e)
-        )
-        pass
+            "ERROR: Reenabling sudo password for %s failed! | %s" % (user, e))
 
 
 def firefox(firefox_dir: str):
@@ -213,7 +192,7 @@ def firefox(firefox_dir: str):
         )
 
     shutil.copytree(
-        f"{firefox_dir}/data/firefox/", "/mnt/archinstall/usr/share/firefox/"
+        f"{firefox_dir}data/firefox/", "/mnt/archinstall/usr/share/firefox/"
     )
     if not os.path.exists("/etc/firefox/policies/"):
         os.makedirs("/etc/firefox/policies/", exist_ok=True)

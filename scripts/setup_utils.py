@@ -73,14 +73,14 @@ def dconf(dconf_dir: str):
 
 
 def environment_variable(variable_name: str, variable_value: str, user: str):
-    if user is "admin":
+    if user == "admin":
         uid = gid = 1000
     else:
         uid = gid = 1001
     print_color.print_info(
-        "STARTING: Creating Environment variable %s=%s"
-        % (variable_name, variable_value)
-    )
+        "STARTING: Creating Environment variable %s=%s" % (
+            variable_name, variable_value)
+        % (variable_name, variable_value))
     os.makedirs(
         f"/mnt/archinstall/home/{user}/.config/environment.d/", exist_ok=True)
     os.chown(f"/mnt/archinstall/home/{user}/.config/", uid=uid, gid=gid)

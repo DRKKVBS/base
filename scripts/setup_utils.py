@@ -18,13 +18,13 @@ def run_command_arch_chroot(cmd: list, uid=None, gid=None):
 def final_commands(commands):
     ''''''
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
-    for cmd in [
+    cmds = [
         ["dconf", "update"],
         ["usermod", "-G", "user", "user"],
         ["passwd", "-d", "user"],
         ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"],
-    ]:
-        subprocess.run(cmd, shell=False)
+    ]
+    run_command_arch_chroot(cmds)
 
 
 def logos(logo_dir: str):

@@ -188,20 +188,16 @@ def firefox(firefox_dir: str):
     if not os.path.exists("/mnt/archinstall/usr/share/firefox/"):
         os.makedirs("/mnt/archinstall/usr/share/firefox/", exist_ok=True)
         print_color.print_info(
-            "Created new Direcotries: /mnt/archinstall/usr/share/firefox/"
-        )
+            "Created new Direcotries: /mnt/archinstall/usr/share/firefox/")
 
-    shutil.copytree(
-        f"{firefox_dir}data/firefox/", "/mnt/archinstall/usr/share/firefox/"
-    )
+    shutil.copytree(firefox_dir, "/mnt/archinstall/usr/share/firefox/")
     if not os.path.exists("/etc/firefox/policies/"):
         os.makedirs("/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(
             "Created new Direcotries: /etc/firefox/policies/")
     shutil.copyfile(
         f"{firefox_dir}/data/firefox/policies.json",
-        "/etc/firefox/policies/policies.json",
-    )
+        "/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 
 

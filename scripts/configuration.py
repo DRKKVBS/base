@@ -6,6 +6,8 @@ import setup_utils
 import setup_non_priviliged
 from print_colors import Color
 
+print_color = Color()
+
 
 def configure(root_directory: str):
     with open(f"{root_directory}/configs/config.json", "r") as f:
@@ -15,8 +17,11 @@ def configure(root_directory: str):
     setup_utils.disable_sudo_password("admin")
     try:
         setup_non_priviliged.install_yay()
-    except:
-        pass
+    except Exception as e:
+        print_color.print_error(
+            "ERROR: Installation of yay failed! | %s"
+            % (e)
+        )
     finally:
         setup_utils.reenable_sudo_password("admin")
 

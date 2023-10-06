@@ -190,7 +190,8 @@ def firefox(firefox_dir: str):
         print_color.print_info(
             "Created new Direcotries: /mnt/archinstall/usr/share/firefox/")
 
-    shutil.copytree(firefox_dir, "/mnt/archinstall/usr/share/firefox/")
+    shutil.copytree(
+        firefox_dir, "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
     if not os.path.exists("/etc/firefox/policies/"):
         os.makedirs("/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(

@@ -13,6 +13,7 @@ def configure(root_directory: str):
     with open(f"{root_directory}/configs/config.json", "r") as f:
         setup_json = json.load(f)
         post_install_json = setup_json["post_install"]
+        users = setup_json['users']
 
     setup_utils.disable_sudo_password("admin")
     try:
@@ -35,6 +36,13 @@ def configure(root_directory: str):
         setup_utils.reenable_sudo_password("admin")
 
     setup_utils.dconf("%s/data/dconf/" % root_directory)
+    setup_utils.logos("%s/data/images/logos/" % root_directory)
+    setup_utils.icons("%s/data/images/icons/" % root_directory)
+    setup_utils.grub("%s/data/grub/" % root_directory)
+    setup_utils.gdm("%s/data/gdm/" % root_directory)
+    # setup_utils.environment_variable("%s/data/grub/" % root_directory)
+    setup_utils.desktop_apps("%s/data/DesktopEntries/" %
+                             root_directory, 'admin', 1000, 1000, users['admin']['desktop'])
 
     # os.chmod('/home/admin/after_reboot.sh', mode=744)
     # subprocess.run(['/home/admin/after_reboot.sh'], shell=False)

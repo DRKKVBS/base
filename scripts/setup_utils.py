@@ -84,14 +84,14 @@ def environment_variable(variable_name: str, variable_value: str, user: str, uid
         f"/mnt/archinstall/home/{user}/.config/environment.d", uid=uid, gid=gid)
     try:
         make_mutable(
-            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf")
+            f"/home/{user}/.config/environment.d/variables.conf")
         with open(
                 f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+") as f:
             f.write(f"{variable_name}={variable_value}\n")
             print_color.print_confirmation(
                 "SUCCESSFUL: Created Environment variable %s=%s" % (variable_name, variable_value))
         make_immutable(
-            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf")
+            f"/home/{user}/.config/environment.d/variables.conf")
     except Exception as e:
         print_color.print_error(
             "ERROR: Creation Environment variable %s=%s failed! | %s"

@@ -110,12 +110,12 @@ def desktop_apps(
         os.chown(
             f"/mnt/archinstall/home/{user}/.local/share/applications/", uid=uid, gid=gid)
 
+    make_mutable(
+        f"/mnt/archinstall/home/{user}/.local/share/applications/")
     # Copy the Desktop Files into the new directory
     shutil.copytree(
         desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True
     )
-    make_mutable(
-        f"/mnt/archinstall/home/{user}/.local/share/applications/")
 
     # Make Dekstop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):

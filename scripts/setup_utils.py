@@ -170,7 +170,7 @@ def enable_group_for_sudo(group: str):
 
 def accountsservices(accs_dir: str):
     print_color.print_info("STARTING: Copy AccountsService to new System")
-    shutil.copytree(accs_dir, "/mnt/archinstall/etc/dconf/",
+    shutil.copytree(accs_dir, "/mnt/archinstall/var/lib/AccountsService/users/",
                     dirs_exist_ok=True)
     print_color.print_confirmation(
         "SUCCESSFUL: Copied AccountsService to new System")

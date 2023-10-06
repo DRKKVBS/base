@@ -204,7 +204,7 @@ def reenable_sudo_password(user: str):
         pass
 
 
-def firefox(root_directory: str):
+def firefox(firefox_dir: str):
     print_color.print_info("STARTED: Setting up Firefox")
     # Firefox
     if not os.path.exists("/mnt/archinstall/usr/share/firefox/"):
@@ -214,14 +214,14 @@ def firefox(root_directory: str):
         )
 
     shutil.copytree(
-        f"{root_directory}/data/firefox/", "/mnt/archinstall/usr/share/firefox/"
+        f"{firefox_dir}/data/firefox/", "/mnt/archinstall/usr/share/firefox/"
     )
     if not os.path.exists("/etc/firefox/policies/"):
         os.makedirs("/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(
             "Created new Direcotries: /etc/firefox/policies/")
     shutil.copyfile(
-        f"{root_directory}/data/firefox/policies.json",
+        f"{firefox_dir}/data/firefox/policies.json",
         "/etc/firefox/policies/policies.json",
     )
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")

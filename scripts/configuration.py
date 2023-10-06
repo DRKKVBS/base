@@ -8,7 +8,7 @@ from print_colors import Color
 
 
 def configure(root_directory: str):
-    with open(f"{root_directory}/config.json", "r") as f:
+    with open(f"{root_directory}/configs/config.json", "r") as f:
         setup_json = json.load(f)
         post_install_json = setup_json["post_install"]
 

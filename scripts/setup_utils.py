@@ -1,15 +1,22 @@
-import json
 import subprocess
 import os
 import shutil
-import setup_priviliged_type
 from print_colors import Color
-import utils
 
 print_color = Color()
 
 
-def setup(root_directory: str):
+def run_command_arch_chroot(cmd: list, uid=None, gid=None):
+    if uid is None or gid is None:
+        subprocess.run(["arch-chroot", *cmd],
+                       shell=False)
+    else:
+        subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), *cmd],
+                       shell=False)
+
+
+def final_commands(commands):
+    ''''''
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
     for cmd in [
         ["dconf", "update"],

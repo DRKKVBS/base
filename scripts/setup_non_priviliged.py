@@ -1,13 +1,13 @@
 import json
 import os
-import shutil
 import subprocess
+import setup_utils
 
 
 def install_aur_package(chroot: bool, package: str):
     if chroot:
-        subprocess.run(["arch-chroot", "-u", "admin:admin", "/mnt/archinstall", "yay", "-S", package, "--noconfirm"],
-                       shell=False)
+        setup_utils.run_command_arch_chroot(
+            cmd=["yay", "-S", package, "--noconfirm"], uid=1000, gid=1000)
 
     else:
         subprocess.run(
@@ -16,6 +16,7 @@ def install_aur_package(chroot: bool, package: str):
 
 
 def install_yay():
+
     subprocess.run("arch-chroot -u admin:admin /mnt/archinstall sudo -i -u admin /bin/bash -c 'git clone https://aur.archlinux.org/yay /home/admin/yay/; cd ./yay/ && makepkg -si --noconfirm; rm -rf /home/admin/yay/'",
                    shell=True)
 

@@ -136,6 +136,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+            f2.truncate()
             f2.write(content)
             # Make File immutable
         make_immutable(
@@ -168,7 +169,7 @@ def enable_group_for_sudo(group: str):
 
 def accountsservices(accs_dir: str):
     print_color.print_info("STARTING: Copy AccountsService to new System")
-    shutil.copytree(accs_dir, "/mnt/archinstall/var/lib/AccountsService/users/",
+    shutil.copytree(accs_dir, "/mnt/archinstall/var/lib/AccountsService/",
                     dirs_exist_ok=True)
     print_color.print_confirmation(
         "SUCCESSFUL: Copied AccountsService to new System")

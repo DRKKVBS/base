@@ -57,6 +57,7 @@ def configure(root_directory: str):
     setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)
     setup_utils.autostart("%s/data/autostart/" % root_directory)
     setup_utils.final_commands()
+    setup_utils.enable_group_for_sudo('wheel')
 
     # os.chmod('/home/admin/after_reboot.sh', mode=744)
     # subprocess.run(['/home/admin/after_reboot.sh'], shell=False)

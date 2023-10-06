@@ -154,6 +154,20 @@ def make_mutable(path: str):
     run_command_arch_chroot(["chattr", "-i", path])
 
 
+def enable_group_for_sudo(group: str):
+    print_color.print_info_critical(
+        "STARTING: Enabling group for sudo for %s" % (group))
+    try:
+        with open("/mnt/archinstall/etc/sudoers.d/00_%s" % group, "w+") as f:
+            f.write("'%'%s ALL=(ALL) ALL" % (group))
+        print_color.print_info_critical(
+            "SUCCESSFUL: Enabled group for sudo for %s" % (group))
+    except Exception as e:
+        print_color.print_error(
+            "ERROR: Enabling group for sudo for %s failed! | %s" % (group, e))
+        pass
+
+
 def accountsservices(accs_dir: str):
     print_color.print_info("STARTING: Copy AccountsService to new System")
     shutil.copytree(accs_dir, "/mnt/archinstall/etc/dconf/",

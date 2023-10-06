@@ -23,14 +23,15 @@ def setup(root_directory: str):
 def logos(logo_dir: str):
     print_color.print_info("STARTING: Copy Logos to new System")
     # Copy Logos
-    shutil.copytree(logo_dir, "/usr/share/logos/", dirs_exist_ok=True)
+    shutil.copytree(
+        logo_dir, "/mnt/archinstall/usr/share/logos/", dirs_exist_ok=True)
     print_color.print_confirmation("SUCCESSFUL: Copied Logos to new System")
 
 
 def icons(icon_dir: str):
     print_color.print_info("STARTING: Copy Icons to new System")
     # Copy Logos
-    shutil.copytree(icon_dir, "/var/lib/AccountsService/icons",
+    shutil.copytree(icon_dir, "/mnt/archinstall/var/lib/AccountsService/icons",
                     dirs_exist_ok=True)
     print_color.print_confirmation("SUCCESSFUL: Copied Icons to new System")
 
@@ -192,19 +193,20 @@ def firefox(firefox_dir: str):
 
     shutil.copytree(
         firefox_dir, "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
-    if not os.path.exists("/etc/firefox/policies/"):
-        os.makedirs("/etc/firefox/policies/", exist_ok=True)
+    if not os.path.exists("/mnt/archinstall/etc/firefox/policies/"):
+        os.makedirs("/mnt/archinstall/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(
             "Created new Direcotries: /etc/firefox/policies/")
     shutil.copyfile(
         f"{firefox_dir}policies.json",
-        "/etc/firefox/policies/policies.json")
+        "/mnt/archinstall/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 
 
 def wifi(wifi_file: str):
     print_color.print_info("STARTING: Set IWD as Wifi-Backend")
-    shutil.copyfile(wifi_file, "/etc/NetworkManager/conf.d/wifi_backend.conf")
+    shutil.copyfile(
+        wifi_file, "/mnt/archinstall/etc/NetworkManager/conf.d/wifi_backend.conf")
     print_color.print_confirmation("SUCCESSFUL: Set IWD as Wifi-Backend")
 
 
@@ -212,7 +214,7 @@ def autostart(autostart_dir: str):
     # Setup Autostart apps
     print_color.print_info("STARTING: Setup Autostart Apps")
     shutil.copyfile(
-        autostart_dir, "/etc/xdg/autostart/myWorkspaceAutostart.desktop")
+        autostart_dir, "/mnt/archinstall/etc/xdg/autostart/myWorkspaceAutostart.desktop")
     print_color.print_confirmation("SUCCESSFUL: Setup Autostart Apps")
 
 

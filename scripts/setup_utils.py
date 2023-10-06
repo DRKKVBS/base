@@ -147,11 +147,11 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
 
 
 def make_immutable(path: str):
-    subprocess.run(["chattr", "+i", path], shell=False)
+    run_command_arch_chroot(["chattr", "+i", path])
 
 
 def make_mutable(path: str):
-    subprocess.run(["chattr", "-i", path], shell=False)
+    run_command_arch_chroot(["chattr", "-i", path])
 
 
 def accountsservices(accs_dir: str):

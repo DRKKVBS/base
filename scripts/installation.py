@@ -5,12 +5,12 @@ import re
 
 
 def install(config_directory: str, hostname="drk-bs-client"):
-    
+
     # Get package, service and user data
     with open(f'{config_directory}/config.json', 'r', encoding='utf-8') as f:
         file_content = json.load(f)
         data = file_content['install']
-        users =file_content['users']
+        users = file_content['users']
         f.close()
 
     # Read out the hardware information of the system
@@ -215,11 +215,13 @@ def install(config_directory: str, hostname="drk-bs-client"):
         "!users": user_lst
     }
 
+    print(creds)
+
     try:
         print('THE INSTALLATION HAS BEEN STARTED')
         subprocess.run(['archinstall',
                         '--config', json.dumps(config),
-                        '--creds', json.dumps(creds),'--silent'],
+                        '--creds', json.dumps(creds), '--silent'],
                        check=True, text=True)
     except Exception as e:
         print(e)

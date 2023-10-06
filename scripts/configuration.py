@@ -45,7 +45,7 @@ def configure(root_directory: str):
                              root_directory, 'admin', 1000, 1000, users['admin']['desktop'])
     setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
     setup_utils.firefox("%s/data/firefox/" % root_directory)
-    setup_utils.wifi("%s/data/wifi" % root_directory)
+    setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)
     setup_utils.autostart("%s/data/autostart" % root_directory)
 
     # os.chmod('/home/admin/after_reboot.sh', mode=744)

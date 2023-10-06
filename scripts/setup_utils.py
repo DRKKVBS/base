@@ -202,9 +202,9 @@ def firefox(firefox_dir: str):
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 
 
-def wifi(wifi_dir: str):
+def wifi(wifi_file: str):
     print_color.print_info("STARTING: Set IWD as Wifi-Backend")
-    shutil.copyfile(wifi_dir, "/etc/NetworkManager/conf.d/wifi_backend.conf")
+    shutil.copyfile(wifi_file, "/etc/NetworkManager/conf.d/wifi_backend.conf")
     print_color.print_confirmation("SUCCESSFUL: Set IWD as Wifi-Backend")
 
 

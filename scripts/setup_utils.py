@@ -114,18 +114,17 @@ def desktop_apps(
     shutil.copytree(
         desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True
     )
+    make_mutable(
+        f"/mnt/archinstall/home/{user}/.local/share/applications/")
 
     # Make Dekstop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
         if os.path.islink(f"/mnt/archinstall/usr/share/applications/{file}"):
             continue
         content = ""
-        if os.path.exists(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"
-        ):
-            make_file_mutubale(
-                f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"
-            )
+        if os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"):
+            make_mutable(
+                f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
         with open(f"/mnt/archinstall/usr/share/applications/{file}", "r") as f1:
             content = f1.read()
             if "NoDisplay=true" in content:
@@ -158,7 +157,7 @@ def make_immutable(path: str):
     )
 
 
-def make_file_mutubale(path: str):
+def make_mutable(path: str):
     subprocess.run(
         ["chattr", "-i", path],
         shell=False,

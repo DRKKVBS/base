@@ -130,7 +130,7 @@ def desktop_apps(
                 continue
         shutil.copyfile(
             f"/mnt/archinstall/usr/share/applications/{file}",
-            f"/home/{user}/.local/share/applications/{file}",
+            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}",
         )
         with open(
             f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w"

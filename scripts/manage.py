@@ -93,7 +93,7 @@ if __name__ == "__main__":
     configuration.configure(os.path.join(root_directory, 'post_install'))
 
     # Start the configuration in the arch-chroot environment
-    with open(f"{root_directory}/config.json", "r") as f:
+    with open(f"{root_directory}/configs/config.json", "r") as f:
         setup_json = json.load(f)
         post_install_json = setup_json["post_install"]
         users_json = setup_json["users"]

@@ -131,7 +131,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
         shutil.copyfile(f"/mnt/archinstall/usr/share/applications/{file}",
                         f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
-        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w") as f2:
+        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "+") as f2:
             content = f2.read()
             if "NoDisplay=false" in content and file not in visible_apps:
                 content = content.replace("NoDisplay=false", "NoDisplay=true")

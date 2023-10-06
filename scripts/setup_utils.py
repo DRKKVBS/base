@@ -80,22 +80,19 @@ def environment_variable(variable_name: str, variable_value: str, user: str):
     os.chown(
         f"/mnt/archinstall/home/{user}/.config/environment.d", uid=uid, gid=gid)
     try:
+        make_mutable(
+            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf")
         with open(
-            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+"
-        ) as f:
+                f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+") as f:
             f.write(f"{variable_name}={variable_value}\n")
             print_color.print_confirmation(
                 "SUCCESSFUL: Created Environment variable %s=%s")
         make_immutable(
-            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf"
-        )
+            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf")
     except Exception as e:
         print_color.print_error(
             "ERROR: Creation Environment variable %s=%s failed! | %s"
-            % (variable_name, variable_value, e)
-        )
-
-        pass
+            % (variable_name, variable_value, e))
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):

@@ -213,8 +213,8 @@ def wifi(wifi_file: str):
 def autostart(autostart_dir: str):
     # Setup Autostart apps
     print_color.print_info("STARTING: Setup Autostart Apps")
-    shutil.copyfile(
-        autostart_dir, "/mnt/archinstall/etc/xdg/autostart/myWorkspaceAutostart.desktop")
+    shutil.copytree(
+        autostart_dir, "/mnt/archinstall/etc/xdg/autostart/", dirs_exist_ok=True)
     print_color.print_confirmation("SUCCESSFUL: Setup Autostart Apps")
 
 

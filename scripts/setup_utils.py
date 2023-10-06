@@ -159,7 +159,7 @@ def enable_group_for_sudo(group: str):
         "STARTING: Enabling group for sudo for %s" % (group))
     try:
         with open("/mnt/archinstall/etc/sudoers.d/00_%s" % group, "w+") as f:
-            f.write("%%s ALL=(ALL) ALL" % (group))
+            f.write("\%%s ALL=(ALL) ALL" % (group))
         print_color.print_info_critical(
             "SUCCESSFUL: Enabled group for sudo for %s" % (group))
     except Exception as e:

@@ -18,7 +18,7 @@ def install_aur_package(chroot: bool, package: str):
 def install_yay():
     for cmd in ['git clone https://aur.archlinux.org/yay /home/admin/yay/', 'cd ./yay/ && makepkg -si --noconfirm; cd ./; rm -rf ./yay/']:
 
-        subprocess.run("arch-chroot -u admin:admin /mnt/archinstall sudo -i -u admin -c 'pwd && whoami && pwd'",
+        subprocess.run("arch-chroot -u admin:admin /mnt/archinstall sudo -i -u admin -c pwd",
                        shell=True)
 
 

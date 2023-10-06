@@ -15,7 +15,7 @@ def run_command_arch_chroot(cmd: list, uid=None, gid=None):
                        shell=False)
 
 
-def final_commands(commands):
+def final_commands():
     ''''''
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
     cmds = [
@@ -139,9 +139,9 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
             f2.write(content)
-        # Make File immutable
-        make_immutable(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
+            # Make File immutable
+            make_immutable(
+                f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
     # Make the directory immutable
     make_immutable(f"/mnt/archinstall/home/{user}/.local/share/applications/")
 

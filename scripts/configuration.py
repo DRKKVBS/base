@@ -49,10 +49,8 @@ def configure(root_directory: str):
             setup_utils.environment_variable(
                 variable_name=var, variable_value=value, user=user, gid=gid, uid=uid)
         for app in data['desktop']:
-            pass
-
-            # setup_utils.desktop_apps("%s/data/DesktopEntries/" %
-            #  root_directory, user, gid, uid, app)
+            setup_utils.desktop_apps("%s/data/DesktopEntries/" %
+                                     root_directory, user, gid, uid, app)
     setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
     setup_utils.firefox("%s/data/firefox/" % root_directory)
     setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)

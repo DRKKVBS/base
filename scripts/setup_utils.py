@@ -8,10 +8,10 @@ print_color = Color()
 
 def run_command_arch_chroot(cmd: list, uid=None, gid=None):
     if uid is None or gid is None:
-        subprocess.run(["arch-chroot", *cmd],
+        subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
                        shell=False)
     else:
-        subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), *cmd],
+        subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
                        shell=False)
 
 

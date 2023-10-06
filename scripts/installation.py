@@ -2,6 +2,7 @@ import os
 import json
 import subprocess
 import re
+import time
 
 
 def install(config_directory: str, hostname="drk-bs-client"):
@@ -216,6 +217,7 @@ def install(config_directory: str, hostname="drk-bs-client"):
     }
 
     print(creds)
+    time.sleep(20)
 
     try:
         print('THE INSTALLATION HAS BEEN STARTED')

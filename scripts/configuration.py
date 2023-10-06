@@ -38,8 +38,8 @@ def configure(root_directory: str):
     setup_utils.dconf("%s/data/dconf/" % root_directory)
     setup_utils.logos("%s/data/images/logos/" % root_directory)
     setup_utils.icons("%s/data/images/icons/" % root_directory)
-    setup_utils.grub("%s/data/grub/" % root_directory)
-    setup_utils.gdm("%s/data/gdm/" % root_directory)
+    setup_utils.grub("%s/data/grub" % root_directory)
+    setup_utils.gdm("%s/data/gdm" % root_directory)
     # setup_utils.environment_variable("%s/data/grub/" % root_directory)
     setup_utils.desktop_apps("%s/data/DesktopEntries/" %
                              root_directory, 'admin', 1000, 1000, users['admin']['desktop'])

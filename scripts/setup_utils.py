@@ -38,7 +38,7 @@ def icons(icon_dir: str):
 def grub(grub_file: str):
     print_color.print_info("STARTING: Grup Setup")
     try:
-        with open("/etc/default/grub", "w+") as f, open(grub_file, "r") as f1:
+        with open("/mnt/archinstall/etc/default/grub", "w+") as f, open(grub_file, "r") as f1:
             f.write(f1.read())
         print_color.print_confirmation("SUCCESSFUL: Grup Setup")
     except Exception as e:
@@ -49,7 +49,7 @@ def grub(grub_file: str):
 def gdm(gdm_file: str):
     print_color.print_info("STARTING: GDM Setup")
     try:
-        with open("/etc/gdm/custom.conf", "w+") as f, open(gdm_file, "r") as f1:
+        with open("/mnt/archinstall/etc/gdm/custom.conf", "w+") as f, open(gdm_file, "r") as f1:
             f.write(f1.read())
             print_color.print_confirmation("SUCCESSFUL: GDM Setup")
     except Exception as e:
@@ -112,7 +112,7 @@ def desktop_apps(
 
     # Copy the Desktop Files into the new directory
     shutil.copytree(
-        desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user
+        desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True
     )
 
     # Make Dekstop Entries hidden

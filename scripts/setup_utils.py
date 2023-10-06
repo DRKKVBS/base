@@ -197,7 +197,7 @@ def firefox(firefox_dir: str):
         print_color.print_info(
             "Created new Direcotries: /etc/firefox/policies/")
     shutil.copyfile(
-        f"{firefox_dir}/data/firefox/policies.json",
+        f"{firefox_dir}policies.json",
         "/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 

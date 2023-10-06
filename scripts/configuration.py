@@ -39,10 +39,14 @@ def configure(root_directory: str):
     setup_utils.logos("%s/data/images/logos/" % root_directory)
     setup_utils.icons("%s/data/images/icons/" % root_directory)
     setup_utils.grub("%s/data/grub" % root_directory)
-    setup_utils.gdm("%s/data/gdm" % root_directory)
+    setup_utils.gdm("%s/data/gdm.conf" % root_directory)
     # setup_utils.environment_variable("%s/data/grub/" % root_directory)
     setup_utils.desktop_apps("%s/data/DesktopEntries/" %
                              root_directory, 'admin', 1000, 1000, users['admin']['desktop'])
+    setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
+    setup_utils.firefox("%s/data/firefox/" % root_directory)
+    setup_utils.wifi("%s/data/wifi" % root_directory)
+    setup_utils.autostart("%s/data/autostart" % root_directory)
 
     # os.chmod('/home/admin/after_reboot.sh', mode=744)
     # subprocess.run(['/home/admin/after_reboot.sh'], shell=False)

@@ -1,0 +1,3 @@
+[org/gnome/Settings]
+# The identifier for the last Settings panel to be opened
+last-panel='wifi'

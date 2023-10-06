@@ -1,0 +1,4 @@
+[User]
+session=gnome-xorg
+icon=/var/lib/AccountsService/icons/admin.jpg
+systemAccount=False

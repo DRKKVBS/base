@@ -1,416 +1,84 @@
 {
-    "users": {
-        "admin": {
-            "!creds": {
-                "username": "admin",
-                "!password": "admin",
-                "sudo": true
-            },
-            "desktop": [
-                "org.gnome.Terminal.desktop",
-                "org.gnome.Settings.desktop",
-                "FirefoxCitrix.desktop",
-                "firefox.desktop",
-                "org.gnome.gedit.desktop",
-                "org.gnome.Nautilus.desktop",
-                "shutdown.desktop",
-                "reboot.desktop"
-            ],
-            "accountsservice": {
-                "session": "gnome-xorg",
-                "icon": "/var/lib/AccountsService/icons/admin.jpg",
-                "systemAccount": true
-            },
-            "environment_variables": {
-                "DCONF_PROFILE": "admin"
-            }
-        },
-        "user": {
-            "!creds": {
-                "username": "user",
-                "!password": "user",
-                "sudo": false
-            },
-            "desktop": [
-                "org.gnome.Settings.desktop",
-                "FirefoxCitrix.desktop",
-                "shutdown.desktop",
-                "reboot.desktop"
-            ],
-            "accountsservice": {
-                "session": "gnome-xorg",
-                "icon": "/var/lib/AccountsService/icons/user.jpg",
-                "systemAccount": false
-            },
-            "environment_variables": {
-                "DCONF_PROFILE": "admin"
-            }
-        }
+  "users": {
+    "admin": {
+      "!creds": {
+        "username": "admin",
+        "!password": "admin",
+        "sudo": true
+      },
+      "desktop": [
+        "org.gnome.Terminal.desktop",
+        "org.gnome.Settings.desktop",
+        "FirefoxCitrix.desktop",
+        "firefox.desktop",
+        "org.gnome.gedit.desktop",
+        "org.gnome.Nautilus.desktop",
+        "shutdown.desktop",
+        "reboot.desktop"
+      ]
     },
-    "install": {
-        "pkgs": [
-            "firefox",
-            "glibc",
-            "gnome-backgrounds",
-            "gnome-terminal",
-            "gnome-shell",
-            "gnome-control-center",
-            "efibootmgr",
-            "nautilus",
-            "gdm",
-            "gedit",
-            "git",
-            "grub",
-            "net-tools",
-            "iwd",
-            "less",
-            "libinput",
-            "nano",
-            "memtest86+",
-            "memtest86+-efi",
-            "mkinitcpio",
-            "mkinitcpio-archiso",
-            "mkinitcpio-nfs-utils",
-            "pipewire",
-            "python",
-            "python-pip",
-            "networkmanager",
-            "sof-firmware",
-            "smartmontools",
-            "syslinux",
-            "systemd-resolvconf",
-            "tcpdump",
-            "openssh",
-            "usbutils",
-            "wget",
-            "wireless_tools",
-            "vim",
-            "xorg",
-            "zsh"
-        ],
-        "services": [
-            "gdm",
-            "iwd",
-            "NetworkManager"
-        ]
-    },
-    "post_install": {
-        "aur_pkgs": [
-            "icaclient",
-            "gnome-shell-extension-no-overview",
-            "gnome-shell-extension-dash-to-dock"
-        ],
-        "dconf": {
-            "profiles": {
-                "admin": {
-                    "user-dbs": [
-                        "admin"
-                    ],
-                    "system-dbs": [
-                        "localAdmin",
-                        "public"
-                    ],
-                    "file-dbs": []
-                },
-                "user": {
-                    "user-dbs": [
-                        "user"
-                    ],
-                    "system-dbs": [
-                        "localUser",
-                        "public"
-                    ],
-                    "file-dbs": []
-                },
-                "gdm": {
-                    "user-dbs": [
-                        "user"
-                    ],
-                    "system-dbs": [
-                        "gdm"
-                    ],
-                    "file-dbs": [
-                        "/usr/share/gdm/greeter-dconf-defaults"
-                    ]
-                }
-            },
-            "dbs": {
-                "gdm": {
-                    "01-login-screen": {
-                        "path": "[org/gnome/login-screen]",
-                        "values": {
-                            "allowed-failures": 3,
-                            "banner-message-enable": true,
-                            "banner-message-text": "'Willkommen beim DRK KV Säckingen e.V.'",
-                            "disable-restart-buttons": false,
-                            "disable-user-list": false,
-                            "enable-fingerprint-authentication": true,
-                            "enable-password-authentication": true,
-                            "enable-smartcard-authentication": false,
-                            "logo": "'/usr/share/logos/drk-logo.png'"
-                        }
-                    },
-                    "02-touchpad": {
-                        "path": "[org/gnome/desktop/peripherals/touchpad]",
-                        "click-method": "'areas'",
-                        "disable-while-typing": true,
-                        "edge-scrolling-enabled": false,
-                        "left-handed": "'mouse'",
-                        "natural-scroll": true,
-                        "send-events": "'enabled'",
-                        "tap-and-drag": true,
-                        "tap-to-click": true,
-                        "two-finger-scrolling-enabled": true
-                    }
-                },
-                "localAdmin": {
-                    "locks": {
-                        "01-lockdown": [
-                            "/org/gnome/desktop/lockdown/disable-command-line",
-                            "/org/gnome/desktop/lockdown/mount-removable-storage-devices-as-read-only",
-                            "/org/gnome/desktop/lockdown/user-administration-disabled"
-                        ],
-                        "06-media-handling": [
-                            "/org/gnome/desktop/media-handling/automount"
-                        ]
-                    },
-                    "00-lockdown": {
-                        "path": "[org/gnome/desktop/lockdown]",
-                        "disable-command-line": false,
-                        "mount-removable-storage-devices-as-read-only": false,
-                        "user-administration-disabled": false
-                    },
-                    "01-background": {
-                        "path": "[org/gnome/desktop/background]",
-                        "picture-uri": "'/usr/share/backgrounds/gnome/blobs-l.svg'",
-                        "picture-uri-dark": "'/usr/share/backgrounds/gnome/blobs-d.svg'",
-                        "picture-opacity": 100
-                    },
-                    "06-media-handlig": {
-                        "path": "[org/gnome/desktop/media-handling]",
-                        "automount": true
-                    }
-                },
-                "localUser": {
-                    "locks": {
-                        "01-lockdown": [
-                            "/org/gnome/desktop/lockdown/disable-command-line",
-                            "/org/gnome/desktop/lockdown/mount-removable-storage-devices-as-read-only",
-                            "/org/gnome/desktop/lockdown/user-administration-disabled"
-                        ],
-                        "06-media-handling": [
-                            "/org/gnome/desktop/media-handling/automount"
-                        ]
-                    },
-                    "00-lockdown": {
-                        "path": "[org/gnome/desktop/lockdown]",
-                        "disable-command-line": true,
-                        "mount-removable-storage-devices-as-read-only": true,
-                        "user-administration-disabled": true
-                    },
-                    "01-background": {
-                        "path": "[org/gnome/desktop/background]",
-                        "picture-uri": "'/usr/share/backgrounds/gnome/blobs-l.svg'",
-                        "picture-uri-dark": "'/usr/share/backgrounds/gnome/blobs-d.svg'",
-                        "picture-opacity": 100
-                    },
-                    "06-media-handlig": {
-                        "path": "[org/gnome/desktop/media-handling]",
-                        "automount": false
-                    }
-                },
-                "public": {
-                    "locks": {
-                        "00-lockdown": [
-                            "/org/gnome/desktop/lockdown/disable-user-switching"
-                        ],
-                        "02-SessionManager": [
-                            "/org/gnome/SessionManager/logout-prompt"
-                        ],
-                        "03-privacy": [
-                            "/org/gnome/desktop/privacy/usb-protection",
-                            "/org/gnome/desktop/privacy/usb-protection-level"
-                        ],
-                        "04-screensaver": [
-                            "/org/gnome/desktop/screensaver/user-switch-enabled"
-                        ],
-                        "05-session": [
-                            "/org/gnome/desktop/session/session-name"
-                        ],
-                        "06-media-handling": [
-                            "/org/gnome/SessionManager/logout-prompt"
-                        ],
-                        "07-FileChooser": [
-                            "/org/gtk/Settings/FileChooser/show-hidden-filest"
-                        ],
-                        "08-online-accounts": [
-                            "/org/gnome/online-accounts/whitelisted-providers"
-                        ],
-                        "09-shell": [
-                            "/org/gnome/shell/development-tools",
-                            "/org/gnome/shell/disable-extensions-version-validation",
-                            "/org/gnome/shell/enabled-extensions",
-                            "/org/gnome/shell/favorite-apps",
-                            "/org/gnome/shell/welcome-dialog-last-shown-version"
-                        ],
-                        "10-Settings": [
-                            "/org/gnome/Settings/last-panel"
-                        ],
-                        "12-power": [
-                            "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout",
-                            "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type",
-                            "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout",
-                            "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
-                        ],
-                        "13-dash-to-dock": [
-                            "/org/gnome/shell/extensions/dash-to-dock/autohide",
-                            "/org/gnome/shell/extensions/dash-to-dock/autohide-in-fullscreen",
-                            "/org/gnome/shell/extensions/dash-to-dock/dock-fixed",
-                            "/org/gnome/shell/extensions/dash-to-dock/dock-position",
-                            "/org/gnome/shell/extensions/dash-to-dock/extend-height",
-                            "/org/gnome/shell/extensions/dash-to-dock/show-mounts",
-                            "/org/gnome/shell/extensions/dash-to-dock/show-mounts-network",
-                            "/org/gnome/shell/extensions/dash-to-dock/show-mounts-only-mounted",
-                            "/org/gnome/shell/extensions/dash-to-dock/show-trash"
-                        ]
-                    },
-                    "00-lockdown": {
-                        "path": "[org/gnome/desktop/lockdown]",
-                        "disable-application-handlers": false,
-                        "disable-lock-screen": false,
-                        "disable-log-out": false,
-                        "disable-print-setup": false,
-                        "disable-printing": false,
-                        "disable-save-to-disk": false,
-                        "disable-show-password": false,
-                        "disable-user-switching": true
-                    },
-                    "01-interface": {
-                        "path": "[org/gnome/desktop/interface]",
-                        "clock-format": "'24h'",
-                        "clock-show-date": true,
-                        "clock-show-seconds": false,
-                        "clock-show-weekday": true,
-                        "show-battery-percentage": true
-                    },
-                    "02-SessionManager": {
-                        "path": "[org/gnome/SessionManager]",
-                        "logout-prompt": true
-                    },
-                    "03-privacy": {
-                        "path": "[org/gnome/desktop/privacy]",
-                        "disable-camera": false,
-                        "disable-microphone": false,
-                        "disable-sound-output": false,
-                        "hide-identity": false,
-                        "send-software-usage-stats": false,
-                        "show-full-name-in-top-bar": true,
-                        "usb-protection": true,
-                        "usb-protection-level": "'lockscreen'"
-                    },
-                    "04-screensaver": {
-                        "path": "[org/gnome/desktop/screensaver]",
-                        "lock-delay": 0,
-                        "lock-enabled": false,
-                        "picture-opacity": 100,
-                        "picture-uri": "/usr/share/backgrounds/gnome/adwaita-d.webp",
-                        "show-full-name-in-top-bar": true,
-                        "user-switch-enabled": false
-                    },
-                    "05-session": {
-                        "path": "[org/gnome/desktop/session]",
-                        "idle-delay": 300,
-                        "session-name": "gnome"
-                    },
-                    "06-media-handling": {
-                        "path": "[org/gnome/desktop/media-handling]",
-                        "automount": false,
-                        "automount-open": false,
-                        "autorun-never": true
-                    },
-                    "07-FileChooser": {
-                        "path": "[org/gtk/Settings/FileChooser]",
-                        "show-hidden-files": false
-                    },
-                    "08-online-accounts": {
-                        "path": "[org/gnome/online-accounts]",
-                        "whitelisted-providers": [
-                            ""
-                        ]
-                    },
-                    "09-shell": {
-                        "path": "[org/gnome/shell]",
-                        "always-show-log-out": false,
-                        "development-tools": false,
-                        "disable-extensions-version-validation": false,
-                        "enabled-extensions": [
-                            "no-overview@fthx",
-                            "dash-to-dock@micxgx.gmail.com"
-                        ],
-                        "favorite-apps": [
-                            "org.gnome.Settings.desktop",
-                            "FirefoxCitrix.desktop",
-                            "shutdown.desktop",
-                            "reboot.desktop"
-                        ],
-                        "welcome-dialog-last-shown-version": 99999.9
-                    },
-                    "10-Settings": {
-                        "path": "[org/gnome/Settings]",
-                        "last-panel": "wifi"
-                    },
-                    "11-datetime": {
-                        "path": "[org/gnome/desktop/datetime]",
-                        "automatic-timezone": true
-                    },
-                    "12-power": {
-                        "path": "[org/gnome/settings-daemon/plugins/power]",
-                        "ambient-enabled": true,
-                        "idle-brightness": 30,
-                        "idle-dim": true,
-                        "power-saver-profile-on-low-battery": true,
-                        "sleep-inactive-ac-timeout": 900,
-                        "sleep-inactive-ac-type": "blank",
-                        "sleep-inactive-battery-timeout": 900,
-                        "sleep-inactive-battery-type": "blank"
-                    },
-                    "13-dash-to-dock": {
-                        "path": "[org/gnome/shell/extensions/dash-to-dock]",
-                        "autohide": false,
-                        "autohide-in-fullscreen": false,
-                        "dock-fixed": true,
-                        "dock-position": "BOTTOM",
-                        "extend-height": true,
-                        "intellihide": false,
-                        "intellihide-mode": "ALWAYS_ON_TOP",
-                        "manualhide": false,
-                        "multi-monitor": true,
-                        "show-mounts": false,
-                        "show-mounts-network": false,
-                        "show-mounts-only-mounted": true,
-                        "show-running": true,
-                        "show-show-apps-button": true,
-                        "show-trash": false
-                    },
-                    "14-keyboard": {
-                        "path": "[org/gnome/desktop/peripherals/keyboard]",
-                        "numlock-state": true,
-                        "remember-numlock-state": true
-                    },
-                    "15-touchpad": {
-                        "path": "[org/gnome/desktop/peripherals/touchpad]",
-                        "click-method": "areas",
-                        "disable-while-typing": true,
-                        "edge-scrolling-enabled": false,
-                        "left-handed": "mouse",
-                        "natural-scroll": true,
-                        "send-events": "enabled",
-                        "tap-and-drag": true,
-                        "tap-to-click": true,
-                        "two-finger-scrolling-enabled": true
-                    }
-                }
-            }
-        }
+    "user": {
+      "!creds": {
+        "username": "user",
+        "!password": "user",
+        "sudo": false
+      },
+      "desktop": [
+        "org.gnome.Settings.desktop",
+        "FirefoxCitrix.desktop",
+        "shutdown.desktop",
+        "reboot.desktop"
+      ]
     }
+  },
+  "install": {
+    "pkgs": [
+      "firefox",
+      "glibc",
+      "gnome-backgrounds",
+      "gnome-terminal",
+      "gnome-shell",
+      "gnome-control-center",
+      "efibootmgr",
+      "nautilus",
+      "gdm",
+      "gedit",
+      "git",
+      "grub",
+      "net-tools",
+      "iwd",
+      "less",
+      "libinput",
+      "nano",
+      "memtest86+",
+      "memtest86+-efi",
+      "mkinitcpio",
+      "mkinitcpio-archiso",
+      "mkinitcpio-nfs-utils",
+      "pipewire",
+      "python",
+      "python-pip",
+      "networkmanager",
+      "sof-firmware",
+      "smartmontools",
+      "syslinux",
+      "systemd-resolvconf",
+      "tcpdump",
+      "openssh",
+      "usbutils",
+      "wget",
+      "wireless_tools",
+      "vim",
+      "xorg",
+      "zsh"
+    ],
+    "services": ["gdm", "iwd", "NetworkManager"]
+  },
+  "post_install": {
+    "aur_pkgs": [
+      "icaclient",
+      "gnome-shell-extension-no-overview",
+      "gnome-shell-extension-dash-to-dock"
+    ]
+  }
 }

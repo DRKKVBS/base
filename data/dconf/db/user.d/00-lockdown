@@ -1,0 +1,7 @@
+[org/gnome/desktop/lockdown]
+# Prevent the user from accessing the terminal or specifying a command line to be executed
+disable-command-line=true
+# Prevent users from writing or modifying files on removable storage devices
+mount-removable-storage-devices-as-read-only=true
+# Stop the user from modifying user accounts
+user-administration-disabled=true

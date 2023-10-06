@@ -1,0 +1,17 @@
+[org/gnome/desktop/lockdown]
+# Prevent running any URL or MIME type handler applications
+disable-application-handlers=false
+# Prevent the user to lock the screen
+disable-lock-screen=false
+# Prevent the user from logging out
+disable-log-out=false
+# Prevent the user from modyfying print settings
+disable-print-setup=false
+# Prevent the user from printing
+disable-printing=false
+# Prevent the user from saving files to disk
+disable-save-to-disk=false
+# Disable the "Show password" menu item in passwort entries
+disable-show-password=false
+# Prevent the user from switching to another account while his session is active
+disable-user-switching=true

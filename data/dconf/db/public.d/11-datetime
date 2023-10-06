@@ -1,0 +1,3 @@
+[org/gnome/desktop/datetime]
+# Wheter to automatically updat the timezone usind geolocation
+automatic-timezone=true

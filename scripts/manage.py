@@ -5,101 +5,127 @@ import os
 import argparse
 import installation
 import utils
+import configuration
 
-
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     # Directories
-    root_directory = '/tmp/base'
-    script_directory = os.path.join(root_directory, 'scripts')
+    root_directory = "/tmp/base"
+    script_directory = os.path.join(root_directory, "scripts")
 
-    data_directory = os.path.join(root_directory, 'data')
-    download_directory = os.path.join(root_directory, 'download')
+    data_directory = os.path.join(root_directory, "data")
+    download_directory = os.path.join(root_directory, "download")
 
     # Initialize parser
-    parser = argparse.ArgumentParser(prog='DRK Ach Configurator',
-                                     description='Configures the the Arch Linux, after the OS Installation.',
-                                     epilog='Text at the bottom of help.')
+    parser = argparse.ArgumentParser(
+        prog="DRK Ach Configurator",
+        description="Configures the the Arch Linux, after the OS Installation.",
+        epilog="Text at the bottom of help.",
+    )
 
     # Adding optional argument
-    parser.add_argument('-t', '--Type', action='store', required=True, type=str, choices=['thin', 'mobile', 'mpg', 'hnr'],
-                        help='Type of Device.')
+    parser.add_argument(
+        "-t",
+        "--Type",
+        action="store",
+        required=True,
+        type=str,
+        choices=["thin", "mobile", "mpg", "hnr"],
+        help="Type of Device.",
+    )
 
-    parser.add_argument('-c', '--Configuration', action='store', required=True, type=str,
-                        choices=['base', 'mpg', 'hnr'], help='Type of Configuration to be used.')
+    parser.add_argument(
+        "-c",
+        "--Configuration",
+        action="store",
+        required=True,
+        type=str,
+        choices=["base", "mpg", "hnr"],
+        help="Type of Configuration to be used.",
+    )
 
-    parser.add_argument('-hn', '--Hostname', action='store', type=str,
-                        help='The hostname of the new system.')
+    parser.add_argument(
+        "-hn",
+        "--Hostname",
+        action="store",
+        type=str,
+        help="The hostname of the new system.",
+    )
 
-    parser.add_argument('-u', '--upate', action='store',
-                        type=float, help='The Version you want to be installed.')
+    parser.add_argument(
+        "-u",
+        "--upate",
+        action="store",
+        type=float,
+        help="The Version you want to be installed.",
+    )
 
     # Read arguments from command line
     args = parser.parse_args()
 
     match args.Type:
-        case 'thin':
-            branch = 'thin-client'
-        case 'mobile':
-            branch = 'mobile-client'
+        case "thin":
+            branch = "thin-client"
+        case "mobile":
+            branch = "mobile-client"
         case _:
-            branch = 'thin-client'
+            branch = "thin-client"
 
     match args.Configuration:
-        case 'hnr':
-            config = 'hnr'
-        case 'mpg':
-            config = 'mpg'
+        case "hnr":
+            config = "hnr"
+        case "mpg":
+            config = "mpg"
         case _:
-            config = 'base'
+            config = "base"
 
     if args.Hostname != None:
         hostname = args.Hostname
     else:
-        hostname = f'drk-bs-{args.Type}-{args.Configuration}'
+        hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
     # Merge and copy configuration files
-    with open(f'{root_directory}/configs/base.json', 'r') as f_base, open(f'{root_directory}/configs/{args.Configuration}.json', 'r') as f_config, open(f'{root_directory}/type/{args.Type}/platform_config.json', 'r') as f_platform_config, open(f'{root_directory}/configs/config.json', 'w+') as f_merged:
+    with open(f"{root_directory}/configs/base.json", "r") as f_base, open(
+        f"{root_directory}/configs/{args.Configuration}.json", "r"
+    ) as f_config, open(
+        f"{root_directory}/type/{args.Type}/platform_config.json", "r"
+    ) as f_platform_config, open(
+        f"{root_directory}/configs/config.json", "w+"
+    ) as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
         platform_config_data = json.load(f_platform_config)
-        merged_data = utils.merge_and_update_dicts(
-            base_data, config_data)
+        merged_data = utils.merge_and_update_dicts(base_data, config_data)
         merged_data = utils.merge_and_update_dicts(
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
 
-    shutil.copyfile(f'{root_directory}/configs/config.json',
-                    f'{root_directory}/post_install/config.json')
-    shutil.copyfile(f'{root_directory}/scripts/utils.py',
-                    f'{root_directory}/post_install/scripts/utils.py')
+    shutil.copyfile(
+        f"{root_directory}/configs/config.json",
+        f"{root_directory}/post_install/config.json",
+    )
 
     # Start the linux installation
     # installation.install(f'{root_directory}/configs/', hostname)
 
     # Copy the files for post install configuration
     shutil.copytree(
-        data_directory, f'{root_directory}/post_install/data', dirs_exist_ok=True)
+        data_directory, f"{root_directory}/post_install/data", dirs_exist_ok=True
+    )
+
     shutil.copytree(
-        script_directory, f'{root_directory}/post_install/scripts', dirs_exist_ok=True)
-    shutil.copytree(f'{root_directory}/type/{args.Type}/data/',
-                    f'{root_directory}/post_install/data', dirs_exist_ok=True)
-    shutil.copytree(f'{root_directory}/post_install/',
-                    '/mnt/archinstall/home/admin/drk-arch/', dirs_exist_ok=True)
+        f"{root_directory}/type/{args.Type}/data/",
+        f"{root_directory}/post_install/data",
+        dirs_exist_ok=True,
+    )
+
+    configuration.configure(root_directory)
 
     # Start the configuration in the arch-chroot environment
-    with open(f'{root_directory}/configs/config.json', 'r') as f:
+    with open(f"{root_directory}/configs/config.json", "r") as f:
         setup_json = json.load(f)
-        post_install_json = setup_json['post_install']
-        users_json = setup_json['users']
+        post_install_json = setup_json["post_install"]
+        users_json = setup_json["users"]
 
-    subprocess.run(
-        ['arch-chroot', '/mnt/archinstall', '/usr/bin/python', '/home/admin/drk-arch/scripts/configuration.py'], shell=False, text=True)
-    # subprocess.run(
-    #     ['arch-chroot', '-u', 'admin', '/mnt/archinstall', '/usr/bin/sudo', '-i', '-u', 'admin', 'bash', '/home/admin/drk-arch/scripts/setup_non_sudo.sh', post_install_json["aur_pkgs"]], shell=False, text=True)
-
-    # subprocess.run(
-    #     ['arch-chroot', '/mnt/archinstall', '/home/admin/drk-arch/scripts/setup_sudo.py', post_install_json["aur_pkgs"]], shell=False, text=True)
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
 #     os.path.dirname(__file__)).split('scripts')[0])

@@ -1,0 +1,17 @@
+[org/gnome/desktop/privacy]
+# Applications should not use the camera
+disable-camera=false
+# Applications should not use the microphone
+disable-microphone=false
+# Applications should not make sound
+disable-sound-output=false
+# The system tries to hide the users identity on the screen and on the network
+hide-identity=false
+# If false, no anonymous instalattion and removal information will be send to the vendor
+send-software-usage-stats=false
+# Wheter the users full name is shown in the user menu or not
+show-full-name-in-top-bar=true
+# USB devices will be protected as configured in the usb-protection-level setting 
+usb-protection=true
+# Reject new USB devices [only when the lockscreen is present 'lockscreen' | all new USB devices will be rejected 'always']
+usb-protection-level='lockscreen'

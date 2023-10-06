@@ -13,10 +13,20 @@ def configure(root_directory: str):
         post_install_json = setup_json["post_install"]
 
     setup_utils.disable_sudo_password("admin")
-    setup_non_priviliged.install_yay()
-    for pkg in post_install_json["aur_pkgs"]:
-        setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
-    setup_utils.reenable_sudo_password("admin")
+    try:
+        setup_non_priviliged.install_yay()
+    except:
+        pass
+    finally:
+        setup_utils.reenable_sudo_password("admin")
+
+    try:
+        for pkg in post_install_json["aur_pkgs"]:
+            setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
+    except:
+        pass
+    finally:
+        setup_utils.reenable_sudo_password("admin")
 
     setup_utils.dconf("%s/data/dconf/" % root_directory)
 

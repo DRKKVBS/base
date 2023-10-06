@@ -19,45 +19,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="DRK Ach Configurator",
         description="Configures the the Arch Linux, after the OS Installation.",
-        epilog="Text at the bottom of help.",
-    )
+        epilog="Text at the bottom of help.",)
 
     # Adding optional argument
-    parser.add_argument(
-        "-t",
-        "--Type",
-        action="store",
-        required=True,
-        type=str,
-        choices=["thin", "mobile", "mpg", "hnr"],
-        help="Type of Device.",
-    )
+    parser.add_argument("-t", "--Type", action="store", required=True, type=str,
+                        choices=["thin", "mobile", "mpg", "hnr"], help="Type of Device.",)
 
-    parser.add_argument(
-        "-c",
-        "--Configuration",
-        action="store",
-        required=True,
-        type=str,
-        choices=["base", "mpg", "hnr"],
-        help="Type of Configuration to be used.",
-    )
+    parser.add_argument("-c", "--Configuration", action="store", required=True, type=str,
+                        choices=["base", "mpg", "hnr"], help="Type of Configuration to be used.",)
 
-    parser.add_argument(
-        "-hn",
-        "--Hostname",
-        action="store",
-        type=str,
-        help="The hostname of the new system.",
-    )
+    parser.add_argument("-hn", "--Hostname", action="store",
+                        type=str, help="The hostname of the new system.",)
 
-    parser.add_argument(
-        "-u",
-        "--upate",
-        action="store",
-        type=float,
-        help="The Version you want to be installed.",
-    )
+    parser.add_argument("-u", "--upate", action="store", type=float,
+                        help="The Version you want to be installed.", )
 
     # Read arguments from command line
     args = parser.parse_args()
@@ -101,24 +76,21 @@ if __name__ == "__main__":
 
     shutil.copyfile(
         f"{root_directory}/configs/config.json",
-        f"{root_directory}/post_install/config.json",
-    )
+        f"{root_directory}/post_install/config.json")
 
     # Start the linux installation
     # installation.install(f'{root_directory}/configs/', hostname)
 
     # Copy the files for post install configuration
     shutil.copytree(
-        data_directory, f"{root_directory}/post_install/data", dirs_exist_ok=True
-    )
+        data_directory, f"{root_directory}/post_install/data", dirs_exist_ok=True)
 
     shutil.copytree(
         f"{root_directory}/type/{args.Type}/data/",
         f"{root_directory}/post_install/data",
-        dirs_exist_ok=True,
-    )
+        dirs_exist_ok=True)
 
-    configuration.configure(root_directory)
+    configuration.configure(os.path.join(root_directory, 'post_install'))
 
     # Start the configuration in the arch-chroot environment
     with open(f"{root_directory}/configs/config.json", "r") as f:

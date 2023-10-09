@@ -1,4 +1,4 @@
 [User]
-session=gnome-xorg
-icon=/var/lib/AccountsService/icons/user.jpg
-systemAccount=False
+Session=gnome-xorg
+Icon=/var/lib/AccountsService/icons/user.jpg
+SystemAccount=false

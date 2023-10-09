@@ -129,6 +129,8 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
         shutil.copyfile(f"/mnt/archinstall/usr/share/applications/{file}",
                         f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
+        os.chown(
+            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", uid=uid, gid=gid)
         with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "r+") as f2:
             content = f2.read()
             if "NoDisplay=false" in content and file not in visible_apps:
@@ -136,7 +138,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
-            f2.truncate()
+            f2.truncate(0)
             f2.write(content)
             # Make File immutable
         make_immutable(
@@ -210,7 +212,7 @@ def firefox(firefox_dir: str):
             "Created new Direcotries: /mnt/archinstall/usr/share/firefox/")
 
     shutil.copytree(
-        firefox_dir, "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
+        f"{firefox_dir}share/", "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
     if not os.path.exists("/mnt/archinstall/etc/firefox/policies/"):
         os.makedirs("/mnt/archinstall/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(

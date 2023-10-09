@@ -12,3 +12,8 @@ sleep-inactive-ac-timeout=900
 # The type of sleeping that should be performed when the computer is inacitve
 # [blank the screen 'blank' | suspend the system 'suspend' | start a standard shutdown procedure 'shutdown' | hibernate the system 'hibernate' | show a pop-up query asking the user what to do 'interactive' | do nothing 'nothing' | log out from the session 'logout']
 sleep-inactive-ac-type='blank'
+# The amount of time in seconds the computer on battery power needs to be inactive before it goes to sleep. 0 Means never
+sleep-inactive-battery-timeout=900
+# The type of sleeping that should be performed when the computer is inacitve
+# [blank the screen 'blank' | suspend the system 'suspend' | start a standard shutdown procedure 'shutdown' | hibernate the system 'hibernate' | show a pop-up query asking the user what to do 'interactive' | do nothing 'nothing' | log out from the session 'logout']
+sleep-inactive-battery-type='blank'

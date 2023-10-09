@@ -90,6 +90,8 @@ def environment_variable(variable_name: str, variable_value: str, user: str, uid
             f.write(f"{variable_name}={variable_value}\n")
             print_color.print_confirmation(
                 "SUCCESSFUL: Created Environment variable %s=%s" % (variable_name, variable_value))
+        os.chown(
+            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", uid=uid, gid=gid)
         make_immutable(
             f"/home/{user}/.config/environment.d/variables.conf")
     except Exception as e:
@@ -140,6 +142,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+            f2.seek(0)
             f2.truncate(0)
             f2.write(content)
             # Make File immutable

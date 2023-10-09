@@ -427,12 +427,13 @@
           "<all_urls>"
         ],
         "Exceptions": [
-          "https://drk-stflb01.rk.local/*",
-          "https://*.drk-access.de/*",
+          "*.drk-stflb01.rk.local/*",
+          "*.drk-access.de/*",
           "file:///usr/share/firefox/DRK_Rechenzentrum.html",
-          "https://*.microsoftonline.com/*",
-          "https://*.microsoft.com/*",
-          "https://*.windowsazure.com/*"
+          "*.microsoftonline.com/*",
+          "*.microsoft.com/*",
+          "*.windowsazure.com/*",
+          "*.aka.ms/mfasetup"
         ]
       }
     }

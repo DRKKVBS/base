@@ -58,9 +58,6 @@ def configure(root_directory: str):
     setup_utils.final_commands()
     setup_utils.enable_group_for_sudo('wheel')
 
-    # os.chmod('/home/admin/after_reboot.sh', mode=744)
-    # subprocess.run(['/home/admin/after_reboot.sh'], shell=False)
-
     with open("/var/log/os", "w+") as f:
         f.write("Version 1.0")
 

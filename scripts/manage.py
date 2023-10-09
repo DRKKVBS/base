@@ -91,12 +91,9 @@ if __name__ == "__main__":
 
     configuration.configure(os.path.join(root_directory, 'post_install'))
 
-    # Start the configuration in the arch-chroot environment
-    with open(f"{root_directory}/configs/config.json", "r") as f:
-        setup_json = json.load(f)
-        post_install_json = setup_json["post_install"]
-        users_json = setup_json["users"]
-
+    with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/', 'r') as f2:
+        f1.write(f2.read())
+    shutil.copyfile(f"{root_directory}/post_install.sh", '/mnt/archinstall/home/admin/post.sh')
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
 #     os.path.dirname(__file__)).split('scripts')[0])

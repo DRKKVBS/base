@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
     configuration.configure(os.path.join(root_directory, 'post_install'))
 
-    with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/', 'r') as f2:
+    with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/post_install.sh', 'r') as f2:
         f1.write(f2.read())
     shutil.copyfile(f"{root_directory}/post_install.sh", '/mnt/archinstall/home/admin/post.sh')
 # Delete Downloaded git repo

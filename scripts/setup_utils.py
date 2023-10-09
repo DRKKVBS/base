@@ -99,8 +99,10 @@ def environment_variable(variable_name: str, variable_value: str, user: str, uid
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
+    print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
     # Create Directories if they do not exist
     if not os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
+        print_color.print_info("    Creating new Directories %s" % user)
         os.makedirs(
             f"/mnt/archinstall/home/{user}/.local/share/applications/", exist_ok=True)
         os.chown(f"/mnt/archinstall/home/{user}/.local/", uid=uid, gid=gid)
@@ -117,7 +119,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
     shutil.copytree(
         desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True)
 
-    # Make Dekstop Entries hidden
+    # Make Desktop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
         if os.path.islink(f"/mnt/archinstall/usr/share/applications/{file}"):
             continue

@@ -40,6 +40,7 @@ def configure(root_directory: str):
         for k, v in data.items():
             try:
                 print(type(v.get('destination')))
+                print(f"{root_directory}/data/{v.get('source')}")
                 if os.path.isdir(f"{root_directory}/data/{v.get('source')}"):
                     for dst in v.get('destination'):
                         print(f"Destination: /mnt/archinstall/{dst}")

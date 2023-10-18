@@ -15,25 +15,25 @@ def configure(root_directory: str):
         post_install_json = setup_json["post_install"]
         users = setup_json['users']
 
-    setup_utils.disable_sudo_password("admin")
-    try:
-        setup_non_priviliged.install_yay()
-    except Exception as e:
-        print_color.print_error(
-            "ERROR: Installation of yay failed! | %s"
-            % (e)
-        )
-    finally:
-        setup_utils.reenable_sudo_password("admin")
+    # setup_utils.disable_sudo_password("admin")
+    # try:
+    #     setup_non_priviliged.install_yay()
+    # except Exception as e:
+    #     print_color.print_error(
+    #         "ERROR: Installation of yay failed! | %s"
+    #         % (e)
+    #     )
+    # finally:
+    #     setup_utils.reenable_sudo_password("admin")
 
-    setup_utils.disable_sudo_password("admin")
-    try:
-        for pkg in post_install_json["aur_pkgs"]:
-            setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
-    except:
-        pass
-    finally:
-        setup_utils.reenable_sudo_password("admin")
+    # setup_utils.disable_sudo_password("admin")
+    # try:
+    #     for pkg in post_install_json["aur_pkgs"]:
+    #         setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
+    # except:
+    #     pass
+    # finally:
+    #     setup_utils.reenable_sudo_password("admin")
 
     with open(f"{root_directory}/data/copy.json", "r") as f:
         data = json.load(f)
@@ -50,6 +50,7 @@ def configure(root_directory: str):
                         shutil.copyfile(f"{root_directory}/data/{v.get('source')}",
                                         f"/mnt/archinstall/{v.get('destination')}")
             except Exception as e:
+                print(e)
                 pass
 
     for user, data in users.items():

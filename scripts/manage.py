@@ -81,12 +81,11 @@ if __name__ == "__main__":
         f"{root_directory}/post_install/config.json")
 
     # Start the linux installation
-    if args.Update is not None:
+    if args.Install is not None:
         installation.install(f'{root_directory}/configs/', hostname)
-        exit()
+        print('Install')
     elif args.Update is not None:
-        print('Update is set')
-        exit()
+        print('Update')
 
     # Copy the files for post install configuration
     shutil.copytree(

@@ -83,8 +83,10 @@ if __name__ == "__main__":
     # Start the linux installation
     if args.Update is not None:
         installation.install(f'{root_directory}/configs/', hostname)
+        exit()
     elif args.Update is not None:
         print('Update is set')
+        exit()
 
     # Copy the files for post install configuration
     shutil.copytree(

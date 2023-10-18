@@ -39,14 +39,14 @@ def configure(root_directory: str):
         data = json.load(f)
         for k, v in data.items():
             try:
-                print(f"Source: {root_directory}/data/{v.get('source')}",
-                                    f"Destination: /mnt/archinstall/{v.get('destination')}")
                 if os.path.isdir(f"{root_directory}/data/{v.get('source')}"):
-                    shutil.copytree(f"{root_directory}/data/{v.get('source')}",
-                                    f"/mnt/archinstall/{v.get('destination')}")
+                    for dst in v.get('destination'):
+                        shutil.copytree(f"{root_directory}/data/{v.get('source')}",
+                                        f"/mnt/archinstall/{v.get('destination')}")
                 elif os.path.isfile(f"{root_directory}/data/{v.get('source')}"):
-                    shutil.copyfile(f"{root_directory}/data/{v.get('source')}",
-                                    f"/mnt/archinstall/{v.get('destination')}")
+                    for dst in v.get('destination'):
+                        shutil.copyfile(f"{root_directory}/data/{v.get('source')}",
+                                        f"/mnt/archinstall/{v.get('destination')}")
             except Exception as e:
                 pass
 
@@ -72,5 +72,3 @@ if __name__ == "__main__":
     root_directory = os.path.realpath(
         os.path.dirname(__file__)).split("scripts")[0]
     configure(root_directory)
-
-    

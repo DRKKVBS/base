@@ -33,7 +33,7 @@ if __name__ == "__main__":
     update_install = parser.add_mutually_exclusive_group(required=True)
     update_install.add_argument("-u", "--Update", action="store_true",
                                 help="The Version you want to be installed.")
-    update_install.add_argument("-i", "--Install", action="store_true", type=float,
+    update_install.add_argument("-i", "--Install", action="store_true",
                                 help="The Version you want to be installed.")
 
     # Read arguments from command line

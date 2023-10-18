@@ -130,13 +130,14 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         os.chown(
             f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", uid=uid, gid=gid)
-        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w+") as f2:
+        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "r+") as f2:
             content = f2.read()
             if "NoDisplay=false" in content and file not in visible_apps:
                 content = content.replace("NoDisplay=false", "NoDisplay=true")
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+            f2.truncate()
             f2.write(content)
             # Make File immutable
         make_immutable(

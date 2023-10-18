@@ -38,6 +38,8 @@ def configure(root_directory: str):
     with open(f"{root_directory}/data/copy.json", "r") as f:
         data = json.load(f)
         for k, v in data.items():
+            print(f"Source: {root_directory}/data/{v.get('source')}",
+                                        f"Destination: /mnt/archinstall/{v.get('destination')}")
             try:
                 if os.path.isdir(f"{root_directory}/data/{v.get('source')}"):
                     for dst in v.get('destination'):

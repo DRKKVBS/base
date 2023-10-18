@@ -39,6 +39,8 @@ def configure(root_directory: str):
         data = json.load(f)
         for k, v in data.items():
             try:
+                print(f"Source: {root_directory}/data/{v.get('source')}",
+                                    f"Destination: /mnt/archinstall/{v.get('destination')}")
                 if os.path.isdir(f"{root_directory}/data/{v.get('source')}"):
                     shutil.copytree(f"{root_directory}/data/{v.get('source')}",
                                     f"/mnt/archinstall/{v.get('destination')}")

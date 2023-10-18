@@ -31,9 +31,9 @@ if __name__ == "__main__":
                         type=str, help="The hostname of the new system.")
 
     update_install = parser.add_mutually_exclusive_group(required=True)
-    update_install.add_argument("-u", "--Update", action="store",
+    update_install.add_argument("-u", "--Update", action="store_true",
                                 help="The Version you want to be installed.")
-    update_install.add_argument("-i", "--Install", action="store", type=float,
+    update_install.add_argument("-i", "--Install", action="store_true", type=float,
                                 help="The Version you want to be installed.")
 
     # Read arguments from command line

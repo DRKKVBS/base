@@ -62,8 +62,8 @@ def configure(root_directory: str):
     setup_utils.final_commands()
     setup_utils.enable_group_for_sudo('wheel')
 
-    with open("/var/log/os", "w+") as f:
-        f.write("Version 1.0")
+    # with open("/var/log/os", "a") as f:
+    #     f.write("Version 1.0")
 
 
 if __name__ == "__main__":

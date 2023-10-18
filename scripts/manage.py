@@ -28,13 +28,13 @@ if __name__ == "__main__":
                         choices=["base", "mpg", "hnr"], help="Type of Configuration to be used.",)
 
     parser.add_argument("-hn", "--Hostname", action="store",
-                        type=str, help="The hostname of the new system.",)
+                        type=str, help="The hostname of the new system.")
 
-    parser.add_argument("-u", "--Update", action="store", type=float,
-                        help="The Version you want to be installed.", )
-    
-    parser.add_argument("-i", "--Install", action="store", type=float,
-                        help="The Version you want to be installed.", )
+    update_install = parser.add_mutually_exclusive_group(required=True)
+    update_install.add_argument("-u", "--Update", action="store", type=float,
+                                help="The Version you want to be installed.")
+    update_install.add_argument("-i", "--Install", action="store", type=float,
+                                help="The Version you want to be installed.")
 
     # Read arguments from command line
     args = parser.parse_args()
@@ -81,7 +81,10 @@ if __name__ == "__main__":
         f"{root_directory}/post_install/config.json")
 
     # Start the linux installation
-    installation.install(f'{root_directory}/configs/', hostname)
+    if args.Update is not None:
+        installation.install(f'{root_directory}/configs/', hostname)
+    elif args.Update is not None:
+        print('Update is set')
 
     # Copy the files for post install configuration
     shutil.copytree(
@@ -96,7 +99,8 @@ if __name__ == "__main__":
 
     with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
         f1.write(f2.read())
-    shutil.copyfile(f"{root_directory}/post_install.sh", '/mnt/archinstall/home/admin/post.sh')
+    shutil.copyfile(f"{root_directory}/post_install.sh",
+                    '/mnt/archinstall/home/admin/post.sh')
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
 #     os.path.dirname(__file__)).split('scripts')[0])

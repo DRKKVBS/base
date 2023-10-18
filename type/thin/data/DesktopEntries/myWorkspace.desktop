@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=My Workspace
+Name[en_GB]=My Workspace
+Name[de]=Mein Arbeitsplatz
+Name=My Workspace
+Comment[en_CA]=Start Firefox with the BOS Landingpage
+Comment[en_GB]=Start Firefox with the BOS Landingpage
+Comment[de]=Startet Firefox mit der BOS Landingpage
+Comment=Start Firefox with the BOS Landingpage
+Exec=/usr/bin/firefox --fullscreen --private-window https://drk-stflb01.rk.local/
+Terminal=false
+X-GNOME-Autostart-enabled=true
+Icon=video-display
+NoDisplay=false

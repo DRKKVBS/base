@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=Firefox AutoStart
+Name[en_GB]=Firefox AutoStart
+Name[de]=Firefox AutoStart
+Name=Firefox AutoStart
+Comment[en_CA]=Start Firefox on StartUp
+Comment[en_GB]=Start Firefox on StartUp
+Comment[de]=Startet Firefox beim Systemstart
+Comment=Start Firefox on StartUp
+Exec=/usr/bin/firefox --fullscreen --private-window https://drk-stflb01.rk.local/
+Terminal=false
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

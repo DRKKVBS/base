@@ -125,25 +125,18 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
         if os.path.islink(f"/mnt/archinstall/usr/share/applications/{file}"):
             continue
-
-        with open(f"/mnt/archinstall/usr/share/applications/{file}", "r") as f1:
-            content = f1.read()
-            if "NoDisplay=true" in content:
-                continue
         shutil.copyfile(f"/mnt/archinstall/usr/share/applications/{file}",
                         f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         os.chown(
             f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", uid=uid, gid=gid)
-        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "r+") as f2:
+        with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "w+") as f2:
             content = f2.read()
             if "NoDisplay=false" in content and file not in visible_apps:
                 content = content.replace("NoDisplay=false", "NoDisplay=true")
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
-            f2.seek(0)
-            f2.truncate()
             f2.write(content)
             # Make File immutable
         make_immutable(
@@ -241,6 +234,15 @@ def autostart(autostart_dir: str):
     shutil.copytree(
         autostart_dir, "/mnt/archinstall/etc/xdg/autostart/", dirs_exist_ok=True)
     print_color.print_confirmation("SUCCESSFUL: Setup Autostart Apps")
+
+
+def systemd_login():
+    with open('/mnt/archinstall/etc/systemd/login.conf', 'r+') as f:
+        content = f.read()
+        for el in [("NAutoVTs=6", "NAutoVTs=0\n"), ("ReserveVT=6", "ReserveVT=0\n")]:
+            content = content.replace(
+                el[0], el[1])
+        f.write(content.replace('', ''))
 
 
 if __name__ == "__main__":

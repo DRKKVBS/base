@@ -35,11 +35,19 @@ def configure(root_directory: str):
     finally:
         setup_utils.reenable_sudo_password("admin")
 
-    setup_utils.dconf("%s/data/dconf/" % root_directory)
-    setup_utils.logos("%s/data/images/logos/" % root_directory)
-    setup_utils.icons("%s/data/images/icons/" % root_directory)
-    setup_utils.grub("%s/data/grub" % root_directory)
-    setup_utils.gdm("%s/data/gdm.conf" % root_directory)
+    with open(f"{root_directory}/data/copy.json", "r") as f:
+        data = json.load(f)
+        for k, v in data.items():
+            try:
+                if os.path.isdir(f"{root_directory}/data/{v.get('source')}"):
+                    shutil.copytree(f"{root_directory}/data/{v.get('source')}",
+                                    f"/mnt/archinstall/{v.get('destination')}")
+                elif os.path.isfile(f"{root_directory}/data/{v.get('source')}"):
+                    shutil.copyfile(f"{root_directory}/data/{v.get('source')}",
+                                    f"/mnt/archinstall/{v.get('destination')}")
+            except Exception as e:
+                pass
+
     for user, data in users.items():
         if user == 'admin':
             gid = uid = 1000
@@ -51,10 +59,6 @@ def configure(root_directory: str):
         for app in data['desktop']:
             setup_utils.desktop_apps("%s/data/DesktopEntries/" %
                                      root_directory, user, gid, uid, app)
-    setup_utils.accountsservices("%s/data/AccountsService/" % root_directory)
-    setup_utils.firefox("%s/data/firefox/" % root_directory)
-    setup_utils.wifi("%s/data/wifi/wifi_backend.conf" % root_directory)
-    setup_utils.autostart("%s/data/autostart/" % root_directory)
     setup_utils.final_commands()
     setup_utils.enable_group_for_sudo('wheel')
 
@@ -66,3 +70,5 @@ if __name__ == "__main__":
     root_directory = os.path.realpath(
         os.path.dirname(__file__)).split("scripts")[0]
     configure(root_directory)
+
+    

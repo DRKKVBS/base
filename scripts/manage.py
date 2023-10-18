@@ -30,7 +30,10 @@ if __name__ == "__main__":
     parser.add_argument("-hn", "--Hostname", action="store",
                         type=str, help="The hostname of the new system.",)
 
-    parser.add_argument("-u", "--upate", action="store", type=float,
+    parser.add_argument("-u", "--Update", action="store", type=float,
+                        help="The Version you want to be installed.", )
+    
+    parser.add_argument("-i", "--Install", action="store", type=float,
                         help="The Version you want to be installed.", )
 
     # Read arguments from command line

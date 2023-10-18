@@ -137,6 +137,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
             elif file not in visible_apps:
                 content = content.replace(
                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+            f2.seek(0)
             f2.truncate()
             f2.write(content)
             # Make File immutable

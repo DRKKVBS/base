@@ -41,16 +41,16 @@ def configure(root_directory: str):
             try:
                 print(type(v.get('destination')))
                 print(f"{root_directory}{v.get('source')}")
-                if os.path.isdir(f"{root_directory}/{v.get('source')}"):
+                if os.path.isdir(f"{root_directory}{v.get('source')}"):
                     for dst in v.get('destination'):
-                        print(f"Destination: /mnt/archinstall/{dst}")
+                        print(f"Destination: /mnt/archinstall{dst}")
                         shutil.copytree(f"{root_directory}{v.get('source')}",
-                                        f"/mnt/archinstall/{dst}")
+                                        f"/mnt/archinstall{dst}")
                 elif os.path.isfile(f"{root_directory}{v.get('source')}"):
                     for dst in v.get('destination'):
-                        print(f"Destination: /mnt/archinstall/{dst}")
+                        print(f"Destination: /mnt/archinstall{dst}")
                         shutil.copyfile(f"{root_directory}{v.get('source')}",
-                                        f"/mnt/archinstall/{dst}")
+                                        f"/mnt/archinstall{dst}")
             except Exception as e:
                 print(e)
                 pass

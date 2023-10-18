@@ -35,7 +35,7 @@ def configure(root_directory: str):
     # finally:
     #     setup_utils.reenable_sudo_password("admin")
 
-    with open(f"{root_directory}/copy.json", "r") as f:
+    with open(f"{root_directory}/data/copy.json", "r") as f:
         data = json.load(f)
         for k, v in data.items():
             try:

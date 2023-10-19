@@ -165,9 +165,6 @@ def firefox(firefox_dir: str):
         "/mnt/archinstall/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 
-    os.
-
 
 if __name__ == "__main__":
     root_dir = os.path.realpath(os.path.dirname(__file__)).split("scripts")[0]
-    setup(root_dir)

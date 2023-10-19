@@ -33,6 +33,7 @@ def configure(data: dict, users: dict, dir: str):
     for k, v in data.items():
 
         print(type(v))
+        print(v)
 
         try:
             if os.path.isdir(f"{dir}{v.get('source')}"):

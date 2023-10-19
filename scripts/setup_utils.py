@@ -29,21 +29,21 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-def creat_missing_dirs(uid: int, gid: int, dir: str):
+def creat_missing_dirs():
     if not os.path.exists(f"/mnt/archinstall/home/admin/.config/environment.d/"):
         print_color.print_info("    Creating new Directories %s" % "admin")
         os.makedirs(
             f"/mnt/archinstall/home/admin/.config/environment.d/", exist_ok=True)
-        os.chown(f"/mnt/archinstall/home/admin/.config/", uid=uid, gid=gid)
+        os.chown(f"/mnt/archinstall/home/admin/.config/", uid=1000, gid=1000)
         os.chown(
-            f"/mnt/archinstall/home/admin/.config/environment.d/", uid=uid, gid=gid)
+            f"/mnt/archinstall/home/admin/.config/environment.d/", uid=1000, gid=1000)
     if not os.path.exists(f"/mnt/archinstall/home/user/.local/share/applications/"):
         print_color.print_info("    Creating new Directories %s" % "user")
         os.makedirs(
             f"/mnt/archinstall/home/user/.config/environment.d/", exist_ok=True)
-        os.chown(f"/mnt/archinstall/home/user/.config/", uid=uid, gid=gid)
+        os.chown(f"/mnt/archinstall/home/user/.config/", uid=1001, gid=1001)
         os.chown(
-            f"/mnt/archinstall/home/user/.config/environment.d/", uid=uid, gid=gid)
+            f"/mnt/archinstall/home/user/.config/environment.d/", uid=1001, gid=1001)
 
 
 

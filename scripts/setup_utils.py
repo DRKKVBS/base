@@ -30,7 +30,7 @@ def final_commands():
 
 
 def mkdir_as_user(uid: int, dir: str):
-    run_command_arch_chroot(['sudo', '-i', '-u', uid, 'mkdir', dir])
+    run_command_arch_chroot(['sudo', '-i', '-u', str(uid), 'mkdir', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
@@ -40,7 +40,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
         print_color.print_info("    Creating new Directories %s" % user)
         for el in ['.local/', '.local/share/', '.local/share/applications/']:
             mkdir_as_user(uid=uid, dir=el)
-            
+
     make_mutable(f"/home/{user}/.local/share/applications/")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         make_mutable(

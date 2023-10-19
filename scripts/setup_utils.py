@@ -29,6 +29,24 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
+def creat_missing_dirs(uid: int, gid: int, dir: str):
+    if not os.path.exists(f"/mnt/archinstall/home/admin/.config/environment.d/"):
+        print_color.print_info("    Creating new Directories %s" % "admin")
+        os.makedirs(
+            f"/mnt/archinstall/home/admin/.config/environment.d/", exist_ok=True)
+        os.chown(f"/mnt/archinstall/home/admin/.config/", uid=uid, gid=gid)
+        os.chown(
+            f"/mnt/archinstall/home/admin/.config/environment.d/", uid=uid, gid=gid)
+    if not os.path.exists(f"/mnt/archinstall/home/user/.local/share/applications/"):
+        print_color.print_info("    Creating new Directories %s" % "user")
+        os.makedirs(
+            f"/mnt/archinstall/home/user/.config/environment.d/", exist_ok=True)
+        os.chown(f"/mnt/archinstall/home/user/.config/", uid=uid, gid=gid)
+        os.chown(
+            f"/mnt/archinstall/home/user/.config/environment.d/", uid=uid, gid=gid)
+
+
+
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
     # Create Directories if they do not exist

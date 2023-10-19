@@ -8,7 +8,7 @@ from print_colors import Color
 print_color = Color()
 
 
-def configure(data: dict, copy_data:dict, users: dict, dir: str):
+def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     setup_utils.disable_sudo_password("admin")
     try:

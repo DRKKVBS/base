@@ -33,18 +33,18 @@ def configure(data: dict, users: dict, dir: str):
     for k, v in data.items():
 
         try:
-            if os.path.isdir(f"{root_directory}{v.get('source')}"):
+            if os.path.isdir(f"{dir}{v.get('source')}"):
 
                 for dst in v.get('destination'):
                     print(f"Destination: /mnt/archinstall{dst}")
-                    shutil.copytree(f"{root_directory}{v.get('source')}",
+                    shutil.copytree(f"{dir}{v.get('source')}",
                                     f"/mnt/archinstall{dst}", dirs_exist_ok=True)
 
-            elif os.path.isfile(f"{root_directory}{v.get('source')}"):
+            elif os.path.isfile(f"{dir}{v.get('source')}"):
 
                 for dst in v.get('destination'):
                     print(f"Destination: /mnt/archinstall{dst}")
-                    shutil.copyfile(f"{root_directory}{v.get('source')}",
+                    shutil.copyfile(f"{dir}{v.get('source')}",
                                     f"/mnt/archinstall{dst}")
 
         except Exception as e:
@@ -57,7 +57,7 @@ def configure(data: dict, users: dict, dir: str):
         else:
             gid = uid = 1001
         setup_utils.desktop_apps("%s/data/DesktopEntries/" %
-                                 root_directory, user, gid, uid, data['desktop'])
+                                 dir, user, gid, uid, data['desktop'])
     setup_utils.final_commands()
     setup_utils.enable_group_for_sudo('wheel')
 

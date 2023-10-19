@@ -5,7 +5,7 @@ import re
 
 
 def install(data: dict, users: dict, hostname="drk-bs-client"):
-    
+
     # Read out the hardware information of the system
     hardware_info = {}
 
@@ -221,5 +221,3 @@ def install(data: dict, users: dict, hostname="drk-bs-client"):
 if __name__ == "__main__":
     path = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0] + 'data'
-
-    install(path)

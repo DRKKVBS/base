@@ -40,17 +40,16 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
         try:
             if os.path.isdir(f"{dir}{v.get('source')}"):
 
-                for dst in v.get('destination'):
-                    print(f"Destination: /mnt/archinstall{dst}")
-                    shutil.copytree(f"{dir}{v.get('source')}",
-                                    f"/mnt/archinstall{dst}", dirs_exist_ok=True)
+                shutil.copytree(f"{dir}{v.get('source')}",
+                                f"/mnt/archinstall{v.get('destination')}", dirs_exist_ok=True)
 
             elif os.path.isfile(f"{dir}{v.get('source')}"):
 
-                for dst in v.get('destination'):
-                    print(f"Destination: /mnt/archinstall{dst}")
-                    shutil.copyfile(f"{dir}{v.get('source')}",
-                                    f"/mnt/archinstall{dst}")
+                shutil.copyfile(f"{dir}{v.get('source')}",
+                                f"/mnt/archinstall{v.get('destination')}")
+            if v.get('permissions'):
+                os.chown(f"/mnt/archinstall{v.get('destination')}", uid=v.get(
+                    'permissions').get('uid'), gid=v.get('permissions').get('gid'))
 
         except Exception as e:
             print(e)

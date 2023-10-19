@@ -1,63 +1,62 @@
 {
     "dconf": {
         "source": "/data/dconf/",
-        "destination": [
-            "/etc/dconf/"
-        ]
+        "destination": "/etc/dconf/"
     },
     "AccountsService": {
         "source": "/data/AccountsService",
-        "destination": [
-            "/var/lib/AccountsService/"
-        ]
+        "destination": "/var/lib/AccountsService/"
     },
-    "DesktopEntries": {
+    "DesktopEntries-Admin": {
         "source": "/data/DesktopEntries",
-        "destination": [
-            "/home/user/.local/share/applications/",
-            "/home/admin/.local/share/applications/"
-        ]
+        "destination": "/home/admin/.local/share/applications/",
+        "permissions": {
+            "uid": 1000,
+            "gid": 1000
+        }
+    },
+    "DesktopEntries-User": {
+        "source": "/data/DesktopEntries",
+        "destination": "/home/user/.local/share/applications/",
+        "permissions": {
+            "uid": 1001,
+            "gid": 1001
+        }
     },
     "Icons": {
         "source": "/data/images/icons",
-        "destination": [
-            "/var/lib/AccountsService/icons/"
-        ]
+        "destination": "/var/lib/AccountsService/icons/"
     },
     "Logos": {
         "source": "/data/images/logos",
-        "destination": [
-            "/usr/share/logos/"
-        ]
+        "destination": "/usr/share/logos/"
     },
     "X11-VT-Switch": {
         "source": "/data/01-vt-switch.conf",
-        "destination": [
-            "/etc/X11/xorg.conf.d/01-vt-switch.conf"
-        ]
+        "destination": "/etc/X11/xorg.conf.d/01-vt-switch.conf"
     },
     "Gdm-conf": {
         "source": "/data/custom.conf",
-        "destination": [
-            "/etc/gdm/custom.conf"
-        ]
+        "destination": "/etc/gdm/custom.conf"
     },
     "Grub-conf": {
         "source": "/data/grub",
-        "destination": [
-            "/etc/default/grub"
-        ]
+        "destination": "/etc/default/grub"
     },
     "Environment-Variable-User": {
         "source": "/data/environmentVariableUser.conf",
-        "destination": [
-            "/home/user/.config/environment.d/variable.conf"
-        ]
+        "destination": "/home/user/.config/environment.d/variable.conf",
+        "permissions": {
+            "uid": 1001,
+            "gid": 1001
+        }
     },
     "Environment-Variable-Admin": {
         "source": "/data/environmentVariableAdmin.conf",
-        "destination": [
-            "/home/admin/.config/environment.d/variable.conf"
-        ]
+        "destination": "/home/admin/.config/environment.d/variable.conf",
+        "permissions": {
+            "uid": 1000,
+            "gid": 1000
+        }
     }
 }

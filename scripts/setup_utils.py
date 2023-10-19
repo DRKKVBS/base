@@ -14,7 +14,6 @@ def run_command_arch_chroot(cmd: list, uid=None, gid=None):
         subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
                        shell=False)
 
-
 def final_commands():
     ''''''
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
@@ -87,7 +86,8 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
             f2.seek(0)
             f2.truncate()
             f2.write(content)
-            # Make File immutable
+
+        # Make File immutable
         make_immutable(
             f"/home/{user}/.local/share/applications/{file}")
     # Make the directory immutable
@@ -164,6 +164,8 @@ def firefox(firefox_dir: str):
         f"{firefox_dir}policies.json",
         "/mnt/archinstall/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
+
+    os.
 
 
 if __name__ == "__main__":

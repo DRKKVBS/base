@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "Copy-Object",
+    "description": "A File or Directory to copy to the new system",
+    "type": "object",
+    "properties": {
+        "object": {
+            "description": "Object to copy",
+            "type": "array",
+            "items": {
+                "source": {
+                    "description": "The source directory of the object",
+                    "type": "string"
+                },
+                "destination": {
+                    "description": "The destination directory of the object",
+                    "type": "string"
+                },
+                "owner": {
+                    "description": "Owner of the file or directory",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                }
+            }
+        },
+        "required": [
+            "object"
+        ]
+    }
+}

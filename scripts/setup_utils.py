@@ -29,7 +29,6 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
     # Create Directories if they do not exist
@@ -85,6 +84,10 @@ def make_mutable(path: str):
     run_command_arch_chroot(["chattr", "-i", path])
 
 
+def sync_pacman():
+    run_command_arch_chroot(['pacman', '-Syy'])
+
+
 def enable_group_for_sudo(group: str):
     print_color.print_info_critical(
         "STARTING: Enabling group for sudo for %s" % (group))
@@ -97,7 +100,6 @@ def enable_group_for_sudo(group: str):
         print_color.print_error(
             "ERROR: Enabling group for sudo for %s failed! | %s" % (group, e))
         pass
-
 
 
 def disable_sudo_password(user: str):

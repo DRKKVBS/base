@@ -1,7 +1,6 @@
 import json
 import os
 import shutil
-import subprocess
 import setup_utils
 import setup_non_priviliged
 from print_colors import Color

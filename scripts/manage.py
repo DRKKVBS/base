@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 
 import json
-import shutil
 import os
 import argparse
 import installation
 import utils
 import configuration
+import setup_utils
+import socket
+from print_colors import Color
+
 
 if __name__ == "__main__":
+
+    print_color = Color()
+
     # Directories
-    root_directory = "/tmp/base"
+    root_directory = root_directory = os.path.realpath(
+        os.path.dirname(__file__)).split("scripts")[0]
     script_directory = os.path.join(root_directory, "scripts")
 
     data_directory = os.path.join(root_directory, "data")
@@ -88,11 +95,16 @@ if __name__ == "__main__":
 
     # Start the linux installation
     if args.Install:
+        if socket.gethostname != 'archiso':
+            parser.error(
+                'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')
+
         installation.install(data=installation_data,
                              users=users, hostname=hostname)
+
     elif args.Update:
         print('Update')
-
+        setup_utils.sync_pacman()
     configuration.configure(data=post_installation_data, users=users)
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:

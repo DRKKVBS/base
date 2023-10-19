@@ -14,6 +14,7 @@ def run_command_arch_chroot(cmd: list, uid=None, gid=None):
         subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
                        shell=False)
 
+
 def final_commands():
     ''''''
     # Update dconf db, remove user from "wheel" group, change user password, create correct timezone, update grub config
@@ -28,22 +29,8 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-def creat_missing_dirs():
-    if not os.path.exists(f"/mnt/archinstall/home/admin/.config/environment.d/"):
-        print_color.print_info("    Creating new Directories %s" % "admin")
-        os.makedirs(
-            f"/mnt/archinstall/home/admin/.config/environment.d/", exist_ok=True)
-        os.chown(f"/mnt/archinstall/home/admin/.config/", uid=1000, gid=1000)
-        os.chown(
-            f"/mnt/archinstall/home/admin/.config/environment.d/", uid=1000, gid=1000)
-    if not os.path.exists(f"/mnt/archinstall/home/user/.local/share/applications/"):
-        print_color.print_info("    Creating new Directories %s" % "user")
-        os.makedirs(
-            f"/mnt/archinstall/home/user/.config/environment.d/", exist_ok=True)
-        os.chown(f"/mnt/archinstall/home/user/.config/", uid=1001, gid=1001)
-        os.chown(
-            f"/mnt/archinstall/home/user/.config/environment.d/", uid=1001, gid=1001)
-
+def mkdir_as_user(uid: int, dir: str):
+    run_command_arch_chroot(['sudo', '-i', '-u', uid, 'mkdir', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
@@ -51,14 +38,9 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
     # Create Directories if they do not exist
     if not os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         print_color.print_info("    Creating new Directories %s" % user)
-        os.makedirs(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/", exist_ok=True)
-        os.chown(f"/mnt/archinstall/home/{user}/.local/", uid=uid, gid=gid)
-        os.chown(
-            f"/mnt/archinstall/home/{user}/.local/share/", uid=uid, gid=gid)
-        os.chown(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/", uid=uid, gid=gid)
-
+        for el in ['.local/', '.local/share/', '.local/share/applications/']:
+            mkdir_as_user(uid=uid, dir=el)
+            
     make_mutable(f"/home/{user}/.local/share/applications/")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
         make_mutable(

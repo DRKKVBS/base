@@ -10,7 +10,11 @@ print_color = Color()
 
 def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
-    setup_utils.creat_missing_dirs()
+    
+    for y in ['/home/admin/.config', '/home/admin/.config/environment.d/']:
+            setup_utils.mkdir_as_user(100, y)
+    for x in ['/home/admin/.config', '/home/admin/.config/environment.d/']:
+        setup_utils.mkdir_as_user(100, x)
 
     setup_utils.disable_sudo_password("admin")
     try:

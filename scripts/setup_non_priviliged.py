@@ -9,16 +9,28 @@ print_color = Color()
 
 def install_aur_package(chroot: bool, package: str):
     if chroot:
-        print_color.print_info('Installing %s' % package)
-        setup_utils.run_command_arch_chroot(
-            cmd=["yay", "-S", package, "--noconfirm"], uid=1000, gid=1000)
-        print_color.print_confirmation('Installed %s successfull' % package)
+        pkgs = subprocess.run(["arch-chroot", "/mnt/archinstall/", "pacman", "-Qm"],
+                       shell=False, capture_output=True, text=True).stdout
+        if package not in pkgs:
+            print_color.print_info('Installing %s' % package)
+            setup_utils.run_command_arch_chroot(
+                cmd=["yay", "-S", package, "--noconfirm"], uid=1000, gid=1000)
+            print_color.print_confirmation('Installed %s successfull' % package)
+        else:
+            print_color.print_confirmation('%s is already installed' % package)
 
     else:
-        print_color.print_info('Installing %s' % package)
-        setup_utils.run_command_arch_chroot(
-            cmd=["yay", "-S", package, "--noconfirm"])
-        print_color.print_confirmation('Installed %s successfull' % package)
+        
+        pkgs = subprocess.run(["arch-chroot", "/mnt/archinstall/", "pacman", "-Qm"],
+                       shell=False, capture_output=True, text=True).stdout
+        if package not in pkgs:
+            print_color.print_info('Installing %s' % package)
+            setup_utils.run_command_arch_chroot(
+                cmd=["yay", "-S", package, "--noconfirm"])
+            print_color.print_confirmation('Installed %s successfull' % package)
+        else:
+            print_color.print_confirmation('%s is already installed' % package)
+            
 
 
 def install_yay():

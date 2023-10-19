@@ -105,7 +105,7 @@ if __name__ == "__main__":
     elif args.Update:
         print('Update')
         setup_utils.sync_pacman()
-    configuration.configure(data=post_installation_data, users=users)
+    configuration.configure(data=post_installation_data, users=users, dir=root_directory)
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
     #     f1.write(f2.read())

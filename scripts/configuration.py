@@ -8,7 +8,7 @@ from print_colors import Color
 print_color = Color()
 
 
-def configure(data: dict, users: dict):
+def configure(data: dict, users: dict, dir: str):
 
     setup_utils.disable_sudo_password("admin")
     try:
@@ -33,9 +33,6 @@ def configure(data: dict, users: dict):
     for k, v in data.items():
 
         try:
-            print(type(v.get('destination')))
-            print(f"{root_directory}{v.get('source')}")
-
             if os.path.isdir(f"{root_directory}{v.get('source')}"):
 
                 for dst in v.get('destination'):

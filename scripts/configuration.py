@@ -8,7 +8,7 @@ from print_colors import Color
 print_color = Color()
 
 
-def configure(data: dict, users: dict, dir: str):
+def configure(data: dict, copy_data:dict, users: dict, dir: str):
 
     setup_utils.disable_sudo_password("admin")
     try:
@@ -30,7 +30,7 @@ def configure(data: dict, users: dict, dir: str):
     finally:
         setup_utils.reenable_sudo_password("admin")
 
-    for k, v in data.items():
+    for k, v in copy_data.items():
 
         print(type(v))
         print(v)

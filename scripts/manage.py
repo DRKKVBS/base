@@ -86,8 +86,9 @@ if __name__ == "__main__":
         json.dump(merged_data, f_merged)
 
     # Get package, service and user data
-    with open(f'{root_directory}/configs/config.json', 'r', encoding='utf-8') as f:
+    with open(f'{root_directory}/configs/config.json', 'r', encoding='utf-8') as f, open(f'{root_directory}/configs/copy.json', 'r', encoding='utf-8') as f2:
         file_content = json.load(f)
+        copy_content = json.load(f2)
         installation_data = file_content['install']
         post_installation_data = file_content['post_install']
         users = file_content['users']
@@ -105,7 +106,8 @@ if __name__ == "__main__":
     elif args.Update:
         print('Update')
         setup_utils.sync_pacman()
-    configuration.configure(data=post_installation_data, users=users, dir=root_directory)
+    configuration.configure(data=post_installation_data,
+                            copy_data=copy_content, users=users, dir=root_directory)
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
     #     f1.write(f2.read())

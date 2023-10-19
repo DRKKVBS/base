@@ -37,7 +37,7 @@
     },
     "Systemd-conf": {
         "type": "file",
-        "source": "logind.conf",
+        "source": "/type/mobile/data/systemd_logind.conf",
         "destination": [
             "/etc/systemd/logind.conf"
         ]

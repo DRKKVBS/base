@@ -29,76 +29,6 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-def logos(logo_dir: str):
-    print_color.print_info("STARTING: Copy Logos to new System")
-    # Copy Logos
-    shutil.copytree(
-        logo_dir, "/mnt/archinstall/usr/share/logos/", dirs_exist_ok=True)
-    print_color.print_confirmation("SUCCESSFUL: Copied Logos to new System")
-
-
-def icons(icon_dir: str):
-    print_color.print_info("STARTING: Copy Icons to new System")
-    # Copy Logos
-    shutil.copytree(icon_dir, "/mnt/archinstall/var/lib/AccountsService/icons",
-                    dirs_exist_ok=True)
-    print_color.print_confirmation("SUCCESSFUL: Copied Icons to new System")
-
-
-def grub(grub_file: str):
-    print_color.print_info("STARTING: Grup Setup")
-    try:
-        with open("/mnt/archinstall/etc/default/grub", "w+") as f, open(grub_file, "r") as f1:
-            f.write(f1.read())
-        print_color.print_confirmation("SUCCESSFUL: Grup Setup")
-    except Exception as e:
-        print_color.print_error("ERROR: Grub Setup failed! | %s" % (e))
-        pass
-
-
-def gdm(gdm_file: str):
-    print_color.print_info("STARTING: GDM Setup")
-    try:
-        with open("/mnt/archinstall/etc/gdm/custom.conf", "w+") as f, open(gdm_file, "r") as f1:
-            f.write(f1.read())
-            print_color.print_confirmation("SUCCESSFUL: GDM Setup")
-    except Exception as e:
-        print_color.print_error("ERROR: Grub Setup failed! | %s" % (e))
-        pass
-
-
-def dconf(dconf_dir: str):
-    print_color.print_info("STARTING: Dconf Setup")
-    shutil.copytree(dconf_dir, "/mnt/archinstall/etc/dconf/",
-                    dirs_exist_ok=True)
-    print_color.print_confirmation("SUCCESSFUL: Dconf Setup")
-
-
-def environment_variable(variable_name: str, variable_value: str, user: str, uid: int, gid: int):
-    print_color.print_info(
-        "STARTING: Creating Environment variable %s=%s" % (variable_name, variable_value))
-    os.makedirs(
-        f"/mnt/archinstall/home/{user}/.config/environment.d/", exist_ok=True)
-    os.chown(f"/mnt/archinstall/home/{user}/.config/", uid=uid, gid=gid)
-    os.chown(
-        f"/mnt/archinstall/home/{user}/.config/environment.d", uid=uid, gid=gid)
-    try:
-        make_mutable(
-            f"/home/{user}/.config/environment.d/variables.conf")
-        with open(
-                f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", "w+") as f:
-            f.write(f"{variable_name}={variable_value}\n")
-            print_color.print_confirmation(
-                "SUCCESSFUL: Created Environment variable %s=%s" % (variable_name, variable_value))
-        os.chown(
-            f"/mnt/archinstall/home/{user}/.config/environment.d/variables.conf", uid=uid, gid=gid)
-        make_immutable(
-            f"/home/{user}/.config/environment.d/variables.conf")
-    except Exception as e:
-        print_color.print_error(
-            "ERROR: Creation Environment variable %s=%s failed! | %s"
-            % (variable_name, variable_value, e))
-
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
@@ -169,13 +99,6 @@ def enable_group_for_sudo(group: str):
         pass
 
 
-def accountsservices(accs_dir: str):
-    print_color.print_info("STARTING: Copy AccountsService to new System")
-    shutil.copytree(accs_dir, "/mnt/archinstall/var/lib/AccountsService/",
-                    dirs_exist_ok=True)
-    print_color.print_confirmation(
-        "SUCCESSFUL: Copied AccountsService to new System")
-
 
 def disable_sudo_password(user: str):
     print_color.print_info_critical(
@@ -221,30 +144,6 @@ def firefox(firefox_dir: str):
         f"{firefox_dir}policies.json",
         "/mnt/archinstall/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
-
-
-def wifi(wifi_file: str):
-    print_color.print_info("STARTING: Set IWD as Wifi-Backend")
-    shutil.copyfile(
-        wifi_file, "/mnt/archinstall/etc/NetworkManager/conf.d/wifi_backend.conf")
-    print_color.print_confirmation("SUCCESSFUL: Set IWD as Wifi-Backend")
-
-
-def autostart(autostart_dir: str):
-    # Setup Autostart apps
-    print_color.print_info("STARTING: Setup Autostart Apps")
-    shutil.copytree(
-        autostart_dir, "/mnt/archinstall/etc/xdg/autostart/", dirs_exist_ok=True)
-    print_color.print_confirmation("SUCCESSFUL: Setup Autostart Apps")
-
-
-def systemd_login():
-    with open('/mnt/archinstall/etc/systemd/login.conf', 'r+') as f:
-        content = f.read()
-        for el in [("NAutoVTs=6", "NAutoVTs=0\n"), ("ReserveVT=6", "ReserveVT=0\n")]:
-            content = content.replace(
-                el[0], el[1])
-        f.write(content.replace('', ''))
 
 
 if __name__ == "__main__":

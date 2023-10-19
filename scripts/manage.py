@@ -78,27 +78,22 @@ if __name__ == "__main__":
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
 
-    shutil.copyfile(
-        f"{root_directory}/configs/config.json",
-        f"{root_directory}/post_install/config.json")
+    # Get package, service and user data
+    with open(f'{root_directory}/configs/config.json', 'r', encoding='utf-8') as f:
+        file_content = json.load(f)
+        installation_data = file_content['install']
+        post_installation_data = file_content['post_install']
+        users = file_content['users']
+        f.close()
 
     # Start the linux installation
     if args.Install:
-        print('Install')
-        installation.install(f'{root_directory}/configs/', hostname)
+        installation.install(data=installation_data,
+                             users=users, hostname=hostname)
     elif args.Update:
         print('Update')
 
-    # Copy the files for post install configuration
-    shutil.copytree(
-        data_directory, f"{root_directory}/post_install/data", dirs_exist_ok=True)
-
-    shutil.copytree(
-        f"{root_directory}/type/{args.Type}/data/",
-        f"{root_directory}/post_install/data",
-        dirs_exist_ok=True)
-
-    configuration.configure(os.path.join(root_directory, 'post_install'))
+    configuration.configure(data=post_installation_data, users=users)
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
     #     f1.write(f2.read())

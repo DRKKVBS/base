@@ -92,7 +92,7 @@ if __name__ == "__main__":
         print('Update')
         setup_utils.sync_pacman()
     configuration.configure(data=post_installation_data,
-                            copy_data=copy_merged, users=users, dir=root_directory)
+                            copy_data=copy_merged, users=users, dir=os.path.normpath('%s/base' % root_directory))
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
     #     f1.write(f2.read())

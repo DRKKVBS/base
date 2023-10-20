@@ -11,6 +11,8 @@ print_color = Color()
 def configure(data: dict, copy_data: dict, users: dict, dir: str):
     dir = os.path.normpath(dir)
 
+    os.makedirs("/mnt/archinstall/etc/firefox/policies/", exist_ok=True)
+
     # Create missing user specific directories
     for user in ['admin', 'user']:
         for missing_dir in [f'/home/{user}/.config/environment.d/', f'/home/{user}/.local/share/applications/']:

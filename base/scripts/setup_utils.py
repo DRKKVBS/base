@@ -32,7 +32,7 @@ def final_commands():
 def mkdirs_as_user(user: str, dir: str):
     if not os.path.exists(os.path.normpath('/mnt/archinstall%s') % dir):
         run_command_arch_chroot(
-            ['sudo', '-i', '-u', user, 'makedirs', '-p', dir])
+            ['sudo', '-i', '-u', user, 'mkdir', '-p', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):

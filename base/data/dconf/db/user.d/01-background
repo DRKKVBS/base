@@ -1,6 +1,6 @@
 [org/gnome/desktop/background]
 # URI to use for the background image. Only supports local URIs (file:///)
-picture-uri='/usr/share/backgrounds/gnome/adwaita-l.webp'
+picture-uri='/usr/share/backgrounds/gnome/adwaita-l.jpg'
 # URI to use for the background image in dark-mode. Only supports local URIs (file:///)
 picture-uri-dark='/usr/share/backgrounds/gnome/adwaita-d.webp'
 # Opacity with wich to draw the background picture

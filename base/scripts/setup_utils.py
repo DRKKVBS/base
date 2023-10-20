@@ -125,27 +125,5 @@ def reenable_sudo_password(user: str):
         print_color.print_error(
             "ERROR: Reenabling sudo password for %s failed! | %s" % (user, e))
 
-
-# def firefox(firefox_dir: str):
-#     print_color.print_info("STARTED: Setting up Firefox")
-#     # Firefox
-#     if not os.path.exists("/mnt/archinstall/usr/share/firefox/"):
-#         os.makedirs("/mnt/archinstall/usr/share/firefox/", exist_ok=True)
-#         print_color.print_info(
-#             "Created new Direcotries: /mnt/archinstall/usr/share/firefox/")
-
-#     shutil.copytree(
-#         os.path.normpath(f"{firefox_dir}share/"), "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
-#     if not os.path.exists("/mnt/archinstall/etc/firefox/policies/"):
-#         os.makedirs("/mnt/archinstall/etc/firefox/policies/", exist_ok=True)
-#         print_color.print_info(
-#             "Created new Direcotries: /etc/firefox/policies/")
-#     shutil.copyfile(
-#         os.path.normpath(f"{firefox_dir}policies.json"),
-#         "/mnt/archinstall/etc/firefox/policies/policies.json")
-#     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
-
-
-
 if __name__ == "__main__":
     root_dir = os.path.realpath(os.path.dirname(__file__)).split("scripts")[0]

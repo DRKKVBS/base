@@ -13,7 +13,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
     # Create missing user specific directories
     for user in ['admin', 'user']:
         for missing_dir in [f'/home/%{user}/.config/environment.d/', f'/home/%{user}/.local/share/applications/']:
-            setup_utils.mkdirs_as_user(user, missing_dir)
+            setup_utils.mkdirs_as_user(user, os.path.normpath(missing_dir))
 
     setup_utils.disable_sudo_password("admin")
     try:
@@ -37,17 +37,15 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     for _, v in copy_data.items():
         try:
-            if os.path.isdir(f"{dir}{v.get('source')}"):
-
-                shutil.copytree(f"{dir}{v.get('source')}",
-                                f"/mnt/archinstall{v.get('destination')}", dirs_exist_ok=True)
-
-            elif os.path.isfile(f"{dir}{v.get('source')}"):
-
-                shutil.copyfile(f"{dir}{v.get('source')}",
-                                f"/mnt/archinstall{v.get('destination')}")
+            source = os.path.normpath(f"{dir}{v.get('source')}")
+            destination = os.path.normpath(
+                f"/mnt/archinstall{v.get('destination')}")
+            if os.path.isdir(source):
+                shutil.copytree(source, destination, dirs_exist_ok=True)
+            elif os.path.isfile(source):
+                shutil.copyfile(source, destination)
             if v.get('permissions'):
-                os.chown(f"/mnt/archinstall{v.get('destination')}", uid=v.get(
+                os.chown(destination, uid=v.get(
                     'permissions').get('uid'), gid=v.get('permissions').get('gid'))
 
         except Exception as e:

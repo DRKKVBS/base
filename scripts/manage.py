@@ -96,12 +96,11 @@ if __name__ == "__main__":
 
     # Start the linux installation
     if args.Install:
-        if 'archiso' in socket.gethostname():
-            print(socket.gethostname())
+        if 'archiso' not in socket.gethostname():
             parser.error(
                 'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')
-
-        installation.install(data=installation_data,
+        else :
+            installation.install(data=installation_data,
                              users=users, hostname=hostname)
 
     elif args.Update:

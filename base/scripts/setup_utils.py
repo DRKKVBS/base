@@ -29,11 +29,11 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-def mkdirs_as_user(uid: int, dir: str):
+def mkdirs_as_user(user: str, dir: str):
     if not os.path.exists('/mnt/archinstall%s' % dir):
         print(dir)
         run_command_arch_chroot(
-            ['sudo', '-i', '-u', str(uid), 'makedirs', '-p', dir])
+            ['sudo', '-i', '-u', user, 'makedirs', '-p', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):

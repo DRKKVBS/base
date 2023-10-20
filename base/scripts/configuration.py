@@ -9,6 +9,7 @@ print_color = Color()
 
 
 def configure(data: dict, copy_data: dict, users: dict, dir: str):
+    dir = os.path.normpath(dir)
 
     # Create missing user specific directories
     for user in ['admin', 'user']:

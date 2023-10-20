@@ -29,9 +29,11 @@ def final_commands():
         run_command_arch_chroot(cmd)
 
 
-def mkdir_as_user(uid: int, dir: str):
+def mkdirs_as_user(uid: int, dir: str):
     if not os.path.exists('/mnt/archinstall%s' % dir):
-        run_command_arch_chroot(['sudo', '-i', '-u', str(uid), 'mkdir', dir])
+        print(dir)
+        run_command_arch_chroot(
+            ['sudo', '-i', '-u', str(uid), 'makedirs', '-p', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
@@ -88,8 +90,8 @@ def enable_group_for_sudo(group: str):
     print_color.print_info_critical(
         "STARTING: Enabling group for sudo for %s" % (group))
     try:
-        with open("/mnt/archinstall/etc/sudoers.d/00_%s" % group, "w+") as f:
-            f.write("%%%s ALL=(ALL) ALL" % (group))
+        shutil.copyfile('/tmp/base/security/00_wheel',
+                        '/mnt/archinstall/etc/sudoers.d/00_wheel')
         print_color.print_info_critical(
             "SUCCESSFUL: Enabled group for sudo for %s" % (group))
     except Exception as e:
@@ -102,8 +104,8 @@ def disable_sudo_password(user: str):
     print_color.print_info_critical(
         "STARTING: Disable sudo password for %s" % (user))
     try:
-        with open("/mnt/archinstall/etc/sudoers.d/00_admin", "w+") as f:
-            f.write("%s ALL=(ALL) NOPASSWD: ALL" % (user))
+        shutil.copyfile('/tmp/base/security/01_admin',
+                        '/mnt/archinstall/etc/sudoers.d/01_admin')
         print_color.print_info_critical(
             "SUCCESSFUL: Disabled sudo password for %s" % (user))
     except Exception as e:
@@ -116,7 +118,7 @@ def reenable_sudo_password(user: str):
     print_color.print_info_critical(
         "STARTING: Reenable sudo password for %s" % (user))
     try:
-        os.remove("/mnt/archinstall/etc/sudoers.d/00_admin")
+        os.remove("/mnt/archinstall/etc/sudoers.d/01_admin")
         print_color.print_info_critical(
             "SUCCESSFUL: Reenabled sudo password for %s" % (user))
     except Exception as e:

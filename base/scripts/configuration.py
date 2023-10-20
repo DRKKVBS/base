@@ -12,8 +12,8 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     # Create missing user specific directories
     for user, uid in {'admin': 1000, 'user': 1001}.items():
-        for missing_dir in [f'/home/{user}/.config', f'/home/%{user}/.config/environment.d/', f'/home/%{user}/.local/', f'/home/%{user}/.local/share/', f'/home/%{user}/.local/share/applications/']:
-            setup_utils.mkdir_as_user(uid, missing_dir)
+        for missing_dir in [f'/home/%{user}/.config/environment.d/', f'/home/%{user}/.local/share/applications/']:
+            setup_utils.mkdirs_as_user(uid, missing_dir)
 
     setup_utils.disable_sudo_password("admin")
     try:

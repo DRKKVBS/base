@@ -16,12 +16,7 @@ if __name__ == "__main__":
     print_color = Color()
 
     # Directories
-    root_directory = root_directory = os.path.realpath(
-        os.path.dirname(__file__)).split("scripts")[0]
-    script_directory = os.path.join(root_directory, "scripts")
-
-    data_directory = os.path.join(root_directory, "data")
-    download_directory = os.path.join(root_directory, "download")
+    root_directory = '/tmp/base/'
 
     # Initialize parser
     parser = argparse.ArgumentParser(
@@ -31,10 +26,10 @@ if __name__ == "__main__":
 
     # Adding optional argument
     parser.add_argument("-t", "--Type", action="store", required=True, type=str,
-                        choices=["thin", "mobile", "mpg", "hnr"], help="Type of Device.",)
+                        choices=["thin", "mobile"], help="Type of Device.",)
 
     parser.add_argument("-c", "--Configuration", action="store", required=True, type=str,
-                        choices=["base", "mpg", "hnr"], help="Type of Configuration to be used.",)
+                        choices=["base", "usb"], help="Type of Configuration to be used.",)
 
     parser.add_argument("-hn", "--Hostname", action="store",
                         type=str, help="The hostname of the new system.")
@@ -47,22 +42,6 @@ if __name__ == "__main__":
 
     # Read arguments from command line
     args = parser.parse_args()
-
-    match args.Type:
-        case "thin":
-            branch = "thin-client"
-        case "mobile":
-            branch = "mobile-client"
-        case _:
-            branch = "thin-client"
-
-    match args.Configuration:
-        case "hnr":
-            config = "hnr"
-        case "mpg":
-            config = "mpg"
-        case _:
-            config = "base"
 
     if args.Hostname != None:
         hostname = args.Hostname
@@ -85,6 +64,12 @@ if __name__ == "__main__":
             merged_data, platform_config_data)
         json.dump(merged_data, f_merged)
 
+
+    with open(f"{root_directory}/configs/base.json", "r") as f_base, open(
+        f"{root_directory}/configs/{args.Configuration}.json", "r"
+    ):
+        pass
+
     # Get package, service and user data
     with open(f'{root_directory}/configs/config.json', 'r', encoding='utf-8') as f, open(f'{root_directory}/configs/copy.json', 'r', encoding='utf-8') as f2:
         file_content = json.load(f)
@@ -99,9 +84,9 @@ if __name__ == "__main__":
         if 'archiso' not in socket.gethostname():
             parser.error(
                 'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')
-        else :
+        else:
             installation.install(data=installation_data,
-                             users=users, hostname=hostname)
+                                 users=users, hostname=hostname)
 
     elif args.Update:
         print('Update')

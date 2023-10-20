@@ -48,9 +48,9 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             else:
                 print("copy")
                 shutil.copyfile(source, destination)
-            # if v.get('permissions'):
-            #     os.chown(destination, uid=v.get(
-            #         'permissions').get('uid'), gid=v.get('permissions').get('gid'))
+            if v.get('permissions'):
+                os.chown(destination, uid=v.get(
+                    'permissions').get('uid'), gid=v.get('permissions').get('gid'))
 
         except Exception as e:
             print(e)

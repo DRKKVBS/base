@@ -30,16 +30,12 @@ def final_commands():
 
 
 def mkdir_as_user(uid: int, dir: str):
+    if os.path.exists('/mnt/archinstall')
     run_command_arch_chroot(['sudo', '-i', '-u', str(uid), 'mkdir', dir])
 
 
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
-    # Create Directories if they do not exist
-    if not os.path.exists(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
-        print_color.print_info("    Creating new Directories %s" % user)
-        for el in ['.local/', '.local/share/', '.local/share/applications/']:
-            mkdir_as_user(uid=uid, dir=el)
 
     make_mutable(f"/home/{user}/.local/share/applications/")
     for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):

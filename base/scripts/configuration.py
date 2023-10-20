@@ -59,7 +59,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             gid = uid = 1000
         else:
             gid = uid = 1001
-        setup_utils.desktop_apps("%s/data/DesktopEntries/" %
+        setup_utils.desktop_apps("%s/base/data/DesktopEntries/" %
                                  dir, user, gid, uid, data['desktop'])
     setup_utils.final_commands()
     setup_utils.enable_group_for_sudo('wheel')

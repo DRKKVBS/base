@@ -49,13 +49,14 @@ if __name__ == "__main__":
         hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
     # Merge and copy configuration files
-    config_dir = f'{root_directory}configs'
-    with open(f"{config_dir}/base.json", "r") as f_base, open(
-        f"{config_dir}/{args.Configuration}.json", "r"
+    with open(os.path.normpath(f"{root_directory}/configs/base.json"), "r") as f_base, open(
+        os.path.normpath(
+            f"{root_directory}/configs/{args.Configuration}.json"), "r"
     ) as f_config, open(
-        f"{config_dir}/{args.Type}_config.json", "r"
+        os.path.normpath(
+            f"{root_directory}/configs/{args.Type}_config.json"), "r"
     ) as f_platform_config, open(
-        f"{config_dir}/config.json", "w+"
+        os.path.normpath(f"{root_directory}/configs/config.json"), "w+"
     ) as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
@@ -68,15 +69,15 @@ if __name__ == "__main__":
         users = merged_data['users']
         post_installation_data = merged_data['post_install']
 
-    with open(f"{config_dir}/copy.json", "r") as f_base, open(
-        f"{config_dir}/{args.Type}_copy.json", "r"
+    with open(os.path.normpath(f"{root_directory}/configs/copy.json"), "r") as f_base, open(
+        os.path.normpath(
+            f"{root_directory}/configs/{args.Type}_copy.json"), "r"
     ) as f_platform:
         base_copy = json.load(f_base)
         platform_copy_data = json.load(f_platform)
-        
+
         copy_merged = utils.merge_and_update_dicts(
             base_copy, platform_copy_data)
-        
 
     # Start the linux installation
     if args.Install:

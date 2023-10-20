@@ -30,8 +30,7 @@ def final_commands():
 
 
 def mkdirs_as_user(user: str, dir: str):
-    if not os.path.exists('/mnt/archinstall%s' % dir):
-        print(dir)
+    if not os.path.exists(os.path.normpath('/mnt/archinstall%s') % dir):
         run_command_arch_chroot(
             ['sudo', '-i', '-u', user, 'makedirs', '-p', dir])
 
@@ -39,23 +38,23 @@ def mkdirs_as_user(user: str, dir: str):
 def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
 
-    make_mutable(f"/home/{user}/.local/share/applications/")
-    for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
+    make_mutable(os.path.normpath(f"/home/{user}/.local/share/applications/"))
+    for file in os.listdir(os.path.normpath(f"/mnt/archinstall/home/{user}/.local/share/applications/")):
         make_mutable(
-            f"/home/{user}/.local/share/applications/{file}")
+            os.path.normpath(f"/home/{user}/.local/share/applications/{file}"))
     # Copy the Desktop Files into the new directory
     shutil.copytree(
-        desktop_app_dirs, "/mnt/archinstall/home/%s/.local/share/applications/" % user, dirs_exist_ok=True)
+        desktop_app_dirs, os.path.normpath("/mnt/archinstall/home/%s/.local/share/applications/" % user), dirs_exist_ok=True)
 
     # Make Desktop Entries hidden
     for file in os.listdir("/mnt/archinstall/usr/share/applications/"):
-        if os.path.islink(f"/mnt/archinstall/usr/share/applications/{file}"):
+        if os.path.islink(os.path.normpath(f"/mnt/archinstall/usr/share/applications/{file}")):
             continue
-        shutil.copyfile(f"/mnt/archinstall/usr/share/applications/{file}",
-                        f"/mnt/archinstall/home/{user}/.local/share/applications/{file}")
-    for file in os.listdir(f"/mnt/archinstall/home/{user}/.local/share/applications/"):
+        shutil.copyfile(os.path.normpath(f"/mnt/archinstall/usr/share/applications/{file}"),
+                        os.path.normpath(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"))
+    for file in os.listdir(os.path.normpath(f"/mnt/archinstall/home/{user}/.local/share/applications/")):
         os.chown(
-            f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", uid=uid, gid=gid)
+            os.path.normpath(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}"), uid=uid, gid=gid)
         with open(f"/mnt/archinstall/home/{user}/.local/share/applications/{file}", "r+") as f2:
             content = f2.read()
             if "NoDisplay=false" in content and file not in visible_apps:
@@ -69,9 +68,10 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
 
         # Make File immutable
         make_immutable(
-            f"/home/{user}/.local/share/applications/{file}")
+            os.path.normpath(f"/home/{user}/.local/share/applications/{file}"))
     # Make the directory immutable
-    make_immutable(f"/home/{user}/.local/share/applications/")
+    make_immutable(os.path.normpath(
+        f"/home/{user}/.local/share/applications/"))
 
 
 def make_immutable(path: str):
@@ -135,13 +135,13 @@ def firefox(firefox_dir: str):
             "Created new Direcotries: /mnt/archinstall/usr/share/firefox/")
 
     shutil.copytree(
-        f"{firefox_dir}share/", "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
+        os.path.normpath(f"{firefox_dir}share/"), "/mnt/archinstall/usr/share/firefox/", dirs_exist_ok=True)
     if not os.path.exists("/mnt/archinstall/etc/firefox/policies/"):
         os.makedirs("/mnt/archinstall/etc/firefox/policies/", exist_ok=True)
         print_color.print_info(
             "Created new Direcotries: /etc/firefox/policies/")
     shutil.copyfile(
-        f"{firefox_dir}policies.json",
+        os.path.normpath(f"{firefox_dir}policies.json"),
         "/mnt/archinstall/etc/firefox/policies/policies.json")
     print_color.print_confirmation("SUCCESSFUL: Setting up Firefox")
 

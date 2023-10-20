@@ -10,11 +10,11 @@ print_color = Color()
 
 def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
-    
-    for y in ['/home/admin/.config', '/home/admin/.config/environment.d/']:
-            setup_utils.mkdir_as_user(100, y)
-    for x in ['/home/admin/.config', '/home/admin/.config/environment.d/']:
-        setup_utils.mkdir_as_user(100, x)
+    # Create missing user specific directories
+    for user, uid in {'admin': 1000, 'user': 1001}.items():
+        for missing_dirs in ['/home/%s/.config' % user, '/home/%s/.config/environment.d/' % user]:
+            if not os.path.exists('/mnt/archinstall%s' % missing_dirs):
+                setup_utils.mkdir_as_user(uid, missing_dirs)
 
     setup_utils.disable_sudo_password("admin")
     try:

@@ -46,7 +46,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             if os.path.isdir(source):
                 shutil.copytree(source, destination, dirs_exist_ok=True)
             else:
-                print("copy")
+                print("copy %s" % source)
                 shutil.copyfile(source, destination)
             if v.get('permissions'):
                 os.chown(destination, uid=v.get(

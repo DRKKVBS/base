@@ -4,7 +4,7 @@
         "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
     },
     "Dconf": {
-        "source": "/type/mobile/data/dconf/",
+        "source": "/type/mobile/data/dconf",
         "destination": "/etc/dconf/"
     },
     "MyWorkspaceDesktop-User": {
@@ -16,7 +16,7 @@
         "destination": "/etc/dconf/"
     },
     "Firefox-Share": {
-        "source": "/type/mobile/data/firefox/share/",
+        "source": "/type/mobile/data/firefox/share",
         "destination": "/usr/share/firefox/"
     },
     "Firefox-Policies": {

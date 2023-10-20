@@ -1,6 +1,6 @@
 {
     "dconf": {
-        "source": "/base/data/dconf/",
+        "source": "/base/data/dconf",
         "destination": "/etc/dconf/"
     },
     "AccountsService": {

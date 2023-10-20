@@ -49,12 +49,12 @@ if __name__ == "__main__":
         hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
     # Merge and copy configuration files
-    with open(f"{root_directory}/configs/base.json", "r") as f_base, open(
-        f"{root_directory}/configs/{args.Configuration}.json", "r"
+    with open(f"{root_directory}configs/base.json", "r") as f_base, open(
+        f"{root_directory}configs/{args.Configuration}.json", "r"
     ) as f_config, open(
-        f"{root_directory}/type/{args.Type}/platform_config.json", "r"
+        f"{root_directory}type/{args.Type}/platform_config.json", "r"
     ) as f_platform_config, open(
-        f"{root_directory}/configs/config.json", "w+"
+        f"{root_directory}configs/config.json", "w+"
     ) as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
@@ -65,13 +65,13 @@ if __name__ == "__main__":
         json.dump(merged_data, f_merged)
 
 
-    with open(f"{root_directory}/configs/base.json", "r") as f_base, open(
-        f"{root_directory}/configs/{args.Configuration}.json", "r"
+    with open(f"{root_directory}configs/base.json", "r") as f_base, open(
+        f"{root_directory}configs/{args.Configuration}.json", "r"
     ):
         pass
 
     # Get package, service and user data
-    with open(f'{root_directory}/configs/config.json', 'r', encoding='utf-8') as f, open(f'{root_directory}/configs/copy.json', 'r', encoding='utf-8') as f2:
+    with open(f'{root_directory}configs/config.json', 'r', encoding='utf-8') as f, open(f'{root_directory}configs/copy.json', 'r', encoding='utf-8') as f2:
         file_content = json.load(f)
         copy_content = json.load(f2)
         installation_data = file_content['install']

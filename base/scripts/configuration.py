@@ -35,11 +35,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
     finally:
         setup_utils.reenable_sudo_password("admin")
 
-    for k, v in copy_data.items():
-
-        print(type(v))
-        print(v)
-
+    for _, v in copy_data.items():
         try:
             if os.path.isdir(f"{dir}{v.get('source')}"):
 

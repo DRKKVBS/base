@@ -13,7 +13,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     # Create missing user specific directories
     for user in ['admin', 'user']:
-        for missing_dir in [f'/home/%{user}/.config/environment.d/', f'/home/%{user}/.local/share/applications/']:
+        for missing_dir in [f'/home/{user}/.config/environment.d/', f'/home/{user}/.local/share/applications/']:
             setup_utils.mkdirs_as_user(user, os.path.normpath(missing_dir))
 
     setup_utils.disable_sudo_password("admin")

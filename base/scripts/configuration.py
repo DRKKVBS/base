@@ -53,7 +53,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
                     'permissions').get('uid'), gid=v.get('permissions').get('gid'))
 
         except Exception as e:
-            print(e)
+            print("error %s" % e)
             pass
 
     for user, data in users.items():

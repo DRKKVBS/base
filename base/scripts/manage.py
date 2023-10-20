@@ -49,12 +49,13 @@ if __name__ == "__main__":
         hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
     # Merge and copy configuration files
-    with open(f"{root_directory}configs/base.json", "r") as f_base, open(
-        f"{root_directory}configs/{args.Configuration}.json", "r"
+    config_dir = f'{root_directory}configs'
+    with open(f"{config_dir}/base.json", "r") as f_base, open(
+        f"{config_dir}/{args.Configuration}.json", "r"
     ) as f_config, open(
-        f"{root_directory}type/{args.Type}/platform_config.json", "r"
+        f"{config_dir}/{args.Type}_config.json", "r"
     ) as f_platform_config, open(
-        f"{root_directory}configs/config.json", "w+"
+        f"{config_dir}/config.json", "w+"
     ) as f_merged:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
@@ -62,22 +63,20 @@ if __name__ == "__main__":
         merged_data = utils.merge_and_update_dicts(base_data, config_data)
         merged_data = utils.merge_and_update_dicts(
             merged_data, platform_config_data)
-        json.dump(merged_data, f_merged)
 
+        installation_data = merged_data['install']
+        users = merged_data['users']
+        post_installation_data = merged_data['post_install']
 
-    with open(f"{root_directory}configs/base.json", "r") as f_base, open(
-        f"{root_directory}configs/{args.Configuration}.json", "r"
-    ):
-        pass
-
-    # Get package, service and user data
-    with open(f'{root_directory}configs/config.json', 'r', encoding='utf-8') as f, open(f'{root_directory}configs/copy.json', 'r', encoding='utf-8') as f2:
-        file_content = json.load(f)
-        copy_content = json.load(f2)
-        installation_data = file_content['install']
-        post_installation_data = file_content['post_install']
-        users = file_content['users']
-        f.close()
+    with open(f"{config_dir}/copy.json", "r") as f_base, open(
+        f"{config_dir}/{args.Type}_copy.json", "r"
+    ) as f_platform:
+        base_copy = json.load(f_base)
+        platform_copy_data = json.load(f_platform)
+        
+        copy_merged = utils.merge_and_update_dicts(
+            base_copy, platform_copy_data)
+        
 
     # Start the linux installation
     if args.Install:
@@ -92,7 +91,7 @@ if __name__ == "__main__":
         print('Update')
         setup_utils.sync_pacman()
     configuration.configure(data=post_installation_data,
-                            copy_data=copy_content, users=users, dir=root_directory)
+                            copy_data=copy_merged, users=users, dir=root_directory)
 
     # with open(f"{root_directory}/scripts/post_install.sh", 'r+') as f1, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f2:
     #     f1.write(f2.read())

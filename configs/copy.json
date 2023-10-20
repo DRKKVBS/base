@@ -1,14 +1,14 @@
 {
     "dconf": {
-        "source": "/base/data/dconf/",
+        "source": "/data/dconf/",
         "destination": "/etc/dconf/"
     },
     "AccountsService": {
-        "source": "/base/data/AccountsService",
+        "source": "/data/AccountsService",
         "destination": "/var/lib/AccountsService/"
     },
     "DesktopEntries-Admin": {
-        "source": "/base/data/DesktopEntries",
+        "source": "/data/DesktopEntries",
         "destination": "/home/admin/.local/share/applications/",
         "permissions": {
             "uid": 1000,
@@ -16,7 +16,7 @@
         }
     },
     "DesktopEntries-User": {
-        "source": "/base/data/DesktopEntries",
+        "source": "/data/DesktopEntries",
         "destination": "/home/user/.local/share/applications/",
         "permissions": {
             "uid": 1001,
@@ -24,27 +24,27 @@
         }
     },
     "Icons": {
-        "source": "/base/data/images/icons",
+        "source": "/data/images/icons",
         "destination": "/var/lib/AccountsService/icons/"
     },
     "Logos": {
-        "source": "/base/data/images/logos",
+        "source": "/data/images/logos",
         "destination": "/usr/share/logos/"
     },
     "X11-VT-Switch": {
-        "source": "/base/data/01-vt-switch.conf",
+        "source": "/data/01-vt-switch.conf",
         "destination": "/etc/X11/xorg.conf.d/01-vt-switch.conf"
     },
     "Gdm-conf": {
-        "source": "/base/data/custom.conf",
+        "source": "/data/custom.conf",
         "destination": "/etc/gdm/custom.conf"
     },
     "Grub-conf": {
-        "source": "/base/data/grub",
+        "source": "/data/grub",
         "destination": "/etc/default/grub"
     },
     "Environment-Variable-User": {
-        "source": "/base/data/environmentVariableUser.conf",
+        "source": "/data/environmentVariableUser.conf",
         "destination": "/home/user/.config/environment.d/variable.conf",
         "permissions": {
             "uid": 1001,
@@ -52,7 +52,7 @@
         }
     },
     "Environment-Variable-Admin": {
-        "source": "/base/data/environmentVariableAdmin.conf",
+        "source": "/data/environmentVariableAdmin.conf",
         "destination": "/home/admin/.config/environment.d/variable.conf",
         "permissions": {
             "uid": 1000,

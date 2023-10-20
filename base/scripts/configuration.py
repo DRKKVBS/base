@@ -45,8 +45,10 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
                 f"/mnt/archinstall{v.get('destination')}")
             if os.path.isdir(source):
                 shutil.copytree(source, destination, dirs_exist_ok=True)
+                print('Source dir: %s' % source)
+
             else:
-                print("copy %s" % source)
+                print("Source file %s" % source)
                 shutil.copyfile(source, destination)
             if v.get('permissions'):
                 os.chown(destination, uid=v.get(

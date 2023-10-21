@@ -13,7 +13,7 @@ def install_aur_package(chroot: bool, package: str):
                        shell=False, capture_output=True, text=True).stdout
         if package not in pkgs:
             print_color.print_info('Installing %s' % package)
-            setup_utils.run_command_arch_chroot(
+            setup_utils.arch_chroot_cmd(
                 cmd=["yay", "-S", package, "--noconfirm"], uid=1000, gid=1000)
             print_color.print_confirmation('Installed %s successfull' % package)
         else:
@@ -25,7 +25,7 @@ def install_aur_package(chroot: bool, package: str):
                        shell=False, capture_output=True, text=True).stdout
         if package not in pkgs:
             print_color.print_info('Installing %s' % package)
-            setup_utils.run_command_arch_chroot(
+            setup_utils.arch_chroot_cmd(
                 cmd=["yay", "-S", package, "--noconfirm"])
             print_color.print_confirmation('Installed %s successfull' % package)
         else:

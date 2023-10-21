@@ -1,0 +1,103 @@
+{
+    "users": {
+        "admin": {
+            "!creds": {
+                "username": "admin",
+                "!password": "admin",
+                "sudo": true
+            },
+            "desktop": [
+                "org.gnome.Terminal.desktop",
+                "org.gnome.Settings.desktop",
+                "FirefoxCitrix.desktop",
+                "firefox.desktop",
+                "org.gnome.gedit.desktop",
+                "myWorkspace.desktop",
+                "org.gnome.Nautilus.desktop",
+                "shutdown.desktop",
+                "reboot.desktop"
+            ],
+            "environment_variables": {
+                "DCONF_PROFILE": "admin"
+            }
+        },
+        "user": {
+            "!creds": {
+                "username": "user",
+                "!password": "user",
+                "sudo": false
+            },
+            "desktop": [
+                "org.gnome.Settings.desktop",
+                "FirefoxCitrix.desktop",
+                "myWorkspace.desktop",
+                "shutdown.desktop",
+                "reboot.desktop"
+            ],
+            "environment_variables": {
+                "DCONF_PROFILE": "user"
+            }
+        }
+    },
+    "install": {
+        "pkgs": [
+            "firefox",
+            "glibc",
+            "gnome-backgrounds",
+            "gnome-terminal",
+            "gnome-shell",
+            "gnome-control-center",
+            "efibootmgr",
+            "nautilus",
+            "gdm",
+            "gedit",
+            "git",
+            "grub",
+            "net-tools",
+            "iwd",
+            "less",
+            "libinput",
+            "nano",
+            "memtest86+",
+            "memtest86+-efi",
+            "mkinitcpio",
+            "mkinitcpio-archiso",
+            "mkinitcpio-nfs-utils",
+            "pipewire",
+            "python",
+            "python-pip",
+            "networkmanager",
+            "sof-firmware",
+            "smartmontools",
+            "syslinux",
+            "systemd-resolvconf",
+            "tcpdump",
+            "openssh",
+            "usbutils",
+            "wget",
+            "wireless_tools",
+            "vim",
+            "xorg",
+            "zsh"
+        ],
+        "services": [
+            "gdm",
+            "iwd",
+            "NetworkManager"
+        ]
+    },
+    "post_install": {
+        "aur_pkgs": [
+            "icaclient",
+            "gnome-shell-extension-no-overview",
+            "gnome-shell-extension-dash-to-dock"
+        ],
+        "final_cmds": [
+            "dconf update",
+            "usermod -G user user",
+            "passwd -d user",
+            "passwd -l root",
+            "grub-mkconfig -o /boot/grub/grub.cfg"
+        ]
+    }
+}

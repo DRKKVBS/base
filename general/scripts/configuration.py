@@ -11,16 +11,14 @@ print_color = Color()
 
 def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
-    if setup_utils.is_fresh_install:
-        path = '/mnt/archinstall/'
-    else:
-        path = '/'
+    path = setup_utils.get_mount_path()
 
     setup_utils.mkdirs_as_user(dir=f'{path}/etc/firefox/policies')
 
     # Create missing user specific directories
     for user in ['admin', 'user']:
         for missing_dir in [f'/home/{user}/.config/environment.d/', f'/home/{user}/.local/share/applications/']:
+            print(missing_dir)
             setup_utils.mkdirs_as_user(user=user, dir=missing_dir)
 
     setup_utils.disable_sudo_password("admin")

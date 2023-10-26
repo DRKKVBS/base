@@ -46,6 +46,11 @@ def split_path(path: str):
 def mkdirs_as_user(dir: str, user="root"):
     '''Create new directories and set the owner as the specified user.'''
 
+    if user == 'admin':
+        uid, gid = 1000, 1000
+    else:
+        uid, gid = 1001, 1001
+
     dir = os.path.normpath(dir)
     if is_fresh_install():
         path = '/mnt/archinstall/'
@@ -56,7 +61,7 @@ def mkdirs_as_user(dir: str, user="root"):
         if not os.path.exists(path):
             print_color.print_confirmation('Creating new direcotry: %s' % path)
             os.mkdir(path)
-            shutil.chown(path, user, user)
+            shutil.chown(path, uid, gid)
             print_color.print_confirmation('Created directory: %s' % path)
         else:
             print_color.print_confirmation(

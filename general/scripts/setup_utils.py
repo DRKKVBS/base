@@ -15,7 +15,7 @@ def is_fresh_install():
 
 def get_mount_path():
     if is_fresh_install():
-        return '/mnt/archinstall'
+        return '/mnt/archinstall/'
     else:
         return '/'
 

@@ -1,6 +1,7 @@
 import subprocess
 import os
 import shutil
+import time
 from print_colors import Color
 
 print_color = Color()
@@ -76,6 +77,7 @@ def mkdirs_as_user(dir: str, user="root"):
         else:
             print_color.print_confirmation(
                 'Directory already exists: %s' % path)
+    time.sleep(5)
 
 
 def add_desktop_app(file_path: str, user: str, visible_apps: list):

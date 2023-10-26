@@ -65,12 +65,15 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             pass
 
     for user, data in users.items():
-        if user == 'admin':
-            gid = uid = 1000
-        else:
-            gid = uid = 1001
-        setup_utils.desktop_apps("%s/base/data/DesktopEntries/" %
-                                 dir, user, gid, uid, data['desktop'])
+
+        for app in os.listdir(os.path.join(dir, 'general', 'data', 'DesktopEntries')):
+            setup_utils.add_desktop_app(file_path=os.path.join(
+                dir, 'general', 'data', 'DesktopEntries', app), user=user, visible_apps=data['desktop'])
+
+        for app in os.listdir('/mnt/archinstall/usr/share/applications/'):
+            setup_utils.add_desktop_app(file_path=os.path.join(
+                '/mnt/archinstall/usr/share/applications/', app), user=user, visible_apps=data['desktop'])
+
     for cmd in data["final_cmds"]:
         setup_utils.run_command(cmd)
     setup_utils.enable_group_for_sudo('wheel')

@@ -16,11 +16,6 @@ print_color = Color()
 
 if __name__ == "__main__":
 
-    if 'archiso' in socket.gethostname():
-        fresh_install = True
-    else:
-        fresh_install = False
-
     # Directories
     root_directory = '/tmp/base/'
 
@@ -86,7 +81,8 @@ if __name__ == "__main__":
 
     # Start the linux installation
     if args.Install:
-        if not fresh_install:
+        
+        if setup_utils.is_fresh_install():
             parser.error(
                 'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')
         else:

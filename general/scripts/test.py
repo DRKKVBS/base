@@ -7,5 +7,9 @@ import setup_utils
 # os.normpath()
 
 print_color = Color()
+path = '/mypath/'
 
-print(setup_utils.split_path('/test/abc/def/ghghg'))
+user = '/test/'
+
+print(os.path.join(path, '/home/', user, '/.local/share/applications/', 'app'))
+print(os.path.join('/home', 'local','share/applications/', 'app'))

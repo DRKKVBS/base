@@ -9,7 +9,6 @@
             "desktop": [
                 "org.gnome.Terminal.desktop",
                 "org.gnome.Settings.desktop",
-                "FirefoxCitrix.desktop",
                 "firefox.desktop",
                 "org.gnome.gedit.desktop",
                 "myWorkspace.desktop",
@@ -29,7 +28,6 @@
             },
             "desktop": [
                 "org.gnome.Settings.desktop",
-                "FirefoxCitrix.desktop",
                 "myWorkspace.desktop",
                 "shutdown.desktop",
                 "reboot.desktop"

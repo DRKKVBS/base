@@ -1,4 +1,3 @@
-import socket
 import subprocess
 import os
 import shutil
@@ -58,14 +57,121 @@ def mkdirs_as_user(dir: str, user="root"):
             print_color.print_confirmation('Creating new direcotry: %s' % path)
             os.mkdir(path)
             shutil.chown(path, user, user)
+            print_color.print_confirmation('Created directory: %s' % path)
         else:
             print_color.print_confirmation(
                 'Directory already exists: %s' % path)
 
 
-def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_apps: list):
+def add_desktop_app(file_path: str, user: str, visible_apps: list):
+    if is_fresh_install:
+        path = "/mnt/archinstall/"
+    else:
+        path = "/"
 
-    desktop_app_dirs = os.path.normpath(desktop_app_dirs)
+    applications_path = os.path.join(path, '/home/', user,
+                                     '.local/share/applications/')
+
+    if not os.path.exists(applications_path):
+        mkdirs_as_user(dir=path, user=user)
+
+    app = os.path.split(file_path)[1]
+
+    if os.path.exists(os.path.join(applications_path, app)):
+        print_color.print_warning(
+            'The file %s is already added to the %s' % (app, user))
+        make_mutable(applications_path)
+        return
+
+    shutil.copyfile(
+        file_path, os.path.join(applications_path, app))
+    shutil.chown(os.path.join(applications_path, app), user, user)
+
+    if app in visible_apps:
+        show_desktop_app(app, user)
+    else:
+        hide_desktop_app(app, user)
+
+    make_immutable(applications_path)
+    make_immutable(os.path.join(path, app))
+
+
+def hide_desktop_app(app: str, user: str):
+    '''Hide a desktop app from user so he cannot access via the acitvities screen.'''
+
+    if is_fresh_install:
+        path = "/mnt/archinstall/"
+    else:
+        path = "/"
+
+    if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
+        print_color.print_info(
+            'The app %s is not accessible to %s' % (app, user))
+        return
+    make_mutable(os.path.join(path, 'home', user,
+                 '.local', 'share', 'applications', app))
+    with open(os.path.join(path, 'home', user, '.local', 'share', 'applications', app), "r+") as f:
+        content = f.read()
+
+        if "NoDisplay=true" in content:
+            print_color.print_info(
+                '%s is already hidden from %s' % (app, user))
+
+        elif "NoDisplay=false" in content:
+            content = content.replace(
+                "NoDisplay=false", "NoDisplay=true")
+
+        elif "NoDisplay" not in content:
+            content = content.replace(
+                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=false")
+
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+    make_immutable(os.path.join(path, 'home', user,
+                   '.local', 'share', 'applications', app))
+
+
+def show_desktop_app(app: str, user: str):
+    '''Show a desktop app to user so he can access via the acitvities screen.'''
+    if is_fresh_install:
+        path = "/mnt/archinstall/"
+    else:
+        path = "/"
+
+    if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
+        print_color.print_info(
+            'The app %s is not accessible to %s' % (app, user))
+        return
+    make_mutable(os.path.join(path, 'home', user,
+                 '.local', 'share', 'applications', app))
+    with open(os.path.join(path, 'home', user, '.local', 'share', 'applications', app), "r+") as f:
+        content = f.read()
+
+        if "NoDisplay=false" in content:
+            print_color.print_info(
+                '%s is already visible for %s' % (app, user))
+
+        elif "NoDisplay=true" in content:
+            content = content.replace(
+                "NoDisplay=true", "NoDisplay=false")
+
+        elif "NoDisplay" not in content:
+            content = content.replace(
+                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+    make_immutable(os.path.join(path, 'home', user,
+                   '.local', 'share', 'applications', app))
+
+
+def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_apps: list):
+
+    desktop_app_dir = os.path.normpath(desktop_app_dir)
 
     if is_fresh_install:
         path = "/mnt/archinstall/"
@@ -79,7 +185,7 @@ def desktop_apps(desktop_app_dirs: str, user: str, uid: int, gid: int, visible_a
         make_mutable(f"/home/{user}/.local/share/applications/{file}")
     # Copy the Desktop Files into the new directory
     shutil.copytree(
-        desktop_app_dirs, os.path.normpath(f"{path}/home/{user}/.local/share/applications/"), dirs_exist_ok=True)
+        desktop_app_dir, os.path.normpath(f"{path}/home/{user}/.local/share/applications/"), dirs_exist_ok=True)
 
     # Make Desktop Entries hidden
     for file in os.listdir(os.path.normpath(f"{path}/usr/share/applications/")):

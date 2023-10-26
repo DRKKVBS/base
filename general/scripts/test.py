@@ -14,4 +14,6 @@ user = '/test/'
 print(os.path.join(path, '/home/', user, '/.local/share/applications/', 'app'))
 print(os.path.join('/','home', 'local','share/applications/', 'app'))
 
+print(os.path.join('/moun/','a/a', 'a/'))
+
 

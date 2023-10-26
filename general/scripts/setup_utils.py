@@ -68,7 +68,7 @@ def mkdirs_as_user(dir: str, user="root"):
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):
-        path = os.path.join(path, subpath)
+        path = os.path.normpath(os.path.join(path, subpath))
         if not os.path.exists(path):
             print_color.print_confirmation('Creating new direcotry: %s' % path)
             os.mkdir(path)

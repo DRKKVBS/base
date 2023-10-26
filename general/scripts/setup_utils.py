@@ -12,6 +12,13 @@ def is_fresh_install():
     return os.path.ismount('/home') and os.path.ismount('/boot')
 
 
+def get_mount_path():
+    if is_fresh_install():
+        return '/mnt/archinstall'
+    else:
+        return '/'
+
+
 def get_user_id(user: str):
     if user == 'admin':
         return 1000, 1000
@@ -54,10 +61,7 @@ def mkdirs_as_user(dir: str, user="root"):
     '''Create new directories and set the owner as the specified user.'''
 
     dir = os.path.normpath(dir)
-    if is_fresh_install():
-        path = '/mnt/archinstall/'
-    else:
-        path = '/'
+    path = get_mount_path()
 
     uid, gid = get_user_id(user)
 
@@ -74,10 +78,7 @@ def mkdirs_as_user(dir: str, user="root"):
 
 
 def add_desktop_app(file_path: str, user: str, visible_apps: list):
-    if is_fresh_install:
-        path = "/mnt/archinstall/"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     uid, gid = get_user_id(user)
 
@@ -111,10 +112,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 def hide_desktop_app(app: str, user: str):
     '''Hide a desktop app from user so he cannot access via the acitvities screen.'''
 
-    if is_fresh_install:
-        path = "/mnt/archinstall/"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
         print_color.print_info(
@@ -147,10 +145,7 @@ def hide_desktop_app(app: str, user: str):
 
 def show_desktop_app(app: str, user: str):
     '''Show a desktop app to user so he can access via the acitvities screen.'''
-    if is_fresh_install:
-        path = "/mnt/archinstall/"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
         print_color.print_info(
@@ -185,10 +180,7 @@ def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_ap
 
     desktop_app_dir = os.path.normpath(desktop_app_dir)
 
-    if is_fresh_install:
-        path = "/mnt/archinstall/"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
 
@@ -247,10 +239,7 @@ def sync_pacman():
 
 def enable_group_for_sudo(group: str):
 
-    if is_fresh_install:
-        path = "/mnt/archinstall"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     print_color.print_info_critical(
         "Enabling group for sudo for %s" % (group))
@@ -266,10 +255,7 @@ def enable_group_for_sudo(group: str):
 
 
 def disable_sudo_password(user: str):
-    if is_fresh_install:
-        path = "/mnt/archinstall/"
-    else:
-        path = "/"
+    path = get_mount_path()
 
     print_color.print_info_critical(
         "STARTING: Disable sudo password for %s" % (user))
@@ -285,10 +271,7 @@ def disable_sudo_password(user: str):
 
 
 def reenable_sudo_password(user: str):
-    if is_fresh_install:
-        path = '/mnt/archinstall/'
-    else:
-        path = '/'
+    path = get_mount_path()
 
     print_color.print_info_critical(
         'STARTING: Reenable sudo password for %s' % (user))

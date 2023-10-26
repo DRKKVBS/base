@@ -64,15 +64,15 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             print("error %s" % e)
             pass
 
-    for user, data in users.items():
+    for user, user_data in users.items():
 
         for app in os.listdir(os.path.join(dir, 'general', 'data', 'DesktopEntries')):
             setup_utils.add_desktop_app(file_path=os.path.join(
-                dir, 'general', 'data', 'DesktopEntries', app), user=user, visible_apps=data['desktop'])
+                dir, 'general', 'data', 'DesktopEntries', app), user=user, visible_apps=user_data['desktop'])
 
         for app in os.listdir('/mnt/archinstall/usr/share/applications/'):
             setup_utils.add_desktop_app(file_path=os.path.join(
-                '/mnt/archinstall/usr/share/applications/', app), user=user, visible_apps=data['desktop'])
+                '/mnt/archinstall/usr/share/applications/', app), user=user, visible_apps=user_data['desktop'])
 
     for cmd in data["final_cmds"]:
         setup_utils.run_command(cmd)

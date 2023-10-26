@@ -97,7 +97,7 @@ if __name__ == "__main__":
     # Add type specific post_install commands to post_install scripts
     with open(f"{root_directory}/general/scripts/post_install.sh", 'r+') as f_gen, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f_type:
         f_gen.write(f_type.read())
-    shutil.copyfile(f"{root_directory}//general/scripts/post_install.sh",
+    shutil.copyfile(os.path.normpath(f"{root_directory}/general/scripts/post_install.sh"),
                     '/mnt/archinstall/home/admin/post.sh')
 
     # Save config files for later debugging and updating

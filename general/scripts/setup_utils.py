@@ -68,7 +68,7 @@ def mkdirs_as_user(dir: str, user="root"):
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):
-        path = os.path.normpath(os.path.join(path, subpath))
+        path = os.path.normpath(path+subpath)
         print('2 path: ', path)
         print('2 sub: ', subpath)
 
@@ -88,24 +88,24 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     uid, gid = get_user_id(user)
 
-    applications_path = os.path.join(path, '/home/', user,
-                                     '.local/share/applications/')
+    applications_path = os.path.normpath(path + '/home/' + user +
+                                         '.local/share/applications/')
 
     if not os.path.exists(applications_path):
         mkdirs_as_user(dir=path, user=user)
 
     app = os.path.split(file_path)[1]
 
-    if os.path.exists(os.path.join(applications_path, app)):
+    if os.path.exists(os.path.normpath(applications_path + app)):
         print_color.print_warning(
             'The file %s is already added to the %s' % (app, user))
         make_mutable(applications_path)
         return
 
     shutil.copyfile(
-        file_path, os.path.join(applications_path, app))
-    print(os.path.join(applications_path, app))
-    shutil.chown(os.path.join(applications_path, app), uid, gid)
+        file_path, os.path.normpath(applications_path + app))
+    print(os.path.normpath(f'{applications_path}/{app}'))
+    shutil.chown(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
 
     if app in visible_apps:
         show_desktop_app(app, user)
@@ -113,7 +113,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
         hide_desktop_app(app, user)
 
     make_immutable(applications_path)
-    make_immutable(os.path.join(path, app))
+    make_immutable(os.path.normpath(f'{path}/{app}'))
 
 
 def hide_desktop_app(app: str, user: str):
@@ -121,13 +121,14 @@ def hide_desktop_app(app: str, user: str):
 
     path = get_mount_path()
 
-    if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
+    if not os.path.exists(os.path.normpath('%s/home/%s/.local/share/applications/%s' % (path, user, app))):
         print_color.print_info(
             'The app %s is not accessible to %s' % (app, user))
         return
-    make_mutable(os.path.join(path, 'home', user,
-                 '.local', 'share', 'applications', app))
-    with open(os.path.join(path, 'home', user, '.local', 'share', 'applications', app), "r+") as f:
+    make_mutable(os.path.normpath(
+        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+    with open(os.path.normpath(
+            '%s/home/%s/.local/share/applications/%s' % (path, user, app)), "r+") as f:
         content = f.read()
 
         if "NoDisplay=true" in content:
@@ -146,21 +147,23 @@ def hide_desktop_app(app: str, user: str):
         f.truncate()
         f.write(content)
 
-    make_immutable(os.path.join(path, 'home', user,
-                   '.local', 'share', 'applications', app))
+    make_immutable(os.path.normpath(
+        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
 
 
 def show_desktop_app(app: str, user: str):
     '''Show a desktop app to user so he can access via the acitvities screen.'''
     path = get_mount_path()
 
-    if not os.path.exists(os.path.join(path, 'home', user, '.local', 'share', 'applications', app)):
+    if not os.path.exists(os.path.normpath(
+            '%s/home/%s/.local/share/applications/%s' % (path, user, app))):
         print_color.print_info(
             'The app %s is not accessible to %s' % (app, user))
         return
-    make_mutable(os.path.join(path, 'home', user,
-                 '.local', 'share', 'applications', app))
-    with open(os.path.join(path, 'home', user, '.local', 'share', 'applications', app), "r+") as f:
+    make_mutable(os.path.normpath(
+        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+    with open(os.path.normpath(
+            '%s/home/%s/.local/share/applications/%s' % (path, user, app)), "r+") as f:
         content = f.read()
 
         if "NoDisplay=false" in content:
@@ -179,8 +182,8 @@ def show_desktop_app(app: str, user: str):
         f.truncate()
         f.write(content)
 
-    make_immutable(os.path.join(path, 'home', user,
-                   '.local', 'share', 'applications', app))
+    make_immutable(os.path.normpath(
+        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
 
 
 def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_apps: list):

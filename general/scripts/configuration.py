@@ -14,13 +14,15 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     path = setup_utils.get_mount_path()
 
-    setup_utils.mkdirs_as_user(dir=f'{path}/etc/firefox/policies')
+    setup_utils.mkdirs_as_user(
+        dir=os.path.normpath(f'{path}/etc/firefox/policies/'))
 
     # Create missing user specific directories
     for user in ['admin', 'user']:
         for missing_dir in [f'/home/{user}/.config/environment.d/', f'/home/{user}/.local/share/applications/']:
             print(missing_dir)
-            setup_utils.mkdirs_as_user(user=user, dir=missing_dir)
+            setup_utils.mkdirs_as_user(
+                user=user, dir=os.path.normpath(missing_dir))
 
             time.sleep(10)
 
@@ -47,9 +49,9 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     for _, v in copy_data.items():
         try:
-            source = os.path.normpath(f"{dir}{v.get('source')}")
+            source = os.path.normpath(f"{dir}/{v.get('source')}")
             destination = os.path.normpath(
-                f"{path}{v.get('destination')}")
+                f"{path}/{v.get('destination')}")
             if os.path.isdir(source):
                 shutil.copytree(source, destination, dirs_exist_ok=True)
                 print('Source dir: %s' % source)
@@ -67,13 +69,13 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     for user, user_data in users.items():
 
-        for app in os.listdir(os.path.join(dir, 'general', 'data', 'DesktopEntries')):
-            setup_utils.add_desktop_app(file_path=os.path.join(
-                dir, 'general', 'data', 'DesktopEntries', app), user=user, visible_apps=user_data['desktop'])
+        for app in os.listdir(os.path.normpath('%s/general/data/DesktopEntries/' % dir)):
+            setup_utils.add_desktop_app(file_path=os.path.normpath(
+                '%s/general/data/DesktopEntries/%s' % (dir, app)), user=user, visible_apps=user_data['desktop'])
 
         for app in os.listdir('/mnt/archinstall/usr/share/applications/'):
-            setup_utils.add_desktop_app(file_path=os.path.join(
-                '/mnt/archinstall/usr/share/applications/', app), user=user, visible_apps=user_data['desktop'])
+            setup_utils.add_desktop_app(file_path=os.path.normpath(
+                '/mnt/archinstall/usr/share/applications/%s' % app), user=user, visible_apps=user_data['desktop'])
 
     for cmd in data["final_cmds"]:
         setup_utils.run_command(cmd)

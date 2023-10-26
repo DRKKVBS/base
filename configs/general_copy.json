@@ -1,14 +1,14 @@
 {
     "dconf": {
-        "source": "/general/data/dconf",
+        "source": "/general/data/dconf/",
         "destination": "/etc/dconf/"
     },
     "AccountsService": {
-        "source": "/general/data/AccountsService",
+        "source": "/general/data/AccountsService/",
         "destination": "/var/lib/AccountsService/"
     },
     "DesktopEntries-Admin": {
-        "source": "/general/data/DesktopEntries",
+        "source": "/general/data/DesktopEntries/",
         "destination": "/home/admin/.local/share/applications/",
         "permissions": {
             "uid": 1000,
@@ -16,7 +16,7 @@
         }
     },
     "DesktopEntries-User": {
-        "source": "/general/data/DesktopEntries",
+        "source": "/general/data/DesktopEntries/",
         "destination": "/home/user/.local/share/applications/",
         "permissions": {
             "uid": 1001,
@@ -24,11 +24,11 @@
         }
     },
     "Icons": {
-        "source": "/general/data/images/icons",
+        "source": "/general/data/images/icons/",
         "destination": "/var/lib/AccountsService/icons/"
     },
     "Logos": {
-        "source": "/general/data/images/logos",
+        "source": "/general/data/images/logos/",
         "destination": "/usr/share/logos/"
     },
     "X11-VT-Switch": {

@@ -87,7 +87,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     if not os.path.exists(applications_path):
         mkdirs_as_user(dir=path, user=user)
-        
+
     make_mutable(os.path.normpath(
         '/home/%s/.local/share/applications/' % user))
 
@@ -104,6 +104,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
         file_path, os.path.normpath(f'{applications_path}/{app}'))
     shutil.chown(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
 
+    print('app: ', app, '...visible: ', visible_apps)
     if app in visible_apps:
         show_desktop_app(app, user)
     else:

@@ -12,6 +12,13 @@ def is_fresh_install():
     return os.path.ismount('/home') and os.path.ismount('/boot')
 
 
+def get_user_id(user: str):
+    if user == 'admin':
+        return 1000, 1000
+    else:
+        return 1001, 1001
+
+
 def run_command(cmd: list, uid=None, gid=None):
     '''Run commands in the arch-chroot environment.'''
 
@@ -46,16 +53,14 @@ def split_path(path: str):
 def mkdirs_as_user(dir: str, user="root"):
     '''Create new directories and set the owner as the specified user.'''
 
-    if user == 'admin':
-        uid, gid = 1000, 1000
-    else:
-        uid, gid = 1001, 1001
-
     dir = os.path.normpath(dir)
     if is_fresh_install():
         path = '/mnt/archinstall/'
     else:
         path = '/'
+
+    uid, gid = get_user_id(user)
+
     for subpath in split_path(dir):
         path = os.path.join(path, subpath)
         if not os.path.exists(path):
@@ -74,6 +79,8 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
     else:
         path = "/"
 
+    uid, gid = get_user_id(user)
+
     applications_path = os.path.join(path, '/home/', user,
                                      '.local/share/applications/')
 
@@ -90,7 +97,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     shutil.copyfile(
         file_path, os.path.join(applications_path, app))
-    shutil.chown(os.path.join(applications_path, app), user, user)
+    shutil.chown(os.path.join(applications_path, app), uid, gid)
 
     if app in visible_apps:
         show_desktop_app(app, user)

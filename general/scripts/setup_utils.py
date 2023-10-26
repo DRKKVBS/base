@@ -156,7 +156,7 @@ def show_desktop_app(app: str, user: str):
     path = get_mount_path()
 
     if not os.path.exists(os.path.normpath(
-            '/home/%s/.local/share/applications/%s' % (user, app))):
+            '%s/home/%s/.local/share/applications/%s' % (path, user, app))):
         print_color.print_info(
             'The app %s is not accessible to %s' % (app, user))
         return

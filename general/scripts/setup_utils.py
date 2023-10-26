@@ -33,7 +33,6 @@ def run_command(cmd: list, uid=None, gid=None):
         if uid is None or gid is None:
             r = subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
                                shell=False)
-            print(r.stdout, '...', r.stderr, '...', r.returncode)
         else:
             subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
                            shell=False)
@@ -94,7 +93,8 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
     if os.path.exists(os.path.normpath(f'{applications_path}/{app}')):
         print_color.print_warning(
             'The file %s is already added to the %s' % (app, user))
-        make_mutable(applications_path)
+        make_mutable(os.path.normpath(
+            '/home/%s/.local/share/applications/' % user))
         return
 
     shutil.copyfile(
@@ -107,8 +107,10 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
     else:
         hide_desktop_app(app, user)
 
-    make_immutable(applications_path)
-    make_immutable(os.path.normpath(f'{applications_path}/{app}'))
+    make_immutable(os.path.normpath(
+        '/home/%s/.local/share/applications/' % user))
+    make_immutable(os.path.normpath(
+        f'/home/{user}/.local/share/applications/{app}'))
 
 
 def hide_desktop_app(app: str, user: str):
@@ -121,7 +123,7 @@ def hide_desktop_app(app: str, user: str):
             'The app %s is not accessible to %s' % (app, user))
         return
     make_mutable(os.path.normpath(
-        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+        '/home/%s/.local/share/applications/%s' % (user, app)))
     with open(os.path.normpath(
             '%s/home/%s/.local/share/applications/%s' % (path, user, app)), "r+") as f:
         content = f.read()
@@ -143,7 +145,7 @@ def hide_desktop_app(app: str, user: str):
         f.write(content)
 
     make_immutable(os.path.normpath(
-        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+        '/home/%s/.local/share/applications/%s' % (user, app)))
 
 
 def show_desktop_app(app: str, user: str):
@@ -151,12 +153,12 @@ def show_desktop_app(app: str, user: str):
     path = get_mount_path()
 
     if not os.path.exists(os.path.normpath(
-            '%s/home/%s/.local/share/applications/%s' % (path, user, app))):
+            '/home/%s/.local/share/applications/%s' % (user, app))):
         print_color.print_info(
             'The app %s is not accessible to %s' % (app, user))
         return
     make_mutable(os.path.normpath(
-        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+        '/home/%s/.local/share/applications/%s' % (user, app)))
     with open(os.path.normpath(
             '%s/home/%s/.local/share/applications/%s' % (path, user, app)), "r+") as f:
         content = f.read()
@@ -178,7 +180,7 @@ def show_desktop_app(app: str, user: str):
         f.write(content)
 
     make_immutable(os.path.normpath(
-        '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
+        '/home/%s/.local/share/applications/%s' % (user, app)))
 
 
 # def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_apps: list):

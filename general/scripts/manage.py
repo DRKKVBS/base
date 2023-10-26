@@ -69,7 +69,7 @@ if __name__ == "__main__":
         users = merged_config_data['users']
         post_installation_data = merged_config_data['post_install']
 
-    with open(os.path.normpath(f"{root_directory}/configs/copy.json"), "r") as f_base, open(
+    with open(os.path.normpath(f"{root_directory}/configs/general_copy.json"), "r") as f_base, open(
         os.path.normpath(
             f"{root_directory}/configs/{args.Type}_copy.json"), "r"
     ) as f_platform:
@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     # Start the linux installation
     if args.Install:
-        
+
         if setup_utils.is_fresh_install():
             parser.error(
                 'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')

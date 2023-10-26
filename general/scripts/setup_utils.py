@@ -63,6 +63,7 @@ def mkdirs_as_user(dir: str, user="root"):
     dir = os.path.normpath(dir)
     path = get_mount_path()
     print(path)
+    
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):

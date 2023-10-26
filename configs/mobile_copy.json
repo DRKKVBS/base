@@ -13,7 +13,7 @@
     },
     "MyWorkspaceDesktop-Admin": {
         "source": "/type/mobile/data/myWorkspace.desktop",
-        "destination": "/home/adminte/.local/share/applications/myWorkspace.desktop"
+        "destination": "/home/admin/.local/share/applications/myWorkspace.desktop"
     },
     "Firefox-Share": {
         "source": "/type/mobile/data/firefox/share",

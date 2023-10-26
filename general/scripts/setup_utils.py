@@ -68,7 +68,7 @@ def mkdirs_as_user(dir: str, user="root"):
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):
-        path = os.path.normpath(path+subpath)
+        path = os.path.normpath(f'{path}/{subpath}')
         print('2 path: ', path)
         print('2 sub: ', subpath)
 

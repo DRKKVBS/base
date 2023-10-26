@@ -31,8 +31,9 @@ def run_command(cmd: list, uid=None, gid=None):
 
     if is_fresh_install:
         if uid is None or gid is None:
-            subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
-                           shell=False)
+            r = subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
+                               shell=False)
+            print(r.stdout, '...', r.stderr, '...', r.returncode)
         else:
             subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
                            shell=False)
@@ -107,7 +108,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
         hide_desktop_app(app, user)
 
     make_immutable(applications_path)
-    make_immutable(os.path.normpath(f'{path}/{app}'))
+    make_immutable(os.path.normpath(f'{applications_path}/{app}'))
 
 
 def hide_desktop_app(app: str, user: str):
@@ -180,45 +181,45 @@ def show_desktop_app(app: str, user: str):
         '%s/home/%s/.local/share/applications/%s' % (path, user, app)))
 
 
-def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_apps: list):
+# def desktop_apps(desktop_app_dir: str, user: str, uid: int, gid: int, visible_apps: list):
 
-    desktop_app_dir = os.path.normpath(desktop_app_dir)
+#     desktop_app_dir = os.path.normpath(desktop_app_dir)
 
-    path = get_mount_path()
+#     path = get_mount_path()
 
-    print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
+#     print_color.print_info("STARTING: Setup Desktop Apps for %s" % user)
 
-    make_mutable(f"/home/{user}/.local/share/applications/")
-    for file in os.listdir(os.path.normpath(f"{path}/home/{user}/.local/share/applications/")):
-        make_mutable(f"/home/{user}/.local/share/applications/{file}")
-    # Copy the Desktop Files into the new directory
-    shutil.copytree(
-        desktop_app_dir, os.path.normpath(f"{path}/home/{user}/.local/share/applications/"), dirs_exist_ok=True)
+#     make_mutable(f"/home/{user}/.local/share/applications/")
+#     for file in os.listdir(os.path.normpath(f"{path}/home/{user}/.local/share/applications/")):
+#         make_mutable(f"/home/{user}/.local/share/applications/{file}")
+#     # Copy the Desktop Files into the new directory
+#     shutil.copytree(
+#         desktop_app_dir, os.path.normpath(f"{path}/home/{user}/.local/share/applications/"), dirs_exist_ok=True)
 
-    # Make Desktop Entries hidden
-    for file in os.listdir(os.path.normpath(f"{path}/usr/share/applications/")):
-        if os.path.islink(os.path.normpath(f"{path}/usr/share/applications/{file}")):
-            continue
-        shutil.copyfile(os.path.normpath(f"{path}/usr/share/applications/{file}"),
-                        os.path.normpath(f"{path}/home/{user}/.local/share/applications/{file}"))
-    for file in os.listdir(os.path.normpath(f"{path}/home/{user}/.local/share/applications/")):
-        shutil.chown(
-            os.path.normpath(f"{path}/home/{user}/.local/share/applications/{file}"), user=uid, group=gid)
-        with open(f"{path}/home/{user}/.local/share/applications/{file}", "r+") as f2:
-            content = f2.read()
-            if "NoDisplay=false" in content and file not in visible_apps:
-                content = content.replace("NoDisplay=false", "NoDisplay=true")
-            elif file not in visible_apps:
-                content = content.replace(
-                    "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
-            f2.seek(0)
-            f2.truncate()
-            f2.write(content)
+#     # Make Desktop Entries hidden
+#     for file in os.listdir(os.path.normpath(f"{path}/usr/share/applications/")):
+#         if os.path.islink(os.path.normpath(f"{path}/usr/share/applications/{file}")):
+#             continue
+#         shutil.copyfile(os.path.normpath(f"{path}/usr/share/applications/{file}"),
+#                         os.path.normpath(f"{path}/home/{user}/.local/share/applications/{file}"))
+#     for file in os.listdir(os.path.normpath(f"{path}/home/{user}/.local/share/applications/")):
+#         shutil.chown(
+#             os.path.normpath(f"{path}/home/{user}/.local/share/applications/{file}"), user=uid, group=gid)
+#         with open(f"{path}/home/{user}/.local/share/applications/{file}", "r+") as f2:
+#             content = f2.read()
+#             if "NoDisplay=false" in content and file not in visible_apps:
+#                 content = content.replace("NoDisplay=false", "NoDisplay=true")
+#             elif file not in visible_apps:
+#                 content = content.replace(
+#                     "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+#             f2.seek(0)
+#             f2.truncate()
+#             f2.write(content)
 
-        # Make File immutable
-        make_immutable(f"/home/{user}/.local/share/applications/{file}")
-    # Make the directory immutable
-    make_immutable(f"/home/{user}/.local/share/applications/")
+#         # Make File immutable
+#         make_immutable(f"/home/{user}/.local/share/applications/{file}")
+#     # Make the directory immutable
+#     make_immutable(f"/home/{user}/.local/share/applications/")
 
 
 def make_immutable(path: str):

@@ -10,7 +10,7 @@ print_color = Color()
 def is_fresh_install():
     '''Check if the system is booted into the archiso.'''
 
-    return os.path.ismount('/home') and os.path.ismount('/boot')
+    return not (os.path.ismount('/home') and os.path.ismount('/boot'))
 
 
 def get_mount_path():
@@ -64,7 +64,7 @@ def mkdirs_as_user(dir: str, user="root"):
     dir = os.path.normpath(dir)
     path = get_mount_path()
     print(path)
-    
+
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):

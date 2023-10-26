@@ -63,15 +63,11 @@ def mkdirs_as_user(dir: str, user="root"):
 
     dir = os.path.normpath(dir)
     path = get_mount_path()
-    print('1', path)
 
     uid, gid = get_user_id(user)
 
     for subpath in split_path(dir):
         path = os.path.normpath(f'{path}/{subpath}')
-        print('2 path: ', path)
-        print('2 sub: ', subpath)
-
         if not os.path.exists(path):
             print_color.print_confirmation('Creating new direcotry: %s' % path)
             os.mkdir(path)
@@ -80,7 +76,6 @@ def mkdirs_as_user(dir: str, user="root"):
         else:
             print_color.print_confirmation(
                 'Directory already exists: %s' % path)
-    time.sleep(1)
 
 
 def add_desktop_app(file_path: str, user: str, visible_apps: list):

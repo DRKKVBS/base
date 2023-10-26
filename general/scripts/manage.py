@@ -8,7 +8,6 @@ import installation
 import utils
 import configuration
 import setup_utils
-import socket
 from print_colors import Color
 
 print_color = Color()

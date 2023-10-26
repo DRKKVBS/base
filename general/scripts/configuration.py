@@ -1,8 +1,6 @@
 import datetime
-import json
 import os
 import shutil
-import time
 import setup_utils
 import setup_non_priviliged
 from print_colors import Color
@@ -23,8 +21,6 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
             print(missing_dir)
             setup_utils.mkdirs_as_user(
                 user=user, dir=os.path.normpath(missing_dir))
-
-            time.sleep(10)
 
     setup_utils.disable_sudo_password("admin")
 

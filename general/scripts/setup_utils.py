@@ -1,7 +1,6 @@
 import subprocess
 import os
 import shutil
-import time
 from print_colors import Color
 
 print_color = Color()
@@ -83,15 +82,15 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     uid, gid = get_user_id(user)
 
-    applications_path = os.path.normpath(path + '/home/' + user +
-                                         '.local/share/applications/')
+    applications_path = os.path.normpath(
+        '%s/home/%s/.local/share/applications/' % (path, user))
 
     if not os.path.exists(applications_path):
         mkdirs_as_user(dir=path, user=user)
 
     app = os.path.split(file_path)[1]
 
-    if os.path.exists(os.path.normpath(applications_path + app)):
+    if os.path.exists(os.path.normpath(f'{applications_path}/{app}')):
         print_color.print_warning(
             'The file %s is already added to the %s' % (app, user))
         make_mutable(applications_path)

@@ -77,7 +77,7 @@ def mkdirs_as_user(dir: str, user="root"):
         else:
             print_color.print_confirmation(
                 'Directory already exists: %s' % path)
-    time.sleep(5)
+    time.sleep(1)
 
 
 def add_desktop_app(file_path: str, user: str, visible_apps: list):

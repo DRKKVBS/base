@@ -98,7 +98,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
         return
 
     shutil.copyfile(
-        file_path, os.path.normpath(applications_path + app))
+        file_path, os.path.normpath(f'{applications_path}/{app}'))
     print(os.path.normpath(f'{applications_path}/{app}'))
     shutil.chown(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
 

@@ -87,19 +87,21 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     if not os.path.exists(applications_path):
         mkdirs_as_user(dir=path, user=user)
+        
+    make_mutable(os.path.normpath(
+        '/home/%s/.local/share/applications/' % user))
 
     app = os.path.split(file_path)[1]
 
     if os.path.exists(os.path.normpath(f'{applications_path}/{app}')):
         print_color.print_warning(
             'The file %s is already added to the %s' % (app, user))
-        make_mutable(os.path.normpath(
+        make_immutable(os.path.normpath(
             '/home/%s/.local/share/applications/' % user))
         return
 
     shutil.copyfile(
         file_path, os.path.normpath(f'{applications_path}/{app}'))
-    print(os.path.normpath(f'{applications_path}/{app}'))
     shutil.chown(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
 
     if app in visible_apps:

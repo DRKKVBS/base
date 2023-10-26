@@ -101,6 +101,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
 
     shutil.copyfile(
         file_path, os.path.join(applications_path, app))
+    print(os.path.join(applications_path, app))
     shutil.chown(os.path.join(applications_path, app), uid, gid)
 
     if app in visible_apps:

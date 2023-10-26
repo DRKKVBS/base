@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
     elif args.Update:
         setup_utils.sync_pacman()
-    configuration.configure(user_data=post_installation_data,
+    configuration.configure(data=post_installation_data,
                             copy_data=copy_merged, users=users, dir=os.path.normpath(root_directory))
 
     # Add type specific post_install commands to post_install scripts

@@ -2,7 +2,6 @@ import datetime
 import os
 import shutil
 import setup_utils
-import setup_non_priviliged
 from print_colors import Color
 import logging
 
@@ -25,7 +24,7 @@ def configure(data: dict, copy_data: dict, users: dict):
     setup_utils.disable_sudo_password("admin")
 
     try:
-        setup_non_priviliged.install_yay()
+        setup_utils.install_yay()
 
     except Exception as e:
         print_color.print_error(
@@ -37,7 +36,7 @@ def configure(data: dict, copy_data: dict, users: dict):
     setup_utils.disable_sudo_password("admin")
     for pkg in data["aur_pkgs"]:
         try:
-            setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
+            setup_utils.install_aur_package(package=pkg)
         except Exception as e:
             logging.error('Failed to install ', pkg, e)
         finally:

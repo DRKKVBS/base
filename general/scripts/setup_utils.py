@@ -6,10 +6,9 @@ import logging
 
 print_color = Color()
 
+
 def req():
     os.chdir("/tmp/base/")
-    print(os.getcwd)
-
 
 
 def is_fresh_install():
@@ -37,24 +36,20 @@ def run_command(cmd: list, uid=None, gid=None):
 
     if is_fresh_install:
         if uid is None or gid is None:
-            try:
-                r = subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
-                                   shell=False)
-            except Exception as e:
-                logging.error("Failed to execute command: ", cmd, e)
+            cmd_list = ["arch-chroot", "/mnt/archinstall/", *cmd]
 
         else:
-            try:
-                subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
-                               shell=False)
-            except Exception as e:
-                logging.error("Failed to execute command: ", cmd, e)
+            cmd_list = ["arch-chroot", "-u", "%d:%d" %
+                        (uid or gid, gid or uid), "/mnt/archinstall/", *cmd]
     else:
-        try:
-            subprocess.run([*cmd],
-                           shell=False)
-        except Exception as e:
-            logging.error("Failed to execute command: ", cmd, e)
+        cmd_list = [*cmd]
+
+    try:
+        logging.info("Execute command: %s" % cmd_list)
+        r = subprocess.run([*cmd_list], shell=False)
+        return r
+    except Exception as e:
+        logging.error("Failed to execute command: ", cmd_list, e)
 
 
 def split_path(path: str):
@@ -120,7 +115,6 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
     print(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
     shutil.chown(os.path.normpath(f'{applications_path}/{app}'), uid, gid)
 
-    print('app: ', app, '...visible: ', visible_apps)
     if app in visible_apps:
         show_desktop_app(app, user)
     else:
@@ -300,7 +294,7 @@ def reenable_sudo_password(user: str):
     path = get_mount_path()
 
     print_color.print_info_critical(
-        'STARTING: Reenable sudo password for %s' % (user))
+        "STARTING: Reenable sudo password for %s" % (user))
     try:
         os.remove(f'{path}/etc/sudoers.d/01_admin')
         print_color.print_info_critical(
@@ -310,18 +304,18 @@ def reenable_sudo_password(user: str):
             "ERROR: Reenabling sudo password for %s failed! | %s" % (user, e))
 
 
-def install_aur_package(chroot: bool, package: str):
-    if chroot:
+def install_aur_package(package: str):
+    if is_fresh_install():
+
         pkgs = subprocess.run(["arch-chroot", "/mnt/archinstall/", "pacman", "-Qm"],
                               shell=False, capture_output=True, text=True).stdout
         if package not in pkgs:
-            print_color.print_info('Installing %s' % package)
+            logging.info("Installing %s" % package)
             run_command(
                 cmd=["yay", "-S", package, "--noconfirm"], uid=1000, gid=1000)
-            print_color.print_confirmation(
-                'Installed %s successfull' % package)
+            logging.warning("Installed %s" % package)
         else:
-            print_color.print_confirmation('%s is already installed' % package)
+            logging.info("%s is already installed" % package)
 
     else:
 

@@ -105,8 +105,8 @@ if __name__ == "__main__":
                     "/mnt/archinstall/home/admin/post.sh")
 
     # Save config files for later debugging and updating
-    os.mkdir("/mnt/archinstall/var/log/drk")
-    shutil.copytree("./logs/", "/mnt/archinstall/var/log/drk")
+    os.mkdir("/mnt/archinstall/var/log/drk/")
+    shutil.copytree("./logs/", "/mnt/archinstall/var/log/drk/")
     with open("/mnt/archinstall/var/log/drk/" "a") as f:
         json.dump(merged_config_data, f)
 

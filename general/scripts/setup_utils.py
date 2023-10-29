@@ -7,7 +7,8 @@ import logging
 print_color = Color()
 
 def req():
-    os.chdir('/tmp/base/')
+    os.chdir("/tmp/base/")
+    print(os.getcwd)
 
 
 

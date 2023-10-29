@@ -16,7 +16,7 @@ print_color = Color()
 if __name__ == "__main__":
 
     # Directories
-    root_directory = '/tmp/base/'
+    root_directory = "/tmp/base/"
 
     # Initialize parser
     parser = argparse.ArgumentParser(
@@ -49,12 +49,12 @@ if __name__ == "__main__":
         hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
     # Merge and copy configuration files
-    with open(os.path.normpath(f"{root_directory}/configs/general_config.json"), "r") as f_base, open(
+    with open("./configs/general_config.json", "r") as f_base, open(
         os.path.normpath(
-            f"{root_directory}/configs/{args.Configuration}_config.json"), "r"
+            f"./configs/{args.Configuration}_config.json"), "r"
     ) as f_config, open(
         os.path.normpath(
-            f"{root_directory}/configs/{args.Type}_config.json"), "r"
+            f"./configs/{args.Type}_config.json"), "r"
     ) as f_platform_config:
         base_data = json.load(f_base)
         config_data = json.load(f_config)
@@ -68,9 +68,9 @@ if __name__ == "__main__":
         users = merged_config_data['users']
         post_installation_data = merged_config_data['post_install']
 
-    with open(os.path.normpath(f"{root_directory}/configs/general_copy.json"), "r") as f_base, open(
+    with open("./configs/general_copy.json", "r") as f_base, open(
         os.path.normpath(
-            f"{root_directory}/configs/{args.Type}_copy.json"), "r"
+            f"./configs/{args.Type}_copy.json"), "r"
     ) as f_platform:
         base_copy = json.load(f_base)
         platform_copy_data = json.load(f_platform)
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
         if setup_utils.is_fresh_install():
             parser.error(
-                'You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!')
+                "You cannot reinstall if you are booted into a running system! Reboot to a USB-Drive and retry!")
         else:
             installation.install(data=installation_data,
                                  users=users, hostname=hostname)
@@ -91,19 +91,21 @@ if __name__ == "__main__":
     elif args.Update:
         setup_utils.sync_pacman()
     configuration.configure(data=post_installation_data,
-                            copy_data=copy_merged, users=users, dir=os.path.normpath(root_directory))
+                            copy_data=copy_merged, users=users)
 
     # Add type specific post_install commands to post_install scripts
-    with open(f"{root_directory}/general/scripts/post_install.sh", 'r+') as f_gen, open(f'{root_directory}/type/{args.Type}/scripts/post_install.sh', 'r') as f_type:
+    with open("./general/scripts/post_install.sh", "r+") as f_gen, open(f"{root_directory}/type/{args.Type}/scripts/post_install.sh", "r") as f_type:
         f_gen.write(f_type.read())
-    shutil.copyfile(os.path.normpath(f"{root_directory}/general/scripts/post_install.sh"),
-                    '/mnt/archinstall/home/admin/post.sh')
+    shutil.copyfile("./general/scripts/post_install.sh",
+                    "/mnt/archinstall/home/admin/post.sh")
 
     # Save config files for later debugging and updating
-    os.mkdir('/mnt/archinstall/var/log/systemconfig')
-    with open('/mnt/archinstall/var/log/systemconfig/' 'a') as f:
+    os.mkdir("/mnt/archinstall/var/log/drk")
+    shutil.copytree("./logs/", "/mnt/archinstall/var/log/drk")
+    with open("/mnt/archinstall/var/log/drk/" "a") as f:
         json.dump(merged_config_data, f)
+
 
 # Delete Downloaded git repo
 # shutil.rmtree(os.path.realpath(
-#     os.path.dirname(__file__)).split('scripts')[0])
+#     os.path.dirname(__file__)).split("scripts")[0])

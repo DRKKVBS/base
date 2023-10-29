@@ -4,11 +4,14 @@ import shutil
 import setup_utils
 import setup_non_priviliged
 from print_colors import Color
+import logging
 
 print_color = Color()
+logging.basicConfig(filename='./logs/example.log',
+                    encoding='utf-8', level=logging.DEBUG)
 
 
-def configure(data: dict, copy_data: dict, users: dict, dir: str):
+def configure(data: dict, copy_data: dict, users: dict):
 
     path = setup_utils.get_mount_path()
 
@@ -18,7 +21,6 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
     # Create missing user specific directories
     for user in ['admin', 'user']:
         for missing_dir in [f'/home/{user}/.config/environment.d/', f'/home/{user}/.local/share/applications/']:
-            print(missing_dir)
             setup_utils.mkdirs_as_user(
                 user=user, dir=os.path.normpath(missing_dir))
 
@@ -35,25 +37,23 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
         setup_utils.reenable_sudo_password("admin")
 
     setup_utils.disable_sudo_password("admin")
-    try:
-        for pkg in data["aur_pkgs"]:
+    for pkg in data["aur_pkgs"]:
+        try:
             setup_non_priviliged.install_aur_package(chroot=True, package=pkg)
-    except:
-        pass
-    finally:
-        setup_utils.reenable_sudo_password('admin')
+        except Exception as e:
+            logging.error('Failed to install ', pkg, e)
+        finally:
+            setup_utils.reenable_sudo_password('admin')
 
     for _, v in copy_data.items():
         try:
-            source = os.path.normpath(f"{dir}/{v.get('source')}")
+            source = os.path.normpath(f"./{v.get('source')}")
             destination = os.path.normpath(
                 f"{path}/{v.get('destination')}")
             if os.path.isdir(source):
                 shutil.copytree(source, destination, dirs_exist_ok=True)
-                print('Source dir: %s' % source)
 
             else:
-                print("Source file %s" % source)
                 shutil.copyfile(source, destination)
             if v.get('permissions'):
                 shutil.chown(path=destination, user=v.get('permissions').get(
@@ -65,10 +65,10 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
 
     for user, user_data in users.items():
 
-        for app in os.listdir(os.path.normpath('%s/general/data/DesktopEntries/' % dir)):
-            
+        for app in os.listdir('./general/data/DesktopEntries/'):
+
             setup_utils.add_desktop_app(file_path=os.path.normpath(
-                '%s/general/data/DesktopEntries/%s' % (dir, app)), user=user, visible_apps=user_data['desktop'])
+                './general/data/DesktopEntries/%s' % app), user=user, visible_apps=user_data['desktop'])
 
         for app in os.listdir('/mnt/archinstall/usr/share/applications/'):
             setup_utils.add_desktop_app(file_path=os.path.normpath(

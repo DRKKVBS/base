@@ -9,8 +9,12 @@ import utils
 import configuration
 import setup_utils
 from print_colors import Color
+import logging
 
 print_color = Color()
+
+logging.basicConfig(filename='./logs/example.log',
+                    encoding='utf-8', level=logging.DEBUG)
 
 
 if __name__ == "__main__":

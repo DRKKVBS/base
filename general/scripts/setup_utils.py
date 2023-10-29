@@ -2,8 +2,12 @@ import subprocess
 import os
 import shutil
 from print_colors import Color
+import logging
 
 print_color = Color()
+
+logging.basicConfig(filename='./logs/example.log',
+                    encoding='utf-8', level=logging.DEBUG)
 
 
 def is_fresh_install():
@@ -31,14 +35,24 @@ def run_command(cmd: list, uid=None, gid=None):
 
     if is_fresh_install:
         if uid is None or gid is None:
-            r = subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
-                               shell=False)
+            try:
+                r = subprocess.run(["arch-chroot", "/mnt/archinstall/", *cmd],
+                                   shell=False)
+            except Exception as e:
+                logging.error("Failed to execute command: ", cmd, e)
+
         else:
-            subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
-                           shell=False)
+            try:
+                subprocess.run(["arch-chroot", "-u", "%d:%d" % (uid or gid, gid or uid), "/mnt/archinstall/", *cmd],
+                               shell=False)
+            except Exception as e:
+                logging.error("Failed to execute command: ", cmd, e)
     else:
-        subprocess.run([*cmd],
-                       shell=False)
+        try:
+            subprocess.run([*cmd],
+                           shell=False)
+        except Exception as e:
+            logging.error("Failed to execute command: ", cmd, e)
 
 
 def split_path(path: str):
@@ -68,13 +82,12 @@ def mkdirs_as_user(dir: str, user="root"):
     for subpath in split_path(dir):
         path = os.path.normpath(f'{path}/{subpath}')
         if not os.path.exists(path):
-            print_color.print_confirmation('Creating new direcotry: %s' % path)
+            logging.info("Creating new direcotry: %s" % path)
             os.mkdir(path)
+            logging.info("Setting Ownership to uid: %s, gid: %s" % (uid, gid))
             shutil.chown(path, uid, gid)
-            print_color.print_confirmation('Created directory: %s' % path)
         else:
-            print_color.print_confirmation(
-                'Directory already exists: %s' % path)
+            logging.warn("Directory already exists: %s" % path)
 
 
 def add_desktop_app(file_path: str, user: str, visible_apps: list):
@@ -83,7 +96,7 @@ def add_desktop_app(file_path: str, user: str, visible_apps: list):
     uid, gid = get_user_id(user)
 
     applications_path = os.path.normpath(
-        '%s/home/%s/.local/share/applications/' % (path, user))
+        "%s/home/%s/.local/share/applications/" % (path, user))
 
     if not os.path.exists(applications_path):
         mkdirs_as_user(dir=path, user=user)

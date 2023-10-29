@@ -142,7 +142,7 @@ def hide_desktop_app(app: str, user: str):
 
         elif "NoDisplay" not in content:
             content = content.replace(
-                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=false")
+                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
 
         f.seek(0)
         f.truncate()

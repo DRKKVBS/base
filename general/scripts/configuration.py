@@ -66,6 +66,7 @@ def configure(data: dict, copy_data: dict, users: dict, dir: str):
     for user, user_data in users.items():
 
         for app in os.listdir(os.path.normpath('%s/general/data/DesktopEntries/' % dir)):
+            
             setup_utils.add_desktop_app(file_path=os.path.normpath(
                 '%s/general/data/DesktopEntries/%s' % (dir, app)), user=user, visible_apps=user_data['desktop'])
 

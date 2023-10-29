@@ -7,8 +7,6 @@ from print_colors import Color
 import logging
 
 print_color = Color()
-logging.basicConfig(filename='./logs/example.log',
-                    encoding='utf-8', level=logging.DEBUG)
 
 
 def configure(data: dict, copy_data: dict, users: dict):

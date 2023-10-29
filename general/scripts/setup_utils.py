@@ -6,8 +6,6 @@ import logging
 
 print_color = Color()
 
-logging.basicConfig(filename='./logs/example.log',
-                    encoding='utf-8', level=logging.DEBUG)
 
 
 def is_fresh_install():

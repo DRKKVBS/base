@@ -13,11 +13,12 @@ import logging
 
 print_color = Color()
 
-logging.basicConfig(filename='/tmp/base/logs/example.log',
+logging.basicConfig(filename='./logs/example.log',
                     encoding='utf-8', level=logging.DEBUG)
 
-
 if __name__ == "__main__":
+
+    setup_utils.req()
 
     # Directories
     root_directory = "/tmp/base/"

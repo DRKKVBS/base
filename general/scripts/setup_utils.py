@@ -6,6 +6,9 @@ import logging
 
 print_color = Color()
 
+def req():
+    os.chdir('/tmp/base/')
+
 
 
 def is_fresh_install():

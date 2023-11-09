@@ -48,7 +48,7 @@ def copy_file(data: dict):
     else:
         path = "/"
 
-    source = os.path.normpath(f"../{data['source']}")
+    source = os.path.normpath(f"/tmp/base/{data['source']}")
     destination = os.path.normpath(
         f"{path}/{data['destination']}")
     if os.path.isdir(source):
@@ -67,6 +67,7 @@ def copy_file(data: dict):
             logging.error("Failed to copy the file %s! %s" %
                           (data.get('source'), e))
 
+        print('Destination: ', destination)
         if data.get('permissions'):
             shutil.chown(
                 path=destination, user=data['permissions']['uid'], group=data['permissions']['gid'])

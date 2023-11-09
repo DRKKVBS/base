@@ -51,7 +51,7 @@ def copy_file(data: dict):
     else:
         path = "/"
 
-    source = os.path.normpath(f"./{data['source']}")
+    source = os.path.normpath(f"../{data['source']}")
     destination = os.path.normpath(
         f"{path}/{data['destination']}")
     if os.path.isdir(source):

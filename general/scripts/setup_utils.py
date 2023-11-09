@@ -73,19 +73,16 @@ def copy_file(data: dict):
 
 
 def get_gid(group: str):
-
     path = get_mount_point()
 
-    with open(os.path.normpath("%s/etc/group" % path), "r") as f:
-        content = f.read()
+    with open(os.path.normpath("%s/etc/passwd" % path), "r") as f:
         lines = f.readlines()
 
-    if group not in content:
-        raise ValueError("Group '%s' does not exist!" % group)
-
     for line in lines:
-        if group in line:
+        if line.startswith(group):
             return int(line.split(":")[2])
+    else:
+        raise ValueError("Group '%s' does not exist!" % group)
 
 
 def run_command(cmd: list, uid=None, gid=None):

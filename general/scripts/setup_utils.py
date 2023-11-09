@@ -31,17 +31,14 @@ def get_uid(user: str):
     path = get_mount_point()
 
     with open(os.path.normpath("%s/etc/passwd" % path), "r") as f:
-        content = f.read()
         lines = f.readlines()
 
-    if user not in content:
+    for line in lines:
+        if line.startswith(user):
+            return int(line.split(":")[2])
+    else:
         raise ValueError("User '%s' does not exist!" % user)
 
-    for line in lines:
-        if user in line:
-            return int(line.split(":")[2])
-
-    raise ValueError("User '%s' does not exist!" % user)
 
 
 def copy_file(data: dict):
@@ -89,7 +86,6 @@ def get_gid(group: str):
     for line in lines:
         if group in line:
             return int(line.split(":")[2])
-    raise ValueError("User '%s' does not exist!" % group)
 
 
 def run_command(cmd: list, uid=None, gid=None):
@@ -140,6 +136,7 @@ def mkdirs_as_user(dir: str, user="root"):
         gid = get_gid(user)
 
     except ValueError as e:
+        print(e)
         logging.error(e)
         return
 

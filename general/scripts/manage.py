@@ -5,13 +5,10 @@ import os
 import argparse
 import shutil
 import setup_utils
-from print_colors import Color
 import logging
 
 
 if __name__ == "__main__":
-
-    setup_utils.req()
 
     logging.basicConfig(filename='./logs/example.log',
                         encoding='utf-8', level=logging.DEBUG)
@@ -48,20 +45,3 @@ if __name__ == "__main__":
         hostname = args.Hostname
     else:
         hostname = f"drk-bs-{args.Type}-{args.Configuration}"
-
-    # Add type specific post_install commands to post_install scripts
-    with open("./general/scripts/post_install.sh", "r+") as f_gen, open(f"{root_directory}/type/{args.Type}/scripts/post_install.sh", "r") as f_type:
-        f_gen.write(f_type.read())
-    shutil.copyfile("./general/scripts/post_install.sh",
-                    "/mnt/archinstall/home/admin/post.sh")
-
-    # Save config files for later debugging and updating
-    os.mkdir("/mnt/archinstall/var/log/drk/")
-    shutil.copytree("./logs/", "/mnt/archinstall/var/log/drk/")
-    with open("/mnt/archinstall/var/log/drk/" "a") as f:
-        json.dump(merged_config_data, f)
-
-
-# Delete Downloaded git repo
-# shutil.rmtree(os.path.realpath(
-#     os.path.dirname(__file__)).split("scripts")[0])

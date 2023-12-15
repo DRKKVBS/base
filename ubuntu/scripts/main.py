@@ -1,7 +1,9 @@
 import json
 import os
 import shutil
+import subprocess
 import utils
+import wget
 
 from user import User
 
@@ -20,6 +22,15 @@ def main():
     # Load the config file
     with open(f"{data_dir}/config.json", "r") as f:
         data = json.load(f)
+
+    # Install packages
+    for download_url in data["wget_packages"]:
+        package = wget.download(download_url)
+        utils.install_package(package)
+    for package in data["apt_packages"]:
+        utils.install_package(package)
+    utils.install_package(
+        "icaclient", f"{data_dir}/icaclient_23.11.0.82_amd64.deb")
 
     # Create users
     users = []
@@ -73,7 +84,6 @@ def main():
 
 #     for cmd in data["final_cmds"]:
 #         setup_utils.run_command(cmd)
-
 
 if __name__ == "__main__":
     main()

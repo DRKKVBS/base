@@ -62,24 +62,21 @@ def set_hostname(hostname: str):
         f.write(hostname)
 
 
-def install_package(package_name: str):
+def install_package(package_name: str, file_path=None):
     """Install a package using apt."""
 
-    cache = apt.cache
-    cache.update()
-    cache.Cache()
-    cache.open()
-
-    pkg = cache[package_name]
-    if pkg.is_installed:
+    if package_is_installed(package_name):
         color.print_info(f"{package_name} already installed")
     else:
-        pkg.mark_install()
+        # Install the package from the file if a file path is given
+        package_name = package_name if file_path == None else file_path
+        run_command(["apt", "install", "-y", package_name])
 
-        try:
-            cache.commit()
-        except Exception as e:
-            color.print_error(f"Sorry, package installation failed [{e}]")
+
+def package_is_installed(package_name: str):
+    """Check if a package is installed."""
+
+    return True if run_command(["dpkg", "-l", package_name]) != "" else False
 
 
 def get_uid(user: str):
@@ -112,19 +109,6 @@ def get_home_dir(user: str):
         raise
 
 
-def run_command(cmds: list, uid=None, gid=None):
-    """Run a command as a specific user."""
-
-    logging.info("Execute command: %s" % cmds)
-
-    try:
-        r = subprocess.run([*cmds], shell=False)
-        # return r
-
-    except Exception as e:
-        color.print_error(f"Failed to execute command: {cmds} {e}")
-
-
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
     try:
@@ -146,3 +130,15 @@ def make_mutable(path: str):
 
     path = os.path.normpath(path)
     run_command(["chattr", "-i", path])
+
+
+def run_command(cmds: list):
+    """Run a command using  the subprocess library."""
+
+    try:
+        r = subprocess.run([*cmds], shell=False,
+                           capture_output=True, text=True)
+        return r
+
+    except OSError as e:
+        color.print_error(f"Failed to execute command: {cmds} {e}")

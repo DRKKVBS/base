@@ -74,7 +74,7 @@ def install_package(package_name: str, file_path=None):
 def package_is_installed(package_name: str):
     """Check if a package is installed."""
 
-    return True if run_command(["dpkg", "-l", package_name]) != None or 1 else False
+    return True if run_command(["dpkg", "-l", package_name]) != None else False
 
 
 def get_uid(user: str):

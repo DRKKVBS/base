@@ -3,11 +3,11 @@
 # Install packages
 apt-get update
 apt-get upgrade -y
-apt-get install -y $(cat apt-requirements.txt)
+apt-get install -y $(cat ../apt-requirements.txt)
 pip3 install --upgrade pip
-pip3 install -r pip-requirements.txt
+pip3 install -r ../pip-requirements.txt
 
 python3 ./main.py
 
-"dconf update"
-"grub-mkconfig -o /boot/grub/grub.cfg"
+dconf update
+grub-mkconfig -o /boot/grub/grub.cfg

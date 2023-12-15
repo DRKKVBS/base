@@ -14,6 +14,7 @@ class User():
         self.sudo = sudo
         self.dekstop_entries = dekstop_entries
         self.create_user()
+        self.create_home_dir()
 
     def create_user(self):
         """Create a user."""
@@ -55,7 +56,7 @@ class User():
         except KeyError:
             return False
 
-    def creat_home_dir(self):
+    def create_home_dir(self):
         """Create the home directory of the user."""
 
         # Create home directory

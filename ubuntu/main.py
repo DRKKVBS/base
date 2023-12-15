@@ -59,7 +59,8 @@ def main():
 
         # Set file permissions for desktop entries
         for file in os.listdir(os.path.normpath(f"/{user.home_dir}/.local/share/applications/")):
-            utils.set_file_permissions(file, user.uid, user.gid, 0o664)
+            utils.set_file_permissions(
+                f"/{user.home_dir}/.local/share/applications/{file}", user.uid, user.gid, 0o664)
 
     # Copy systemd config drop ins
     shutil.copyfile(os.path.normpath(

@@ -61,11 +61,12 @@ class User():
 
         # Create home directory
         try:
-
+            path = os.path.normpath(
+                f"{self.home_dir}/.local/share/applications/")
             os.makedirs(
-                f"{self.home_dir}/.local/share/applications/", exist_ok=True)
+                path, exist_ok=True)
             utils.chmod_recursive(
-                f"{self.home_dir}/.local/share/applications/", 0o755, self.uid, self.gid)
+                path, 0o755, self.uid, self.gid)
         except Exception as e:
             print("Failed to create home directory: %s" % e)
 

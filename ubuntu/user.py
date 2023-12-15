@@ -10,7 +10,7 @@ class User():
         self.password = password
         self.sudo = sudo
         self.dekstop_entries = dekstop_entries
-
+        print("Creating new user")
         self.create_user()
 
     def create_user(self):

@@ -19,7 +19,7 @@ def main():
     # Load the config file
     with open(f"{currrent_dir}/config.json", "r") as f:
         data = json.load(f)
-    print(data)
+    print(type(data))
 
     users = []
     for user in data["users"]:

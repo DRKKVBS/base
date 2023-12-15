@@ -35,20 +35,20 @@ def main():
 
     # Copy logo
     shutil.copyfile(os.path.normpath(
-        f"/{currrent_dir}/logos/"), "/usr/share/icons/DRK/drk-logo.png")
+        f"{currrent_dir}/logos/drk-logo.png"), "/usr/share/icons/DRK/drk-logo.png")
 
     # Copy X11-Switch
     shutil.copyfile(os.path.normpath(
-        f"/{currrent_dir}/01-vt-switch.conf"), "/etc/X11/xorg.conf.d/01-vt-switch.conf")
+        f"{currrent_dir}/01-vt-switch.conf"), "/etc/X11/xorg.conf.d/01-vt-switch.conf")
 
     # Copy Firefox autostart
     shutil.copyfile(os.path.normpath(
-        f"/{currrent_dir}/myWorkspaceAutostart.desktop"), "/etc/xdg/autostart/myWorkspaceAutostart.desktop")
+        f"{currrent_dir}/myWorkspaceAutostart.desktop"), "/etc/xdg/autostart/myWorkspaceAutostart.desktop")
 
     # Setup user specific configurations
     for user in users:
         # Copy custom desktop entries
-        shutil.copytree(f"/{currrent_dir}/DesktopEntries/",
+        shutil.copytree(f"{currrent_dir}/DesktopEntries/",
                         os.path.normpath(f"{user.home_dir}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
@@ -63,9 +63,9 @@ def main():
 
     # Copy systemd config drop ins
     shutil.copyfile(os.path.normpath(
-        f"/{currrent_dir}/systemd/disable-vty.conf"), "/usr/lib/systemd/logind.conf.d/disable-vty.conf")
+        f"{currrent_dir}/systemd/disable-vty.conf"), "/usr/lib/systemd/logind.conf.d/disable-vty.conf")
     shutil.copyfile(os.path.normpath(
-        f"/{currrent_dir}/systemd/handle-lid-switch.conf"), "/usr/lib/systemd/logind.conf.d/handle-lid-switch.conf")
+        f"{currrent_dir}/systemd/handle-lid-switch.conf"), "/usr/lib/systemd/logind.conf.d/handle-lid-switch.conf")
 
 
 # def configure(data: dict, copy_data: dict, users: dict):

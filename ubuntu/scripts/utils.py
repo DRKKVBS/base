@@ -1,9 +1,6 @@
-import logging
 import os
 import pwd
 import subprocess
-import sys
-import apt  # type: ignore
 from print_colors import Color
 
 color = Color()

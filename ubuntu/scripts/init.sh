@@ -12,4 +12,4 @@ python3 ./main.py
 
 dconf update
 grub-mkconfig -o /boot/grub/grub.cfg
-reboot
+# reboot

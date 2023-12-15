@@ -1,9 +1,7 @@
 import json
 import os
 import shutil
-import subprocess
 import utils
-import wget
 
 from user import User
 
@@ -12,7 +10,7 @@ def main():
 
     # Set the directory depending on the location of the script
     currrent_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0]  # TODO: Fix split()
+        os.path.dirname(__file__)).split('scripts')[0]
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
 
     # Create missing dirs

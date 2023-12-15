@@ -20,15 +20,18 @@ def main():
     with open(f"{currrent_dir}/config.json", "r") as f:
         data = json.load(f)
 
+    # Create users
     users = []
     for _, user_data in data["users"].items():
         users.append(
             User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], dekstop_entries=user_data["desktop"]))
 
+    # Copy files
     for _, paths in data["files_to_copy"].items():
         shutil.copyfile(
             f"{currrent_dir}/{paths['source']}", f"{paths['destination']}")
 
+    # Copy directories
     for _, paths in data["dirs_to_copy"].items():
         shutil.copytree(
             f"{currrent_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)

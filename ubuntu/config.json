@@ -1,0 +1,31 @@
+{
+  "users": {
+    "admin": {
+      "username": "admin",
+      "password": "admin",
+      "sudo": true,
+      "desktop": [
+        "org.gnome.Terminal.desktop",
+        "org.gnome.Settings.desktop",
+        "firefox.desktop",
+        "org.gnome.gedit.desktop",
+        "myWorkspace.desktop",
+        "org.gnome.Nautilus.desktop",
+        "shutdown.desktop",
+        "reboot.desktop"
+      ]
+    },
+    "user": {
+      "username": "user",
+      "password": "user",
+      "sudo": false,
+      "desktop": [
+        "org.gnome.Settings.desktop",
+        "myWorkspace.desktop",
+        "shutdown.desktop",
+        "reboot.desktop"
+      ]
+    }
+  },
+  "packages": ["firefox"]
+}

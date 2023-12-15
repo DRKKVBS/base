@@ -43,7 +43,7 @@
     },
     "gdm-conf": {
       "source": "/gdm.conf",
-      "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
+      "destination": "/etc/gdm3/custom.conf"
     }
   },
   "dirs_to_copy": {

@@ -1,19 +1,10 @@
-{
-    "install": {
-        "pkgs": [
-            "bluez",
-            "bluez-utils"
-        ],
-        "services": [
-            "bluetooth"
-        ]
-    },
+
+
     "post_install": {
         "aur_pkgs": [
             "teamviewer",
             "evdi-compat-git",
             "displaylink"
-        ],
-        "final_cmds": []
-    }
+        ]
+
 }

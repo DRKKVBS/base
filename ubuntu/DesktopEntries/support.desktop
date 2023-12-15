@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=Support
+Name[en_GB]=Support
+Name[de]=Hilfe
+Name=Support
+Comment[en_CA]=Start ssh
+Comment[en_GB]=Start ssh
+Comment[de]=Start SSH
+Comment=Start ssh
+Exec=sudo systemctl start ssh.service
+Icon=system-reboot
+Terminal=false
+NoDisplay=false

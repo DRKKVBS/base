@@ -48,6 +48,10 @@
     "grub-conf": {
       "source": "/grub",
       "destination": "/etc/default/grub"
+    },
+    "firefox-policies": {
+      "source": "/firefox/policies.json",
+      "destination": "/etc/firefox/policies/policies.json"
     }
   },
   "dirs_to_copy": {
@@ -63,6 +67,10 @@
       "source": "/systemd/",
       "destination": "/usr/lib/systemd/logind.conf.d/"
     },
-    "final_cmds": ["dconf update", "grub-mkconfig -o /boot/grub/grub.cfg"]
-  }
+    "firefox": {
+      "source": "/firefox/share/",
+      "destination": "/usr/share/firefox/"
+    }
+  },
+  "final_cmds": ["dconf update", "grub-mkconfig -o /boot/grub/grub.cfg"]
 }

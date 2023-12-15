@@ -13,7 +13,7 @@ def main():
         os.path.dirname(__file__))  # TODO: Fix split()
 
     # Create missing dirs
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/"]:
+    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/", "/usr/share/firefox/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
     # Load the config file

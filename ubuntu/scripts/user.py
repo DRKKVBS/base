@@ -62,7 +62,7 @@ class User():
         # Create home directory
         try:
             path = os.path.normpath(
-                f"{self.home_dir}/.local/share/applications/")
+                f"{self.home_dir}/.local/")
             print("Creating home directory for %s" % path)
             os.makedirs(
                 path, exist_ok=True)

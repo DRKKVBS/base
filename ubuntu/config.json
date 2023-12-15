@@ -44,6 +44,10 @@
     "gdm-conf": {
       "source": "/gdm.conf",
       "destination": "/etc/gdm3/custom.conf"
+    },
+    "grub-conf": {
+      "source": "/grub",
+      "destination": "/etc/default/grub"
     }
   },
   "dirs_to_copy": {
@@ -58,6 +62,7 @@
     "systemd-drop-ins": {
       "source": "/systemd/",
       "destination": "/usr/lib/systemd/logind.conf.d/"
-    }
+    },
+    "final_cmds": ["dconf update", "grub-mkconfig -o /boot/grub/grub.cfg"]
   }
 }

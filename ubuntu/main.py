@@ -21,29 +21,17 @@ def main():
         data = json.load(f)
 
     users = []
-    for user, user_data in data["users"].items():
+    for _, user_data in data["users"].items():
         users.append(
             User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], dekstop_entries=user_data["desktop"]))
 
-    # Setup dconf
-    shutil.copytree(os.path.normpath(f"/{currrent_dir}/dconf/"),
-                    "/etc/dconf/", dirs_exist_ok=True)
+    for _, paths in data["files_to_copy"].items():
+        shutil.copyfile(
+            f"{currrent_dir}/{paths['source']}", f"{paths['destionation']}")
 
-    # Setup AccountsService
-    shutil.copytree(os.path.normpath(f"/{currrent_dir}/AccountsService/"),
-                    "/var/lib/AccountsService/", dirs_exist_ok=True)
-
-    # Copy logo
-    shutil.copyfile(os.path.normpath(
-        f"{currrent_dir}/logos/drk-logo.png"), "/usr/share/icons/DRK/drk-logo.png")
-
-    # Copy X11-Switch
-    shutil.copyfile(os.path.normpath(
-        f"{currrent_dir}/01-vt-switch.conf"), "/etc/X11/xorg.conf.d/01-vt-switch.conf")
-
-    # Copy Firefox autostart
-    shutil.copyfile(os.path.normpath(
-        f"{currrent_dir}/myWorkspaceAutostart.desktop"), "/etc/xdg/autostart/myWorkspaceAutostart.desktop")
+    for _, paths in data["dirs_to_copy"].items():
+        shutil.copytree(
+            f"{currrent_dir}/{paths['source']}", f"{paths['destionation']}", dirs_exist_ok=True)
 
     # Setup user specific configurations
     for user in users:
@@ -61,12 +49,6 @@ def main():
         for file in os.listdir(os.path.normpath(f"/{user.home_dir}/.local/share/applications/")):
             utils.set_file_permissions(
                 f"/{user.home_dir}/.local/share/applications/{file}", user.uid, user.gid, 0o664)
-
-    # Copy systemd config drop ins
-    shutil.copyfile(os.path.normpath(
-        f"{currrent_dir}/systemd/disable-vty.conf"), "/usr/lib/systemd/logind.conf.d/disable-vty.conf")
-    shutil.copyfile(os.path.normpath(
-        f"{currrent_dir}/systemd/handle-lid-switch.conf"), "/usr/lib/systemd/logind.conf.d/handle-lid-switch.conf")
 
 
 # def configure(data: dict, copy_data: dict, users: dict):

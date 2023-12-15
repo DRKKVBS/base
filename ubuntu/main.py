@@ -23,6 +23,10 @@ def main():
 
     users = []
     for user in data["users"]:
+        print(user["username"])
+        print(user["password"])
+        print(user["sudo"])
+        print(user["desktop"])
         users.append(
             User(username=user["username"], password=user["password"], sudo=user["sudo"], dekstop_entries=user["desktop"]))
 

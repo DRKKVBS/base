@@ -40,10 +40,6 @@
     "workspace-autostart": {
       "source": "/myWorkspaceAutostart.desktop",
       "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
-    },
-    "placeholder": {
-      "source": "",
-      "destination": ""
     }
   },
   "dirs_to_copy": {
@@ -56,12 +52,8 @@
       "destination": "/var/lib/AccountsService/"
     },
     "systemd-drop-ins": {
-      "source": "/AccountsService/",
-      "destination": "/var/lib/AccountsService/"
-    },
-    "placeholder": {
-      "source": "",
-      "destination": ""
+      "source": "/systemd/",
+      "destination": "/usr/lib/systemd/logind.conf.d/"
     }
   }
 }

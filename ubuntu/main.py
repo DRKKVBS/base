@@ -19,18 +19,11 @@ def main():
     # Load the config file
     with open(f"{currrent_dir}/config.json", "r") as f:
         data = json.load(f)
-    print(type(data))
 
     users = []
-    for user in data["users"]:
-        print(user)
-        print(type(user))
-        print(user["username"])
-        print(user["password"])
-        print(user["sudo"])
-        print(user["desktop"])
+    for user, user_data in data["users"]:
         users.append(
-            User(username=user["username"], password=user["password"], sudo=user["sudo"], dekstop_entries=user["desktop"]))
+            User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], dekstop_entries=user_data["desktop"]))
 
     # Setup dconf
     shutil.copytree(os.path.normpath(f"/{currrent_dir}/dconf/"),

@@ -10,7 +10,7 @@ def main():
 
     # Set the directory depending on the location of the script
     currrent_dir = os.path.realpath(
-        os.path.dirname(__file__)).split("scripts")[0]  # TODO: Fix split()
+        os.path.dirname(__file__))  # TODO: Fix split()
 
     # Create missing dirs
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/iconf/DRK/"]:

@@ -34,6 +34,8 @@ def chmod_recursive(root_path: str, mode: int, uid: int, gid: int):
     os.chmod(root_path, mode)
     color.print_info(f"Changed permissions for {root_path} to {mode}")
     for root, dirs, files in os.walk(root_path):
+        color.print_info(f"{root}...{dirs}...{files}")
+
         # set perms on sub-directories
         for dir in dirs:
 

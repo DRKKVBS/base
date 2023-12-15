@@ -21,7 +21,7 @@ def main():
         data = json.load(f)
 
     users = []
-    for user, user_data in data["users"]:
+    for user, user_data in data["users"].items():
         users.append(
             User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], dekstop_entries=user_data["desktop"]))
 

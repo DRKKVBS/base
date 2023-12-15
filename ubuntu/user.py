@@ -1,5 +1,6 @@
 import pwd
 import subprocess
+import crypt
 
 
 class User():
@@ -21,10 +22,11 @@ class User():
             return
 
         # Create user
+        password = crypt.crypt(self.password)  # type: ignore
         try:
             if self.sudo == True:
                 subprocess.run(["useradd", "-m", "-G", "sudo",
-                               "-p", self.password, self.username])
+                               "-p", password, self.username])
 
             else:
                 subprocess.run(

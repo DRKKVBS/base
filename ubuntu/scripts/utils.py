@@ -1,7 +1,9 @@
 import os
 import pwd
+import shutil
 import subprocess
 from print_colors import Color
+from user import User
 
 color = Color()
 
@@ -150,3 +152,106 @@ def run_command(cmds: list):
     except OSError as e:
         color.print_error(f"Failed to execute command: {cmds} {e}")
         return
+
+# TODO: REWORK
+
+
+def add_desktop_app(file_path: str, user: User, visible_apps: list):
+
+    applications_path = os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/")
+
+    make_mutable(os.path.normpath(
+        f"{user.home_dir}/home/%s/.local/share/applications/"))
+
+    app = os.path.split(file_path)[1]
+
+    if os.path.exists(os.path.normpath(f'{applications_path}/{app}')):
+        color.print_warning(
+            f"The file {app} is already added to the {user.username}")
+        make_immutable(os.path.normpath(
+            f"{user.home_dir}/.local/share/applications/"))
+        return
+
+    shutil.copyfile(
+        file_path, os.path.normpath(f"{applications_path}/{app}"))
+    print(os.path.normpath(f"{applications_path}/{app}"), user.uid, user.gid)
+    shutil.chown(os.path.normpath(
+        f"{applications_path}/{app}"), user.uid, user.gid)
+
+    if app in visible_apps:
+        show_desktop_app(app, user)
+    else:
+        hide_desktop_app(app, user)
+
+    make_immutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/"))
+    make_immutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/{app}"))
+
+
+def hide_desktop_app(app: str, user: User):
+    '''Hide a desktop app from user so he cannot access via the acitvities screen.'''
+
+    if not os.path.exists(os.path.normpath(f"{user.home_dir}/.local/share/applications/{app}")):
+        color.print_info(
+            f"The app {app} is not accessible to {user.username}")
+        return
+    make_mutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/{app}"))
+    with open(os.path.normpath(
+            f"{user.home_dir}/.local/share/applications/{app}"), "r+") as f:
+        content = f.read()
+
+        if "NoDisplay=true" in content:
+            color.print_info(
+                f"{app} is already hidden from {user.username}")
+
+        elif "NoDisplay=false" in content:
+            content = content.replace(
+                "NoDisplay=false", "NoDisplay=true")
+
+        elif "NoDisplay" not in content:
+            content = content.replace(
+                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+    make_immutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/{app}"))
+
+
+def show_desktop_app(app: str, user: User):
+    '''Show a desktop app to user so he can access via the acitvities screen.'''
+
+    if not os.path.exists(os.path.normpath(
+            f"{user.home_dir}/.local/share/applications/{app}")):
+        color.print_info(
+            f"The app {app} is not accessible to {user.username}")
+        return
+    make_mutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/{app}"))
+    with open(os.path.normpath(
+            f"{user.home_dir}/.local/share/applications/{app}"), "r+") as f:
+        content = f.read()
+
+        if "NoDisplay=false" in content:
+            color.print_info(
+                f"{app} is already visible for {user.username}")
+
+        elif "NoDisplay=true" in content:
+            content = content.replace(
+                "NoDisplay=true", "NoDisplay=false")
+
+        elif "NoDisplay" not in content:
+            content = content.replace(
+                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=false")
+
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
+    make_immutable(os.path.normpath(
+        f"{user.home_dir}/.local/share/applications/{app}"))

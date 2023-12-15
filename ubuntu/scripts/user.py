@@ -61,6 +61,9 @@ class User():
 
         # Create home directory
         try:
+
+            os.makedirs(
+                f"{self.home_dir}/.local/share/applications/", exist_ok=True)
             utils.chmod_recursive(
                 f"{self.home_dir}/.local/share/applications/", 0o755, self.uid, self.gid)
         except Exception as e:

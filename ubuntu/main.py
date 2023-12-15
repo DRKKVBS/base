@@ -27,11 +27,11 @@ def main():
 
     for _, paths in data["files_to_copy"].items():
         shutil.copyfile(
-            f"{currrent_dir}/{paths['source']}", f"{paths['destionation']}")
+            f"{currrent_dir}/{paths['source']}", f"{paths['destination']}")
 
     for _, paths in data["dirs_to_copy"].items():
         shutil.copytree(
-            f"{currrent_dir}/{paths['source']}", f"{paths['destionation']}", dirs_exist_ok=True)
+            f"{currrent_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
 
     # Setup user specific configurations
     for user in users:

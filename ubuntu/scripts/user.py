@@ -1,6 +1,8 @@
+import os
 import pwd
 import subprocess
 import crypt
+import utils
 
 
 class User():
@@ -43,6 +45,8 @@ class User():
         else:
             self.get_user_data()
 
+    # def set_environment_variables(self):
+
     def user_exists(self) -> bool:
         """Check if a user exists."""
         try:
@@ -50,6 +54,16 @@ class User():
             return True
         except KeyError:
             return False
+
+    def creat_home_dir(self):
+        """Create the home directory of the user."""
+
+        # Create home directory
+        try:
+            utils.chmod_recursive(
+                f"{self.home_dir}/.local/share/applications/", 0o755, self.uid, self.gid)
+        except Exception as e:
+            print("Failed to create home directory: %s" % e)
 
     def get_user_data(self):
         """Get system data of the user"""

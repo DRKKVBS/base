@@ -1,4 +1,3 @@
-import grp
 import logging
 import os
 import pwd
@@ -25,9 +24,24 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
     return dict2
 
 
-def create_dir_not_exists(path: str):
-    if not os.path.exists(path):
-        os.makedirs(path, exist_ok=True)
+def chmod_recursive(root_path: str, mode: int, uid: int, gid: int):
+    """Change permissions recursively for directories."""
+
+    # Change permissions for the top-level folder
+    os.chmod(root_path, mode)
+
+    for root, dirs, files in os.walk(root_path):
+        # set perms on sub-directories
+        for dir in dirs:
+            dir = os.path.join(root, dir)
+            os.chown(dir, uid=uid, gid=gid)  # type: ignore
+            os.chmod(dir, mode)
+
+        # set perms on files
+        for file in files:
+            file = os.path.join(root, file)
+            os.chown(file, uid=uid, gid=gid)  # type: ignore
+            os.chmod(file, mode)
 
 
 def set_hostname(hostname: str):

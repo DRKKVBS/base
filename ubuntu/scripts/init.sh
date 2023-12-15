@@ -8,3 +8,6 @@ pip3 install --upgrade pip
 pip3 install -r pip-requirements.txt
 
 python3 ./main.py
+
+"dconf update"
+"grub-mkconfig -o /boot/grub/grub.cfg"

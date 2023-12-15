@@ -2,6 +2,7 @@
 
     "post_install": {
         "aur_pkgs": [
+            "icaclient"
             "teamviewer",
             "evdi-compat-git",
             "displaylink"

@@ -71,6 +71,5 @@
       "source": "/firefox/share/",
       "destination": "/usr/share/firefox/"
     }
-  },
-  "final_cmds": ["dconf update", "grub-mkconfig -o /boot/grub/grub.cfg"]
+  }
 }

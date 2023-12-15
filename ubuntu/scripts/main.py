@@ -10,14 +10,15 @@ def main():
 
     # Set the directory depending on the location of the script
     currrent_dir = os.path.realpath(
-        os.path.dirname(__file__))  # TODO: Fix split()
+        os.path.dirname(__file__)).split('scripts')[0]  # TODO: Fix split()
+    data_dir = os.path.normpath(f"{currrent_dir}/data/")
 
     # Create missing dirs
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/", "/usr/share/firefox/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
     # Load the config file
-    with open(f"{currrent_dir}/config.json", "r") as f:
+    with open(f"{data_dir}/config.json", "r") as f:
         data = json.load(f)
 
     # Create users
@@ -29,17 +30,17 @@ def main():
     # Copy files
     for _, paths in data["files_to_copy"].items():
         shutil.copyfile(
-            f"{currrent_dir}/{paths['source']}", f"{paths['destination']}")
+            f"{data_dir}/{paths['source']}", f"{paths['destination']}")
 
     # Copy directories
     for _, paths in data["dirs_to_copy"].items():
         shutil.copytree(
-            f"{currrent_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
+            f"{data_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
 
     # Setup user specific configurations
     for user in users:
         # Copy custom desktop entries
-        shutil.copytree(f"{currrent_dir}/DesktopEntries/",
+        shutil.copytree(f"{data_dir}/DesktopEntries/",
                         os.path.normpath(f"{user.home_dir}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables

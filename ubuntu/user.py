@@ -22,15 +22,14 @@ class User():
             return
 
         # Create user
-        password = crypt.crypt(self.password)  # type: ignore
         try:
             if self.sudo == True:
                 subprocess.run(["useradd", "-m", "-G", "sudo",
-                               "-p", password, self.username])
+                               "-p", crypt.crypt(self.password), self.username])
 
             else:
                 subprocess.run(
-                    ["useradd", "-m", "-p", self.password, self.username])
+                    ["useradd", "-m", "-p", crypt.crypt(self.password), self.username])
 
         except Exception as e:
             print("User Creation failed: %s" % e)

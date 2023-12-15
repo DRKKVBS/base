@@ -142,7 +142,8 @@ def run_command(cmds: list):
                            capture_output=True, text=True)
 
         if r.returncode != 0:
-            color.print_error(f"Failed to execute command: {cmds}")
+            color.print_warning(
+                f"Command returned without returncode 0: {cmds}...{r.returncode}")
             return
         return r
 

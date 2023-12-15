@@ -24,7 +24,7 @@ def main():
     # Install packages
     for download_url in data["wget_packages"]:
         package = download_url.split("/")[-1]
-        utils.run_command(["wget", download_url, "-O", package])
+        utils.run_command(["wget", download_url, "-O", f"./{package}"])
         utils.install_package(package)
     for package in data["apt_packages"]:
         utils.install_package(package)

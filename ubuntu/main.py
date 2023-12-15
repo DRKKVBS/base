@@ -3,7 +3,7 @@ import os
 import shutil
 import utils
 
-from ubuntu.user import User
+from user import User
 
 
 def main():
@@ -13,12 +13,13 @@ def main():
         os.path.dirname(__file__))  # TODO: Fix split()
 
     # Create missing dirs
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/iconf/DRK/"]:
+    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
     # Load the config file
     with open(f"{currrent_dir}/config.json", "r") as f:
         data = json.load(f)
+    print(data)
 
     users = []
     for user in data["users"]:

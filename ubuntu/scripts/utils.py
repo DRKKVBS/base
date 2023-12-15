@@ -86,7 +86,7 @@ def get_uid(user: str):
     try:
         return pwd.getpwnam(user).pw_uid  # type: ignore
     except KeyError:
-        color.print_error(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!")
         raise
 
 
@@ -96,7 +96,7 @@ def get_gid(user: str):
     try:
         return pwd.getpwnam(user).pw_gid  # type: ignore
     except KeyError:
-        color.print_error(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!")
         raise
 
 
@@ -106,7 +106,7 @@ def get_home_dir(user: str):
     try:
         return pwd.getpwnam(user).pw_gid  # type: ignore
     except KeyError:
-        color.print_error(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!")
         raise
 
 

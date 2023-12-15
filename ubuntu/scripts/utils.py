@@ -4,6 +4,9 @@ import pwd
 import subprocess
 import sys
 import apt  # type: ignore
+from print_colors import Color
+
+color = Color()
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):
@@ -29,19 +32,24 @@ def chmod_recursive(root_path: str, mode: int, uid: int, gid: int):
 
     # Change permissions for the top-level folder
     os.chmod(root_path, mode)
-
+    color.print_info(f"Changed permissions for {root_path} to {mode}")
     for root, dirs, files in os.walk(root_path):
         # set perms on sub-directories
         for dir in dirs:
+
             dir = os.path.join(root, dir)
             os.chown(dir, uid=uid, gid=gid)  # type: ignore
+            color.print_info(f"Changed Ownership for {dir} to {uid}:{gid}")
             os.chmod(dir, mode)
+            color.print_info(f"Changed permissions for {dir} to {mode}")
 
         # set perms on files
         for file in files:
             file = os.path.join(root, file)
             os.chown(file, uid=uid, gid=gid)  # type: ignore
+            color.print_info(f"Changed Ownership for {file} to {uid}:{gid}")
             os.chmod(file, mode)
+            color.print_info(f"Changed permissions for {file} to {mode}")
 
 
 def set_hostname(hostname: str):

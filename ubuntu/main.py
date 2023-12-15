@@ -23,6 +23,7 @@ def main():
 
     users = []
     for user in data["users"]:
+        print(user)
         print(type(user))
         print(user["username"])
         print(user["password"])

@@ -1,3 +1,4 @@
 git
 firefox
 python3-pip
+gnome-backgrounds

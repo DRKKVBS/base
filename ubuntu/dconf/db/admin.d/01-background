@@ -1,7 +1,7 @@
 [org/gnome/desktop/background]
 # URI to use for the background image. Only supports local URIs (file:///)
-picture-uri='/usr/share/backgrounds/gnome/blobs-l.svg'
+picture-uri='/usr/share/backgrounds/gnome/brush-strokes-d.jpg'
 # URI to use for the background image in dark-mode. Only supports local URIs (file:///)
-picture-uri-dark='/usr/share/backgrounds/gnome/blobs-d.svg'
+picture-uri-dark='/usr/share/backgrounds/gnome/brush-strokes-d.jpg'
 # Opacity with wich to draw the background picture
 picture-opacity=100

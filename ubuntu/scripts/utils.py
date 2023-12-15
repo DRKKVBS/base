@@ -56,6 +56,7 @@ def set_hostname(hostname: str):
     """Set the hostname of the system."""
 
     with open("/etc/hostname", "w") as f:
+        color.print_info(f"Changing hostname to {hostname}")
         f.write(hostname)
 
 
@@ -69,15 +70,14 @@ def install_package(package_name: str):
 
     pkg = cache[package_name]
     if pkg.is_installed:
-        print(f"{package_name} already installed".format(pkg_name=package_name))
+        color.print_info(f"{package_name} already installed")
     else:
         pkg.mark_install()
 
         try:
             cache.commit()
-        except Exception as arg:
-            print("Sorry, package installation failed [{err}]".format(
-                err=str(arg)), file=sys.stderr)
+        except Exception as e:
+            color.print_error(f"Sorry, package installation failed [{e}]")
 
 
 def get_uid(user: str):
@@ -86,7 +86,7 @@ def get_uid(user: str):
     try:
         return pwd.getpwnam(user).pw_uid  # type: ignore
     except KeyError:
-        print(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!", file=sys.stderr)
         raise
 
 
@@ -96,7 +96,7 @@ def get_gid(user: str):
     try:
         return pwd.getpwnam(user).pw_gid  # type: ignore
     except KeyError:
-        print(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!", file=sys.stderr)
         raise
 
 
@@ -106,7 +106,7 @@ def get_home_dir(user: str):
     try:
         return pwd.getpwnam(user).pw_gid  # type: ignore
     except KeyError:
-        print(f"User {user} not found!", file=sys.stderr)
+        color.print_error(f"User {user} not found!", file=sys.stderr)
         raise
 
 
@@ -120,7 +120,7 @@ def run_command(cmds: list, uid=None, gid=None):
         # return r
 
     except Exception as e:
-        logging.error("Failed to execute command: ", cmds, e)
+        color.print_error(f"Failed to execute command: {cmds} {e}")
 
 
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
@@ -129,7 +129,7 @@ def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
         os.chown(file_path, uid, gid)  # type: ignore
         os.chmod(file_path, mode)
     except FileNotFoundError as e:
-        print(f"File {file_path} not found!", file=sys.stderr)
+        color.print_error(f"File {file_path} not found!")
 
 
 def make_immutable(path: str):

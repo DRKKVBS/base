@@ -66,6 +66,7 @@ class User():
             print("Creating home directory for %s" % path)
             os.makedirs(
                 path, exist_ok=True)
+            print(f"Exists {os.path.exists(path)}")
             utils.chmod_recursive(
                 path, 0o755, self.uid, self.gid)
         except Exception as e:

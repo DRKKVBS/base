@@ -26,10 +26,14 @@ class User():
             if self.sudo == True:
                 subprocess.run(["useradd", "-m", "-G", "sudo",
                                "-p", crypt.crypt(self.password), self.username])
+                return
 
-            else:
-                subprocess.run(
-                    ["useradd", "-m", "-p", crypt.crypt(self.password), self.username])
+            if self.password == "":
+                subprocess.run(["useradd", "-m", self.username])
+                return
+
+            subprocess.run(
+                ["useradd", "-m", "-p", crypt.crypt(self.password), self.username])
 
         except Exception as e:
             print("User Creation failed: %s" % e)

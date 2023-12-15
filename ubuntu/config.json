@@ -17,7 +17,7 @@
     },
     "user": {
       "username": "user",
-      "password": "user",
+      "password": "",
       "sudo": false,
       "desktop": [
         "org.gnome.Settings.desktop",
@@ -39,6 +39,10 @@
     },
     "workspace-autostart": {
       "source": "/myWorkspaceAutostart.desktop",
+      "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
+    },
+    "gdm-conf": {
+      "source": "/gdm.conf",
       "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
     }
   },

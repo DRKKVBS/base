@@ -69,6 +69,7 @@ def install_package(package_name: str, file_path=None):
         color.print_info(f"{package_name} already installed")
     else:
         # Install the package from the file if a file path is given
+        color.print_info(f"Installing {package_name}")
         package_name = package_name if file_path == None else file_path
         run_command(["apt", "install", "-y", package_name])
 
@@ -112,7 +113,10 @@ def get_home_dir(user: str):
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
     try:
+        color.print_info(f"Set Ownership of {file_path}!")
         os.chown(file_path, uid, gid)  # type: ignore
+
+        color.print_info(f"Set Permissions of {file_path}!")
         os.chmod(file_path, mode)
     except FileNotFoundError as e:
         color.print_error(f"File {file_path} not found!")
@@ -136,8 +140,13 @@ def run_command(cmds: list):
     """Run a command using  the subprocess library."""
 
     try:
+        color.print_info(f"Executing: {cmds}")
         r = subprocess.run([*cmds], shell=False,
                            capture_output=True, text=True)
+
+        if r.returncode != 0:
+            color.print_error(f"Failed to execute command: {cmds}")
+            return
         return r
 
     except OSError as e:

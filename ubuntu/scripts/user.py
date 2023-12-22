@@ -79,7 +79,7 @@ class User():
         self.__gid = user.pw_gid
         self.__home_dir = user.pw_dir
         print(user)
-        print(self.__home_dir
+        print(self.__home_dir)
 
     def get_uid(self) -> int:
         """Get the uid of a user."""

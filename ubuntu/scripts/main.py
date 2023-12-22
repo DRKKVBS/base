@@ -54,15 +54,15 @@ def main():
                         os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
-        with open(os.path.normpath(f"{user.home_dir}/.profile"), "a") as f:
+        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a") as f:
             f.write("# Set environment variables\n")
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
         # Set file permissions for desktop entries
-        for file in os.listdir(os.path.normpath(f"/{user.home_dir}/.local/share/applications/")):
+        for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
             utils.set_file_permissions(
-                f"/{user.home_dir}/.local/share/applications/{file}", user.uid, user.gid, 0o664)
+                f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
 
 if __name__ == "__main__":

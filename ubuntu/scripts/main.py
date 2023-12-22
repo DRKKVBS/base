@@ -51,7 +51,7 @@ def main():
     for user in users:
         # Copy custom desktop entries
         shutil.copytree(f"{data_dir}/DesktopEntries/",
-                        os.path.normpath(f"{user.home_dir}/.local/share/applications/"), dirs_exist_ok=True)
+                        os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
         with open(os.path.normpath(f"{user.home_dir}/.profile"), "a") as f:

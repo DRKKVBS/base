@@ -63,10 +63,10 @@ class User():
         try:
             os.makedirs(
                 os.path.normpath(
-                    f"{self.home_dir}/.local/share/applications/"), exist_ok=True)
+                    f"{self.__home_dir}/.local/share/applications/"), exist_ok=True)
             utils.chmod_recursive(
                 os.path.normpath(
-                    f"{self.home_dir}/"), 0o755, self.uid, self.gid)
+                    f"{self.__home_dir}/"), 0o755, self.__uid, self.__gid)
         except Exception as e:
             print("Failed to create home directory: %s" % e)
 
@@ -78,6 +78,8 @@ class User():
         self.__uid = user.pw_uid
         self.__gid = user.pw_gid
         self.__home_dir = user.pw_dir
+        print(user)
+        print(self.__home_dir
 
     def get_uid(self) -> int:
         """Get the uid of a user."""

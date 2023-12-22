@@ -75,6 +75,18 @@ class User():
 
         # Get system data of the user
         user = pwd.getpwnam(self.username)  # type: ignore
-        self.uid = user.pw_uid
-        self.gid = user.pw_gid
-        self.home_dir = user.pw_dir
+        self.__uid = user.pw_uid
+        self.__gid = user.pw_gid
+        self.__home_dir = user.pw_dir
+
+    def get_uid(self) -> int:
+        """Get the uid of a user."""
+        return self.__uid
+
+    def get_gid(self) -> int:
+        """Get the gid of a user."""
+        return self.__gid
+
+    def get_home_dir(self) -> str:
+        """Get the home directory of a user."""
+        return self.__home_dir

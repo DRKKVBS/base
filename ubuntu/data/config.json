@@ -66,10 +66,6 @@
     "systemd-drop-ins": {
       "source": "/systemd/",
       "destination": "/usr/lib/systemd/logind.conf.d/"
-    },
-    "firefox": {
-      "source": "/firefox/share/",
-      "destination": "/usr/share/firefox/"
     }
   },
 

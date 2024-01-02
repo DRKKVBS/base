@@ -1,440 +1,434 @@
 {
-    "policies": {
-      "3rdparty": {
-        "Extensions": {}
+  "policies": {
+    "3rdparty": {
+      "Extensions": {}
+    },
+    "AllowedDomainsForApps": {},
+    "AppAutoUpdate": true,
+    "Authentication": {
+      "SPNEGO": [],
+      "Delegated": [],
+      "NTLM": [],
+      "AllowNonFQDN": {
+        "SPNEGO": false,
+        "NTLM": false
       },
-      "AllowedDomainsForApps": {},
-      "AppAutoUpdate": true,
-      "Authentication": {
-        "SPNEGO": [],
-        "Delegated": [],
-        "NTLM": [],
-        "AllowNonFQDN": {
-          "SPNEGO": false,
-          "NTLM": false
-        },
-        "AllowProxies": {
-          "SPNEGO": false,
-          "NTLM": false
-        },
-        "Locked": false,
-        "PrivateBrowsing": false
+      "AllowProxies": {
+        "SPNEGO": false,
+        "NTLM": false
       },
-      "AutoLaunchProtocolsFromOrigins": [
-        {
-          "protocol": "x-ica",
-          "allowed_origins": [
-            "https://drk-stflb01.rk.local/*",
-            "https://citrix.drk-access.de/*"
-          ]
-        }
-      ],
-      "BackgroundAppUpdate": true,
-      "BlockAboutAddons": true,
-      "BlockAboutConfig": true,
-      "BlockAboutProfiles": true,
-      "BlockAboutSupport": true,
-      "Bookmarks": [],
-      "CaptivePortal": false,
-      "Cookies": {
-        "Allow": [
-          "https://citrix.drk-access.de/*",
+      "Locked": false,
+      "PrivateBrowsing": false
+    },
+    "AutoLaunchProtocolsFromOrigins": [
+      {
+        "protocol": "x-ica",
+        "allowed_origins": [
           "https://drk-stflb01.rk.local/*",
-          "https://login.microsoftonline.com/*",
-          "https://invitations.microsoft.com/*"
-        ],
-        "AllowSession": [
-          "https://citrix.drk-access.de/*",
-          "https://drk-stflb01.rk.local/",
-          "https://login.microsoftonline.com/*",
-          "https://invitations.microsoft.com/*"
-        ],
-        "Block": [],
-        "ExpireAtSessionEnd": true,
-        "Locked": true,
-        "Behavior": "reject-tracker-and-partition-foreign",
-        "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign"
-      },
-      "DefaultDownloadDirectory": "${home}/Downloads",
-      "Certificates": {
-        "ImportEnterpriseRoots": true,
-        "Install": [
-          "file:///usr/share/firefox/root-bos.cer"
-        ]
-      },
-      "DisableAppUpdate": false,
-      "DisableBuiltinPDFViewer": true,
-      "DisableDeveloperTools": true,
-      "DisableFeedbackCommands": true,
-      "DisableFirefoxAccounts": true,
-      "DisableFirefoxScreenshots": true,
-      "DisableFirefoxStudies": true,
-      "DisableForgetButton": true,
-      "DisableFormHistory": true,
-      "DisableMasterPasswordCreation": true,
-      "DisablePasswordReveal": false,
-      "DisablePocket": true,
-      "DisablePrivateBrowsing": false,
-      "DisableProfileImport": true,
-      "DisableProfileRefresh": true,
-      "DisableSafeMode": false,
-      "DisableSecurityBypass": {
-        "InvalidCertificate": true,
-        "SafeBrowsing": false
-      },
-      "DisableSetDesktopBackground": true,
-      "DisableSystemAddonUpdate": true,
-      "DisableTelemetry": true,
-      "DisplayBookmarksToolbar": "always",
-      "DisplayMenuBar": "never",
-      "DNSOverHTTPS": {
-        "Enabled": false,
-        "Locked": true
-      },
-      "DontCheckDefaultBrowser": true,
-      "DownloadDirectory": "${home}/Downloads",
-      "EnableTrackingProtection": {
-        "Value": true,
-        "Locked": true,
-        "Cryptomining": true,
-        "Fingerprinting": true
-      },
-      "EncryptedMediaExtensions": {
-        "Enabled": false,
-        "Locked": true
-      },
-      "ExtensionSettings": {
-        "*": {
-          "blocked_install_message": "Es dürfen keine Erweiterungen installiert werden.",
-          "installation_mode": "blocked"
-        },
-        "langpack-de@firefox.mozilla.org": {
-          "installation_mode": "force_installed",
-          "install_url": "file:///usr/share/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
-        }
-      },
-      "FirefoxHome": {
-        "Search": false,
-        "TopSites": false,
-        "SponsoredTopSites": false,
-        "Highlights": false,
-        "Pocket": false,
-        "SponsoredPocket": false,
-        "Snippets": false,
-        "Locked": true
-      },
-      "Handlers": {
-        "mimeTypes": {
-          "application/x-ica": {
-            "action": "useSystemDefault",
-            "ask": false
-          }
-        }
-      },
-      "HardwareAcceleration": false,
-      "Homepage": {
-        "URL": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
-        "Locked": true,
-        "StartPage": "homepage-locked"
-      },
-      "InstallAddonsPermission": {
-        "Allow": [],
-        "Default": false
-      },
-      "LocalFileLinks": [],
-      "ManagedBookmarks": [],
-      "ManualAppUpdateOnly": false,
-      "NetworkPrediction": false,
-      "NewTabPage": false,
-      "NoDefaultBookmarks": true,
-      "OfferToSaveLogins": false,
-      "OfferToSaveLoginsDefault": false,
-      "OverrideFirstRunPage": "",
-      "OverridePostUpdatePage": "",
-      "PasswordManagerEnabled": false,
-      "PasswordManagerExceptions": [],
-      "Permissions": {
-        "Camera": {
-          "Allow": [],
-          "BlockNewRequests": true,
-          "Locked": true
-        },
-        "Microphone": {
-          "Allow": [],
-          "BlockNewRequests": true,
-          "Locked": true
-        },
-        "Location": {
-          "Allow": [],
-          "BlockNewRequests": true,
-          "Locked": true
-        },
-        "Notifications": {
-          "Allow": [],
-          "BlockNewRequests": true,
-          "Locked": true
-        },
-        "Autoplay": {
-          "Allow": [],
-          "Default": "block-audio-video",
-          "Locked": true
-        }
-      },
-      "PictureInPicture": {
-        "Enabled": false,
-        "Locked": true
-      },
-      "PopupBlocking": {
-        "Allow": [],
-        "Default": true,
-        "Locked": true
-      },
-      "Preferences": {
-        "browser.aboutwelcome.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.bookmarks.addedImportButton": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.bookmarks.restore_default_bookmarks": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.contentblocking.category": {
-          "Value": "strict",
-          "Status": "locked"
-        },
-        "browser.download.viewableInternally.typeWasRegistered.avif": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.download.viewableInternally.typeWasRegistered.webp": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.newtabpage.activity-stream.feeds.section.topstories": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.newtabpage.activity-stream.feeds.topsites": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.newtabpage.activity-stream.showSearch": {
-          "Status": "locked"
-        },
-        "browser.newtabpage.enabled": {
-          "Status": "locked"
-        },
-        "browser.pageActions.persistedActions": {
-          "ids": [],
-          "idsInUrlbar": [],
-          "idsInUrlbarPreProton": [],
-          "version": 1
-        },
-        "browser.policies.applied": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "browser.privatebrowsing.autostart": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "browser.search.hiddenOneOffs": {
-          "Value": "",
-          "Status": "locked"
-        },
-        "browser.search.region": {
-          "Value": "DE",
-          "Status": "locked"
-        },
-        "browser.search.suggest.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.shell.checkDefaultBrowser": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.shell.didSkipDefaultBrowserCheckOnFirstRun": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "browser.startup.homepage": {
-          "Value": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
-          "Status": "locked"
-        },
-        "browser.urlbar.placeholderName": {
-          "Value": "DRK KV Säckingen",
-          "Status": "locked"
-        },
-        "browser.urlbar.placeholderName.private": {
-          "Value": "DRK KV Säckingen",
-          "Status": "locked"
-        },
-        "browser.urlbar.quicksuggest.scenario": {
-          "Value": "",
-          "Status": "locked"
-        },
-        "browser.urlbar.shortcuts.bookmarks": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.shortcuts.history": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.shortcuts.tabs": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.suggest.bookmark": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.suggest.engines": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.suggest.history": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.suggest.openpage": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "browser.urlbar.suggest.topsites": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "datareporting.healthreport.uploadEnabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "dom.forms.autocomplete.formautofill": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "dom.security.https_only_mode": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "dom.security.https_only_mode_ever_enabled": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "extensions.formautofill.creditCards.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "extensions.pendingOperations": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "extensions.pictureinpicture.enable_picture_in_picture_overrides": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "extensions.ui.dictionary.hidden": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "extensions.ui.locale.hidden": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "extensions.ui.sitepermission.hidden": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "extensions.webcompat.enable_shims": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "media.hardwaremediakeys.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "media.videocontrols.picture-in-picture.video-toggle.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "pdfjs.enabledCache.state": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "pref.downloads.disable_button.edit_actions": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "signon.management.page.breach-alerts.enabled": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "signon.rememberSignons": {
-          "Value": false,
-          "Status": "locked"
-        },
-        "toolkit.telemetry.pioneer-new-studies-available": {
-          "Value": true,
-          "Status": "locked"
-        },
-        "toolkit.telemetry.reportingpolicy.firstRun": {
-          "Value": false,
-          "Status": "locked"
-        }
-      },
-      "PromptForDownloadLocation": false,
-      "Proxy": {
-        "Mode": "none"
-      },
-      "RequestedLocales": [
-        "de"
-      ],
-      "SanitizeOnShutdown": true,
-      "SearchBar": "unified",
-      "SearchEngines": {
-        "PreventInstalls": true
-      },
-      "SearchSuggestEnabled": false,
-      "ShowHomeButton": false,
-      "UserMessaging": {
-        "WhatsNew": false,
-        "ExtensionRecommendations": false,
-        "FeatureRecommendations": false,
-        "UrlbarInterventions": false,
-        "SkipOnboarding": false,
-        "MoreFromMozilla": false
-      },
-      "UseSystemPrintDialog": true,
-      "WebsiteFilter": {
-        "Block": [
-          "<all_urls>"
-        ],
-        "Exceptions": [
-          "*.drk-stflb01.rk.local/*",
-          "*.drk-access.de/*",
-          "file:///usr/share/firefox/DRK_Rechenzentrum.html",
-          "*.microsoftonline.com/*",
-          "*.microsoft.com/*",
-          "*.windowsazure.com/*",
-          "*.aka.ms/mfasetup"
+          "https://citrix.drk-access.de/*"
         ]
       }
+    ],
+    "BackgroundAppUpdate": true,
+    "BlockAboutAddons": true,
+    "BlockAboutConfig": true,
+    "BlockAboutProfiles": true,
+    "BlockAboutSupport": true,
+    "Bookmarks": [],
+    "CaptivePortal": false,
+    "Cookies": {
+      "Allow": [
+        "https://citrix.drk-access.de/*",
+        "https://drk-stflb01.rk.local/*",
+        "https://login.microsoftonline.com/*",
+        "https://invitations.microsoft.com/*"
+      ],
+      "AllowSession": [
+        "https://citrix.drk-access.de/*",
+        "https://drk-stflb01.rk.local/",
+        "https://login.microsoftonline.com/*",
+        "https://invitations.microsoft.com/*"
+      ],
+      "Block": [],
+      "ExpireAtSessionEnd": true,
+      "Locked": true,
+      "Behavior": "reject-tracker-and-partition-foreign",
+      "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign"
+    },
+    "DefaultDownloadDirectory": "${home}/Downloads",
+    "Certificates": {
+      "ImportEnterpriseRoots": true,
+      "Install": ["file:///usr/share/firefox/root-bos.cer"]
+    },
+    "DisableAppUpdate": false,
+    "DisableBuiltinPDFViewer": true,
+    "DisableDeveloperTools": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxAccounts": true,
+    "DisableFirefoxScreenshots": true,
+    "DisableFirefoxStudies": true,
+    "DisableForgetButton": true,
+    "DisableFormHistory": true,
+    "DisableMasterPasswordCreation": true,
+    "DisablePasswordReveal": false,
+    "DisablePocket": true,
+    "DisablePrivateBrowsing": false,
+    "DisableProfileImport": true,
+    "DisableProfileRefresh": true,
+    "DisableSafeMode": false,
+    "DisableSecurityBypass": {
+      "InvalidCertificate": true,
+      "SafeBrowsing": false
+    },
+    "DisableSetDesktopBackground": true,
+    "DisableSystemAddonUpdate": true,
+    "DisableTelemetry": true,
+    "DisplayBookmarksToolbar": "always",
+    "DisplayMenuBar": "never",
+    "DNSOverHTTPS": {
+      "Enabled": false,
+      "Locked": true
+    },
+    "DontCheckDefaultBrowser": true,
+    "DownloadDirectory": "${home}/Downloads",
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Locked": true,
+      "Cryptomining": true,
+      "Fingerprinting": true
+    },
+    "EncryptedMediaExtensions": {
+      "Enabled": false,
+      "Locked": true
+    },
+    "ExtensionSettings": {
+      "*": {
+        "blocked_install_message": "Es dürfen keine Erweiterungen installiert werden.",
+        "installation_mode": "blocked"
+      },
+      "langpack-de@firefox.mozilla.org": {
+        "installation_mode": "force_installed",
+        "install_url": "file:///usr/share/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
+      }
+    },
+    "FirefoxHome": {
+      "Search": false,
+      "TopSites": false,
+      "SponsoredTopSites": false,
+      "Highlights": false,
+      "Pocket": false,
+      "SponsoredPocket": false,
+      "Snippets": false,
+      "Locked": true
+    },
+    "Handlers": {
+      "mimeTypes": {
+        "application/x-ica": {
+          "action": "useSystemDefault",
+          "ask": false
+        }
+      }
+    },
+    "HardwareAcceleration": false,
+    "Homepage": {
+      "URL": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+      "Locked": true,
+      "StartPage": "homepage-locked"
+    },
+    "InstallAddonsPermission": {
+      "Allow": [],
+      "Default": false
+    },
+    "LocalFileLinks": [],
+    "ManagedBookmarks": [],
+    "ManualAppUpdateOnly": false,
+    "NetworkPrediction": false,
+    "NewTabPage": false,
+    "NoDefaultBookmarks": true,
+    "OfferToSaveLogins": false,
+    "OfferToSaveLoginsDefault": false,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "PasswordManagerEnabled": false,
+    "PasswordManagerExceptions": [],
+    "Permissions": {
+      "Camera": {
+        "Allow": [],
+        "BlockNewRequests": true,
+        "Locked": true
+      },
+      "Microphone": {
+        "Allow": [],
+        "BlockNewRequests": true,
+        "Locked": true
+      },
+      "Location": {
+        "Allow": [],
+        "BlockNewRequests": true,
+        "Locked": true
+      },
+      "Notifications": {
+        "Allow": [],
+        "BlockNewRequests": true,
+        "Locked": true
+      },
+      "Autoplay": {
+        "Allow": [],
+        "Default": "block-audio-video",
+        "Locked": true
+      }
+    },
+    "PictureInPicture": {
+      "Enabled": false,
+      "Locked": true
+    },
+    "PopupBlocking": {
+      "Allow": [],
+      "Default": true,
+      "Locked": true
+    },
+    "Preferences": {
+      "browser.aboutwelcome.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.bookmarks.addedImportButton": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.bookmarks.restore_default_bookmarks": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.contentblocking.category": {
+        "Value": "strict",
+        "Status": "locked"
+      },
+      "browser.download.viewableInternally.typeWasRegistered.avif": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.download.viewableInternally.typeWasRegistered.webp": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.newtabpage.activity-stream.feeds.section.topstories": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.newtabpage.activity-stream.feeds.topsites": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.newtabpage.activity-stream.showSearch": {
+        "Status": "locked"
+      },
+      "browser.newtabpage.enabled": {
+        "Status": "locked"
+      },
+      "browser.pageActions.persistedActions": {
+        "ids": [],
+        "idsInUrlbar": [],
+        "idsInUrlbarPreProton": [],
+        "version": 1
+      },
+      "browser.policies.applied": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "browser.privatebrowsing.autostart": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "browser.search.hiddenOneOffs": {
+        "Value": "",
+        "Status": "locked"
+      },
+      "browser.search.region": {
+        "Value": "DE",
+        "Status": "locked"
+      },
+      "browser.search.suggest.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.shell.checkDefaultBrowser": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.shell.didSkipDefaultBrowserCheckOnFirstRun": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "browser.startup.homepage": {
+        "Value": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+        "Status": "locked"
+      },
+      "browser.urlbar.placeholderName": {
+        "Value": "DRK KV Säckingen",
+        "Status": "locked"
+      },
+      "browser.urlbar.placeholderName.private": {
+        "Value": "DRK KV Säckingen",
+        "Status": "locked"
+      },
+      "browser.urlbar.quicksuggest.scenario": {
+        "Value": "",
+        "Status": "locked"
+      },
+      "browser.urlbar.shortcuts.bookmarks": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.shortcuts.history": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.shortcuts.tabs": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.suggest.bookmark": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.suggest.engines": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.suggest.history": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.suggest.openpage": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.urlbar.suggest.topsites": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "datareporting.healthreport.uploadEnabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "dom.forms.autocomplete.formautofill": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "dom.security.https_only_mode": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "dom.security.https_only_mode_ever_enabled": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "extensions.formautofill.creditCards.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "extensions.pendingOperations": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "extensions.pictureinpicture.enable_picture_in_picture_overrides": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "extensions.ui.dictionary.hidden": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "extensions.ui.locale.hidden": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "extensions.ui.sitepermission.hidden": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "extensions.webcompat.enable_shims": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "media.hardwaremediakeys.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "media.videocontrols.picture-in-picture.video-toggle.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "pdfjs.enabledCache.state": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "pref.downloads.disable_button.edit_actions": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "signon.management.page.breach-alerts.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "signon.rememberSignons": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "toolkit.telemetry.pioneer-new-studies-available": {
+        "Value": true,
+        "Status": "locked"
+      },
+      "toolkit.telemetry.reportingpolicy.firstRun": {
+        "Value": false,
+        "Status": "locked"
+      }
+    },
+    "PromptForDownloadLocation": false,
+    "Proxy": {
+      "Mode": "none"
+    },
+    "RequestedLocales": ["de"],
+    "SanitizeOnShutdown": true,
+    "SearchBar": "unified",
+    "SearchEngines": {
+      "PreventInstalls": true
+    },
+    "SearchSuggestEnabled": false,
+    "ShowHomeButton": false,
+    "UserMessaging": {
+      "WhatsNew": false,
+      "ExtensionRecommendations": false,
+      "FeatureRecommendations": false,
+      "UrlbarInterventions": false,
+      "SkipOnboarding": false,
+      "MoreFromMozilla": false
+    },
+    "UseSystemPrintDialog": true,
+    "WebsiteFilter": {
+      "Block": ["<all_urls>"],
+      "Exceptions": [
+        "*.drk-stflb01.rk.local/*",
+        "*.drk-access.de/*",
+        "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+        "*.microsoftonline.com/*",
+        "*.microsoft.com/*",
+        "*.windowsazure.com/*",
+        "*.aka.ms/mfasetup"
+      ]
     }
   }
+}

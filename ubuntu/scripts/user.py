@@ -24,7 +24,7 @@ class User():
             self.get_user_data()
             return
 
-        cmd = ["useradd", "-m"]
+        cmd = ["useradd", "-m", "-s", "/bin/bash"]
 
         # Add user to the sudo group
         if self.sudo == True:

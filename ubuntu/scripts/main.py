@@ -16,7 +16,7 @@ def main():
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
     # Create missing directories
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/", "/usr/share/firefox/"]:
+    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
     # Load the config file
@@ -51,6 +51,11 @@ def main():
 
     # Setup user specific configurations
     for user in users:
+
+        # Copy firefox files
+        shutil.copytree(f"{data_dir}/firefox/home_dir/",
+                        os.path.normpath(f"{user.get_home_dir()}/firefox/"), dirs_exist_ok=True)
+
         # Copy custom desktop entries
         shutil.copytree(f"{data_dir}/DesktopEntries/",
                         os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)

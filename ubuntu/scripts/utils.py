@@ -111,6 +111,7 @@ def get_home_dir(user: str):
 
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
+    file_path = os.path.normpath(file_path)
     try:
         color.print_info(f"Set Ownership of {file_path}!")
         os.chown(file_path, uid, gid)  # type: ignore

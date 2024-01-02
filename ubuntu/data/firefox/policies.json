@@ -165,7 +165,7 @@
     "ManagedBookmarks": [],
     "ManualAppUpdateOnly": false,
     "NetworkPrediction": false,
-    "NewTabPage": false,
+    "NewTabPage": true,
     "NoDefaultBookmarks": true,
     "OfferToSaveLogins": false,
     "OfferToSaveLoginsDefault": false,

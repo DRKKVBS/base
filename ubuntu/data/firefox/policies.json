@@ -80,7 +80,7 @@
     "DefaultDownloadDirectory": "${home}/Downloads",
     "Certificates": {
       "ImportEnterpriseRoots": true,
-      "Install": ["/home/admin/firefox/DRK_Rechenzentrum_files/root-bos.cer"]
+      "Install": ["${home}/firefox/DRK_Rechenzentrum_files/root-bos.cer"]
     },
     "DisableAppUpdate": false,
     "DisableBuiltinPDFViewer": true,

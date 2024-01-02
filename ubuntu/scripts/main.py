@@ -12,8 +12,9 @@ def main():
     currrent_dir = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0]
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
+    package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
-    # Create missing dirs
+    # Create missing directories
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/", "/usr/share/firefox/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
@@ -21,15 +22,14 @@ def main():
     with open(f"{data_dir}/config.json", "r") as f:
         data = json.load(f)
 
-    # Install packages
-    for download_url in data["wget_packages"]:
-        package = download_url.split("/")[-1]
-        utils.run_command(["wget", download_url, "-O", package])
-        utils.install_package(package, file_path=f"./{package}")
+    # Install packages from web
     for package in data["apt_packages"]:
         utils.install_package(package)
-    utils.install_package(
-        "icaclient", f"{data_dir}/icaclient_23.11.0.82_amd64.deb")
+
+    # Install packages from local directory
+    for pkg in os.listdir(package_dir):
+        utils.install_package(
+            pkg, os.path.normpath(f"{package_dir}/{pkg}"))
 
     # Create users
     users = []

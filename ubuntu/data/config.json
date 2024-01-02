@@ -72,9 +72,6 @@
       "destination": "/usr/share/firefox/"
     }
   },
-  "wget_packages": [
-    "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb",
-    "https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb"
-  ],
+
   "apt_packages": ["displaylink-driver"]
 }

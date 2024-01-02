@@ -32,19 +32,21 @@ class User():
             cmd.append("sudo")
 
         # Set the user password
-        if self.password != "":
-            cmd.append("-p")
-            cmd.append(crypt.crypt(self.password))  # type: ignore
+        cmd.append("-p")
+        cmd.append(crypt.crypt(self.password))  # type: ignore
 
         # Create user
         try:
             subprocess.run([*cmd, self.username])
 
+            if self.password == "":
+                subprocess.run(["passwd", "-d", self.username])
+
         except Exception as e:
             print("User Creation failed: %s" % e)
 
         else:
-            subprocess.run(["passwd", "-d", self.username])
+
             self.get_user_data()
 
     # def set_environment_variables(self):

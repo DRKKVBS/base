@@ -68,12 +68,19 @@
       "Behavior": "reject-tracker-and-partition-foreign",
       "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign"
     },
+    "Containers": {
+      "Default": [
+        {
+          "name": "My container",
+          "icon": "pet",
+          "color": "turquoise"
+        }
+      ]
+    },
     "DefaultDownloadDirectory": "${home}/Downloads",
     "Certificates": {
       "ImportEnterpriseRoots": true,
-      "Install": [
-        "file:///${home}/firefox/DRK_Rechenzentrum_files/root-bos.cer"
-      ]
+      "Install": ["${home}/firefox/DRK_Rechenzentrum_files/root-bos.cer"]
     },
     "DisableAppUpdate": false,
     "DisableBuiltinPDFViewer": true,
@@ -123,7 +130,7 @@
       },
       "langpack-de@firefox.mozilla.org": {
         "installation_mode": "force_installed",
-        "install_url": "file:///${home}/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
+        "install_url": "${home}/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
     "FirefoxHome": {
@@ -146,7 +153,7 @@
     },
     "HardwareAcceleration": false,
     "Homepage": {
-      "URL": "file://${home}/firefox/DRK_Rechenzentrum.html",
+      "URL": "${home}/firefox/DRK_Rechenzentrum.html",
       "Locked": true,
       "StartPage": "homepage-locked"
     },

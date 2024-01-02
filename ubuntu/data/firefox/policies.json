@@ -110,7 +110,6 @@
       },
       "langpack-de@firefox.mozilla.org": {
         "installation_mode": "force_installed",
-
         "install_url": "file:///${home}/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
@@ -133,11 +132,6 @@
       }
     },
     "HardwareAcceleration": false,
-    "Homepage": {
-      "URL": "file:///${home}/firefox/firefox/DRK_Rechenzentrum.html",
-      "Locked": true,
-      "StartPage": "homepage-locked"
-    },
     "InstallAddonsPermission": {
       "Allow": [],
       "Default": false
@@ -269,10 +263,6 @@
       },
       "browser.shell.didSkipDefaultBrowserCheckOnFirstRun": {
         "Value": true,
-        "Status": "locked"
-      },
-      "browser.startup.homepage": {
-        "Value": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
         "Status": "locked"
       },
       "browser.urlbar.placeholderName": {

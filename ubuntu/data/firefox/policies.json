@@ -34,7 +34,20 @@
     "BlockAboutConfig": true,
     "BlockAboutProfiles": true,
     "BlockAboutSupport": true,
-    "Bookmarks": [],
+    "Bookmarks": [
+      {
+        "Title": "Extern",
+        "URL": "https://citrix.drk-access.de/",
+        "Favicon": "https://citrix.drk-access.de//favicon.ico",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Intern",
+        "URL": "https://drk-stflb01.rk.local/*",
+        "Favicon": "https://example.com/favicon.ico",
+        "Placement": "toolbar"
+      }
+    ],
     "CaptivePortal": false,
     "Cookies": {
       "Allow": [

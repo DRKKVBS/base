@@ -447,6 +447,7 @@
         "*://*.drk-access.de/*",
         "file:///home/*/firefox/DRK_Rechenzentrum.html",
         "file:///home/*/firefox/DRK_Rechenzentrum.html",
+        "file://usr/share/firefox/DRK_Rechenzentrum.html",
         "*://*.microsoftonline.com/*",
         "*://*.microsoft.com/*",
         "*://*.windowsazure.com/*",

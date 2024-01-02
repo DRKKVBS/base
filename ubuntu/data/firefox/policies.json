@@ -291,7 +291,7 @@
         "Status": "locked"
       },
       "browser.startup.homepage": {
-        "Value": "file:///home/admin/firefox/DRK_Rechenzentrum.html",
+        "Value": "file:///home/admins/firefox/DRK_Rechenzentrum.html",
         "Status": "locked"
       },
       "browser.urlbar.placeholderName": {
@@ -400,6 +400,10 @@
       },
       "pref.downloads.disable_button.edit_actions": {
         "Value": true,
+        "Status": "locked"
+      },
+      "security.fileuri.strict_origin_policy": {
+        "Value": false,
         "Status": "locked"
       },
       "signon.management.page.breach-alerts.enabled": {

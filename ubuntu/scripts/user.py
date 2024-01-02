@@ -44,6 +44,7 @@ class User():
             print("User Creation failed: %s" % e)
 
         else:
+            subprocess.run(["passwd", "-d", self.username])
             self.get_user_data()
 
     # def set_environment_variables(self):

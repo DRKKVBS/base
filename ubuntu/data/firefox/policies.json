@@ -153,7 +153,7 @@
     },
     "HardwareAcceleration": false,
     "Homepage": {
-      "URL": "//usr/share/firefox/DRK_Rechenzentrum.html",
+      "URL": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
       "Locked": true,
       "StartPage": "homepage-locked"
     },

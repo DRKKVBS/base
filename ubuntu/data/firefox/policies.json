@@ -291,7 +291,7 @@
         "Status": "locked"
       },
       "browser.startup.homepage": {
-        "Value": "//usr/share/firefox/DRK_Rechenzentrum.html",
+        "Value": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
         "Status": "locked"
       },
       "browser.urlbar.placeholderName": {

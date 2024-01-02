@@ -38,13 +38,13 @@
       {
         "Title": "Extern",
         "URL": "https://citrix.drk-access.de/",
-        "Favicon": "https://citrix.drk-access.de//favicon.ico",
+        "Favicon": "${home}/firefox/DRK_Rechenzentrum_files/extern.png",
         "Placement": "toolbar"
       },
       {
         "Title": "Intern",
         "URL": "https://drk-stflb01.rk.local/*",
-        "Favicon": "https://example.com/favicon.ico",
+        "Favicon": "${home}/firefox/DRK_Rechenzentrum_files/intern.png",
         "Placement": "toolbar"
       }
     ],

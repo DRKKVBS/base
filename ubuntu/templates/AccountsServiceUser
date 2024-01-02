@@ -1,0 +1,4 @@
+[User]
+Session=gnome-xorg # default Session
+Icon=/filepath/to/image.png
+SystemAccount=false # true if you want to hide the user from the login screen

@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import shutil
@@ -27,9 +28,10 @@ def main():
         utils.install_package(package)
 
     # Install packages from local directory
-    for pkg in os.listdir(package_dir):
-        utils.install_package(
-            pkg, os.path.normpath(f"{package_dir}/{pkg}"))
+    if os.path.exists(package_dir):
+        for pkg in os.listdir(package_dir):
+            utils.install_package(
+                pkg, os.path.normpath(f"{package_dir}/{pkg}"))
 
     # Create users
     users = []
@@ -66,4 +68,29 @@ def main():
 
 
 if __name__ == "__main__":
+
+    # # Initialize parser
+    # parser = argparse.ArgumentParser(
+    #     prog="DRK Ubuntu Configurator",
+    #     description="Configures the the Ubuntu Linux, after the OS Installation.",
+    #     epilog="Placeholder.",)
+
+    # # Adding optional argument
+    # parser.add_argument("-t", "--Type", action="store", required=True, type=str,
+    #                     choices=["thin", "mobile"], help="Type of Device.",)
+
+    # parser.add_argument("-c", "--Configuration", action="store", required=True, type=str,
+    #                     choices=["base", "usb"], help="Type of Configuration to be used.",)
+
+    # parser.add_argument("-hn", "--Hostname", action="store",
+    #                     type=str, help="The hostname of the new system.")
+
+    # # Read arguments from command line
+    # args = parser.parse_args()
+
+    # if args.Hostname != None:
+    #     hostname = args.Hostname
+    # else:
+    #     hostname = f"drk-bs-{args.Type}-{args.Configuration}"
+
     main()

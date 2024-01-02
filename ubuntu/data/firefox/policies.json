@@ -18,7 +18,7 @@
         "NTLM": false
       },
       "Locked": false,
-      "PrivateBrowsing": false
+      "PrivateBrowsing": true
     },
     "AutoLaunchProtocolsFromOrigins": [
       {
@@ -38,16 +38,16 @@
     "CaptivePortal": false,
     "Cookies": {
       "Allow": [
-        "https://citrix.drk-access.de/*",
-        "https://drk-stflb01.rk.local/*",
-        "https://login.microsoftonline.com/*",
-        "https://invitations.microsoft.com/*"
+        "*://*.drk-access.de/*",
+        "*://*.drk-stflb01.rk.local/*",
+        "*://*.login.microsoftonline.com/*",
+        "*://*.invitations.microsoft.com/*"
       ],
       "AllowSession": [
-        "https://citrix.drk-access.de/*",
-        "https://drk-stflb01.rk.local/",
-        "https://login.microsoftonline.com/*",
-        "https://invitations.microsoft.com/*"
+        "*://*.citrix.drk-access.de/*",
+        "*://*.drk-stflb01.rk.local/*",
+        "*://*.login.microsoftonline.com/*",
+        "*://*.invitations.microsoft.com/*"
       ],
       "Block": [],
       "ExpireAtSessionEnd": true,
@@ -58,7 +58,9 @@
     "DefaultDownloadDirectory": "${home}/Downloads",
     "Certificates": {
       "ImportEnterpriseRoots": true,
-      "Install": ["file:///usr/share/firefox/root-bos.cer"]
+      "Install": [
+        "file:///${home}/firefox/DRK_Rechenzentrum_files/root-bos.cer"
+      ]
     },
     "DisableAppUpdate": false,
     "DisableBuiltinPDFViewer": true,
@@ -108,7 +110,8 @@
       },
       "langpack-de@firefox.mozilla.org": {
         "installation_mode": "force_installed",
-        "install_url": "file:///usr/share/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
+
+        "install_url": "file:///${home}/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
     "FirefoxHome": {
@@ -131,7 +134,7 @@
     },
     "HardwareAcceleration": false,
     "Homepage": {
-      "URL": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+      "URL": "file:///${home}/firefox/firefox/DRK_Rechenzentrum.html",
       "Locked": true,
       "StartPage": "homepage-locked"
     },
@@ -421,13 +424,14 @@
     "WebsiteFilter": {
       "Block": ["<all_urls>"],
       "Exceptions": [
-        "*.drk-stflb01.rk.local/*",
-        "*.drk-access.de/*",
-        "file:///usr/share/firefox/DRK_Rechenzentrum.html",
-        "*.microsoftonline.com/*",
-        "*.microsoft.com/*",
-        "*.windowsazure.com/*",
-        "*.aka.ms/mfasetup"
+        "*://*.drk-stflb01.rk.local/*",
+        "*://*.drk-access.de/*",
+        "file:///home/*/firefox/DRK_Rechenzentrum.html",
+        "file:///home/*/firefox/DRK_Rechenzentrum.html",
+        "*://*.microsoftonline.com/*",
+        "*://*.microsoft.com/*",
+        "*://*.windowsazure.com/*",
+        "*://*.aka.ms/mfasetup"
       ]
     }
   }

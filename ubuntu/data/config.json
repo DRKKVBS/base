@@ -27,7 +27,6 @@
       ]
     }
   },
-  "packages": ["firefox"],
   "files_to_copy": {
     "drk-logo": {
       "source": "/logos/drk-logo.png",

@@ -44,7 +44,7 @@
       {
         "Title": "Intern",
         "URL": "https://drk-stflb01.rk.local/*",
-        "Favicon": "${home}/firefox/DRK_Rechenzentrum_files/intern.png",
+        "Favicon": "/home/admin/firefox/DRK_Rechenzentrum_files/intern.png",
         "Placement": "toolbar"
       }
     ],

@@ -65,6 +65,10 @@
     "systemd-drop-ins": {
       "source": "/systemd/",
       "destination": "/usr/lib/systemd/logind.conf.d/"
+    },
+    "firefox": {
+      "source": "/firefox/",
+      "destination": "/etc/firefox/policies/"
     }
   },
 

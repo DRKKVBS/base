@@ -38,13 +38,13 @@
       {
         "Title": "Extern",
         "URL": "https://citrix.drk-access.de/",
-        "Favicon": "file:///usr/share/firefox/DRK_Rechenzentrum_files/extern.png",
+        "Favicon": "file:///etc/firefox/policies/DRK_Rechenzentrum_files/extern.png",
         "Placement": "toolbar"
       },
       {
         "Title": "Intern",
         "URL": "https://drk-stflb01.rk.local/*",
-        "Favicon": "file:///usr/share/firefox/DRK_Rechenzentrum_files/icon.ico",
+        "Favicon": "file:///etc/firefox/policies/DRK_Rechenzentrum_files/icon.ico",
         "Placement": "toolbar"
       }
     ],
@@ -81,7 +81,7 @@
     "Certificates": {
       "ImportEnterpriseRoots": true,
       "Install": [
-        "file:///usr/share/firefox/DRK_Rechenzentrum_files/root-bos.cer"
+        "file:///etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"
       ]
     },
     "DisableAppUpdate": false,
@@ -132,7 +132,7 @@
       },
       "langpack-de@firefox.mozilla.org": {
         "installation_mode": "force_installed",
-        "install_url": "file:///usr/share/firefox/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
+        "install_url": "file:///etc/firefox/policies/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
     "FirefoxHome": {
@@ -155,7 +155,7 @@
     },
     "HardwareAcceleration": false,
     "Homepage": {
-      "URL": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+      "URL": "file:///etc/firefox/policies/DRK_Rechenzentrum.html",
       "Locked": true,
       "StartPage": "homepage-locked"
     },
@@ -293,7 +293,7 @@
         "Status": "locked"
       },
       "browser.startup.homepage": {
-        "Value": "file:///usr/share/firefox/DRK_Rechenzentrum.html",
+        "Value": "file:///etc/firefox/policies/DRK_Rechenzentrum.html",
         "Status": "locked"
       },
       "browser.urlbar.placeholderName": {
@@ -451,7 +451,6 @@
       "Exceptions": [
         "*://*.drk-stflb01.rk.local/*",
         "*://*.drk-access.de/*",
-        "file:///usr/share/firefox/*",
         "*://*.microsoftonline.com/*",
         "*://*.microsoft.com/*",
         "*://*.windowsazure.com/*",

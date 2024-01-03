@@ -64,7 +64,7 @@ def main():
                     f"/usr/share/applications/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
                 with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
                     content = f.read()
-                    if app in user.get_desktop_entries():
+                    if app in user.desktop_entries():
                         if "NoDisplay=true" in content:
                             content = content.replace(
                                 "NoDisplay=true", "NoDisplay=false")

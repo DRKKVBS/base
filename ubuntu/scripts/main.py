@@ -23,10 +23,6 @@ def main():
     with open(f"{data_dir}/config.json", "r") as f:
         data = json.load(f)
 
-    # Install packages from web
-    for package in data["apt_packages"]:
-        utils.install_package(package)
-
     # Install packages from local directory
     if os.path.exists(package_dir):
         for pkg in os.listdir(package_dir):

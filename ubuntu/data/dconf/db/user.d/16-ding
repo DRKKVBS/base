@@ -1,0 +1,6 @@
+#Show the personal folder in the desktop
+show-home=false
+#Show the trash icon in the desktop
+show-trash=false
+#Show the disk drives connected to the computer
+show-volumes=false

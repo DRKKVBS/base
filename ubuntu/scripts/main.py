@@ -58,29 +58,30 @@ def main():
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
-        for app in os.listdir("/usr/share/applications/"):
-            if app.endswith(".desktop"):
-                shutil.copyfile(os.path.normpath(
-                    f"/usr/share/applications/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
-                with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
-                    content = f.read()
-                    if app in user.desktop_entries:
-                        if "NoDisplay=true" in content:
-                            content = content.replace(
-                                "NoDisplay=true", "NoDisplay=false")
-                        elif "NoDisplay=false" not in content:
-                            content = content.replace(
-                                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=false")
-                    else:
-                        if "NoDisplay=false" in content:
-                            content = content.replace(
-                                "NoDisplay=false", "NoDisplay=true")
-                        elif "NoDisplay=true" not in content:
-                            content = content.replace(
-                                "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
-                    f.seek(0)
-                    f.truncate()
-                    f.write(content)
+        for path in ["/var/lib/snapd/desktop/application/", "/usr/share/applications/"]:
+            for app in os.listdir(path):
+                if app.endswith(".desktop"):
+                    shutil.copyfile(os.path.normpath(
+                        f"/usr/share/applications/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
+                    with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
+                        content = f.read()
+                        if app in user.desktop_entries:
+                            if "NoDisplay=true" in content:
+                                content = content.replace(
+                                    "NoDisplay=true", "NoDisplay=false")
+                            elif "NoDisplay=false" not in content:
+                                content = content.replace(
+                                    "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=false")
+                        else:
+                            if "NoDisplay=false" in content:
+                                content = content.replace(
+                                    "NoDisplay=false", "NoDisplay=true")
+                            elif "NoDisplay=true" not in content:
+                                content = content.replace(
+                                    "[Desktop Entry]", "[Desktop Entry]\nNoDisplay=true")
+                        f.seek(0)
+                        f.truncate()
+                        f.write(content)
 
         # Set file permissions for desktop entries
         for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):

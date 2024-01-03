@@ -8,11 +8,11 @@ import utils
 class User():
     """Class to represent a user on a Unix System."""
 
-    def __init__(self, username: str, password: str, sudo: bool, dekstop_entries: list) -> None:
+    def __init__(self, username: str, password: str, sudo: bool, desktop_entries: list) -> None:
         self.username = username
         self.password = password
         self.sudo = sudo
-        self.dekstop_entries = dekstop_entries
+        self.desktop_entries = desktop_entries
         self.create_user()
         self.create_home_dir()
 

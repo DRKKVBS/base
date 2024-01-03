@@ -10,6 +10,8 @@ pip3 install -r ../data/pip-requirements.txt
 
 python3 ./main.py
 
+apt install -y displaylink-driver
+
 dconf update
 grub-mkconfig -o /boot/grub/grub.cfg
 # reboot

@@ -454,7 +454,8 @@
         "*://*.microsoftonline.com/*",
         "*://*.microsoft.com/*",
         "*://*.windowsazure.com/*",
-        "*://*.aka.ms/mfasetup"
+        "*://*.aka.ms/mfasetup",
+        "file:///etc/firefox/policies/*"
       ]
     }
   }

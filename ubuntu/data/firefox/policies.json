@@ -5,21 +5,6 @@
     },
     "AllowedDomainsForApps": {},
     "AppAutoUpdate": true,
-    "Authentication": {
-      "SPNEGO": [],
-      "Delegated": [],
-      "NTLM": [],
-      "AllowNonFQDN": {
-        "SPNEGO": false,
-        "NTLM": false
-      },
-      "AllowProxies": {
-        "SPNEGO": false,
-        "NTLM": false
-      },
-      "Locked": false,
-      "PrivateBrowsing": true
-    },
     "AutoLaunchProtocolsFromOrigins": [
       {
         "protocol": "x-ica",

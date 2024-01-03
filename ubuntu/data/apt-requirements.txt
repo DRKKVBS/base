@@ -6,3 +6,4 @@ vim
 dkms
 net-tools
 openssh-server
+displaylink-driver

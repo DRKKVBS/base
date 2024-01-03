@@ -62,7 +62,7 @@ def main():
             for app in os.listdir(path):
                 if app.endswith(".desktop"):
                     shutil.copyfile(os.path.normpath(
-                        f"/usr/share/applications/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
+                        f"{path}/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
                     with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
                         content = f.read()
                         if app in user.desktop_entries:

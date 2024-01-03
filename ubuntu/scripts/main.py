@@ -58,7 +58,7 @@ def main():
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
-        for path in ["/var/lib/snapd/desktop/application/", "/usr/share/applications/"]:
+        for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
             for app in os.listdir(path):
                 if app.endswith(".desktop"):
                     shutil.copyfile(os.path.normpath(

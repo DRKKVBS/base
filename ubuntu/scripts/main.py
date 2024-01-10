@@ -58,6 +58,13 @@ def main():
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
+        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a") as f:
+            if f.read() != "":
+                f.write(
+                    "[Default Applications]\napplication/ica=icaclient.desktop")
+            else:
+                f.write("application/ica=icaclient.desktop")
+
         for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
             for app in os.listdir(path):
                 if app.endswith(".desktop"):

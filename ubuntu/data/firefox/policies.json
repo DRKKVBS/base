@@ -120,16 +120,6 @@
         "install_url": "file:///etc/firefox/policies/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
-    "FirefoxHome": {
-      "Search": false,
-      "TopSites": false,
-      "SponsoredTopSites": false,
-      "Highlights": false,
-      "Pocket": false,
-      "SponsoredPocket": false,
-      "Snippets": false,
-      "Locked": true
-    },
     "Handlers": {
       "mimeTypes": {
         "application/x-ica": {

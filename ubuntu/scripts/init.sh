@@ -2,7 +2,7 @@
 
 # Install packages
 search_dir=../packages/
-for entry in "$search_dir"/*; do
+for entry in "$search_dir"*; do
     apt install -y $entry
 done
 apt-get update
@@ -20,4 +20,5 @@ apt install -y displaylink-driver
 
 dconf update
 grub-mkconfig -o /boot/grub/grub.cfg
-# reboot
+
+reboot

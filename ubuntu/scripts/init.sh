@@ -21,4 +21,9 @@ apt install -y displaylink-driver
 dconf update
 grub-mkconfig -o /boot/grub/grub.cfg
 
+chmod +x /usr/share/drk/post-install.sh
+systemctl daemon-reload
+systemctl enable post-install.service
+systemctl start post-install.service
+
 reboot

@@ -1,0 +1,7 @@
+[Unit]
+Description=My Script
+After=network.target
+[Service]
+ExecStart=/usr/share/drk/post-install.sh
+[Install]
+WantedBy=default.target

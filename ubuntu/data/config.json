@@ -48,6 +48,14 @@
       "source": "/grub",
       "destination": "/etc/default/grub"
     },
+    "postinstall-service": {
+      "source": "/post-install.service",
+      "destination": "/etc/systemc/system/post-install.service"
+    },
+    "postinstall-script": {
+      "source": "/post-install.sh",
+      "destination": "/usr/share/drk/post-install.sh"
+    },
     "firefox-policies": {
       "source": "/firefox/policies.json",
       "destination": "/etc/firefox/policies/policies.json"

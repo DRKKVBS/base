@@ -16,7 +16,7 @@ def main():
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
     # Create missing directories
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/icons/DRK/", "/usr/share/drk"]:
+    for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
         os.makedirs(f"{missing_dir}", exist_ok=True)
 
     # Load the config file

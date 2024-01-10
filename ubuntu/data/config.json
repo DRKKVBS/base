@@ -30,7 +30,7 @@
   "files_to_copy": {
     "drk-logo": {
       "source": "/logos/drk-logo.png",
-      "destination": "/usr/share/icons/DRK/drk-logo.png"
+      "destination": "/usr/share/drk/drk-logo.png"
     },
     "x11-vty-switch": {
       "source": "/01-vt-switch.conf",

@@ -16,4 +16,4 @@ enable-password-authentication=true
 # Allow users to use smartcards to log in
 enable-smartcard-authentication=false
 # Display a small logo on the login screen
-logo='/usr/share/logos/drk-logo.png'
+logo='/usr/share/drk/drk-logo.png'

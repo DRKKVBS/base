@@ -37,8 +37,8 @@ def main():
 
     # Copy files
     for _, paths in data["files_to_copy"].items():
-        shutil.copyfile(
-            f"{data_dir}/{paths['source']}", f"{paths['destination']}")
+        shutil.copyfile(os.path.normpath(
+            f"{data_dir}/{paths['source']}"), f"{paths['destination']}")
 
     # Copy directories
     for _, paths in data["dirs_to_copy"].items():

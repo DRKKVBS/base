@@ -51,6 +51,10 @@
     "firefox-policies": {
       "source": "/firefox/policies.json",
       "destination": "/etc/firefox/policies/policies.json"
+    },
+    "post-install": {
+      "source": "/post-install.sh",
+      "destination": "/home/admin/post-install.sh"
     }
   },
   "dirs_to_copy": {

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Install packages
+apt-get update
 search_dir=../packages/
 for entry in "$search_dir"*; do
     apt install -y $entry

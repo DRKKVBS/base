@@ -21,4 +21,4 @@ apt install -y displaylink-driver
 dconf update
 grub-mkconfig -o /boot/grub/grub.cfg
 
-reboot
+# reboot

@@ -26,4 +26,4 @@ systemctl daemon-reload
 systemctl enable post-install.service
 systemctl start post-install.service
 
-reboot
+# reboot

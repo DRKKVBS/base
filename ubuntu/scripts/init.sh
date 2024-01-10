@@ -2,7 +2,7 @@
 
 # Install packages
 apt update
-apt upgrade
+apt upgrade -y
 search_dir=../packages/
 for entry in "$search_dir"*; do
     apt install -y $entry

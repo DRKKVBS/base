@@ -55,6 +55,10 @@
     "post-install": {
       "source": "/post-install.sh",
       "destination": "/home/admin/post-install.sh"
+    },
+    "wifi": {
+      "source": "/DRK_SAK_Intern_Mobile.psk",
+      "destination": "/var/lib/iwd/DRK_SAK_Intern_Mobile.psk"
     }
   },
   "dirs_to_copy": {

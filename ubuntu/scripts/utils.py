@@ -209,6 +209,8 @@ def add_desktop_app(user: User, visible_apps: list):
 
 
 def test():
+    logger.info("Hello Info!")
+    logger.error("Hello Error!")
     pass
 
 # def hide_desktop_app(app: str, user: User):

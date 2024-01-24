@@ -3,11 +3,19 @@ import json
 import os
 import shutil
 import utils
+import logging.config
+import logging.handlers
 
 from user import User
 
 
 def main():
+
+    # Setup logging
+    logger = logging.getLogger("my_app")
+
+    with open(os.path.normpath(f"{os.path.dirname(__file__)}/logging.json"), "r") as f:
+        logging.config.dictConfig(config=json.load(f))
 
     # Set the directory depending on the location of the script
     currrent_dir = os.path.realpath(
@@ -17,11 +25,19 @@ def main():
 
     # Create missing directories
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
-        os.makedirs(f"{missing_dir}", exist_ok=True)
+        try:
+            logger.info(f"Creating directory {missing_dir}")
+            os.makedirs(f"{missing_dir}", exist_ok=True)
+        except Exception as e:
+            logger.error(f"Error creating directory {missing_dir}: {e}")
 
     # Load the config file
-    with open(f"{data_dir}/config.json", "r") as f:
-        data = json.load(f)
+    try:
+        with open(f"{data_dir}/config.json", "r") as f:
+            data = json.load(f)
+    except Exception as e:
+        logger.error(f"Error loading config file: {e}")
+        exit(1)
 
     # Install packages from local directory
     if os.path.exists(package_dir):
@@ -37,13 +53,19 @@ def main():
 
     # Copy files
     for _, paths in data["files_to_copy"].items():
-        shutil.copyfile(os.path.normpath(
-            f"{data_dir}/{paths['source']}"), f"{paths['destination']}")
+        try:
+            shutil.copyfile(os.path.normpath(
+                f"{data_dir}/{paths['source']}"), f"{paths['destination']}")
+        except Exception as e:
+            logger.error(f"Error copying file: {e}")
 
     # Copy directories
     for _, paths in data["dirs_to_copy"].items():
-        shutil.copytree(
-            f"{data_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
+        try:
+            shutil.copytree(
+                f"{data_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
+        except Exception as e:
+            logger.error(f"Error copying directory: {e}")
 
     # Setup user specific configurations
     for user in users:

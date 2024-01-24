@@ -2,16 +2,11 @@ import json
 import logging.config
 import logging.handlers
 import os
+import custom_logger
 
 
 def main():
-    currrent_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0]
-    # Setup logging
-    logger = logging.getLogger("config_logger")
-
-    with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
-        logging.config.dictConfig(config=json.load(f))
+    logger = custom_logger.setup_logging()
 
     logger.info("Hello Info!")
     logger.debug("Hello Debug!")

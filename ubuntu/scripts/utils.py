@@ -6,14 +6,10 @@ import pwd
 import shutil
 import subprocess
 from user import User
+import custom_logger
 
 # Setup logging
-logger = logging.getLogger("config_logger")
-currrent_dir = os.path.realpath(
-    os.path.dirname(__file__)).split('scripts')[0]
-
-with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
-    logging.config.dictConfig(config=json.load(f))
+logger = custom_logger.setup_logging()
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):

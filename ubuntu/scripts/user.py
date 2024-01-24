@@ -3,6 +3,7 @@ import pwd
 import subprocess
 import crypt
 import utils
+import custom_logger
 
 
 class User():
@@ -14,24 +15,30 @@ class User():
         self.sudo = sudo
         self.desktop_entries = desktop_entries
         self.create_user()
-        self.create_home_dir()
+        self.logger = custom_logger.setup_logging()
 
     def create_user(self):
         """Create a user."""
 
+        self.logger.info(f"Creating user {self.username}")
+
         # Check if user exists
         if self.user_exists():
             self.get_user_data()
+            self.logger.info(
+                f"Skipping User Creationt, {self.username} already exists!")
             return
 
         cmd = ["useradd", "-m", "-s", "/bin/bash"]
 
         # Add user to the sudo group
         if self.sudo == True:
+            self.logger.info(f"Adding {self.username} to the sudo group")
             cmd.append("-G")
             cmd.append("sudo")
 
         # Set the user password
+        self.logger.info(f"Setting user password")
         cmd.append("-p")
         cmd.append(crypt.crypt(self.password))  # type: ignore
 
@@ -43,13 +50,11 @@ class User():
                 subprocess.run(["passwd", "-d", self.username])
 
         except Exception as e:
-            print("User Creation failed: %s" % e)
+            self.logger.error(f"Error creating user {self.username}: {e}")
 
         else:
-
             self.get_user_data()
-
-    # def set_environment_variables(self):
+            self.create_home_dir()
 
     def user_exists(self) -> bool:
         """Check if a user exists."""

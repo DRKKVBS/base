@@ -5,6 +5,7 @@ import shutil
 import utils
 import logging.config
 import logging.handlers
+import custom_logger
 
 from user import User
 
@@ -17,11 +18,7 @@ def main():
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
-    # Setup logging
-    logger = logging.getLogger("config_logger")
-
-    with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
-        logging.config.dictConfig(config=json.load(f))
+    logger = custom_logger.setup_logging()
 
     # Create missing directories
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
@@ -144,5 +141,5 @@ if __name__ == "__main__":
     # else:
     #     hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
-    # main()
-    utils.test()
+    main()
+    # utils.test()

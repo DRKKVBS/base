@@ -74,9 +74,9 @@ class User():
                 os.makedirs(
                     os.path.normpath(
                         f"{self.__home_dir}/{dir}"), exist_ok=True)
-                utils.chmod_recursive(
-                    os.path.normpath(
-                        f"{self.__home_dir}/{dir}"), 0o755, self.__uid, self.__gid)
+                self.run_command(
+                    ["chown", "-R", f"{self.__uid}:{self.__gid}", dir])
+
             except Exception as e:
                 print("Failed to create home directory: %s" % e)
 
@@ -102,3 +102,20 @@ class User():
     def get_home_dir(self) -> str:
         """Get the home directory of a user."""
         return self.__home_dir
+
+    def run_command(self, cmds: list):
+        """Run a command as a specific user using  the subprocess library."""
+        try:
+            self.logger.info(f"Executing: {cmds}")
+            r = subprocess.run([*cmds], shell=False,
+                               capture_output=True, text=True, user=self.__uid, group=self.__gid)
+
+            if r.returncode != 0:
+                self.logger.warning(
+                    f"Command returned without returncode 0: {cmds}...{r.returncode}")
+                return
+            return r
+
+        except OSError as e:
+            self.logger.error(f"Failed to execute command: {cmds} {e}")
+            return

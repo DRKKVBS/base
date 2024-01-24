@@ -162,6 +162,25 @@ def run_command(cmds: list):
         logger.error(f"Failed to execute command: {cmds} {e}")
         return
 
+
+def run_command_as_user(cmds: list, user: User):
+    """Run a command as a specific user using  the subprocess library."""
+    try:
+        logger.info(f"Executing: {cmds}")
+        r = subprocess.run([*cmds], shell=False,
+                           capture_output=True, text=True, user=user.get_uid(), group=user.get_gid())
+
+        if r.returncode != 0:
+            logger.warning(
+                f"Command returned without returncode 0: {cmds}...{r.returncode}")
+            return
+        return r
+
+    except OSError as e:
+        logger.error(f"Failed to execute command: {cmds} {e}")
+        return
+
+
 # TODO: REWORK
 
 

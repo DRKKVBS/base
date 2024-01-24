@@ -10,8 +10,10 @@ from user import User
 
 # Setup logging
 logger = logging.getLogger("config_logger")
+currrent_dir = os.path.realpath(
+    os.path.dirname(__file__)).split('scripts')[0]
 
-with open(os.path.normpath(f"{os.path.dirname(__file__)}/logging_config.json"), "r") as f:
+with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
     logging.config.dictConfig(config=json.load(f))
 
 

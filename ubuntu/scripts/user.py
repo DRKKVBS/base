@@ -69,6 +69,8 @@ class User():
 
         for dir in ["/.config/", "/.local/share/applications/"]:
 
+            dir = os.path.normpath(f"{self.__home_dir}/{dir}")
+
             # Create home directory
             try:
 

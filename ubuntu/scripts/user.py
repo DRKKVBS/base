@@ -14,8 +14,8 @@ class User():
         self.password = password
         self.sudo = sudo
         self.desktop_entries = desktop_entries
-        self.create_user()
         self.logger = custom_logger.setup_logging()
+        self.create_user()
 
     def create_user(self):
         """Create a user."""

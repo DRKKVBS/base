@@ -62,16 +62,18 @@ class User():
     def create_home_dir(self):
         """Create the home directory of the user."""
 
-        # Create home directory
-        try:
-            os.makedirs(
-                os.path.normpath(
-                    f"{self.__home_dir}/.local/share/applications/"), exist_ok=True)
-            utils.chmod_recursive(
-                os.path.normpath(
-                    f"{self.__home_dir}/"), 0o755, self.__uid, self.__gid)
-        except Exception as e:
-            print("Failed to create home directory: %s" % e)
+        for dir in ["/.config/", "/.local/", "/.local/share/applications/"]:
+
+            # Create home directory
+            try:
+                os.makedirs(
+                    os.path.normpath(
+                        f"{self.__home_dir}/{dir}"), exist_ok=True)
+                utils.chmod_recursive(
+                    os.path.normpath(
+                        f"{self.__home_dir}/{dir}"), 0o755, self.__uid, self.__gid)
+            except Exception as e:
+                print("Failed to create home directory: %s" % e)
 
     def get_user_data(self):
         """Get system data of the user"""

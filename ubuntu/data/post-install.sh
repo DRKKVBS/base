@@ -1,5 +1,6 @@
 #!/bin/bash
 
-userdel -r sebi
+userdel -r drk
+rm /etc/NetworkManager/system-connections/DRK_SAK_Mobile.nmconnection
 
 rm "$0"

@@ -49,16 +49,16 @@ def main():
     for user in users:
 
         # Copy custom desktop entries
-        shutil.copytree(f"{data_dir}/DesktopEntries/",
+        shutil.copytree(os.path.normpath(f"{data_dir}/DesktopEntries/"),
                         os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
-        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a") as f:
+        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
             f.write("# Set environment variables\n")
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
-        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a") as f:
+        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
             if f.read() != "":
                 f.write(
                     "[Default Applications]\napplication/ica=icaclient.desktop")

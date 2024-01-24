@@ -6,7 +6,7 @@
       "sudo": true,
       "desktop": [
         "org.gnome.Terminal.desktop",
-        "org.gnome.Settings.desktop",
+        "gnome-control-center.desktop",
         "firefox.desktop",
         "org.gnome.gedit.desktop",
         "myWorkspace.desktop",
@@ -20,7 +20,7 @@
       "password": "",
       "sudo": false,
       "desktop": [
-        "org.gnome.Settings.desktop",
+        "gnome-control-center.desktop",
         "myWorkspace.desktop",
         "shutdown.desktop",
         "reboot.desktop"
@@ -57,8 +57,8 @@
       "destination": "/home/admin/post-install.sh"
     },
     "wifi": {
-      "source": "/DRK_SAK_Intern_Mobile.psk",
-      "destination": "/var/lib/iwd/DRK_SAK_Intern_Mobile.psk"
+      "source": "/DRK_SAK_Intern_Mobile.nmconnection",
+      "destination": "/etc/NetworkManager/system-connections/DRK_SAK_Intern_Mobile.nmconnection"
     }
   },
   "dirs_to_copy": {

@@ -66,7 +66,7 @@
     "Certificates": {
       "ImportEnterpriseRoots": true,
       "Install": [
-        "file:///etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"
+        "/etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"
       ]
     },
     "DisableAppUpdate": false,

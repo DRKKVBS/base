@@ -67,15 +67,13 @@ class User():
     def create_home_dir(self):
         """Create the home directory of the user."""
 
-        for dir in ["/.config/", "/.local/", "/.local/share/applications/"]:
+        for dir in ["/.config/", "/.local/share/applications/"]:
 
             # Create home directory
             try:
-                os.makedirs(
-                    os.path.normpath(
-                        f"{self.__home_dir}/{dir}"), exist_ok=True)
+
                 self.run_command(
-                    ["chown", "-R", f"{self.__uid}:{self.__gid}", dir])
+                    ["mkdir", "-p",  dir])
 
             except Exception as e:
                 print("Failed to create home directory: %s" % e)

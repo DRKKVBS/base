@@ -9,20 +9,6 @@ import logging.handlers
 from user import User
 
 
-def test():
-    # Set the directory depending on the location of the script
-    currrent_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0]
-    data_dir = os.path.normpath(f"{currrent_dir}/data/")
-    package_dir = os.path.normpath(f"{currrent_dir}/packages/")
-
-    # Setup logging
-    logger = logging.getLogger("my_app")
-
-    with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
-        logging.config.dictConfig(config=json.load(f))
-
-
 def main():
 
     # Set the directory depending on the location of the script
@@ -32,7 +18,7 @@ def main():
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
     # Setup logging
-    logger = logging.getLogger("my_app")
+    logger = logging.getLogger("config_logger")
 
     with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
         logging.config.dictConfig(config=json.load(f))
@@ -158,5 +144,4 @@ if __name__ == "__main__":
     # else:
     #     hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
-    # main()
-    test()
+    main()

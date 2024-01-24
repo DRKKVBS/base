@@ -5,7 +5,6 @@ import os
 import pwd
 import shutil
 import subprocess
-from print_colors import Color
 from user import User
 
 # Setup logging

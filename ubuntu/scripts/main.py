@@ -11,17 +11,17 @@ from user import User
 
 def main():
 
-    # Setup logging
-    logger = logging.getLogger("my_app")
-
-    with open(os.path.normpath(f"{os.path.dirname(__file__)}/logging.json"), "r") as f:
-        logging.config.dictConfig(config=json.load(f))
-
     # Set the directory depending on the location of the script
     currrent_dir = os.path.realpath(
         os.path.dirname(__file__)).split('scripts')[0]
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
+
+    # Setup logging
+    logger = logging.getLogger("my_app")
+
+    with open(os.path.normpath(f"{currrent_dir}/logging_config.json"), "r") as f:
+        logging.config.dictConfig(config=json.load(f))
 
     # Create missing directories
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:

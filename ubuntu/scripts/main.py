@@ -144,4 +144,5 @@ if __name__ == "__main__":
     # else:
     #     hostname = f"drk-bs-{args.Type}-{args.Configuration}"
 
-    main()
+    # main()
+    utils.test()

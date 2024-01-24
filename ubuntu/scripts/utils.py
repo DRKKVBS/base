@@ -208,6 +208,9 @@ def add_desktop_app(user: User, visible_apps: list):
                                  "[Desktop Entry]\nNoDisplay=True")
 
 
+def test():
+    pass
+
 # def hide_desktop_app(app: str, user: User):
 #     '''Hide a desktop app from user so he cannot access via the acitvities screen.'''
 

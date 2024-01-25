@@ -156,7 +156,8 @@ def run_command(cmds: list):
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
         for stdout_line in iter(process.stdout.readlines(), ""):
-            print(stdout_line)
+            yield stdout_line
+            print(stdout_line, end="")
         process.stdout.close()
         return_code = process.wait()
         if return_code:
@@ -166,7 +167,6 @@ def run_command(cmds: list):
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return
-        return process
 
     except OSError as e:
         logger.error(f"Failed to execute command: {cmds} {e}")

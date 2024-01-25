@@ -158,7 +158,7 @@ def run_command(cmds: list):
         # with os.fdopen(sys.stdout.fileno(), 'wb', closefd=False) as stdout:
         #     for line in sp.stdout.:
         #         stdout.write(line)
-        r = Popen([*cmds], stdout=PIPE, shell=True, bufsize=1)
+        # r = Popen([*cmds], stdout=PIPE, shell=True, bufsize=1)
 
         if r.returncode != 0:
             logger.warning(

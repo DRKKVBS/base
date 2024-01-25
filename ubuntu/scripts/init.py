@@ -10,7 +10,7 @@ root_dir = utils.get_root_dir()
 logger = custom_logger.setup_logging()
 
 # Install packages from the packages directory
-with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
+with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "r") as f:
     data = json.load(f)
 
 # Promt the user to enter a hostname if none is set
@@ -27,7 +27,7 @@ if data["users"]["admin"]["password"] == None:
         f"Administrator password set to {data['users']['admin']['password']}")
 
 
-with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
+with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "w") as f:
     json.dump(f, data)
 
 

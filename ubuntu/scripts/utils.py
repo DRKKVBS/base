@@ -164,7 +164,7 @@ def run_command(cmds: list):
 
         if process.returncode != 0:
             logger.warning(
-                f"Command returned without returncode 0: {cmds}...{r.returncode}...{r.stdout}")
+                f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return
         return process
 

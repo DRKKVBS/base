@@ -4,7 +4,7 @@ import subprocess
 
 def execute(cmd):
     popen = subprocess.Popen(
-        cmd, stdout=subprocess.PIPE, universal_newlines=True)
+        cmd, stdout=subprocess.PIPE, universal_newlines=True, text=True)
     for stdout_line in iter(popen.stdout.readline, ""):
         yield stdout_line
     popen.stdout.close()

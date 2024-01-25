@@ -27,11 +27,6 @@ def main():
         logger.error(f"Error loading config file: {e}")
         exit(1)
 
-    # Promt the user to enter a hostname if none is set
-    if data["hostname"] != None:
-        data["hostname"] = input(
-            "Please enter a hostname for the system and press enter to continue...")
-
     # Create missing directories
     # Needed to copy files later on
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:

@@ -18,9 +18,15 @@ utils.run_command(["apt", "update"])
 
 # Install packages from the packages directory
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
-    pkgs = json.load(f)
-    for pkg in pkgs["apt_packages"]:
+    data = json.load(f)
+    # Promt the user to enter a hostname if none is set
+    if data["hostname"] != None:
+        data["hostname"] = input(
+            "Please enter a hostname for the system and press enter to continue...")
+    print(data["hostname"])
+    for pkg in data["apt_packages"]:
         utils.install_package(pkg)
+
 
 utils.run_command(["apt", "update"])
 utils.run_command(["apt", "upgrade", "-y"])

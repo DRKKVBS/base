@@ -40,13 +40,13 @@ class User():
         # Set the user password
         self.logger.info(f"Setting user password")
         cmd.append("-p")
-        cmd.append(crypt.crypt(self.password))  # type: ignore
 
         # Create user
         try:
             subprocess.run([*cmd, self.username])
 
             if self.password == None or self.password == "":
+                cmd.append(crypt.crypt(self.password))  # type: ignore
                 subprocess.run(["passwd", "-d", self.username])
 
         except Exception as e:

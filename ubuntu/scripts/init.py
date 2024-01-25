@@ -18,7 +18,7 @@ if data["hostname"] == None:
 
 if data["users"]["admin"]["password"] == None:
     data["users"]["admin"]["password"] = utils.input_validation(
-        "Please enter a hostname for the system and press enter to continue...")
+        "Please enter a password for the Administrator Account and press enter to continue...")
 
 # utils.run_command(["apt", "update"])
 # utils.run_command(["snap", "remove", "--purge", "firefox"])

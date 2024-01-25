@@ -276,7 +276,7 @@ def input_validation(question: str):
 
     while True:
         input1 = input(question+"\n")
-        input2 = input("Please reenter the the password:\n")
+        input2 = input("Please confirm and reenter your input:\n")
         if input1 == input2:
             return input1
         else:

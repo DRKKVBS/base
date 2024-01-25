@@ -150,7 +150,7 @@ def run_command(cmds: list):
     try:
         logger.info(f"Executing: {cmds}")
         r = subprocess.run([*cmds],
-                           stdout=subprocess.PIPE, text=True, shell=False)
+                           stdout=subprocess.PIPE, shell=False, bufsize=1)
 
         if r.returncode != 0:
             logger.warning(

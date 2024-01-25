@@ -14,5 +14,5 @@ def execute(cmd):
 
 
 # Example
-for path in execute(["locate", "a"]):
+for path in execute(["ls", "-l"]):
     print(path, end="")

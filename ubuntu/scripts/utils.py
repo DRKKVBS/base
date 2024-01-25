@@ -4,7 +4,8 @@ import logging.handlers
 import os
 import pwd
 import shutil
-from subprocess import PIPE, Popen, run
+from subprocess import PIPE, STDOUT, Popen, run
+import sys
 from user import User
 import custom_logger
 
@@ -149,6 +150,14 @@ def run_command(cmds: list):
 
     try:
         logger.info(f"Executing: {cmds}")
+
+        r = Popen([*cmds],
+                  shell=True,
+                  stdout=PIPE,
+                  stderr=STDOUT)
+        # with os.fdopen(sys.stdout.fileno(), 'wb', closefd=False) as stdout:
+        #     for line in sp.stdout.:
+        #         stdout.write(line)
         r = Popen([*cmds], stdout=PIPE, shell=True, bufsize=1)
 
         if r.returncode != 0:

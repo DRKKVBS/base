@@ -20,7 +20,7 @@ utils.run_command(["apt", "update"])
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
     data = json.load(f)
     # Promt the user to enter a hostname if none is set
-    if data["hostname"] != None:
+    if data["hostname"] == None:
         data["hostname"] = input(
             "Please enter a hostname for the system and press enter to continue...")
     print(data["hostname"])

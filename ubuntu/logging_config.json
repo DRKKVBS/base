@@ -14,12 +14,12 @@
     "stderr": {
       "class": "logging.StreamHandler",
       "formatter": "simple",
-      "level": "WARNING",
+      "level": "DEBUG",
       "stream": "ext://sys.stdout"
     },
     "file": {
       "class": "logging.handlers.RotatingFileHandler",
-      "level": "DEBUG",
+      "level": "WARNING",
       "formatter": "detailed",
       "filename": "../monitor.log",
       "maxBytes": 10485760,

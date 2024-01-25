@@ -17,7 +17,7 @@
     },
     "user": {
       "username": "user",
-      "password": "",
+      "password": null,
       "sudo": false,
       "desktop": [
         "gnome-control-center.desktop",

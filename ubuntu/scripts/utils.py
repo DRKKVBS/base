@@ -59,17 +59,6 @@ def chmod_recursive(root_path: str, mode: int, uid: int, gid: int):
             logger.info(f"Changed permissions for {file} to {uid}:{gid}")
 
 
-def set_hostname(hostname: str):
-    """Set the hostname of the system."""
-
-    try:
-        with open("/etc/hostname", "w") as f:
-            logger.info(f"Changing hostname to {hostname}")
-            f.write(hostname)
-    except Exception as e:
-        logger.error(e)
-
-
 def install_package(package_name: str, file_path=None):
     """Install a package using apt."""
 

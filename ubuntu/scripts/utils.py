@@ -154,7 +154,7 @@ def run_command(cmds: list):
 
         if r.returncode != 0:
             logger.warning(
-                f"Command returned without returncode 0: {cmds}...{r.returncode}")
+                f"Command returned without returncode 0: {cmds}...{r.returncode}...{r.stdout}")
             return
         return r
 

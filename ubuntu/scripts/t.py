@@ -14,5 +14,5 @@ def execute(cmd):
 
 
 # Example
-for path in execute(["ls", "-l"]):
+for path in execute(["apt", "update"]):
     print(path, end="")

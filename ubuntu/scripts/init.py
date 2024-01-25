@@ -28,7 +28,7 @@ if data["users"]["admin"]["password"] == None:
 
 
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "w") as f:
-    json.dump(f, data)
+    json.dump(data, f)
 
 
 utils.run_command(["apt", "update"])

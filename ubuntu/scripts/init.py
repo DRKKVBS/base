@@ -27,6 +27,10 @@ if data["users"]["admin"]["password"] == None:
         f"Administrator password set to {data['users']['admin']['password']}")
 
 
+with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
+    json.dump(f, data)
+
+
 utils.run_command(["apt", "update"])
 utils.run_command(["snap", "remove", "--purge", "firefox"])
 utils.run_command(["apt", "upgrade", "-y"])

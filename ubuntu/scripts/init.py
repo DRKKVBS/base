@@ -4,6 +4,7 @@ import os
 import main
 
 utils.run_command(["apt", "update"])
+utils.run_command(["snap", "remove", "--purge", "firefox"])
 utils.run_command(["apt", "upgrade", "-y"])
 
 # Install packages from the packages directory

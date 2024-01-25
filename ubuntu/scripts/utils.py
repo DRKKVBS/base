@@ -13,6 +13,11 @@ import custom_logger
 logger = custom_logger.setup_logging()
 
 
+def get_root_dir():
+    return os.path.realpath(
+        os.path.dirname(__file__)).split('scripts')[0]
+
+
 def merge_and_update_dicts(dict1: dict, dict2: dict):
     """ Merge two json files. Extending lists or dictonaries and update values."""
     for k, v in dict1.items():

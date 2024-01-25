@@ -13,20 +13,11 @@ from user import User
 def main():
 
     # Set the directory depending on the location of the script
-    currrent_dir = os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0]
+    currrent_dir = utils.get_root_dir()
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
     package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
     logger = custom_logger.setup_logging()
-
-    # Create missing directories
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
-        try:
-            logger.info(f"Creating directory {missing_dir}")
-            os.makedirs(f"{missing_dir}", exist_ok=True)
-        except Exception as e:
-            logger.error(f"Error creating directory {missing_dir}: {e}")
 
     # Load the config file
     try:
@@ -36,11 +27,19 @@ def main():
         logger.error(f"Error loading config file: {e}")
         exit(1)
 
-    # Install packages from local directory
-    if os.path.exists(package_dir):
-        for pkg in os.listdir(package_dir):
-            utils.install_package(
-                pkg, os.path.normpath(f"{package_dir}/{pkg}"))
+    # Promt the user to enter a hostname if none is set
+    if data["hostname"] != None:
+        data["hostname"] = input(
+            "Please enter a hostname for the system and press enter to continue...")
+
+    # Create missing directories
+    # Needed to copy files later on
+    for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
+        try:
+            logger.info(f"Creating directory {missing_dir}")
+            os.makedirs(f"{missing_dir}", exist_ok=True)
+        except Exception as e:
+            logger.error(f"Error creating directory {missing_dir}: {e}")
 
     # Create users
     users = []

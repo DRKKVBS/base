@@ -167,6 +167,7 @@ def run_command(cmds: list):
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return
+        return process
 
     except OSError as e:
         logger.error(f"Failed to execute command: {cmds} {e}")

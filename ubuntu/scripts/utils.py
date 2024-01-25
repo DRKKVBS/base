@@ -159,10 +159,8 @@ def run_command(cmds: list):
             print(stdout_line, end="")
         process.stdout.close()
         return_code = process.wait()
-        if return_code:
-            raise CalledProcessError(return_code, cmds)
 
-        if process.returncode != 0:
+        if process.returncode:
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return

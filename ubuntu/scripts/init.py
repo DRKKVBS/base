@@ -24,18 +24,18 @@ with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
         data["hostname"] = input(
             "Please enter a hostname for the system and press enter to continue...")
     print(data["hostname"])
-    for pkg in data["apt_packages"]:
-        utils.install_package(pkg)
+    # for pkg in data["apt_packages"]:
+    # utils.install_package(pkg)
 
 
-utils.run_command(["apt", "update"])
-utils.run_command(["apt", "upgrade", "-y"])
+# utils.run_command(["apt", "update"])
+# utils.run_command(["apt", "upgrade", "-y"])
 
-utils.run_command(["apt", "purge", "-y", "gnome-initial-setup"])
-utils.run_command(["pip3", "install", "--upgrade", "pip"])
-utils.run_command(["pip3", "install", "-r", "../data/pip-requirements.txt"])
+# utils.run_command(["apt", "purge", "-y", "gnome-initial-setup"])
+# utils.run_command(["pip3", "install", "--upgrade", "pip"])
+# utils.run_command(["pip3", "install", "-r", "../data/pip-requirements.txt"])
 
-main.main()
-utils.run_command(["dconf", "update"])
-utils.run_command(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
+# main.main()
+# utils.run_command(["dconf", "update"])
+# utils.run_command(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
 # utils.run_command(["reboot"])

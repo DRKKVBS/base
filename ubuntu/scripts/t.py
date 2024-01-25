@@ -1,19 +1,36 @@
-import json
-import logging.config
-import logging.handlers
-import os
-import custom_logger
+from subprocess import PIPE, STDOUT, Popen, run
+
+# -*- coding: utf-8 -*-
+"""
+A convenience module for shelling out with realtime output
+includes: 
+- subprocess - Works with additional processes.
+- shlex - Lexical analysis of shell-style syntaxes.
+"""
+
+import subprocess
+import shlex
 
 
-def main():
-    logger = custom_logger.setup_logging()
+def run(command):
+    process = Popen(command, stdout=PIPE, shell=True)
+    while True:
+        line = process.stdout.readline().rstrip()
+        if not line:
+            break
+        yield line.decode('utf-8')
 
-    logger.info("Hello Info!")
-    logger.debug("Hello Debug!")
-    logger.warning("Hello Warning!")
-    logger.error("Hello Error!")
-    logger.critical("Hello Critical!")
-
+def run_command(command):
+    process = Popen(shlex.split(command), stdout=PIPE)
+    while True:
+        output = process.stdout.readline().rstrip().decode('utf-8')
+        if output == '' and process.poll() is not None:
+            break
+        if output:
+            print(output.strip())
+    rc = process.poll()
+    return rc
 
 if __name__ == "__main__":
-    main()
+    for path in run("ping -c 5 google.com"):
+        print path

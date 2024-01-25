@@ -151,20 +151,22 @@ def run_command(cmds: list):
     try:
         logger.info(f"Executing: {cmds}")
 
-        r = Popen([*cmds],
-                  shell=True,
-                  stdout=PIPE,
-                  stderr=STDOUT)
-        # with os.fdopen(sys.stdout.fileno(), 'wb', closefd=False) as stdout:
-        #     for line in sp.stdout.:
-        #         stdout.write(line)
-        # r = Popen([*cmds], stdout=PIPE, shell=True, bufsize=1)
+        process = Popen([*cmds],
+                        shell=False,
+                        stdout=PIPE,
+                        stderr=STDOUT, text=True, universal_newlines=True)
+        for stdout_line in iter(process.stdout.readlines(), ""):  # type: ignore
+            yield stdout_line
+        return_code = process.wait()
+        if return_code:
+            pass
+            # raise subprocess.CalledProcessError(return_code, cmd)
 
-        if r.returncode != 0:
+        if process.returncode != 0:
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{r.returncode}...{r.stdout}")
             return
-        return r
+        return process
 
     except OSError as e:
         logger.error(f"Failed to execute command: {cmds} {e}")

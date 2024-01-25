@@ -74,7 +74,7 @@ def install_package(package_name: str, file_path=None):
     logger.info(f"Installing {package_name}")
 
     if package_is_installed(package_name):
-        logger.info(f"Skipping {package_name}. It is already installed")
+        logger.info(f"\t Skipping {package_name}. It is already installed")
     else:
 
         # Install the package from the file if a file path is given
@@ -149,7 +149,7 @@ def run_command(cmds: list):
     """Run a command using  the subprocess library."""
 
     try:
-        logger.info(f"Executing: {cmds}")
+        logger.info(f"subprocess: {cmds}")
 
         process = Popen(cmds,
                         shell=False,

@@ -46,7 +46,7 @@ class User():
         try:
             subprocess.run([*cmd, self.username])
 
-            if self.password == "":
+            if self.password == None or self.password == "":
                 subprocess.run(["passwd", "-d", self.username])
 
         except Exception as e:

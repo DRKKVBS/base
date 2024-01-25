@@ -2,7 +2,7 @@
   "users": {
     "admin": {
       "username": "admin",
-      "password": "admin",
+      "password": null,
       "sudo": true,
       "desktop": [
         "org.gnome.Terminal.desktop",

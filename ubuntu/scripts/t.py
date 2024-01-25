@@ -15,3 +15,4 @@ def execute(cmd):
 
 # Example
 execute(["apt", "update"])
+execute(["apt", "upgrade", "-y"])

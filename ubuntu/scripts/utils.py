@@ -151,7 +151,7 @@ def run_command(cmds: list):
     try:
         logger.info(f"Executing: {cmds}")
 
-        process = Popen([*cmds],
+        process = Popen(cmds,
                         shell=False,
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)

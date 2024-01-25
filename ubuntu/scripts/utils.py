@@ -156,7 +156,6 @@ def run_command(cmds: list):
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
         for stdout_line in iter(process.stdout.readlines(), ""):
-            yield stdout_line
             print(stdout_line, end="")
         process.stdout.close()
         return_code = process.wait()

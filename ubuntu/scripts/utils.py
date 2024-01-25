@@ -4,7 +4,7 @@ import logging.handlers
 import os
 import pwd
 import shutil
-import subprocess
+from subprocess import PIPE, Popen, run
 from user import User
 import custom_logger
 
@@ -149,8 +149,7 @@ def run_command(cmds: list):
 
     try:
         logger.info(f"Executing: {cmds}")
-        r = subprocess.Popen([*cmds],
-                             stdout=subprocess.PIPE, text=True, shell=False, bufsize=1)
+        r = Popen([*cmds], stdout=PIPE, shell=True, bufsize=1)
 
         if r.returncode != 0:
             logger.warning(
@@ -167,8 +166,8 @@ def run_command_as_user(cmds: list, user: User):
     """Run a command as a specific user using  the subprocess library."""
     try:
         logger.info(f"Executing: {cmds}")
-        r = subprocess.run([*cmds], shell=False,
-                           capture_output=True, text=True, user=user.get_uid(), group=user.get_gid())
+        r = run([*cmds], shell=False,
+                capture_output=True, text=True, user=user.get_uid(), group=user.get_gid())
 
         if r.returncode != 0:
             logger.warning(

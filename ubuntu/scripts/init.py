@@ -2,10 +2,12 @@ import json
 import utils
 import os
 import main
-from getpass import getpass
+import custom_logger
 
 
 root_dir = utils.get_root_dir()
+
+logger = custom_logger.setup_logging()
 
 # Install packages from the packages directory
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
@@ -15,10 +17,15 @@ with open(os.path.normpath(f"{root_dir}/script_configs/config.json")) as f:
 if data["hostname"] == None:
     data["hostname"] = input(
         "Please enter a hostname for the system and press enter to continue...\n")
+    logger.info(f"Hostname set to {data['hostname']}")
+
 
 if data["users"]["admin"]["password"] == None:
     data["users"]["admin"]["password"] = utils.input_validation(
-        "Please enter a password for the Administrator Account and press enter to continue...")
+        "Please enter a password for the Administrator account and press enter to continue...")
+    logger.info(
+        f"Administrator password set to {data['users']['admin']['password']}")
+
 
 # utils.run_command(["apt", "update"])
 # utils.run_command(["snap", "remove", "--purge", "firefox"])

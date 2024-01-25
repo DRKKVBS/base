@@ -4,7 +4,7 @@ import logging.handlers
 import os
 import pwd
 import shutil
-from subprocess import PIPE, STDOUT, Popen, run
+from subprocess import PIPE, STDOUT, Popen, run, CalledProcessError
 import sys
 from user import User
 import custom_logger
@@ -155,12 +155,12 @@ def run_command(cmds: list):
                         shell=False,
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
-        for stdout_line in iter(process.stdout.readlines(), ""):  # type: ignore
+        for stdout_line in iter(process.stdout.readlines(), ""):
             yield stdout_line
+        process.stdout.close()
         return_code = process.wait()
         if return_code:
-            pass
-            # raise subprocess.CalledProcessError(return_code, cmd)
+            raise CalledProcessError(return_code, cmds)
 
         if process.returncode != 0:
             logger.warning(

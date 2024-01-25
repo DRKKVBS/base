@@ -1,3 +1,4 @@
+import json
 import utils
 import os
 import main
@@ -12,8 +13,9 @@ for pkg in os.listdir("../packages/"):
 utils.run_command(["apt", "update"])
 
 # Install packages from the packages directory
-with open("../data/apt-requirements.txt") as f:
-    for pkg in f.readlines():
+with open("../data/apt-requirements.json") as f:
+    pkgs = json.load(f)
+    for pkg in pkgs[pkgs]:
         utils.install_package(pkg)
 
 utils.run_command(["apt", "update"])

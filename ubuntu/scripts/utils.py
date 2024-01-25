@@ -1,10 +1,7 @@
-import json
-import logging.config
-import logging.handlers
 import os
 import pwd
 import shutil
-from subprocess import PIPE, STDOUT, Popen, run, CalledProcessError
+from subprocess import PIPE, STDOUT, Popen, run
 import sys
 from user import User
 import custom_logger
@@ -280,7 +277,7 @@ def input_validation(question: str):
         if input1 == input2:
             return input1
         else:
-            print("Yout inputs do not match. Please try again.\n")
+            print("Your inputs do not match. Please try again.\n")
 
 # def hide_desktop_app(app: str, user: User):
 #     '''Hide a desktop app from user so he cannot access via the acitvities screen.'''

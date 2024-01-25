@@ -27,29 +27,28 @@ if data["users"]["admin"]["password"] == None:
         f"Administrator password set to {data['users']['admin']['password']}")
 
 
-# utils.run_command(["apt", "update"])
-# utils.run_command(["snap", "remove", "--purge", "firefox"])
-# utils.run_command(["apt", "upgrade", "-y"])
+utils.run_command(["apt", "update"])
+utils.run_command(["snap", "remove", "--purge", "firefox"])
+utils.run_command(["apt", "upgrade", "-y"])
 
-# # Install packages from the packages directory
-# for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
-#     utils.install_package(pkg)
+# Install packages from the packages directory
+for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
+    utils.install_package(pkg)
 
-# utils.run_command(["apt", "update"])
-
-
-# for pkg in data["apt_packages"]:
-#     utils.install_package(pkg)
+utils.run_command(["apt", "update"])
 
 
-# utils.run_command(["apt", "update"])
-# utils.run_command(["apt", "upgrade", "-y"])
+for pkg in data["apt_packages"]:
+    utils.install_package(pkg)
 
-# utils.run_command(["apt", "purge", "-y", "gnome-initial-setup"])
-# utils.run_command(["pip3", "install", "--upgrade", "pip"])
-# utils.run_command(["pip3", "install", "-r", "../data/pip-requirements.txt"])
+for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
+            ["apt", "purge", "-y", "gnome-initial-setup"],
+            ["pip3", "install", "--upgrade", "pip"],
+            ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
+    utils.run_command(cmd)
 
-# main.main()
-# utils.run_command(["dconf", "update"])
-# utils.run_command(["grub-mkconfig", "-o", "/boot/grub/grub.cfg"])
-# utils.run_command(["reboot"])
+
+main.main()
+
+for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
+    utils.run_command(cmd)

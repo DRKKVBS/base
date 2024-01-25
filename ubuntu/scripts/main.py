@@ -1,10 +1,7 @@
-import argparse
 import json
 import os
 import shutil
 import utils
-import logging.config
-import logging.handlers
 import custom_logger
 
 from user import User
@@ -15,7 +12,6 @@ def main():
     # Set the directory depending on the location of the script
     currrent_dir = utils.get_root_dir()
     data_dir = os.path.normpath(f"{currrent_dir}/data/")
-    package_dir = os.path.normpath(f"{currrent_dir}/packages/")
 
     logger = custom_logger.setup_logging()
 

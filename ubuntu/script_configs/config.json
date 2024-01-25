@@ -30,53 +30,65 @@
   "files_to_copy": {
     "drk-logo": {
       "source": "/logos/drk-logo.png",
-      "destination": "/usr/share/drk/drk-logo.png"
+      "destination": "/usr/share/drk/drk-logo.png",
+      "comment": "Logo for the login screen"
     },
     "x11-vty-switch": {
       "source": "/01-vt-switch.conf",
-      "destination": "/etc/X11/xorg.conf.d/01-vt-switch.conf"
+      "destination": "/etc/X11/xorg.conf.d/01-vt-switch.conf",
+      "comment": "Disable Virtual Terminals"
     },
     "workspace-autostart": {
       "source": "/myWorkspaceAutostart.desktop",
-      "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop"
+      "destination": "/etc/xdg/autostart/myWorkspaceAutostart.desktop",
+      "comment": "Autostart myWorkspace.desktop. It's private firefox window with the BOS Landing Page"
     },
     "gdm-conf": {
       "source": "/gdm.conf",
-      "destination": "/etc/gdm3/custom.conf"
+      "destination": "/etc/gdm3/custom.conf",
+      "comment": "Display Manager Configuration"
     },
     "grub-conf": {
       "source": "/grub",
-      "destination": "/etc/default/grub"
+      "destination": "/etc/default/grub",
+      "comment": "Bootloader Configuration"
     },
     "firefox-policies": {
       "source": "/firefox/policies.json",
-      "destination": "/etc/firefox/policies/policies.json"
+      "destination": "/etc/firefox/policies/policies.json",
+      "comment": "Firefox Configuration"
     },
     "post-install": {
       "source": "/post-install.sh",
-      "destination": "/home/admin/post-install.sh"
+      "destination": "/home/admin/post-install.sh",
+      "comment": "Post Install Script"
     },
     "wifi": {
       "source": "/DRK_SAK_Intern_Mobile.nmconnection",
-      "destination": "/etc/NetworkManager/system-connections/DRK_SAK_Intern_Mobile.nmconnection"
+      "destination": "/etc/NetworkManager/system-connections/DRK_SAK_Intern_Mobile.nmconnection",
+      "comment": "Internal DRK Wifi Configuration"
     }
   },
   "dirs_to_copy": {
     "dconf": {
       "source": "/dconf/",
-      "destination": "/etc/dconf/"
+      "destination": "/etc/dconf/",
+      "comment": "Gnome Configuration"
     },
     "AccountsService": {
       "source": "/AccountsService/",
-      "destination": "/var/lib/AccountsService/"
+      "destination": "/var/lib/AccountsService/",
+      "comment": "AccountsService Configuration"
     },
     "systemd-drop-ins": {
       "source": "/systemd/",
-      "destination": "/usr/lib/systemd/logind.conf.d/"
+      "destination": "/usr/lib/systemd/logind.conf.d/",
+      "comment": "Systemd Configuration"
     },
     "firefox": {
       "source": "/firefox/",
-      "destination": "/etc/firefox/policies/"
+      "destination": "/etc/firefox/policies/",
+      "comment": "Custom Firefox files"
     }
   },
   "apt_packages": [

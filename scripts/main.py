@@ -40,6 +40,11 @@ def main():
     helper.run_command(["apt", "update"])
     helper.run_command(["snap", "remove", "--purge", "firefox"])
 
+    # Make icaclient installation non interactive
+    for cmd in [["export", "DEBIAN_FRONTEND='noninteractive'"],["debconf-set-selections", "<<<", "'icaclient app_protection/install_app_protection select yes'"], ["debconf-show", "icaclient"]]:
+        helper.run_command(cmd)
+
+
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
         pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))

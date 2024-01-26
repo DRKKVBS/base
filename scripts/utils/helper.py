@@ -32,7 +32,9 @@ def run_command(cmds: list):
                         shell=False,
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
+        output = ""
         for stdout_line in iter(process.stdout.readline, ""):
+            output.join(stdout_line)
             print(stdout_line, end="")
         process.stdout.close()
         return_code = process.wait()
@@ -41,7 +43,7 @@ def run_command(cmds: list):
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return
-        return process
+        return process.stdout
 
     except OSError as e:
         logger.error(f"Failed to execute command: {cmds} {e}")

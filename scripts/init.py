@@ -1,11 +1,12 @@
 import json
 import utils
+from utils import filesystem, utils, user_helper, package
 import os
 import main
 from custom_logger import logger
 
 
-root_dir = utils.get_root_dir()
+root_dir = filesystem.get_root_dir()
 
 # Install packages from the packages directory
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "r") as f:
@@ -35,13 +36,13 @@ utils.run_command(["apt", "upgrade", "-y"])
 
 # Install packages from the packages directory
 for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
-    utils.install_package(pkg)
+    package.install_package(pkg)
 
 utils.run_command(["apt", "update"])
 
 
 for pkg in data["packages"]["install"]:
-    utils.install_package(pkg)
+    package.install_package(pkg)
 
 for pkg in data["packages"]["remove"]:
     utils.run_command(["apt", "remove", "-y", pkg])

@@ -2,16 +2,15 @@ import json
 import os
 import shutil
 
-from importlib import resources
 
-import utils
+from utils import filesystem, utils, user_helper, package
 from custom_logger import logger
 from user import User
 
 
 def main():
 
-    root = utils.get_root_dir()
+    root = filesystem.get_root_dir()
 
     # Load the config file
     try:
@@ -105,7 +104,7 @@ def main():
             except Exception as e:
                 logger.error(f"Error setting file permissions: {e}")
 
-            utils.set_file_permissions(
+            filesystem.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
 

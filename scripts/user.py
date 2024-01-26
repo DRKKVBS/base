@@ -3,7 +3,8 @@ import pwd
 import subprocess
 from crypt import crypt  # type: ignore
 
-from utils import run_command, user_exists
+from utils.utils import run_command
+from utils.user_helper import user_exists
 from custom_logger import logger
 
 

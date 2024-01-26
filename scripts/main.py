@@ -39,7 +39,6 @@ def main():
 
     helper.run_command(["apt", "update"])
     helper.run_command(["snap", "remove", "--purge", "firefox"])
-    helper.run_command(["apt", "upgrade", "-y"])
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):

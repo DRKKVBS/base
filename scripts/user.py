@@ -23,7 +23,7 @@ class User():
     def __create(self):
         """Create a user."""
 
-        logger.info(f"Creating user {self.username}")
+        logger.info(f"Creating Account: {self.username}")
 
         # Check if user exists
         if user_exists(self.username):
@@ -40,7 +40,7 @@ class User():
             cmd.append("-G")
             cmd.append("sudo")
 
-        if self.password != None or self.password != "":
+        if self.password != None and self.password != "":
             logger.info(f"Setting password")
             cmd.append("-p")
             cmd.append(crypt(self.password))

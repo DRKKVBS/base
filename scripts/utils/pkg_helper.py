@@ -25,4 +25,4 @@ def apt_installed(package_name: str):
     """Check if a package is installed."""
     process = run_command(["apt", "list", "--installed", package_name])
 
-    return True if process is not None and package_name not in process else False
+    return True if process is not None and package_name in process else False

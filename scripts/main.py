@@ -29,28 +29,23 @@ def main():
     with open("/etc/hostname", "w") as f:
         f.write(data["hostname"] + "\n")
 
-
     if data["users"]["admin"]["password"] == None:
         data["users"]["admin"]["password"] = helper.input_validation(
             "Please enter a password for the Administrator account and press enter to continue...")
         logger.info(
             f"Administrator password set to {data['users']['admin']['password']}")
 
-
     helper.run_command(["apt", "update"])
-    helper.run_command(["snap", "remove", "--purge", "firefox"])
 
-    # Make icaclient installation non interactive
-    for cmd in [["export", "DEBIAN_FRONTEND='noninteractive'"],["debconf-set-selections", "<<<", "'icaclient app_protection/install_app_protection select yes'"], ["debconf-show", "icaclient"]]:
-        helper.run_command(cmd)
-
+    # # Make icaclient installation non interactive
+    # for cmd in [["export", "DEBIAN_FRONTEND='noninteractive'"], ["debconf-set-selections", "<<<", "'icaclient app_protection/install_app_protection select yes'"], ["debconf-show", "icaclient"]]:
+    #     helper.run_command(cmd)
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
         pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))
 
     helper.run_command(["apt", "update"])
-
 
     for pkg in data["packages"]["install"]:
         pkg_helper.install_package(pkg)
@@ -63,8 +58,6 @@ def main():
                 ["pip3", "install", "--upgrade", "pip"],
                 ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
         helper.run_command(cmd)
-
-
 
     # Create missing directories
     # Needed to copy files later on
@@ -152,10 +145,9 @@ def main():
 
             fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
-            
+
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         helper.run_command(cmd)
-
 
 
 if __name__ == "__main__":

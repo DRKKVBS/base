@@ -21,7 +21,7 @@
       "class": "logging.handlers.RotatingFileHandler",
       "level": "WARNING",
       "formatter": "detailed",
-      "filename": "../monitor.log",
+      "filename": "../configuration.log",
       "maxBytes": 10485760,
       "backupCount": 3
     }

@@ -1,23 +1,22 @@
 import json
-import os
+from os import makedirs, listdir, chmod  # type: ignore
+from os.path import normpath
 import shutil
-import utils
-import custom_logger
 
+from importlib import resources
+
+import utils
+from custom_logger import logger
 from user import User
 
 
 def main():
 
-    # Set the directory depending on the location of the script
-    currrent_dir = utils.get_root_dir()
-    data_dir = os.path.normpath(f"{currrent_dir}/data/")
-
-    logger = custom_logger.setup_logging()
+    root = utils.get_root_dir()
 
     # Load the config file
     try:
-        with open(f"{currrent_dir}/script_configs/config.json", "r") as f:
+        with open(f"{root}/script_configs/config.json", "r") as f:
             data = json.load(f)
     except Exception as e:
         logger.error(f"Error loading config file: {e}")
@@ -28,7 +27,7 @@ def main():
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
         try:
             logger.info(f"Creating directory {missing_dir}")
-            os.makedirs(f"{missing_dir}", exist_ok=True)
+            makedirs(f"{missing_dir}", exist_ok=True)
         except Exception as e:
             logger.error(f"Error creating directory {missing_dir}: {e}")
 
@@ -41,16 +40,16 @@ def main():
     # Copy files
     for _, paths in data["files_to_copy"].items():
         try:
-            shutil.copyfile(os.path.normpath(
-                f"{data_dir}/{paths['source']}"), f"{paths['destination']}")
+            shutil.copyfile(normpath(
+                f"{root}/data/{paths['source']}"), f"{paths['destination']}")
         except Exception as e:
             logger.error(f"Error copying file: {e}")
 
     # Copy directories
     for _, paths in data["dirs_to_copy"].items():
         try:
-            shutil.copytree(
-                f"{data_dir}/{paths['source']}", f"{paths['destination']}", dirs_exist_ok=True)
+            shutil.copytree(normpath(
+                f"{root}/data/{paths['source']}"), f"{paths['destination']}", dirs_exist_ok=True)
         except Exception as e:
             logger.error(f"Error copying directory: {e}")
 
@@ -58,16 +57,16 @@ def main():
     for user in users:
 
         # Copy custom desktop entries
-        shutil.copytree(os.path.normpath(f"{data_dir}/DesktopEntries/"),
-                        os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
+        shutil.copytree(normpath(f"{root}/data//DesktopEntries/"),
+                        normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
-        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
+        with open(normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
             f.write("# Set environment variables\n")
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
-        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
+        with open(normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
             if f.read() != "":
                 f.write(
                     "[Default Applications]\napplication/ica=icaclient.desktop")
@@ -75,11 +74,11 @@ def main():
                 f.write("application/ica=icaclient.desktop")
 
         for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
-            for app in os.listdir(path):
+            for app in listdir(path):
                 if app.endswith(".desktop"):
-                    shutil.copyfile(os.path.normpath(
-                        f"{path}/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
-                    with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
+                    shutil.copyfile(normpath(
+                        f"{path}/{app}"), normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
+                    with open(normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
                         content = f.read()
                         if app in user.desktop_entries:
                             if "NoDisplay=true" in content:
@@ -100,7 +99,13 @@ def main():
                         f.write(content)
 
         # Set file permissions for desktop entries
-        for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
+        for file in listdir(normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
+            try:
+                shutil.chown(file, user=user.get_uid(), group=user.get_gid())
+                chmod(file, 0o664)
+            except Exception as e:
+                logger.error(f"Error setting file permissions: {e}")
+
             utils.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 

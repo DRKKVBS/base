@@ -1,18 +1,16 @@
-import os
-import pwd
+from os import makedirs, chmod, listdir, path
+from os.path import normpath, realpath, dirname
 import shutil
 from subprocess import PIPE, STDOUT, Popen, run
 import sys
-from user import User
-import custom_logger
 
-# Setup logging
-logger = custom_logger.setup_logging()
+from user import User
+from custom_logger import logger
 
 
 def get_root_dir():
-    return os.path.realpath(
-        os.path.dirname(__file__)).split('scripts')[0]
+    """Get the root directory of the project."""
+    return realpath(dirname(__file__)).split('scripts')[0]
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):
@@ -31,32 +29,6 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
         else:
             dict1[k] = dict2[k]
     return dict2
-
-
-def chmod_recursive(root_path: str, mode: int, uid: int, gid: int):
-    """Change permissions recursively for directories."""
-
-    # Change permissions for the top-level folder
-    os.chmod(root_path, mode)
-    logger.info(f"Changed permissions for {root_path} to {mode}")
-    for root, dirs, files in os.walk(root_path):
-        # Set perms on sub-directories
-        for dir in dirs:
-
-            dir = os.path.join(root, dir)
-            os.chown(dir, uid=uid, gid=gid)  # type: ignore
-            logger.info(f"Changed Ownership for {dir} to {uid}:{gid}")
-            os.chmod(dir, mode)
-            logger.info(f"Changed permissions for {dir} to {uid}:{gid}")
-
-        # Set perms on files
-        for file in files:
-            file = os.path.join(root, file)
-            os.chown(file, uid=uid, gid=gid)  # type: ignore
-            logger.info(f"Changed Ownership for {file} to {uid}:{gid}")
-
-            os.chmod(file, mode)
-            logger.info(f"Changed permissions for {file} to {uid}:{gid}")
 
 
 def install_package(package_name: str, file_path=None):
@@ -79,45 +51,15 @@ def package_is_installed(package_name: str):
     return True if run_command(["dpkg", "-l", package_name]) != None else False
 
 
-def get_uid(user: str):
-    """Get the uid of a user."""
-
-    try:
-        return pwd.getpwnam(user).pw_uid  # type: ignore
-    except KeyError:
-        logger.error(f"User {user} not found!")
-        raise
-
-
-def get_gid(user: str):
-    """Get the gid of a user."""
-
-    try:
-        return pwd.getpwnam(user).pw_gid  # type: ignore
-    except KeyError:
-        logger.error(f"User {user} not found!")
-        raise
-
-
-def get_home_dir(user: str):
-    """Get the gid of a user."""
-
-    try:
-        return pwd.getpwnam(user).pw_gid  # type: ignore
-    except KeyError:
-        logger.error(f"User {user} not found!")
-        raise
-
-
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
-    file_path = os.path.normpath(file_path)
+    file_path = normpath(file_path)
     try:
         logger.info(f"Set Ownership of {file_path}!")
-        os.chown(file_path, uid, gid)  # type: ignore
+        shutil.chown(file_path, uid, gid)  # type: ignore
 
         logger.info(f"Set Permissions of {file_path}!")
-        os.chmod(file_path, mode)
+        chmod(file_path, mode)
     except FileNotFoundError as e:
         logger.error(f"File {file_path} not found!")
 
@@ -125,14 +67,14 @@ def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
 def make_immutable(path: str):
     '''Make a file or a directory immutable using Chattr.'''
 
-    path = os.path.normpath(path)
+    path = normpath(path)
     run_command(["chattr", "+i", path])
 
 
 def make_mutable(path: str):
     '''Make a file or a directory mutable using Chattr.'''
 
-    path = os.path.normpath(path)
+    path = normpath(path)
     run_command(["chattr", "-i", path])
 
 
@@ -185,22 +127,22 @@ def run_command_as_user(cmds: list, user: User):
 
 def add_desktop_app(user: User, visible_apps: list):
 
-    applications_path = os.path.normpath(
+    applications_path = normpath(
         f"{user.get_home_dir()}/.local/share/applications/")
 
-    for app in os.listdir("/usr/share/applications/"):
+    for app in listdir("/usr/share/applications/"):
 
-        if app.endswith(".desktop") and app not in os.listdir(applications_path):
-            shutil.copyfile(os.path.normpath(
-                f"/usr/share/applications/{app}"), os.path.normpath(f"{applications_path}/{app}"))
+        if app.endswith(".desktop") and app not in listdir(applications_path):
+            shutil.copyfile(normpath(
+                f"/usr/share/applications/{app}"), normpath(f"{applications_path}/{app}"))
 
-        shutil.chown(os.path.normpath(
+        shutil.chown(normpath(
             f"{applications_path}/{app}"), user.get_uid(), user.get_gid())
 
-    for app in os.listdir(applications_path):
+    for app in listdir(applications_path):
 
         if app in visible_apps:
-            with open(os.path.normpath(f"{applications_path}/{app}"), "r+") as f:
+            with open(normpath(f"{applications_path}/{app}"), "r+") as f:
                 text = f.read()
                 if "NoDisplay=True" in text:
                     text.replace("NoDisplay=True", "NoDisplay=False")
@@ -210,7 +152,7 @@ def add_desktop_app(user: User, visible_apps: list):
                     text.replace("[Desktop Entry]",
                                  "[Desktop Entry]\nNoDisplay=False")
         else:
-            with open(os.path.normpath(f"{applications_path}/{app}"), "r+") as f:
+            with open(normpath(f"{applications_path}/{app}"), "r+") as f:
                 text = f.read()
                 if "NoDisplay=True" in text:
                     break

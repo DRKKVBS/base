@@ -48,7 +48,7 @@ class User():
         # Create user
         logger.info([*cmd, self.username])
         subprocess.Popen(cmd,
-                        shell=False,
+                        shell=True,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT, text=True, universal_newlines=True)
         # run_command([*cmd, self.username])

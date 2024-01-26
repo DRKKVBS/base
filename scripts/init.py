@@ -9,7 +9,7 @@ from custom_logger import logger
 root_dir = filesystem.get_root_dir()
 
 # Install packages from the packages directory
-with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "r") as f:
+with open(os.path.normpath(f"{root_dir}/configs/config.json"), "r") as f:
     data = json.load(f)
 
 # Promt the user to enter a hostname if none is set

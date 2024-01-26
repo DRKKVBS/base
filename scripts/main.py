@@ -14,7 +14,7 @@ def main():
 
     # Load the config file
     try:
-        with open(f"{root}/script_configs/config.json", "r") as f:
+        with open(f"{root}/configs/config.json", "r") as f:
             data = json.load(f)
     except Exception as e:
         logger.error(f"Error loading config file: {e}")

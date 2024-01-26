@@ -20,6 +20,48 @@ def main():
         logger.error(f"Error loading config file: {e}")
         exit(1)
 
+    # Promt the user to enter a hostname if none is set
+    if data["hostname"] == None:
+        data["hostname"] = input(
+            "Please enter a hostname for the system and press enter to continue...\n")
+        logger.info(f"Hostname set to {data['hostname']}")
+
+    with open("/etc/hostname", "w") as f:
+        f.write(data["hostname"] + "\n")
+
+
+    if data["users"]["admin"]["password"] == None:
+        data["users"]["admin"]["password"] = helper.input_validation(
+            "Please enter a password for the Administrator account and press enter to continue...")
+        logger.info(
+            f"Administrator password set to {data['users']['admin']['password']}")
+
+
+    helper.run_command(["apt", "update"])
+    helper.run_command(["snap", "remove", "--purge", "firefox"])
+    helper.run_command(["apt", "upgrade", "-y"])
+
+    # Install packages from the packages directory
+    for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
+        package.install_package(pkg)
+
+    helper.run_command(["apt", "update"])
+
+
+    for pkg in data["packages"]["install"]:
+        package.install_package(pkg)
+
+    for pkg in data["packages"]["remove"]:
+        helper.run_command(["apt", "remove", "-y", pkg])
+
+    for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
+                ["apt", "purge", "-y", "gnome-initial-setup"],
+                ["pip3", "install", "--upgrade", "pip"],
+                ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
+        helper.run_command(cmd)
+
+
+
     # Create missing directories
     # Needed to copy files later on
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
@@ -106,6 +148,10 @@ def main():
 
             filesystem.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
+            
+    for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
+        helper.run_command(cmd)
+
 
 
 if __name__ == "__main__":

@@ -8,6 +8,6 @@ disable-extensions-version-validation=false
 # List extensions that should be loaded
 enabled-extensions=['']
 # Apps that will be displayed in the favourites area
-favorite-apps=['org.gnome.Settings.desktop', 'myWorkspace.desktop', 'shutdown.desktop', 'reboot.desktop', 'support.desktop']
+favorite-apps=['"gnome-control-center.desktop",', 'myWorkspace.desktop', 'shutdown.desktop', 'reboot.desktop', 'support.desktop']
 # For which version the 'Welcome Gnome' dialogue was last shown. An empty string represnts the oldest version. A huge number can be used to effectively disalbe the dialogue
 welcome-dialog-last-shown-version=99999.9

@@ -6,7 +6,7 @@ def install_package(package_name: str):
 
     logger.info(f"Installing {package_name}")
 
-    if apt_installed(package_name):
+    if apt_installed(package_name) or snap_installed(package_name):
         logger.debug(f"\t Skipping {package_name}. It is already installed")
         return
     run_command(["apt", "install", "-y", package_name])

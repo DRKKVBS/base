@@ -41,6 +41,7 @@ helper.run_command(["snap", "remove", "--purge", "firefox"])
 
 # Install packages from the packages directory
 for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
+    print(pkg)
     pkg_helper.install_package(pkg)
 
 helper.run_command(["apt", "update"])

@@ -42,7 +42,7 @@ def main():
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
-        pkg_helper.install_package(pkg)
+        pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))
 
     helper.run_command(["apt", "update"])
 

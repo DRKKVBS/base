@@ -1,6 +1,6 @@
 import json
-import utils
-from utils import filesystem, utils, user_helper, package
+from scripts.utils import helper
+from utils import filesystem, user_helper, package
 import os
 import main
 from custom_logger import logger
@@ -20,7 +20,7 @@ if data["hostname"] == None:
 
 
 if data["users"]["admin"]["password"] == None:
-    data["users"]["admin"]["password"] = utils.input_validation(
+    data["users"]["admin"]["password"] = helper.input_validation(
         "Please enter a password for the Administrator account and press enter to continue...")
     logger.info(
         f"Administrator password set to {data['users']['admin']['password']}")
@@ -31,31 +31,31 @@ with open(os.path.normpath(f"{root_dir}/configs/config.json"), "w") as f:
     print(json.dumps(data, indent=4))
 
 
-utils.run_command(["apt", "update"])
-utils.run_command(["snap", "remove", "--purge", "firefox"])
-utils.run_command(["apt", "upgrade", "-y"])
+helper.run_command(["apt", "update"])
+helper.run_command(["snap", "remove", "--purge", "firefox"])
+helper.run_command(["apt", "upgrade", "-y"])
 
 # Install packages from the packages directory
 for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
     package.install_package(pkg)
 
-utils.run_command(["apt", "update"])
+helper.run_command(["apt", "update"])
 
 
 for pkg in data["packages"]["install"]:
     package.install_package(pkg)
 
 for pkg in data["packages"]["remove"]:
-    utils.run_command(["apt", "remove", "-y", pkg])
+    helper.run_command(["apt", "remove", "-y", pkg])
 
 for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
             ["apt", "purge", "-y", "gnome-initial-setup"],
             ["pip3", "install", "--upgrade", "pip"],
             ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
-    utils.run_command(cmd)
+    helper.run_command(cmd)
 
 
 main.main()
 
 for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
-    utils.run_command(cmd)
+    helper.run_command(cmd)

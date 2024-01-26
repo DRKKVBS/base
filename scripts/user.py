@@ -3,7 +3,7 @@ import pwd
 import subprocess
 from crypt import crypt  # type: ignore
 
-from utils.utils import run_command
+from scripts.utils.helper import run_command
 from utils.user_helper import user_exists
 from custom_logger import logger
 
@@ -46,6 +46,7 @@ class User():
             cmd.append(crypt(self.password))
 
         # Create user
+        logger.info([*cmd, self.username])
         run_command([*cmd, self.username])
 
         if self.password == None or self.password == "":

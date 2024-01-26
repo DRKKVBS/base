@@ -46,14 +46,7 @@ class User():
             cmd.append(crypt(self.password))
 
         # Create user
-        logger.info([*cmd, self.username])
-        logger.info([*cmd, self.username])
-        # process = subprocess.Popen([*cmd, self.username],
-        #                 shell=False,
-        #                 stdout=subprocess.PIPE,
-        #                 stderr=subprocess.STDOUT, text=True, universal_newlines=True)
         process = run_command([*cmd, self.username])
-        logger.info(process.stdout.read())
 
 
         if self.password == None or self.password == "":

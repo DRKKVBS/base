@@ -16,6 +16,8 @@ if data["hostname"] == None:
     data["hostname"] = input(
         "Please enter a hostname for the system and press enter to continue...\n")
     logger.info(f"Hostname set to {data['hostname']}")
+with open("/etc/hostname", "w") as f:
+    f.write(data["hostname"] + "\n")
 
 
 if data["users"]["admin"]["password"] == None:

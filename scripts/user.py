@@ -48,7 +48,7 @@ class User():
         # Create user
         run_command([*cmd, self.username])
 
-        if self.password != None or self.password != "":
+        if self.password == None or self.password == "":
             # Remove password
             logger.info(f"Removing password")
             run_command(["passwd", "-d", self.username])

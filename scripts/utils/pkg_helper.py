@@ -26,4 +26,4 @@ def apt_installed(package_name: str):
     process = run_command(["apt", "list", "--installed", package_name])
     print("APT INSTALLED: ",process)
 
-    return True if  process is None else False
+    return True if package_name not in process.stdout.read() else False

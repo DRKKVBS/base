@@ -26,7 +26,7 @@ except Exception as e:
 # Install packages from the packages directory
 for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
     print(pkg)
-    pkg_helper.install_package(pkg)
+    pkg_helper.install_package(pkg.split("_")[0])
 pkg_helper.install_package("nano")
 
 # helper.run_command(["apt", "update"])

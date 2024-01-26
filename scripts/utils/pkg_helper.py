@@ -24,6 +24,6 @@ def snap_installed(package_name: str):
 def apt_installed(package_name: str):
     """Check if a package is installed."""
     process = run_command(["apt", "list", "--installed", package_name])
-    print(process)
+    print("APT INSTALLED: ",process)
 
     return True if  process is None else False

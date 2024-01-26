@@ -1,3 +1,4 @@
+import os
 from custom_logger import logger
 from utils.helper import run_command
 
@@ -11,6 +12,17 @@ def install_package(package_name: str):
         return
     run_command(["apt", "install", "-y", package_name])
 
+def install_file(path:str):
+    """Install a package from file."""
+
+    package_name = os.path.split(path)[1].split("_")[0]
+
+    logger.info(f"Installing {package_name}")
+
+    if apt_installed(package_name) or snap_installed(package_name):
+        logger.debug(f"\t Skipping {package_name}. It is already installed")
+        return
+    run_command(["apt", "install", "-y", path])
 
 def remove_package(package_name: str):
     """Remove a package from the system."""

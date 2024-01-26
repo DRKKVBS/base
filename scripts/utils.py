@@ -1,8 +1,8 @@
-from os import makedirs, chmod, listdir, path
-from os.path import normpath, realpath, dirname
+import os
 import shutil
 from subprocess import PIPE, STDOUT, Popen, run
 import sys
+import pwd
 
 from user import User
 from custom_logger import logger
@@ -10,7 +10,7 @@ from custom_logger import logger
 
 def get_root_dir():
     """Get the root directory of the project."""
-    return realpath(dirname(__file__)).split('scripts')[0]
+    return os.path.realpath(os.path.dirname(__file__)).split('scripts')[0]
 
 
 def merge_and_update_dicts(dict1: dict, dict2: dict):
@@ -53,13 +53,13 @@ def package_is_installed(package_name: str):
 
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
-    file_path = normpath(file_path)
+    file_path = os.path.normpath(file_path)
     try:
         logger.info(f"Set Ownership of {file_path}!")
         shutil.chown(file_path, uid, gid)  # type: ignore
 
         logger.info(f"Set Permissions of {file_path}!")
-        chmod(file_path, mode)
+        os.chmod(file_path, mode)
     except FileNotFoundError as e:
         logger.error(f"File {file_path} not found!")
 
@@ -67,14 +67,14 @@ def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
 def make_immutable(path: str):
     '''Make a file or a directory immutable using Chattr.'''
 
-    path = normpath(path)
+    path = os.path.normpath(path)
     run_command(["chattr", "+i", path])
 
 
 def make_mutable(path: str):
     '''Make a file or a directory mutable using Chattr.'''
 
-    path = normpath(path)
+    path = os.path.normpath(path)
     run_command(["chattr", "-i", path])
 
 
@@ -127,22 +127,22 @@ def run_command_as_user(cmds: list, user: User):
 
 def add_desktop_app(user: User, visible_apps: list):
 
-    applications_path = normpath(
+    applications_path = os.path.normpath(
         f"{user.get_home_dir()}/.local/share/applications/")
 
-    for app in listdir("/usr/share/applications/"):
+    for app in os.listdir("/usr/share/applications/"):
 
-        if app.endswith(".desktop") and app not in listdir(applications_path):
-            shutil.copyfile(normpath(
-                f"/usr/share/applications/{app}"), normpath(f"{applications_path}/{app}"))
+        if app.endswith(".desktop") and app not in os.listdir(applications_path):
+            shutil.copyfile(os.path.normpath(
+                f"/usr/share/applications/{app}"), os.path.normpath(f"{applications_path}/{app}"))
 
-        shutil.chown(normpath(
+        shutil.chown(os.path.normpath(
             f"{applications_path}/{app}"), user.get_uid(), user.get_gid())
 
-    for app in listdir(applications_path):
+    for app in os.listdir(applications_path):
 
         if app in visible_apps:
-            with open(normpath(f"{applications_path}/{app}"), "r+") as f:
+            with open(os.path.normpath(f"{applications_path}/{app}"), "r+") as f:
                 text = f.read()
                 if "NoDisplay=True" in text:
                     text.replace("NoDisplay=True", "NoDisplay=False")
@@ -152,7 +152,7 @@ def add_desktop_app(user: User, visible_apps: list):
                     text.replace("[Desktop Entry]",
                                  "[Desktop Entry]\nNoDisplay=False")
         else:
-            with open(normpath(f"{applications_path}/{app}"), "r+") as f:
+            with open(os.path.normpath(f"{applications_path}/{app}"), "r+") as f:
                 text = f.read()
                 if "NoDisplay=True" in text:
                     break
@@ -209,6 +209,15 @@ def input_validation(question: str):
             return input1
         else:
             print("Your inputs do not match. Please try again.\n")
+
+
+def user_exists(username:str) -> bool:
+        """Check if a user exists."""
+        try:
+            pwd.getpwnam(self.username)  # type: ignore
+            return True
+        except KeyError:
+            return False
 
 # def hide_desktop_app(app: str, user: User):
 #     '''Hide a desktop app from user so he cannot access via the acitvities screen.'''

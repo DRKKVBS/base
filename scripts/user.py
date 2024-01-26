@@ -1,9 +1,10 @@
 import os
 import pwd
 import subprocess
-import crypt
-import utils
-import custom_logger
+from crypt import crypt  # type: ignore
+
+from utils import run_command, user_exists
+from custom_logger import logger
 
 
 class User():
@@ -14,73 +15,52 @@ class User():
         self.password = password
         self.sudo = sudo
         self.desktop_entries = desktop_entries
-        self.logger = custom_logger.setup_logging()
-        self.create_user()
+        self.__create()
+        self.__load_data()
+        self.__fill_home()
 
-    def create_user(self):
+    def __create(self):
         """Create a user."""
 
-        self.logger.info(f"Creating user {self.username}")
+        logger.info(f"Creating user {self.username}")
 
         # Check if user exists
-        if self.user_exists():
-            self.get_user_data()
-            self.logger.info(
-                f"Skipping User Creationt, {self.username} already exists!")
+        if user_exists(self.username):
+            self.__load_data()
+            logger.info(
+                f"Skipping User Creation, {self.username} already exists!")
             return
 
         cmd = ["useradd", "-m", "-s", "/bin/bash"]
 
         # Add user to the sudo group
         if self.sudo == True:
-            self.logger.info(f"Adding {self.username} to the sudo group")
+            logger.info(f"Adding {self.username} to the sudo group")
             cmd.append("-G")
             cmd.append("sudo")
 
-        # Set the user password
-        self.logger.info(f"Setting user password")
-        cmd.append("-p")
+        if self.password != None or self.password != "":
+            logger.info(f"Setting password")
+            cmd.append("-p")
+            cmd.append(crypt(self.password))
 
         # Create user
-        try:
-            subprocess.run([*cmd, self.username])
+        run_command([*cmd, self.username])
 
-            if self.password == None or self.password == "":
-                cmd.append(crypt.crypt(self.password))  # type: ignore
-                subprocess.run(["passwd", "-d", self.username])
+        if self.password != None or self.password != "":
+            # Remove password
+            logger.info(f"Removing password")
+            run_command(["passwd", "-d", self.username])
 
-        except Exception as e:
-            self.logger.error(f"Error creating user {self.username}: {e}")
+    
 
-        else:
-            self.get_user_data()
-            self.create_home_dir()
-
-    def user_exists(self) -> bool:
-        """Check if a user exists."""
-        try:
-            pwd.getpwnam(self.username)  # type: ignore
-            return True
-        except KeyError:
-            return False
-
-    def create_home_dir(self):
+    def __fill_home(self):
         """Create the home directory of the user."""
-
         for dir in ["/.config/", "/.local/share/applications/"]:
+            self.run_command(
+                ["mkdir", "-p",  os.path.normpath(f"{self.__home_dir}/{dir}")])
 
-            dir = os.path.normpath(f"{self.__home_dir}/{dir}")
-
-            # Create home directory
-            try:
-
-                self.run_command(
-                    ["mkdir", "-p",  dir])
-
-            except Exception as e:
-                print("Failed to create home directory: %s" % e)
-
-    def get_user_data(self):
+    def __load_data(self):
         """Get system data of the user"""
 
         # Get system data of the user
@@ -88,8 +68,6 @@ class User():
         self.__uid = user.pw_uid
         self.__gid = user.pw_gid
         self.__home_dir = user.pw_dir
-        print(user)
-        print(self.__home_dir)
 
     def get_uid(self) -> int:
         """Get the uid of a user."""
@@ -106,16 +84,16 @@ class User():
     def run_command(self, cmds: list):
         """Run a command as a specific user using  the subprocess library."""
         try:
-            self.logger.info(f"Executing: {cmds}")
+            logger.info(f"Executing: {cmds}")
             r = subprocess.run([*cmds], shell=False,
                                capture_output=True, text=True, user=self.__uid, group=self.__gid)
 
             if r.returncode != 0:
-                self.logger.warning(
+                logger.warning(
                     f"Command returned without returncode 0: {cmds}...{r.returncode}")
                 return
             return r
 
         except OSError as e:
-            self.logger.error(f"Failed to execute command: {cmds} {e}")
+            logger.error(f"Failed to execute command: {cmds} {e}")
             return

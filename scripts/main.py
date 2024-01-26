@@ -1,6 +1,5 @@
 import json
-from os import makedirs, listdir, chmod  # type: ignore
-from os.path import normpath
+import os
 import shutil
 
 from importlib import resources
@@ -27,7 +26,7 @@ def main():
     for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
         try:
             logger.info(f"Creating directory {missing_dir}")
-            makedirs(f"{missing_dir}", exist_ok=True)
+            os.makedirs(f"{missing_dir}", exist_ok=True)
         except Exception as e:
             logger.error(f"Error creating directory {missing_dir}: {e}")
 
@@ -40,7 +39,7 @@ def main():
     # Copy files
     for _, paths in data["files_to_copy"].items():
         try:
-            shutil.copyfile(normpath(
+            shutil.copyfile(os.path.normpath(
                 f"{root}/data/{paths['source']}"), f"{paths['destination']}")
         except Exception as e:
             logger.error(f"Error copying file: {e}")
@@ -48,7 +47,7 @@ def main():
     # Copy directories
     for _, paths in data["dirs_to_copy"].items():
         try:
-            shutil.copytree(normpath(
+            shutil.copytree(os.path.normpath(
                 f"{root}/data/{paths['source']}"), f"{paths['destination']}", dirs_exist_ok=True)
         except Exception as e:
             logger.error(f"Error copying directory: {e}")
@@ -57,16 +56,16 @@ def main():
     for user in users:
 
         # Copy custom desktop entries
-        shutil.copytree(normpath(f"{root}/data//DesktopEntries/"),
-                        normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
+        shutil.copytree(os.path.normpath(f"{root}/data//DesktopEntries/"),
+                        os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables
-        with open(normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
+        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
             f.write("# Set environment variables\n")
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
-        with open(normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
+        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
             if f.read() != "":
                 f.write(
                     "[Default Applications]\napplication/ica=icaclient.desktop")
@@ -74,11 +73,11 @@ def main():
                 f.write("application/ica=icaclient.desktop")
 
         for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
-            for app in listdir(path):
+            for app in os.listdir(path):
                 if app.endswith(".desktop"):
-                    shutil.copyfile(normpath(
-                        f"{path}/{app}"), normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
-                    with open(normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
+                    shutil.copyfile(os.path.normpath(
+                        f"{path}/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
+                    with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
                         content = f.read()
                         if app in user.desktop_entries:
                             if "NoDisplay=true" in content:
@@ -99,10 +98,10 @@ def main():
                         f.write(content)
 
         # Set file permissions for desktop entries
-        for file in listdir(normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
+        for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
             try:
                 shutil.chown(file, user=user.get_uid(), group=user.get_gid())
-                chmod(file, 0o664)
+                os.chmod(file, 0o664)
             except Exception as e:
                 logger.error(f"Error setting file permissions: {e}")
 

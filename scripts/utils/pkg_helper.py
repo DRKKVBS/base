@@ -6,7 +6,7 @@ def install_package(package_name: str):
 
     logger.info(f"Installing {package_name}")
 
-    if package_is_installed(package_name):
+    if apt_installed(package_name):
         logger.debug(f"\t Skipping {package_name}. It is already installed")
         return
     run_command(["apt", "install", "-y", package_name])
@@ -21,7 +21,7 @@ def snap_installed(package_name: str):
 
     return True if run_command(["snap", "list", package_name]) != None else False
 
-def package_is_installed(package_name: str):
+def apt_installed(package_name: str):
     """Check if a package is installed."""
 
-    return True if run_command(["dpkg", "-l", package_name]) != None else False
+    return True if run_command(["apt", "list", "--installed", package_name]) != None else False

@@ -2,7 +2,7 @@ import os
 import shutil
 
 from custom_logger import logger
-from utils import run_command
+from utils.utils import run_command
 from user import User
 
 def get_root_dir():

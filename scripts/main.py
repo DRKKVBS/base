@@ -1,10 +1,9 @@
 import json
 import os
 import shutil
-from scripts.utils import helper
 
 
-from utils import filesystem, user_helper, package
+from utils import filesystem, user_helper, package, helper
 from custom_logger import logger
 from user import User
 

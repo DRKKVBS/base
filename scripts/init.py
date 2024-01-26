@@ -1,6 +1,5 @@
 import json
-from scripts.utils import helper
-from utils import filesystem, user_helper, package
+from utils import filesystem, user_helper, package, helper
 import os
 import main
 from custom_logger import logger

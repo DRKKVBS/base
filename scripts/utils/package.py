@@ -1,4 +1,4 @@
-from scripts.utils.helper import run_command
+from helper import run_command
 from custom_logger import logger
 
 def install_package(package_name: str):

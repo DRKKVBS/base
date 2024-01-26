@@ -32,28 +32,28 @@ with open(os.path.normpath(f"{root_dir}/configs/config.json"), "w") as f:
     print(json.dumps(data, indent=4))
 
 
-helper.run_command(["apt", "update"])
-helper.run_command(["snap", "remove", "--purge", "firefox"])
-helper.run_command(["apt", "upgrade", "-y"])
+# helper.run_command(["apt", "update"])
+# helper.run_command(["snap", "remove", "--purge", "firefox"])
+# helper.run_command(["apt", "upgrade", "-y"])
 
 # Install packages from the packages directory
-for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
-    package.install_package(pkg)
+# for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
+    # package.install_package(pkg)
 
-helper.run_command(["apt", "update"])
+# helper.run_command(["apt", "update"])
 
 
-for pkg in data["packages"]["install"]:
-    package.install_package(pkg)
+# for pkg in data["packages"]["install"]:
+    # package.install_package(pkg)
 
 for pkg in data["packages"]["remove"]:
     helper.run_command(["apt", "remove", "-y", pkg])
 
-for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
-            ["apt", "purge", "-y", "gnome-initial-setup"],
-            ["pip3", "install", "--upgrade", "pip"],
-            ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
-    helper.run_command(cmd)
+# for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
+#             ["apt", "purge", "-y", "gnome-initial-setup"],
+#             ["pip3", "install", "--upgrade", "pip"],
+#             ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
+    # helper.run_command(cmd)
 
 
 main.main()

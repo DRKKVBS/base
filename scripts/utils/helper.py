@@ -36,6 +36,7 @@ def run_command(cmds: list):
         for stdout_line in iter(process.stdout.readline, ""):
             output.join(stdout_line)
             print(stdout_line, end="")
+        output = process.stdout.read()
         process.stdout.close()
         return_code = process.wait()
 
@@ -43,7 +44,7 @@ def run_command(cmds: list):
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return
-        return process.stdout
+        return output
 
     except OSError as e:
         logger.error(f"Failed to execute command: {cmds} {e}")
@@ -95,4 +96,3 @@ def input_validation(question: str):
             return input1
         else:
             print("Your inputs do not match. Please try again.\n")
-

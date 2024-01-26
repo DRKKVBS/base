@@ -26,7 +26,7 @@ if data["users"]["admin"]["password"] == None:
         f"Administrator password set to {data['users']['admin']['password']}")
 
 
-with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "w") as f:
+with open(os.path.normpath(f"{root_dir}/configs/config.json"), "w") as f:
     json.dump(data, f)
 
 

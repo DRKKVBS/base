@@ -1,6 +1,6 @@
+import json
 import logging.config
 import logging.handlers
-import json
 import os
 
 # Get root directory of the script

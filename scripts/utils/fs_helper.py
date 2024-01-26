@@ -2,8 +2,8 @@ import os
 import shutil
 
 from custom_logger import logger
-from utils.helper import run_command
 from user import User
+from utils.helper import run_command
 
 def get_root_dir():
     """Get the root directory of the project."""

@@ -3,14 +3,14 @@ import os
 import shutil
 
 
-from utils import filesystem, user_helper, package, helper
 from custom_logger import logger
 from user import User
+from utils import fs_helper, pkg_helper, helper
 
 
 def main():
 
-    root = filesystem.get_root_dir()
+    root = fs_helper.get_root_dir()
 
     # Load the config file
     try:
@@ -43,13 +43,13 @@ def main():
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
-        package.install_package(pkg)
+        pkg_helper.install_package(pkg)
 
     helper.run_command(["apt", "update"])
 
 
     for pkg in data["packages"]["install"]:
-        package.install_package(pkg)
+        pkg_helper.install_package(pkg)
 
     for pkg in data["packages"]["remove"]:
         helper.run_command(["apt", "remove", "-y", pkg])
@@ -146,7 +146,7 @@ def main():
             except Exception as e:
                 logger.error(f"Error setting file permissions: {e}")
 
-            filesystem.set_file_permissions(
+            fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
             
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:

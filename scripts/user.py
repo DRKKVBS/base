@@ -1,11 +1,11 @@
+from crypt import crypt  # type: ignore
 import os
 import pwd
 import subprocess
-from crypt import crypt  # type: ignore
 
-from utils.helper import run_command
-from utils.user_helper import user_exists
 from custom_logger import logger
+from utils.helper import run_command
+from utils.usr_helper import user_exists
 
 
 class User():

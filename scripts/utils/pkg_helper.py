@@ -1,5 +1,5 @@
-from utils.helper import run_command
 from custom_logger import logger
+from utils.helper import run_command
 
 def install_package(package_name: str):
     """Install a package using apt."""

@@ -91,16 +91,19 @@
       "comment": "Custom Firefox files"
     }
   },
-  "apt_packages": [
-    "git",
-    "firefox",
-    "python3-pip",
-    "gnome-backgrounds",
-    "vim",
-    "dkms",
-    "net-tools",
-    "openssh-server",
-    "displaylink-driver"
-  ],
+  "packages": {
+    "install": [
+      "git",
+      "firefox",
+      "python3-pip",
+      "gnome-backgrounds",
+      "vim",
+      "dkms",
+      "net-tools",
+      "openssh-server",
+      "displaylink-driver"
+    ],
+    "remove": []
+  },
   "hostname": null
 }

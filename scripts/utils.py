@@ -31,19 +31,26 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
     return dict2
 
 
-def install_package(package_name: str, file_path=None):
+def install_package(package_name: str):
     """Install a package using apt."""
 
     logger.info(f"Installing {package_name}")
 
     if package_is_installed(package_name):
         logger.debug(f"\t Skipping {package_name}. It is already installed")
-    else:
+        return
+    run_command(["apt", "install", "-y", package_name])
 
-        # Install the package from the file if a file path is given
-        package_name = package_name if file_path == None else file_path
-        run_command(["apt", "install", "-y", package_name])
 
+
+def remove_package(package_name: str):
+    """Remove a package from the system."""
+    pass
+
+def snap_installed(package_name: str):
+    """Check if a package is installed via snap."""
+
+    return True if run_command(["snap", "list", package_name]) != None else False
 
 def package_is_installed(package_name: str):
     """Check if a package is installed."""
@@ -89,6 +96,7 @@ def run_command(cmds: list):
                         stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
         for stdout_line in iter(process.stdout.readline, ""):
+            yield stdout_line
             print(stdout_line, end="")
         process.stdout.close()
         return_code = process.wait()

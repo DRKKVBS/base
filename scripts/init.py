@@ -2,12 +2,10 @@ import json
 import utils
 import os
 import main
-import custom_logger
+from custom_logger import logger
 
 
 root_dir = utils.get_root_dir()
-
-logger = custom_logger.setup_logging()
 
 # Install packages from the packages directory
 with open(os.path.normpath(f"{root_dir}/script_configs/config.json"), "r") as f:
@@ -42,8 +40,11 @@ for pkg in os.listdir(os.path.normpath(f"{root_dir}/packages/")):
 utils.run_command(["apt", "update"])
 
 
-for pkg in data["apt_packages"]:
+for pkg in data["packages"]["install"]:
     utils.install_package(pkg)
+
+for pkg in data["packages"]["remove"]:
+    utils.run_command(["apt", "remove", "-y", pkg])
 
 for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
             ["apt", "purge", "-y", "gnome-initial-setup"],

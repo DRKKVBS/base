@@ -47,10 +47,11 @@ class User():
 
         # Create user
         logger.info([*cmd, self.username])
-        subprocess.Popen(cmd,
+        process = subprocess.Popen(cmd,
                         shell=True,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT, text=True, universal_newlines=True)
+        logger.info(process.stdout.read())
         # run_command([*cmd, self.username])
 
         if self.password == None or self.password == "":

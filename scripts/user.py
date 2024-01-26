@@ -47,6 +47,7 @@ class User():
 
         # Create user
         logger.info([*cmd, self.username])
+        logger.info(cmd)
         process = subprocess.Popen(cmd,
                         shell=False,
                         stdout=subprocess.PIPE,

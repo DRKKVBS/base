@@ -38,8 +38,10 @@ def main():
     helper.run_command(["apt", "update"])
 
     # # Make icaclient installation non interactive
-    # for cmd in [["export", "DEBIAN_FRONTEND='noninteractive'"], ["debconf-set-selections", "<<<", "'icaclient app_protection/install_app_protection select yes'"], ["debconf-show", "icaclient"]]:
-    #     helper.run_command(cmd)
+    helper.run_command(
+        ["chmod", "+x", os.path.normpath(f"{root}/scripts/citrix.sh")])
+    helper.run_command(
+        [os.path.normpath(f"{root}/scripts/citrix.sh")])
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):

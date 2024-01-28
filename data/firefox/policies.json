@@ -65,9 +65,7 @@
     "DefaultDownloadDirectory": "${home}/Downloads",
     "Certificates": {
       "ImportEnterpriseRoots": true,
-      "Install": [
-        "/etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"
-      ]
+      "Install": ["/etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"]
     },
     "DisableAppUpdate": false,
     "DisableBuiltinPDFViewer": true,
@@ -127,10 +125,16 @@
       "Locked": false
     },
     "Handlers": {
-      "mimeTypes": {
-        "application/x-ica": {
-          "action": "useSystemDefault",
-          "ask": false
+      "extensions": {
+        "ica": {
+          "action": "useHelperApp",
+          "ask": false,
+          "handlers": [
+            {
+              "name": "Citrix Workspace",
+              "path": "/opt/Citrix/ICAClient/wfica"
+            }
+          ]
         }
       }
     },

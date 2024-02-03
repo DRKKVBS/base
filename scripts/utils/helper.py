@@ -57,7 +57,7 @@ def run_command(cmds: list):
         return output
 
     except OSError as e:
-        logger.error(f"Failed to execute command: {cmds} {e}")
+        logger.error(f"Failed to execute command: {cmds} {e.strerror}")
         return
 
 

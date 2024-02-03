@@ -103,7 +103,7 @@
       "openssh-server",
       "displaylink-driver"
     ],
-    "remove": []
+    "remove": ["gnome-initial-setup"]
   },
   "hostname": null,
   "employee" : null

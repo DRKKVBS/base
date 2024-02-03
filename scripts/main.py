@@ -22,12 +22,12 @@ def main():
 
     # Promt the user to enter a hostname if none is set
     if data["hostname"] == None:
-        data["hostname"] = input(
+        data["hostname"] = helper.input_validation(
             "Please enter a hostname for the system and press enter to continue...\n")
         logger.info(f"Hostname set to {data['hostname']}")
 
-    with open("/etc/hostname", "w") as f:
-        f.write(data["hostname"] + "\n")
+    # Set a new hostname
+    helper.set_hostname(data["hostname"])
 
     if data["users"]["admin"]["password"] == None:
         data["users"]["admin"]["password"] = helper.input_validation(
@@ -35,9 +35,9 @@ def main():
         logger.info(
             f"Administrator password set to {data['users']['admin']['password']}")
 
-    helper.run_command(["apt", "update"])
+    pkg_helper.update_package_db()
 
-    # # Make icaclient installation non interactive
+    # Make icaclient installation non interactive
     helper.run_command(
         ["chmod", "+x", os.path.normpath(f"{root}/scripts/citrix.sh")])
     helper.run_command(
@@ -47,17 +47,22 @@ def main():
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
         pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))
 
-    helper.run_command(["apt", "update"])
+    pkg_helper.update_package_db()
 
+    # Install packages
     for pkg in data["packages"]["install"]:
         pkg_helper.install_package(pkg)
 
+    # Remove packages
     for pkg in data["packages"]["remove"]:
-        helper.run_command(["apt", "remove", "-y", pkg])
+        pkg_helper.remove_package(pkg)
 
-    for cmd in [["apt", "update"], ["apt", "upgrade", "-y"],
-                ["apt", "purge", "-y", "gnome-initial-setup"],
-                ["pip3", "install", "--upgrade", "pip"],
+
+    pkg_helper.update_package_db()
+    pkg_helper.upgrade_pkgs()
+
+    # Install pip packages
+    for cmd in [["pip3", "install", "--upgrade", "pip"],
                 ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
         helper.run_command(cmd)
 

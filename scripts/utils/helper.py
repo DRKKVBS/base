@@ -21,6 +21,16 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
             dict1[k] = dict2[k]
     return dict2
 
+def set_hostname(hostname:str):
+    """Set the hostname of the system."""
+
+    try:
+        with open("/etc/hostname", "w") as f:
+            f.write(hostname + "\n")
+        logger.info(f"Hostname set to {hostname}")
+    except Exception as e:
+        logger.error(f"Error setting hostname: {e}")
+    
 
 def run_command(cmds: list):
     """Run a command using  the subprocess library."""

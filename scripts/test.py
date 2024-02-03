@@ -56,7 +56,6 @@ def main():
     for pkg in data["packages"]["remove"]:
         pkg_helper.remove_package(pkg)
 
-
     pkg_helper.update_package_db()
     pkg_helper.upgrade_pkgs()
 
@@ -110,11 +109,7 @@ def main():
                 f"export DCONF_PROFILE={user.username}\n")
 
         with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
-            if len(f.read()) == 0:
-                f.write(
-                    "[Default Applications]\napplication/ica=icaclient.desktop")
-            else:
-                f.write("application/ica=icaclient.desktop")
+            f.write("[Added Associations]\napplication/x-ica=wfica.desktop;\n")
 
         for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
             for app in os.listdir(path):
@@ -144,8 +139,10 @@ def main():
         # Set file permissions for desktop entries
         for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
             try:
-                shutil.chown(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/{file}"), user=user.get_uid(), group=user.get_gid())
-                os.chmod(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/{file}"), 0o664)
+                shutil.chown(os.path.normpath(
+                    f"/{user.get_home_dir()}/.local/share/applications/{file}"), user=user.get_uid(), group=user.get_gid())
+                os.chmod(os.path.normpath(
+                    f"/{user.get_home_dir()}/.local/share/applications/{file}"), 0o664)
             except Exception as e:
                 logger.error(f"Error setting file permissions: {e}")
 

@@ -110,7 +110,7 @@ def main():
                 f"export DCONF_PROFILE={user.username}\n")
 
         with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
-            if f.read() != "":
+            if len(f.read()) != 0:
                 f.write(
                     "[Default Applications]\napplication/ica=icaclient.desktop")
             else:

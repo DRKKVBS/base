@@ -103,8 +103,28 @@
       "openssh-server",
       "displaylink-driver"
     ],
-    "remove": ["gnome-initial-setup"]
+    "remove": [
+      "gnome-initial-setup",
+      "gnome-calender",
+      "aisleriot",
+      "cheese",
+      "gnome-calculator",
+      "gnome-characters",
+      "libreoffice*",
+      "gnome-mahjongg",
+      "gnome-mines",
+      "seahorse",
+      "remmina",
+      "remmina-*",
+      "rhythmbox",
+      "shotwell",
+      "gnome-sudoku",
+      "gnome-todo",
+      "totem",
+      "gnome-video-effects"
+    ]
   },
   "hostname": null,
-  "employee" : null
+  "employee": null
 }
+

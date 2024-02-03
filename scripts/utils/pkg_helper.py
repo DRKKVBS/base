@@ -46,7 +46,7 @@ def remove_package(package_name: str):
 def snap_installed(package_name: str):
     """Check if a package is installed via snap."""
 
-    return True if run_command(["snap", "list" ,"--installed", package_name]) != None else False
+    return True if run_command(["snap", "list", package_name]) != None else False
 
 
 def apt_installed(package_name: str):

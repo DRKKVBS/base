@@ -23,8 +23,7 @@ def main():
     # Promt the user to enter a hostname if none is set
     if data["hostname"] == None:
         data["hostname"] = helper.input_validation(
-            "Please enter a hostname for the system and press enter to continue...\n")
-        logger.info(f"Hostname set to {data['hostname']}")
+            "Please enter a hostname for the system and press enter to continue...")
 
     # Set a new hostname
     helper.set_hostname(data["hostname"])
@@ -145,8 +144,8 @@ def main():
         # Set file permissions for desktop entries
         for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
             try:
-                shutil.chown(file, user=user.get_uid(), group=user.get_gid())
-                os.chmod(file, 0o664)
+                shutil.chown(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/{file}"), user=user.get_uid(), group=user.get_gid())
+                os.chmod(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/{file}"), 0o664)
             except Exception as e:
                 logger.error(f"Error setting file permissions: {e}")
 

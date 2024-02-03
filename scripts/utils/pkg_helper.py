@@ -36,7 +36,7 @@ def remove_package(package_name: str):
         run_command(["apt", "autoremove", "-y", package_name])
 
     elif snap_installed(package_name):
-        run_command(["apt", "autoremove", "-y", package_name])
+        run_command(["snap", "autoremove", "-y", package_name])
 
     else:
         logger.debug(f"\t Skipping {package_name}. It is not installed")

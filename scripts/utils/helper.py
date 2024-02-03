@@ -50,7 +50,7 @@ def run_command(cmds: list):
         process.stdout.close()
         return_code = process.wait()
 
-        if process.returncode:
+        if process.returncode is not 0 or process.returncode is not None:
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return

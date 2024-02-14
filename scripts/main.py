@@ -57,7 +57,6 @@ def main():
     for pkg in data["packages"]["remove"]:
         pkg_helper.remove_package(pkg)
 
-
     pkg_helper.update_package_db()
     pkg_helper.upgrade_pkgs()
 
@@ -152,6 +151,11 @@ def main():
 
             fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
+
+    # Teamviewer
+    helper.run_command(["teamviewer", "--daemon", "start"])
+    helper.run_command(
+        ["teamviewer", "--passwd", data["teamviewer"]["password"]])
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         helper.run_command(cmd)

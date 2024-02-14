@@ -155,7 +155,7 @@ def main():
     # Teamviewer
     helper.run_command(["teamviewer", "--daemon", "start"])
     helper.run_command(
-        ["teamviewer", "--passwd", data["teamviewer"]["password"]])
+        ["teamviewer", "assignment", "--id", ""])
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         helper.run_command(cmd)

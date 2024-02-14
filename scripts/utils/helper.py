@@ -21,7 +21,8 @@ def merge_and_update_dicts(dict1: dict, dict2: dict):
             dict1[k] = dict2[k]
     return dict2
 
-def set_hostname(hostname:str):
+
+def set_hostname(hostname: str):
     """Set the hostname of the system."""
 
     try:
@@ -30,7 +31,7 @@ def set_hostname(hostname:str):
         logger.info(f"Hostname set to {hostname}")
     except Exception as e:
         logger.error(f"Error setting hostname: {e}")
-    
+
 
 def run_command(cmds: list):
     """Run a command using  the subprocess library."""
@@ -50,7 +51,7 @@ def run_command(cmds: list):
         process.stdout.close()
         return_code = process.wait()
 
-        if process.returncode is not 0 or process.returncode is not None:
+        if process.returncode != 0 or process.returncode != None:
             logger.warning(
                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
             return

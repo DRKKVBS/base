@@ -39,17 +39,14 @@ def run_command(cmds: list):
     try:
         logger.info(f"subprocess: {cmds}")
 
-        process = Popen(cmds,
-                        shell=False,
-                        stdout=PIPE,
+        process = Popen(cmds, shell=False, stdout=PIPE,
                         stderr=STDOUT, text=True, universal_newlines=True)
-        output = ""
-        for stdout_line in iter(process.stdout.readline, ""):
-            output.join(stdout_line)
-            print(stdout_line, end="")
-        output = process.stdout.read()
-        process.stdout.close()
-        return_code = process.wait()
+        if process.wait() == 0:
+            output = process.stdout.read()
+            print(output)
+        else:
+            print(
+                f"Fehler: Prozess beendet mit Rückgabewert {process.returncode}")
 
         if process.returncode != 0 or process.returncode != None:
             logger.warning(

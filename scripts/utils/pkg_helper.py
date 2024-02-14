@@ -36,7 +36,7 @@ def remove_package(package_name: str):
         run_command(["apt", "autoremove", "-y", package_name])
 
     elif snap_installed(package_name):
-        run_command(["snap", "autoremove", "-y", package_name])
+        run_command(["snap", "remove", "-y", package_name])
 
     else:
         logger.debug(f"\t Skipping {package_name}. It is not installed")
@@ -51,9 +51,9 @@ def snap_installed(package_name: str):
 
 def apt_installed(package_name: str):
     """Check if a package is installed."""
-    process = run_command(["apt", "list", "--installed", package_name])
+    output = run_command(["apt", "list", "--installed", package_name])
 
-    return True if process is not None and package_name in process else False
+    return True if output != None and package_name in output else False
 
 
 def update_package_db():

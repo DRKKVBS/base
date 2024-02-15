@@ -159,7 +159,7 @@ def main():
     # subprocess.run(["teamviewer", "assignment", "--id", ""], check=True)
 
     # Set file permissions
-    os.chmod("/home/admin/post_install.sh", 0o111)
+    os.chmod("/home/admin/post-install.sh", 0o111)
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         subprocess.run(cmd, check=True)

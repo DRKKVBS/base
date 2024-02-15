@@ -94,6 +94,7 @@
   "packages": {
     "install": [
       "git",
+      "gstreamer1.0-plugins-ugly",
       "python3-pip",
       "gnome-backgrounds",
       "vim",

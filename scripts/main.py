@@ -46,7 +46,7 @@ def main():
     os.environ["DEBIAN_FRONTEND"] = "noninteractive"
     subprocess.run(["debconf-set-selections"], shell=True, check=True,
                    input=b"icaclient app_protection/install_app_protection select no\n")
-    subprocess.run(["debconf-show", "icaclient"], shell=True, check=True)
+    subprocess.run(["debconf-show", "icaclient"], check=True)
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):

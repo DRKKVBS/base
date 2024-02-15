@@ -1,6 +1,6 @@
 import os
+import subprocess
 from custom_logger import logger
-from utils.helper import run_command
 
 
 def install_package(package_name: str):
@@ -11,7 +11,7 @@ def install_package(package_name: str):
     if apt_installed(package_name) or snap_installed(package_name):
         logger.debug(f"\t Skipping {package_name}. It is already installed")
         return
-    run_command(["apt", "install", "-y", package_name])
+    subprocess.run(["apt", "install", "-y", package_name], check=True)
 
 
 def install_file(path: str):
@@ -24,7 +24,7 @@ def install_file(path: str):
     if apt_installed(package_name) or snap_installed(package_name):
         logger.debug(f"\t Skipping {package_name}. It is already installed")
         return
-    run_command(["apt", "install", "-y", path])
+    subprocess.run(["apt", "install", "-y", path], check=True)
 
 
 def remove_package(package_name: str):
@@ -33,10 +33,10 @@ def remove_package(package_name: str):
     logger.info(f"Removing {package_name}")
 
     if apt_installed(package_name):
-        run_command(["apt", "autoremove", "-y", package_name])
+        subprocess.run(["apt", "autoremove", "-y", package_name], check=True)
 
     elif snap_installed(package_name):
-        run_command(["snap", "remove", "-y", package_name])
+        subprocess.run(["snap", "remove", "-y", package_name], check=True)
 
     else:
         logger.debug(f"\t Skipping {package_name}. It is not installed")
@@ -46,21 +46,24 @@ def remove_package(package_name: str):
 def snap_installed(package_name: str):
     """Check if a package is installed via snap."""
 
-    return True if run_command(["snap", "list", package_name]) != None else False
+    process = subprocess.run(["snap", "list", package_name], check=True)
+    return True if process.returncode == 0 else False
 
 
 def apt_installed(package_name: str):
     """Check if a package is installed."""
-    output = run_command(["apt", "list", "--installed", package_name])
 
-    return True if output != None and package_name in output else False
+    process = subprocess.run(
+        ["apt", "list", "--installed", package_name], check=True)
+
+    return True if package_name in process.stdout.decode() else False
 
 
 def update_package_db():
     """Update the system package database."""
-    run_command(["apt", "update"])
+    subprocess.run(["apt", "update"], check=True)
 
 
 def upgrade_pkgs():
     """Upgrade all packages on the system."""
-    run_command(["apt", "upgrade", "-y"])
+    subprocess.run(["apt", "upgrade", "-y"], check=True)

@@ -33,30 +33,30 @@ def set_hostname(hostname: str):
         logger.error(f"Error setting hostname: {e}")
 
 
-def run_command(cmds: list):
-    """Run a command using  the subprocess library."""
+# def run_command(cmds: list):
+#     """Run a command using  the subprocess library."""
 
-    try:
-        logger.info(f"subprocess: {cmds}")
+#     try:
+#         logger.info(f"subprocess: {cmds}")
 
-        process = Popen(cmds, shell=False, stdout=PIPE,
-                        stderr=STDOUT, text=True, universal_newlines=True)
-        if process.wait() == 0:
-            output = process.stdout.read()
-            print(output)
-        else:
-            print(
-                f"Fehler: Prozess beendet mit Rückgabewert {process.returncode}")
+#         process = Popen(cmds, shell=False, stdout=PIPE,
+#                         stderr=STDOUT, text=True, universal_newlines=True)
+#         if process.wait() == 0:
+#             output = process.stdout.read()
+#             print(output)
+#         else:
+#             print(
+#                 f"Fehler: Prozess beendet mit Rückgabewert {process.returncode}")
 
-        if process.returncode != 0 or process.returncode != None:
-            logger.warning(
-                f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
-            return
-        return output
+#         if process.returncode != 0 or process.returncode != None:
+#             logger.warning(
+#                 f"Command returned without returncode 0: {cmds}...{process.returncode}...{process.stdout}")
+#             return
+#         return output
 
-    except OSError as e:
-        logger.error(f"Failed to execute command: {cmds} {e.strerror}")
-        return
+#     except OSError as e:
+#         logger.error(f"Failed to execute command: {cmds} {e.strerror}")
+#         return
 
 
 def query_yes_no(question, default="yes"):

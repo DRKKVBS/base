@@ -44,9 +44,9 @@ def main():
 
     # Make icaclient installation non interactive
     os.environ["DEBIAN_FRONTEND"] = "noninteractive"
-    subprocess.run('debconf-set-selections', shell=True, check=True,
-                   input=b'icaclient app_protection/install_app_protection select no\n')
-    subprocess.run('debconf-show icaclient', shell=True, check=True)
+    subprocess.run(["debconf-set-selections"], shell=True, check=True,
+                   input=b"icaclient app_protection/install_app_protection select no\n")
+    subprocess.run(["debconf-show", "icaclient"], shell=True, check=True)
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
@@ -64,7 +64,7 @@ def main():
     # Install pip packages
     for cmd in [["pip3", "install", "--upgrade", "pip"],
                 ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
-        helper.run_command(cmd)
+        subprocess.run(cmd, check=True)
 
     # Create missing directories
     # Needed to copy files later on
@@ -154,12 +154,12 @@ def main():
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
     # Teamviewer
-    helper.run_command(["teamviewer", "--daemon", "start"])
-    helper.run_command(
-        ["teamviewer", "assignment", "--id", ""])
+    # TODO: Add Teamviewer assignment id to config
+    subprocess.run(["teamviewer", "--daemon", "start"], check=True)
+    subprocess.run(["teamviewer", "assignment", "--id", ""], check=True)
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
-        helper.run_command(cmd)
+        subprocess.run(cmd, check=True)
 
 
 if __name__ == "__main__":

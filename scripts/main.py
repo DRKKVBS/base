@@ -153,10 +153,10 @@ def main():
             fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
-    # Teamviewer
-    # TODO: Add Teamviewer assignment id to config
-    subprocess.run(["teamviewer", "--daemon", "start"], check=True)
-    subprocess.run(["teamviewer", "assignment", "--id", ""], check=True)
+    # # Teamviewer
+    # # TODO: Add Teamviewer assignment id to config
+    # subprocess.run(["teamviewer", "--daemon", "start"], check=True)
+    # subprocess.run(["teamviewer", "assignment", "--id", ""], check=True)
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         subprocess.run(cmd, check=True)

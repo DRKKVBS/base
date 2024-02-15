@@ -45,7 +45,6 @@ class User():
             cmd.append(crypt(self.password))
 
         # Create user
-
         process = subprocess.run([*cmd, self.username], check=True)
 
         if self.password == None or self.password == "":

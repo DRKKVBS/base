@@ -56,7 +56,7 @@ def apt_installed(package_name: str):
     process = subprocess.run(
         ["apt", "list", "--installed", package_name], check=True)
 
-    return True if package_name in process.stdout.decode() else False
+    return True if process.stdout != None and package_name in process.stdout.decode() else False
 
 
 def update_package_db():

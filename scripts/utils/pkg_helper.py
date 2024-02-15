@@ -63,4 +63,4 @@ def update_package_db():
 
 def upgrade_pkgs():
     """Upgrade all packages on the system."""
-    run_command(["apt", "update", "-y"])
+    run_command(["apt", "upgrade", "-y"])

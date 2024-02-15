@@ -46,7 +46,8 @@ def remove_package(package_name: str):
 def snap_installed(package_name: str):
     """Check if a package is installed via snap."""
 
-    process = subprocess.run(["snap", "list", package_name])
+    process = subprocess.run(
+        ["snap", "list", package_name], capture_output=True)
     return True if process.returncode == 0 else False
 
 
@@ -54,8 +55,7 @@ def apt_installed(package_name: str):
     """Check if a package is installed."""
 
     process = subprocess.run(
-        ["apt", "list", "--installed", package_name])
-
+        ["apt", "list", "--installed", package_name], capture_output=True)
     return True if process.stdout != None and package_name in process.stdout.decode() else False
 
 

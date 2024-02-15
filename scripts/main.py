@@ -63,7 +63,7 @@ def main():
 
     # Install pip packages
     for cmd in [["pip3", "install", "--upgrade", "pip"],
-                ["pip3", "install", "-r", "../data/pip-requirements.txt"]]:
+                ["pip3", "install", "-r", "../configs/pip-requirements.txt"]]:
         subprocess.run(cmd, check=True)
 
     # Create missing directories

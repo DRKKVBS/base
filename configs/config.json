@@ -94,13 +94,11 @@
   "packages": {
     "install": [
       "git",
-      "firefox",
       "python3-pip",
       "gnome-backgrounds",
       "vim",
       "dkms",
       "net-tools",
-      "openssh-server",
       "displaylink-driver"
     ],
     "remove": [
@@ -127,4 +125,3 @@
   "hostname": null,
   "employee": null
 }
-

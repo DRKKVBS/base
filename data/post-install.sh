@@ -12,6 +12,8 @@ fi
 sudo teamviewer --daemon start
 teamviewer &
 
+sleep 15
+
 # Assign the device to the account
 sudo teamviewer assignment --id
 

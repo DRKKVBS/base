@@ -110,12 +110,11 @@ def main():
             f.write(
                 f"export DCONF_PROFILE={user.username}\n")
 
+        # Set wfica client as default application for .ica files
+        # Citrix Workspace opens automatically when a .ica file is downloaded
         with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
-            if f.read() != "":
-                f.write(
-                    "[Default Applications]\napplication/ica=icaclient.desktop")
-            else:
-                f.write("application/ica=icaclient.desktop")
+            f.write(
+                "[Added Associations]\napplication/x-ica=wfica.desktop")
 
         for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
             for app in os.listdir(path):

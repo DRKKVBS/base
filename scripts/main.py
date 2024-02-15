@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import subprocess
 
 
 from custom_logger import logger
@@ -37,11 +38,15 @@ def main():
 
     pkg_helper.update_package_db()
 
+    # Remove packages
+    for pkg in data["packages"]["remove"]:
+        pkg_helper.remove_package(pkg)
+
     # Make icaclient installation non interactive
-    helper.run_command(
-        ["chmod", "+x", os.path.normpath(f"{root}/scripts/citrix.sh")])
-    helper.run_command(
-        [os.path.normpath(f"{root}/scripts/citrix.sh")])
+    os.environ["DEBIAN_FRONTEND"] = "noninteractive"
+    subprocess.run('debconf-set-selections', shell=True, check=True,
+                   input=b'icaclient app_protection/install_app_protection select no\n')
+    subprocess.run('debconf-show icaclient', shell=True, check=True)
 
     # Install packages from the packages directory
     for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
@@ -52,10 +57,6 @@ def main():
     # Install packages
     for pkg in data["packages"]["install"]:
         pkg_helper.install_package(pkg)
-
-    # Remove packages
-    for pkg in data["packages"]["remove"]:
-        pkg_helper.remove_package(pkg)
 
     pkg_helper.update_package_db()
     pkg_helper.upgrade_pkgs()

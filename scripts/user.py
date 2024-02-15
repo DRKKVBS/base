@@ -4,7 +4,6 @@ import pwd
 import subprocess
 
 from custom_logger import logger
-from utils.helper import run_command
 from utils.usr_helper import user_exists
 
 
@@ -46,15 +45,13 @@ class User():
             cmd.append(crypt(self.password))
 
         # Create user
-        process = run_command([*cmd, self.username])
 
+        process = subprocess.run([*cmd, self.username], check=True)
 
         if self.password == None or self.password == "":
             # Remove password
             logger.info(f"Removing password")
-            run_command(["passwd", "-d", self.username])
-
-    
+            subprocess.run(["passwd", "-d", self.username], check=True)
 
     def __fill_home(self):
         """Create the home directory of the user."""

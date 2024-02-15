@@ -1,13 +1,15 @@
 import os
 import shutil
+import subprocess
 
 from custom_logger import logger
 from user import User
-from utils.helper import run_command
+
 
 def get_root_dir():
     """Get the root directory of the project."""
     return os.path.realpath(os.path.dirname(__file__)).split('scripts')[0]
+
 
 def set_file_permissions(file_path: str, uid: int, gid: int, mode: int = 0o644):
     """Set the file permissions of a file."""
@@ -26,14 +28,14 @@ def make_immutable(path: str):
     '''Make a file or a directory immutable using Chattr.'''
 
     path = os.path.normpath(path)
-    run_command(["chattr", "+i", path])
+    subprocess.run(["chattr", "+i", path], check=True)
 
 
 def make_mutable(path: str):
     '''Make a file or a directory mutable using Chattr.'''
 
     path = os.path.normpath(path)
-    run_command(["chattr", "-i", path])
+    subprocess.run(["chattr", "-i", path], check=True)
 
 
 def add_desktop_app(user: User, visible_apps: list):
@@ -73,4 +75,3 @@ def add_desktop_app(user: User, visible_apps: list):
                 elif "NoDisplay" not in text:
                     text.replace("[Desktop Entry]",
                                  "[Desktop Entry]\nNoDisplay=True")
-

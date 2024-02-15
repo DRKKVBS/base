@@ -45,7 +45,7 @@ def main():
     # Make icaclient installation non interactive
     os.environ["DEBIAN_FRONTEND"] = "noninteractive"
     subprocess.run(["debconf-set-selections"], shell=True, check=True,
-                   input=b"icaclient app_protection/install_app_protection select no\n")
+                   input=b"icaclient app_protection/install_app_protection select yes\n")
     subprocess.run(["debconf-show", "icaclient"], check=True)
 
     # Install packages from the packages directory

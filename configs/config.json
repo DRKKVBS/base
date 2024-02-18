@@ -5,14 +5,15 @@
       "password": null,
       "sudo": true,
       "desktop": [
-        "org.gnome.Terminal.desktop",
-        "gnome-control-center.desktop",
+        "com.teamviewer.TeamViewer.desktop",
         "firefox.desktop",
-        "org.gnome.gedit.desktop",
+        "gnome-control-center.desktop",
         "myWorkspace.desktop",
+        "org.gnome.Terminal.desktop",
+        "org.gnome.gedit.desktop",
         "org.gnome.Nautilus.desktop",
-        "shutdown.desktop",
-        "reboot.desktop"
+        "reboot.desktop",
+        "shutdown.desktop"
       ]
     },
     "user": {

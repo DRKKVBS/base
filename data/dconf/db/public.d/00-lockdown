@@ -15,3 +15,5 @@ disable-save-to-disk=false
 disable-show-password=false
 # Prevent the user from switching to another account while his session is active
 disable-user-switching=true
+# Prevent users from writing or modifying files on removable storage devices
+mount-removable-storage-devices-as-read-only=false

@@ -63,11 +63,6 @@
       "source": "/post-install.sh",
       "destination": "/home/admin/post-install.sh",
       "comment": "Post Install Script"
-    },
-    "wifi": {
-      "source": "/DRK_SAK_Intern_Mobile.nmconnection",
-      "destination": "/etc/NetworkManager/system-connections/DRK_SAK_Intern_Mobile.nmconnection",
-      "comment": "Internal DRK Wifi Configuration"
     }
   },
   "dirs_to_copy": {
@@ -101,7 +96,10 @@
       "vim",
       "dkms",
       "net-tools",
-      "displaylink-driver"
+      "displaylink-driver",
+      "xfce4",
+      "xfce4-goodies",
+      "tightvncserver"
     ],
     "remove": [
       "gnome-initial-setup",
@@ -124,6 +122,6 @@
       "gnome-video-effects"
     ]
   },
-  "hostname": null,
-  "employee": null
+  "client_num": null,
+  "workplace": null
 }

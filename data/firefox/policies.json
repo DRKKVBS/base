@@ -9,7 +9,6 @@
       {
         "protocol": "x-ica",
         "allowed_origins": [
-          "https://drk-stflb01.rk.local/*",
           "https://citrix.drk-access.de/*"
         ]
       }
@@ -37,13 +36,11 @@
     "Cookies": {
       "Allow": [
         "*://*.drk-access.de/*",
-        "*://*.drk-stflb01.rk.local/*",
         "*://*.login.microsoftonline.com/*",
         "*://*.invitations.microsoft.com/*"
       ],
       "AllowSession": [
         "*://*.citrix.drk-access.de/*",
-        "*://*.drk-stflb01.rk.local/*",
         "*://*.login.microsoftonline.com/*",
         "*://*.invitations.microsoft.com/*"
       ],
@@ -63,10 +60,6 @@
       ]
     },
     "DefaultDownloadDirectory": "${home}/Downloads",
-    "Certificates": {
-      "ImportEnterpriseRoots": true,
-      "Install": ["/etc/firefox/policies/DRK_Rechenzentrum_files/root-bos.cer"]
-    },
     "DisableAppUpdate": false,
     "DisableBuiltinPDFViewer": true,
     "DisableDeveloperTools": true,
@@ -112,10 +105,6 @@
       "*": {
         "blocked_install_message": "Es dürfen keine Erweiterungen installiert werden.",
         "installation_mode": "blocked"
-      },
-      "langpack-de@firefox.mozilla.org": {
-        "installation_mode": "force_installed",
-        "install_url": "file:///etc/firefox/policies/deutsch_de_language_pack-111.0.1buildid20230321.111920.xpi"
       }
     },
     "FirefoxSuggest": {
@@ -140,7 +129,7 @@
     },
     "HardwareAcceleration": false,
     "Homepage": {
-      "URL": "file:///etc/firefox/policies/DRK_Rechenzentrum.html",
+      "URL": "https://citrix.drk-access.de/",
       "Locked": true,
       "StartPage": "homepage-locked"
     },
@@ -278,7 +267,7 @@
         "Status": "locked"
       },
       "browser.startup.homepage": {
-        "Value": "file:///etc/firefox/policies/DRK_Rechenzentrum.html",
+        "Value": "https://citrix.drk-access.de",
         "Status": "locked"
       },
       "browser.urlbar.placeholderName": {
@@ -434,13 +423,11 @@
     "WebsiteFilter": {
       "Block": ["<all_urls>"],
       "Exceptions": [
-        "*://*.drk-stflb01.rk.local/*",
         "*://*.drk-access.de/*",
         "*://*.microsoftonline.com/*",
         "*://*.microsoft.com/*",
         "*://*.windowsazure.com/*",
-        "*://*.aka.ms/mfasetup",
-        "file:///etc/firefox/policies/*"
+        "*://*.aka.ms/mfasetup"
       ]
     }
   }

@@ -31,7 +31,7 @@ class User():
                 f"Skipping User Creation, {self.username} already exists!")
             return
 
-        cmd = ["useradd", "-m", "-s", "/bin/bash"]
+        cmd = ["useradd", "-m", "-s", "/bin/bash", "-G", "netdev"]
 
         # Add user to the sudo group
         if self.sudo == True:
@@ -78,6 +78,7 @@ class User():
     def get_home_dir(self) -> str:
         """Get the home directory of a user."""
         return self.__home_dir
+    
 
     def run_command(self, cmds: list):
         """Run a command as a specific user using  the subprocess library."""

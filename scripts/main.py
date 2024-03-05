@@ -21,14 +21,18 @@ def main():
         logger.error(f"Error loading config file: {e}")
         exit(1)
 
-    # Promt the user to enter a hostname if none is set
-    if data["hostname"] == None:
-        data["hostname"] = helper.input_validation(
-            "Please enter a hostname for the system and press enter to continue...\n")
-        logger.info(f"Hostname set to {data['hostname']}")
+    if data['workplace'] == None:
+        data['workplace'] = helper.input_validation(
+            "Please enter the workplace the employee. bs or rhf...\n")
+        logger.info(f"Worplace set to {data['workplace']}")
+
+    if data['client_num'] == None:
+        data['client_num'] = helper.input_validation(
+            "Please enter a Number...\n")
+        logger.info(f"client_num set to {data['client_num']}")
 
     # Set a new hostname
-    helper.set_hostname(data["hostname"])
+    helper.set_hostname(f"sak-{data['workplace']}-{data['client_num']}")
 
     if data["users"]["admin"]["password"] == None:
         data["users"]["admin"]["password"] = helper.input_validation(
@@ -151,11 +155,6 @@ def main():
 
             fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
-
-    # # Teamviewer
-    # # TODO: Add Teamviewer assignment id to config
-    # subprocess.run(["teamviewer", "--daemon", "start"], check=True)
-    # subprocess.run(["teamviewer", "assignment", "--id", ""], check=True)
 
     # Set file permissions
     os.chmod("/home/admin/post-install.sh", 0o111)

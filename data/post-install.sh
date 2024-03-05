@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# Install Tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Add devie to tailscale tenant
+
 # Delete the default user
-sudo userdel -r drk
+userdel -r drk
 
 # Delete the script
-sudo rm "$0"
+rm "$0"

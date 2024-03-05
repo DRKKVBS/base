@@ -147,12 +147,6 @@ def main():
 
         # Set file permissions for desktop entries
         for file in os.listdir(os.path.normpath(f"/{user.get_home_dir()}/.local/share/applications/")):
-            try:
-                shutil.chown(file, user=user.get_uid(), group=user.get_gid())
-                os.chmod(file, 0o664)
-            except Exception as e:
-                logger.error(f"Error setting file permissions: {e}")
-
             fs_helper.set_file_permissions(
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 

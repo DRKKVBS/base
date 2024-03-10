@@ -23,12 +23,12 @@ def main():
 
     if data['workplace'] == None:
         data['workplace'] = helper.input_validation(
-            "Please enter the workplace the employee. bs or rhf...\n")
+            "Please enter the workplace the employee. bs or rhf...")
         logger.info(f"Worplace set to {data['workplace']}")
 
     if data['client_num'] == None:
         data['client_num'] = helper.input_validation(
-            "Please enter a Number...\n")
+            "Please enter a Number...")
         logger.info(f"client_num set to {data['client_num']}")
 
     # Set a new hostname

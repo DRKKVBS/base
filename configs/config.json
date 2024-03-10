@@ -13,7 +13,8 @@
         "org.gnome.gedit.desktop",
         "org.gnome.Nautilus.desktop",
         "reboot.desktop",
-        "shutdown.desktop"
+        "shutdown.desktop",
+        "help.desktop"
       ]
     },
     "user": {
@@ -24,7 +25,8 @@
         "gnome-control-center.desktop",
         "myWorkspace.desktop",
         "shutdown.desktop",
-        "reboot.desktop"
+        "reboot.desktop",
+        "help.desktop"
       ]
     }
   },
@@ -63,6 +65,16 @@
       "source": "/post-install.sh",
       "destination": "/home/admin/post-install.sh",
       "comment": "Post Install Script"
+    },
+    "help_admin":{
+      "source": "/hilfe.pdf",
+      "destination": "/home/admin/hilfe.pdf",
+      "comment": "Help Manual"
+    },
+    "help_user":{
+      "source": "/hilfe.pdf",
+      "destination": "/home/user/hilfe.pdf",
+      "comment": "Help Manual"
     }
   },
   "dirs_to_copy": {
@@ -89,6 +101,7 @@
   },
   "packages": {
     "install": [
+      "curl",
       "git",
       "gstreamer1.0-plugins-ugly",
       "python3-pip",

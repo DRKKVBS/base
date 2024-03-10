@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[en_CA]=Help
+Name[en_GB]=Help
+Name[de]=Hilfe
+Name=Help
+Comment[en_CA]=Show Help Information
+Comment[en_GB]=Show Help Information
+Comment[de]=Zeige Hilfe-Information
+Comment=Show Help Information
+Exec=/usr/bin/evince ~/hilfe.pdf
+Icon=help
+Terminal=false
+NoDisplay=false

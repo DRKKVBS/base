@@ -8,7 +8,7 @@ sudo mkdir -p /etc/firefox/policies
 sudo mkdir -p /usr/share/drk
 
 # Create user
-sudo useradd -m, -s /bin/bash -G netdev Mitarbeiter 
+sudo useradd -m -s /bin/bash -G netdev Mitarbeiter 
 sudo passwd -d Mitarbeiter
 sudo -iu Mitarbeiter mkdir -m 755 /home/Mitarbeiter/.config/ /home/Mitarbeiter/.local/share/applications
 

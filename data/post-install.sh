@@ -27,7 +27,7 @@ sudo apt update && sudo apt upgrade -y
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
-sudo tailscale up
+sudo tailscale up 2>&1
 
 echo "Lade das .deb Package für Citrix herunter. Es wird sich gleich Firefox öffen. Schließe das Fenster erst, sobald der Download abgeschlossen ist."
 sleep 10

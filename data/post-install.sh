@@ -14,12 +14,12 @@ sudo -iu Mitarbeiter mkdir -m 755 /home/Mitarbeiter/.config/ /home/Mitarbeiter/.
 
 # Install packages
 for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver"; do
-  sudo apt install pkg -y
+  sudo apt install $pkg -y
 done 
 
 # Remove unnecessary packages
 for pkg in "gnome-initial-setup" "gnome-calender" "aisleriot" "cheese" "gnome-calculator" "gnome-characters" "libreoffice" "gnome-mahjongg" "gnome-mines" "seahorse" "remmina" "remmina-*" "rhythmbox" "shotwell" "gnome-sudoku" "gnome-todo" "totem" "gnome-video-effects"; do
-  sudo apt remove pkg -y
+  sudo apt remove $pkg -y
 done 
 
 # Update the system

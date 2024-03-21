@@ -38,8 +38,11 @@ sudo debconf-set-selections <<< "icaclient app_protection/install_app_protection
 sudo debconf-show icaclient
 
 # Install manually downloaded packages
-search_dir=~/Downloads\
-for entry in "$search_dir"/*;do
+search_dir=~/Downloads
+
+
+for entry in "$search_dir/*"
+do
     sudo apt install "$entry" -y
 done
 

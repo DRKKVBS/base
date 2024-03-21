@@ -30,8 +30,10 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up 2>&1
 
 echo "Lade das .deb Package für Citrix herunter. Es wird sich gleich Firefox öffen. Schließe das Fenster erst, sobald der Download abgeschlossen ist."
-sleep 10
+
 /snap/bin/firefox https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html
+
+sleep 240
 
 export DEBIAN_FRONTEND="noninteractive"
 sudo debconf-set-selections <<< "icaclient app_protection/install_app_protection select yes"

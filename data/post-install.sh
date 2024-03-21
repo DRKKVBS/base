@@ -21,6 +21,3 @@ sudo apt install -f ~/Downloads/$CITRIX -y
 # Add devie to tailscale tenant
 
 rm ~/base
-
-# Delete the script
-rm "$0"

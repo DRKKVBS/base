@@ -20,50 +20,50 @@ def main():
         logger.error(f"Error loading config file: {e}")
         exit(1)
 
-    pkg_helper.update_package_db()
+    ## pkg_helper.update_package_db()
 
     # Remove packages
-    for pkg in data["packages"]["remove"]:
-        pkg_helper.remove_package(pkg)
+    # for pkg in data["packages"]["remove"]:
+    #     pkg_helper.remove_package(pkg)
 
     # Make icaclient installation non interactive
-    os.environ["DEBIAN_FRONTEND"] = "noninteractive"
-    subprocess.run(["debconf-set-selections"], shell=True, check=True,
-                   input=b"icaclient app_protection/install_app_protection select yes\n")
-    subprocess.run(["debconf-show", "icaclient"], check=True)
+    # os.environ["DEBIAN_FRONTEND"] = "noninteractive"
+    # subprocess.run(["debconf-set-selections"], shell=True, check=True,
+    #                input=b"icaclient app_protection/install_app_protection select yes\n")
+    # subprocess.run(["debconf-show", "icaclient"], check=True)
 
     # Install packages from the packages directory
-    for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
-        pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))
+    # for pkg in os.listdir(os.path.normpath(f"{root}/packages/")):
+    #     pkg_helper.install_file(os.path.normpath(f"{root}/packages/{pkg}"))
 
-    pkg_helper.update_package_db()
+    # pkg_helper.update_package_db()
 
-    # Install packages
-    for pkg in data["packages"]["install"]:
-        pkg_helper.install_package(pkg)
+    # # Install packages
+    # for pkg in data["packages"]["install"]:
+    #     pkg_helper.install_package(pkg)
 
-    pkg_helper.update_package_db()
-    pkg_helper.upgrade_pkgs()
+    # pkg_helper.update_package_db()
+    # pkg_helper.upgrade_pkgs()
 
     # Install pip packages
-    for cmd in [["pip3", "install", "--upgrade", "pip"],
-                ["pip3", "install", "-r", "../configs/pip-requirements.txt"]]:
-        subprocess.run(cmd, check=True)
+    # for cmd in [["pip3", "install", "--upgrade", "pip"],
+    #             ["pip3", "install", "-r", "../configs/pip-requirements.txt"]]:
+    #     subprocess.run(cmd, check=True)
 
     # Create missing directories
     # Needed to copy files later on
-    for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
-        try:
-            logger.info(f"Creating directory {missing_dir}")
-            os.makedirs(f"{missing_dir}", exist_ok=True)
-        except Exception as e:
-            logger.error(f"Error creating directory {missing_dir}: {e}")
+    # for missing_dir in ["/etc/firefox/policies/", "/usr/share/drk/"]:
+    #     try:
+    #         logger.info(f"Creating directory {missing_dir}")
+    #         os.makedirs(f"{missing_dir}", exist_ok=True)
+    #     except Exception as e:
+    #         logger.error(f"Error creating directory {missing_dir}: {e}")
 
     # Create users
-    users = []
-    for _, user_data in data["users"].items():
-        users.append(
-            User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], desktop_entries=user_data["desktop"]))
+    # users = []
+    # for _, user_data in data["users"].items():
+    #     users.append(
+    #         User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], desktop_entries=user_data["desktop"]))
 
     # Copy files
     for _, paths in data["files_to_copy"].items():
@@ -82,7 +82,7 @@ def main():
             logger.error(f"Error copying directory: {e}")
 
     # Setup user specific configurations
-    for user in users:
+    for user in ["Mitarbeiter"]:
 
         # Copy custom desktop entries
         shutil.copytree(os.path.normpath(f"{root}/data//DesktopEntries/"),
@@ -131,10 +131,10 @@ def main():
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
     # Set file permissions
-    os.chmod("/home/Administrator/post-install.sh", 0o554)
+    # os.chmod("/home/Administrator/post-install.sh", 0o554)
 
-    for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"]]:
-        subprocess.run(cmd, check=True)
+    # for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"]]:
+    #     subprocess.run(cmd, check=True)
 
 
 if __name__ == "__main__":

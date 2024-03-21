@@ -15,42 +15,8 @@ class User():
         self.password = password
         self.sudo = sudo
         self.desktop_entries = desktop_entries
-        self.__create()
         self.__load_data()
-        self.__fill_home()
-
-    def __create(self):
-        """Create a user."""
-
-        logger.info(f"Creating Account: {self.username}")
-
-        # Check if user exists
-        if user_exists(self.username):
-            self.__load_data()
-            logger.info(
-                f"Skipping User Creation, {self.username} already exists!")
-            return
-
-        cmd = ["useradd", "-m", "-s", "/bin/bash", "-G", "netdev"]
-
-        # Add user to the sudo group
-        if self.sudo == True:
-            logger.info(f"Adding {self.username} to the sudo group")
-            cmd.append("-G")
-            cmd.append("sudo")
-
-        if self.password != None and self.password != "":
-            logger.info(f"Setting password")
-            cmd.append("-p")
-            cmd.append(crypt(self.password))
-
-        # Create user
-        process = subprocess.run([*cmd, self.username], check=True)
-
-        if self.password == None or self.password == "":
-            # Remove password
-            logger.info(f"Removing password")
-            subprocess.run(["passwd", "-d", self.username], check=True)
+        # self.__fill_home()
 
     def __fill_home(self):
         """Create the home directory of the user."""

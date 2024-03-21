@@ -60,10 +60,10 @@ def main():
     #         logger.error(f"Error creating directory {missing_dir}: {e}")
 
     # Create users
-    # users = []
-    # for _, user_data in data["users"].items():
-    #     users.append(
-    #         User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], desktop_entries=user_data["desktop"]))
+    users = []
+    for _, user_data in data["users"].items():
+        users.append(
+            User(username=user_data["username"], password=user_data["password"], sudo=user_data["sudo"], desktop_entries=user_data["desktop"]))
 
     # Copy files
     for _, paths in data["files_to_copy"].items():

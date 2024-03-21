@@ -4,13 +4,12 @@
 
 
 # Create missing dirs
-sudo mkdir -p /etc/firefox/policies
-sudo mkdir -p /usr/share/drk
+sudo mkdir -p /etc/firefox/policies /usr/share/drk
 
 # Create user
 sudo useradd -m -s /bin/bash -G netdev Mitarbeiter 
 sudo passwd -d Mitarbeiter
-sudo -iu Mitarbeiter mkdir -m 755 /home/Mitarbeiter/.config/ /home/Mitarbeiter/.local/share/applications
+sudo -iu Mitarbeiter mkdir -pm 755 /home/Mitarbeiter/.config/ /home/Mitarbeiter/.local/share/applications
 
 # Install packages
 for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver"; do
@@ -47,7 +46,20 @@ done
 
 sudo apt update
 
+# Install Displaylink driver
 sudo apt install displaylink-driver
+
+
+# Download files
+git clone https://github.com/drkkvbs/base /tmp/base
+
+# Copy files
+sudo cp -r /tmp/base/data/AccountsService/icons/* /var/lib/AccountService/icons
+sudo cp -r /tmp/base/data/AccountsService/users/* /var/lib/AccountService/users
+sudo cp -r /tmp/base/data/dconf/* /etc/dconf/
+sudo cp -r /tmp/base/DesktopEntries/* /home/Administrator/.local/share/applications/
+sudo cp -r /tmp/base/DesktopEntries/* /home/Mitarbeiter/.local/share/applications/
+
 
 
 # Upate Dconf database

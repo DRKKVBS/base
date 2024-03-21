@@ -19,5 +19,5 @@ CITRIX="$(ls ~/Downloads/ | grep 'icaclient')"
 sudo apt install -f ~/Downloads/$CITRIX -y
 
 # Add devie to tailscale tenant
-
+reboot
 rm ~/base

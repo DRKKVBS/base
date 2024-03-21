@@ -133,7 +133,7 @@ def main():
     # Set file permissions
     os.chmod("/home/Administrator/post-install.sh", 0o554)
 
-    for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
+    for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"]]:
         subprocess.run(cmd, check=True)
 
 

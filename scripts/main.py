@@ -3,7 +3,6 @@ import os
 import shutil
 import subprocess
 
-
 from custom_logger import logger
 from user import User
 from utils import fs_helper, pkg_helper, helper
@@ -20,25 +19,6 @@ def main():
     except Exception as e:
         logger.error(f"Error loading config file: {e}")
         exit(1)
-
-    if data['workplace'] == None:
-        data['workplace'] = helper.input_validation(
-            "Please enter the workplace the employee. bs or rhf...")
-        logger.info(f"Worplace set to {data['workplace']}")
-
-    if data['client_num'] == None:
-        data['client_num'] = helper.input_validation(
-            "Please enter a Number...")
-        logger.info(f"client_num set to {data['client_num']}")
-
-    # Set a new hostname
-    helper.set_hostname(f"sak-{data['workplace']}-{data['client_num']}")
-
-    if data["users"]["admin"]["password"] == None:
-        data["users"]["admin"]["password"] = helper.input_validation(
-            "Please enter a password for the Administrator account and press enter to continue...")
-        logger.info(
-            f"Administrator password set to {data['users']['admin']['password']}")
 
     pkg_helper.update_package_db()
 
@@ -151,7 +131,7 @@ def main():
                 f"/{user.get_home_dir()}/.local/share/applications/{file}", user.get_uid(), user.get_gid(), 0o664)
 
     # Set file permissions
-    os.chmod("/home/admin/post-install.sh", 0o111)
+    os.chmod("/home/Administrator/post-install.sh", 0o554)
 
     for cmd in [["dconf", "update"], ["grub-mkconfig", "-o", "/boot/grub/grub.cfg"], ["reboot"]]:
         subprocess.run(cmd, check=True)

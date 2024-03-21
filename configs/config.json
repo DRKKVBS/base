@@ -1,7 +1,7 @@
 {
   "users": {
     "admin": {
-      "username": "admin",
+      "username": "Administrator",
       "password": null,
       "sudo": true,
       "desktop": [
@@ -18,7 +18,7 @@
       ]
     },
     "user": {
-      "username": "user",
+      "username": "Mitarbeiter",
       "password": null,
       "sudo": false,
       "desktop": [
@@ -63,17 +63,17 @@
     },
     "post-install": {
       "source": "/post-install.sh",
-      "destination": "/home/admin/post-install.sh",
+      "destination": "/home/Administrator/post-install.sh",
       "comment": "Post Install Script"
     },
     "help_admin":{
       "source": "/hilfe.pdf",
-      "destination": "/home/admin/hilfe.pdf",
+      "destination": "/home/Administrator/hilfe.pdf",
       "comment": "Help Manual"
     },
     "help_user":{
       "source": "/hilfe.pdf",
-      "destination": "/home/user/hilfe.pdf",
+      "destination": "/home/Mitarbeiter/hilfe.pdf",
       "comment": "Help Manual"
     }
   },
@@ -134,7 +134,5 @@
       "totem",
       "gnome-video-effects"
     ]
-  },
-  "client_num": null,
-  "workplace": null
+  }
 }

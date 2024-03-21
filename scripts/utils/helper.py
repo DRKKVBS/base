@@ -75,6 +75,7 @@ def input_validation(question: str):
         input1 = input(question+"\n")
         input2 = input("Please confirm and reenter your input:\n")
         if input1 == input2:
+            print("\n")
             return input1
         else:
             print("Your inputs do not match. Please try again.\n")

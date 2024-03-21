@@ -10,7 +10,7 @@ from utils.usr_helper import user_exists
 class User():
     """Class to represent a user on a Unix System."""
 
-    def __init__(self, username: str, password: str, sudo: bool, desktop_entries: list) -> None:
+    def __init__(self, username: str, password: str, desktop_entries: list, sudo: bool = False) -> None:
         self.username = username
         self.password = password
         self.sudo = sudo

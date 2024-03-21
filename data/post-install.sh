@@ -18,7 +18,7 @@ done
 
 # Remove unnecessary packages
 for pkg in "gnome-initial-setup" "gnome-calender" "aisleriot" "cheese" "gnome-calculator" "gnome-characters" "libreoffice" "gnome-mahjongg" "gnome-mines" "seahorse" "remmina" "remmina-*" "rhythmbox" "shotwell" "gnome-sudoku" "gnome-todo" "totem" "gnome-video-effects"; do
-  sudo apt remove $pkg -y
+  sudo apt autoremove $pkg -y
 done 
 
 # Update the system
@@ -39,9 +39,8 @@ sudo debconf-show icaclient
 
 # Install manually downloaded packages
 search_dir=~/Downloads\
-for entry in "$search_dir"/*
-do
-  sudo apt install $entry -y
+for entry in "$search_dir"/*;do
+    sudo apt install "$entry" -y
 done
 
 sudo apt update

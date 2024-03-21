@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sudo python3 ~/base/scripts/main.py
+
 
 
 # Create missing dirs
@@ -54,12 +54,7 @@ sudo apt install displaylink-driver
 git clone https://github.com/drkkvbs/base /tmp/base
 
 # Copy files
-sudo cp -r /tmp/base/data/AccountsService/icons/* /var/lib/AccountService/icons
-sudo cp -r /tmp/base/data/AccountsService/users/* /var/lib/AccountService/users
-sudo cp -r /tmp/base/data/dconf/* /etc/dconf/
-sudo cp -r /tmp/base/DesktopEntries/* /home/Administrator/.local/share/applications/
-sudo cp -r /tmp/base/DesktopEntries/* /home/Mitarbeiter/.local/share/applications/
-
+sudo python3 /tmp/base/scripts/main.py
 
 
 # Upate Dconf database

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo python3 ~/base/scripts/main.py
+
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 

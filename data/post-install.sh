@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo python3 ~/base/scripts/main.py
+# sudo python3 ~/base/scripts/main.py
 
 
 # Create missing dirs

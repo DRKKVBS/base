@@ -68,7 +68,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 # Setup Firefox
 
 
+rm /tmp/base
 
 # Add devie to tailscale tenant
 reboot
-# rm ~/base

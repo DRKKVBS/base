@@ -10,12 +10,13 @@ from utils.usr_helper import user_exists
 class User():
     """Class to represent a user on a Unix System."""
 
-    def __init__(self, username: str, password: str, desktop_entries: list, sudo: bool = False) -> None:
+    def __init__(self, username: str, password: str, desktop_entries: list, dconf:str, sudo: bool = False) -> None:
         self.username = username
         self.password = password
         self.sudo = sudo
         self.desktop_entries = desktop_entries
         self.__load_data()
+        self.dconf = dconf
         # self.__fill_home()
 
     def __fill_home(self):

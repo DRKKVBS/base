@@ -40,12 +40,9 @@ sudo debconf-show icaclient
 
 # Install Citrix
 CITRIX=$(ls ~/Downloads | grep icaclient)
-sudo apt install $CITRIX -y
+sudo apt install ~/Downloads/$CITRIX -y
 
 sudo apt update
-
-# Install Displaylink driver
-sudo apt install displaylink-driver
 
 # Download files
 git clone https://github.com/drkkvbs/base /tmp/base
@@ -60,6 +57,10 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 # Setup Firefox
 
 rm -r /tmp/base
+
+
+# Install Displaylink driver
+sudo apt install displaylink-driver -y
 
 # Add devie to tailscale tenant
 reboot

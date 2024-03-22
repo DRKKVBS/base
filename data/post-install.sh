@@ -32,7 +32,7 @@ wget https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/s
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
-sudo tailscale up
+sudo tailscale up 2&>1
 
 export DEBIAN_FRONTEND="noninteractive"
 sudo debconf-set-selections <<<"icaclient app_protection/install_app_protection select yes"

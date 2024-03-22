@@ -82,10 +82,10 @@ def main():
             logger.error(f"Error copying directory: {e}")
 
     # Setup user specific configurations
-    for user in ["Mitarbeiter"]:
+    for user in users:
 
         # Copy custom desktop entries
-        shutil.copytree(os.path.normpath(f"{root}/data//DesktopEntries/"),
+        shutil.copytree(os.path.normpath(f"{root}/data/DesktopEntries/"),
                         os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
         # Set environment variables

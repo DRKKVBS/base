@@ -71,4 +71,4 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # Add devie to tailscale tenant
 reboot
-rm ~/base
+# rm ~/base

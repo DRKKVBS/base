@@ -1,12 +1,12 @@
 #!/bin/bash
 
+# Create missing dirs
+sudo mkdir -p /etc/firefox/policies /usr/share/drk
+
 # Download Citrix
 echo "Lade das .deb Package für Citrix herunter. Es wird sich gleich Firefox öffen. Schließe das Fenster erst, sobald der Download abgeschlossen ist."
 
 /snap/bin/firefox https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html
-
-# Create missing dirs
-sudo mkdir -p /etc/firefox/policies /usr/share/drk
 
 # Create user
 sudo useradd -m -s /bin/bash -G netdev Mitarbeiter
@@ -27,8 +27,7 @@ done
 sudo apt update && sudo apt upgrade -y
 
 # Download and install displaylink
-wget https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb -O ~/Downloads/synaptics-repository-keyring.deb && sudo apt install ~/Downloads/synaptics-repository-keyring.deb -y  && sudo apt update
-
+wget https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb -O ~/Downloads/synaptics-repository-keyring.deb && sudo apt install ~/Downloads/synaptics-repository-keyring.deb -y && sudo apt update
 
 # Install Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -40,7 +39,7 @@ sudo debconf-set-selections <<<"icaclient app_protection/install_app_protection 
 sudo debconf-show icaclient
 
 # Install Citrix
-CITRIX=(ls ~/Downloads | grep icaclient)
+CITRIX=$(ls ~/Downloads | grep icaclient)
 sudo apt install $CITRIX -y
 
 sudo apt update

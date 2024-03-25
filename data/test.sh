@@ -1,5 +1,3 @@
 #!/bin/bash
 
-sudo apt install jq -y
-
-echo '{"drk-logo": {"source": "/logos/drk-logo.png", "destination": "/usr/share/drk/drk-logo.png", "comment": "Logo for the login screen"}}' | jq '.source'
+echo '{"person":{"name":"John", "age":30, "city":"New York"}}' | jq '.person.name'

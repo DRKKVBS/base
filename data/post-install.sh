@@ -3,18 +3,20 @@
 CLONE_DIR="/tmp/base"
 
 # Create missing dirs
+echo "Create missing directories"
 sudo mkdir -p /etc/firefox/policies /usr/share/drk
-
 
 # Update the system
 sudo apt update && sudo apt upgrade -y
 
 # Install packages
-for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver"; do
+echo "Install missing packages"
+for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver" "language-pack-de" "language-pack-gnome-de"; do
     sudo apt install $pkg -y
 done
 
 # Remove unnecessary packages
+echo "Remove unused packages"
 for pkg in "gnome-initial-setup" "gnome-calender" "aisleriot" "cheese" "gnome-calculator" "gnome-characters" "libreoffice" "gnome-mahjongg" "gnome-mines" "seahorse" "remmina" "remmina-*" "rhythmbox" "shotwell" "gnome-sudoku" "gnome-todo" "totem" "gnome-video-effects"; do
     sudo apt autoremove $pkg -y
 done
@@ -23,10 +25,10 @@ done
 sudo apt update && sudo apt upgrade -y
 
 # Download files
+echo "Download files from GitHub"
 git clone https://github.com/drkkvbs/base $CLONE_DIR
 
 # Set German as default Language
-sudo apt install -y language-pack-de language-pack-gnome-de
 sudo update-locale LANG=de_DE.UTF-8 LANGUAGE=de_DE
 
 # Download Citrix
@@ -35,6 +37,7 @@ echo "Lade das .deb Package für Citrix herunter. Es wird sich gleich Firefox ö
 /snap/bin/firefox https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html
 
 # Create user
+echo "Hinzufügen des Mitarbeiter Accounts"
 sudo useradd -m -s /bin/bash -G netdev Mitarbeiter
 sudo passwd -d Mitarbeiter
 sudo -iu Mitarbeiter mkdir -pm 755 /home/Mitarbeiter/.config/ /home/Mitarbeiter/.local/share/applications
@@ -45,26 +48,32 @@ declare -A arr_admin=(["id"]=$(id -u Administrator) ["gid"]=$(id -g Administrato
 
 # User specific configurations
 for arr in "${!arr_@}"; do
+
     declare -n users_arr="$arr"
 
     # Set wfica client as default application for .ica files
     # Citrix Workspace opens automatically when a .ica file is downloaded
+    echo "Füge x-ica zu den MimeApps"
     echo "[Added Associations]\napplication/x-ica=wfica.desktop" >>"${users_arr[home]}"/.config/mimeapps.list
 
     # Set environment variable
+    echo "Setzte Umgebunsvariable"
     echo "# Set environment variables\nexport DCONF_PROFILE={user.username}\n" >>"${users_arr[home]}"/.profile
 
     # Copy custom desktop entries
+    echo "Kopiere custom DesktopEntries"
     sudo cp $CLONE_DIR/DesktopEntries/* "${users_arr[home]}"/.local/share/applications/
 
     # Copy all Desktop Entries
+    echo "Kopiere Desktop Apps"
     for app_dir in "/var/lib/snapd/desktop/applications" "/usr/share/applications"; do
-        ls $app_dir | grep .desktop | while read -r line
-        do
+        ls $app_dir | grep .desktop | while read -r line; do
             sudo cp $app_dir/$app_list "${users_arr[home]}"/.local/share/applications/
+        done
     done
 
     # Only display desktop entries mentioned in....
+    echo "No Display"
     for user_application in $(ls "${users_arr[home]}"/.local/share/applications/); do
         if [ $(find $(cat $CLONE_DIR/user_home.txt) $user_application) ]; then
             if [ $(find "${users_arr[home]}"/.local/share/applications/$user_application "NoDisplay=True") ]; then
@@ -86,9 +95,8 @@ for arr in "${!arr_@}"; do
         # Set Permissions
         sudo chmod 755 $user_application
     done
+
 done
-
-
 
 # Download and install displaylink
 wget https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb -O ~/Downloads/synaptics-repository-keyring.deb && sudo apt install ~/Downloads/synaptics-repository-keyring.deb -y && sudo apt update

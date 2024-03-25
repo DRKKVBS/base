@@ -58,9 +58,10 @@ for arr in "${!arr_@}"; do
     sudo cp $CLONE_DIR/DesktopEntries/* "${users_arr[home]}"/.local/share/applications/
 
     # Copy all Desktop Entries
-    for app_dir in "/var/lib/snapd/desktop/applications/" "/usr/share/applications/"; do
-        app_list=$(ls $app_dir | grep .desktop)
-        sudo cp $app_dir/$app_list "${users_arr[home]}"/.local/share/applications/
+    for app_dir in "/var/lib/snapd/desktop/applications" "/usr/share/applications"; do
+        ls $app_dir | grep .desktop | while read -r line
+        do
+            sudo cp $app_dir/$app_list "${users_arr[home]}"/.local/share/applications/
     done
 
     # Only display desktop entries mentioned in....

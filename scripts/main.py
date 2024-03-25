@@ -84,27 +84,21 @@ def main():
     # Setup user specific configurations
     for user in users:
 
-        # Copy custom desktop entries
-        shutil.copytree(os.path.normpath(f"{root}/data/DesktopEntries/"),
-                        os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
+        # # Copy custom desktop entries
+        # shutil.copytree(os.path.normpath(f"{root}/data/DesktopEntries/"),
+        #                 os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/"), dirs_exist_ok=True)
 
-        # Set environment variables
-        with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
-            f.write("# Set environment variables\n")
-            f.write(
-                f"export DCONF_PROFILE={user.username}\n")
+        # # Set environment variables
+        # with open(os.path.normpath(f"{user.get_home_dir()}/.profile"), "a+") as f:
+        #     f.write("# Set environment variables\n")
+        #     f.write(
+        #         f"export DCONF_PROFILE={user.username}\n")
 
-        # Set wfica client as default application for .ica files
-        # Citrix Workspace opens automatically when a .ica file is downloaded
-        with open(os.path.normpath(f"{user.get_home_dir()}/.config/mimeapps.list"), "a+") as f:
-            f.write(
-                "[Added Associations]\napplication/x-ica=wfica.desktop")
-
-        for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
-            for app in os.listdir(path):
-                if app.endswith(".desktop"):
-                    shutil.copyfile(os.path.normpath(
-                        f"{path}/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
+        # for path in ["/var/lib/snapd/desktop/applications/", "/usr/share/applications/"]:
+            # for app in os.listdir(path):
+                # if app.endswith(".desktop"):
+                    # shutil.copyfile(os.path.normpath(
+                        # f"{path}/{app}"), os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"))
                     with open(os.path.normpath(f"{user.get_home_dir()}/.local/share/applications/{app}"), "r+") as f:
                         content = f.read()
                         if app in user.desktop_entries:

@@ -1,0 +1,2 @@
+reboot.desktop
+shutdown.desktop

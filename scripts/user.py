@@ -16,13 +16,6 @@ class User():
         self.sudo = sudo
         self.desktop_entries = desktop_entries
         self.__load_data()
-        # self.__fill_home()
-
-    def __fill_home(self):
-        """Create the home directory of the user."""
-        for dir in ["/.config/", "/.local/share/applications/"]:
-            self.run_command(
-                ["mkdir", "-p",  os.path.normpath(f"{self.__home_dir}/{dir}")])
 
     def __load_data(self):
         """Get system data of the user"""

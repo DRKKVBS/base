@@ -11,7 +11,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Install packages
 echo "Install missing packages"
-for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver" "language-pack-de" "language-pack-gnome-de"; do
+for pkg in "jq" "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver" "language-pack-de" "language-pack-gnome-de"; do
     sudo apt install $pkg -y
 done
 
@@ -54,11 +54,11 @@ for arr in "${!arr_@}"; do
     # Set wfica client as default application for .ica files
     # Citrix Workspace opens automatically when a .ica file is downloaded
     echo "Füge x-ica zu den MimeApps"
-    echo "[Added Associations]\napplication/x-ica=wfica.desktop" >>"${users_arr[home]}"/.config/mimeapps.list
+    sudo echo "[Added Associations]\napplication/x-ica=wfica.desktop" >>"${users_arr[home]}"/.config/mimeapps.list
 
     # Set environment variable
     echo "Setzte Umgebunsvariable"
-    echo "# Set environment variables\nexport DCONF_PROFILE={user.username}\n" >>"${users_arr[home]}"/.profile
+    sudo echo "# Set environment variables\nexport DCONF_PROFILE={user.username}\n" >>"${users_arr[home]}"/.profile
 
     # Copy custom desktop entries
     echo "Kopiere custom DesktopEntries"
@@ -68,7 +68,7 @@ for arr in "${!arr_@}"; do
     echo "Kopiere Desktop Apps"
     for app_dir in "/var/lib/snapd/desktop/applications" "/usr/share/applications"; do
         ls $app_dir | grep .desktop | while read -r line; do
-            sudo cp $app_dir/$app_list "${users_arr[home]}"/.local/share/applications/
+            sudo cp "$app_dir/$line" "${users_arr[home]}"/.local/share/applications/
         done
     done
 

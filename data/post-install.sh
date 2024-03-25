@@ -5,6 +5,23 @@ CLONE_DIR="/tmp/base"
 # Create missing dirs
 sudo mkdir -p /etc/firefox/policies /usr/share/drk
 
+
+# Update the system
+sudo apt update && sudo apt upgrade -y
+
+# Install packages
+for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver"; do
+    sudo apt install $pkg -y
+done
+
+# Remove unnecessary packages
+for pkg in "gnome-initial-setup" "gnome-calender" "aisleriot" "cheese" "gnome-calculator" "gnome-characters" "libreoffice" "gnome-mahjongg" "gnome-mines" "seahorse" "remmina" "remmina-*" "rhythmbox" "shotwell" "gnome-sudoku" "gnome-todo" "totem" "gnome-video-effects"; do
+    sudo apt autoremove $pkg -y
+done
+
+# Update the system
+sudo apt update && sudo apt upgrade -y
+
 # Download files
 git clone https://github.com/drkkvbs/base $CLONE_DIR
 
@@ -70,18 +87,7 @@ for arr in "${!arr_@}"; do
     done
 done
 
-# Install packages
-for pkg in "git" "gstreamer1.0-plugins-ugly" "python3-pip" "gnome-backgrounds" "vim" "dkms" "net-tools" "xfce4" "xfce4-goodies" "tightvncserver"; do
-    sudo apt install $pkg -y
-done
 
-# Remove unnecessary packages
-for pkg in "gnome-initial-setup" "gnome-calender" "aisleriot" "cheese" "gnome-calculator" "gnome-characters" "libreoffice" "gnome-mahjongg" "gnome-mines" "seahorse" "remmina" "remmina-*" "rhythmbox" "shotwell" "gnome-sudoku" "gnome-todo" "totem" "gnome-video-effects"; do
-    sudo apt autoremove $pkg -y
-done
-
-# Update the system
-sudo apt update && sudo apt upgrade -y
 
 # Download and install displaylink
 wget https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb -O ~/Downloads/synaptics-repository-keyring.deb && sudo apt install ~/Downloads/synaptics-repository-keyring.deb -y && sudo apt update
